@@ -99,7 +99,7 @@ const cars: CarType[] = [
   }
 ];
 
-const CarShowcase = () => {
+const CarShowcase = React.memo((): JSX.Element => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [currentIndex, setCurrentIndex] = useState(0);
 
