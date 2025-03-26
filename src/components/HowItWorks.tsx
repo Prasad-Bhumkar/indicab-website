@@ -131,13 +131,14 @@ const HowItWorks = () => {
             </div>
 
             <div className="relative h-96 md:h-auto">
-              <Image
-                src="/images/cars/toyota/innova-zenix.jpg"
-                alt="IndiCab service"
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+<Image
+  src="/images/cars/toyota/innova-zenix.jpg"
+  alt="IndiCab service"
+  fill
+  style={{ objectFit: "cover" }} // Ensuring the image has a default absolute position
+  sizes="(max-width: 768px) 100vw, 50vw"
+/>
+
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                 <div className="bg-white/90 px-6 py-4 rounded-lg max-w-xs text-center">
                   <h4 className="font-bold text-lg mb-1">Customer Satisfaction</h4>

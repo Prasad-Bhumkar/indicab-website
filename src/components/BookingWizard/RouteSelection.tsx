@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { MapPin, RotateCw, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { MapPin, RotateCw } from 'lucide-react';
+import { Button } from 'components/ui/button';
 import { BookingFormData } from './index';
+import { Route } from 'data/routes'; // Import Route type
 
 // Popular cities for autocomplete
 const popularCities = [
@@ -20,34 +21,70 @@ const popularCities = [
 ];
 
 // Popular routes
-const popularRoutes = [
+const popularRoutes: Route[] = [
   {
+    id: 1,
     from: 'Mumbai',
     to: 'Pune',
+    description: 'Quick trip from Mumbai to Pune',
+    price: 2499, // Ensure price is a number
+    image: '/images/mumbai-pune.jpg',
     distance: '150 km',
-    time: '3 hours',
-    price: 2499,
+    duration: '3 hours',
+    popular: true,
+    fromCoordinates: [19.0760, 72.8777],
+    toCoordinates: [18.5204, 73.8567],
+    vehicleTypes: ['Sedan', 'SUV'],
+    amenities: ['WiFi', 'Water'],
+    reviews: [],
   },
   {
+    id: 2,
     from: 'Pune',
     to: 'Lonavala',
+    description: 'Enjoy a scenic drive to Lonavala',
+    price: 1399, // Ensure price is a number
+    image: '/images/pune-lonavala.jpg',
     distance: '65 km',
-    time: '1.5 hours',
-    price: 1399,
+    duration: '1.5 hours',
+    popular: true,
+    fromCoordinates: [18.5204, 73.8567],
+    toCoordinates: [18.7546, 73.4006],
+    vehicleTypes: ['Hatchback', 'Luxury'],
+    amenities: ['AC', 'Entertainment'],
+    reviews: [],
   },
   {
+    id: 3,
     from: 'Pune',
     to: 'Mahabaleshwar',
+    description: 'Visit the beautiful hill station',
+    price: 2299, // Ensure price is a number
+    image: '/images/pune-mahabaleshwar.jpg',
     distance: '120 km',
-    time: '3 hours',
-    price: 2299,
+    duration: '3 hours',
+    popular: true,
+    fromCoordinates: [18.5204, 73.8567],
+    toCoordinates: [17.9184, 73.6612],
+    vehicleTypes: ['SUV', 'Luxury'],
+    amenities: ['WiFi', 'Water'],
+    reviews: [],
   },
   {
+    id: 4,
     from: 'Mumbai',
     to: 'Alibaug',
+    description: 'Relax at the beach in Alibaug',
+    price: 1999, // Ensure price is a number
+    image: '/images/mumbai-alibaug.jpg',
     distance: '95 km',
-    time: '2.5 hours',
-    price: 1999,
+    duration: '2.5 hours',
+    popular: true,
+    fromCoordinates: [19.0760, 72.8777],
+    toCoordinates: [18.6000, 72.8300],
+    vehicleTypes: ['Sedan', 'Hatchback'],
+    amenities: ['AC', 'Luggage Space'],
+    reviews: [],
   },
 ];
 
@@ -66,7 +103,7 @@ export default function RouteSelection({
   const [dropoffSuggestions, setDropoffSuggestions] = useState<string[]>([]);
   const [showPickupSuggestions, setShowPickupSuggestions] = useState(false);
   const [showDropoffSuggestions, setShowDropoffSuggestions] = useState(false);
-  const [selectedPopularRoute, setSelectedPopularRoute] = useState<typeof popularRoutes[0] | null>(null);
+  const [selectedPopularRoute, setSelectedPopularRoute] = useState<Route | null>(null);
 
   // Get suggestions based on input
   const getSuggestions = (input: string): string[] => {
@@ -179,10 +216,10 @@ export default function RouteSelection({
   return (
     <div className="space-y-6">
       <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">
-        {bookingSteps[0].title}
+        {'Select Your Route'}
       </h3>
       <p className="text-gray-500 dark:text-gray-400">
-        {bookingSteps[0].description}
+        {'Choose your pickup and drop-off locations.'}
       </p>
 
       <div className="grid gap-6">
@@ -321,7 +358,7 @@ export default function RouteSelection({
                 <div className="flex mt-1 text-xs text-gray-500 dark:text-gray-400">
                   <span>{route.distance}</span>
                   <span className="mx-2">•</span>
-                  <span>{route.time}</span>
+                  <span>{route.duration}</span>
                 </div>
               </div>
             ))}
@@ -341,7 +378,7 @@ export default function RouteSelection({
               </div>
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Estimated Time</p>
-                <p className="font-medium text-gray-900 dark:text-gray-100">{selectedPopularRoute.time}</p>
+                <p className="font-medium text-gray-900 dark:text-gray-100">{selectedPopularRoute.duration}</p>
               </div>
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">Base Fare</p>

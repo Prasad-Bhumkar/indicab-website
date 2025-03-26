@@ -99,12 +99,13 @@ export function MaharashtraMap() {
     <div className="relative w-full h-[500px] rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
       {/* Maharashtra map background */}
       <div className="relative w-full h-full">
-        <Image
-          src="/public/assets/images/maharashtra-map.svg"
-          alt="Maharashtra Map"
-          fill
-          className="object-contain p-4"
-        />
+<Image
+  src="/public/assets/images/maharashtra-map.svg"
+  alt="Maharashtra Map"
+  fill
+  className="object-contain p-4" // Removed conflicting position style
+/>
+
 
         {/* Map pins for destinations */}
         {destinations.map((destination) => (

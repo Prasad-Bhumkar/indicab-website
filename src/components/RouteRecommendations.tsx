@@ -137,7 +137,7 @@ export default function RouteRecommendations() {
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   style={{ objectFit: "cover" }}
-                  unoptimized
+                  // unoptimized
                   crossOrigin="anonymous"
                   className="w-full h-full object-cover"
                 />

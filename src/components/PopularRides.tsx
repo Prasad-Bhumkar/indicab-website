@@ -81,7 +81,7 @@ const ImageWithLoading = ({ src, alt, priority }: { src: string; alt: string; pr
           transition: "opacity 0.3s ease-in-out"
         }}
         priority={priority}
-        unoptimized
+                  // unoptimized
         crossOrigin="anonymous"
         className="w-full h-full object-cover rounded-sm"
         onLoad={() => setIsLoading(false)}
@@ -162,7 +162,7 @@ const PopularRides = () => {
                 </div>
 
                 <div className="my-2 grid grid-cols-2 gap-2">
-                  <div className="h-[120px] w-full bg-gray-100 relative overflow-hidden rounded-sm">
+                  <div className="h-[120px] w-full bg-gray-100 relative overflow-hidden rounded-sm" style={{ position: 'relative' }}>
                     <ImageWithLoading
                       src={destination.image}
                       alt={destination.name}
@@ -199,7 +199,7 @@ const PopularRides = () => {
             className="inline-flex items-center justify-center text-[10px] text-primary"
             prefetch={true}
           >
-            View All Routes &gt;
+            View All Routes 
           </Link>
         </div>
       </div>

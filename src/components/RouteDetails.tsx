@@ -123,8 +123,8 @@ export default function RouteDetails({
             alt={`${route.from} to ${route.to}`}
             fill
             className="object-cover"
-            unoptimized
-            crossOrigin="anonymous"
+                  // unoptimized
+                  crossOrigin="anonymous"
           />
           {route.popular && (
             <div className="absolute top-2 right-2 bg-red-500 text-white text-xs py-0.5 px-2 rounded">

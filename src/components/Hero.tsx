@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card } from './ui/card';
+import { Button } from './ui/button';
 import { CarTaxiFront, Calendar, MapPin, ArrowRight, RotateCw, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 

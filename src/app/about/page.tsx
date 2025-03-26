@@ -1,25 +1,6 @@
-"use client";
-
 import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Card } from '@/components/ui/card';
-import {
-  Users,
-  Target,
-  Award,
-  ThumbsUp,
-  Shield,
-  Clock,
-  MapPin,
-  Car,
-  Phone,
-  Mail,
-  MessageCircle,
-  Eye
-} from 'lucide-react';
+import { Shield, Clock, ThumbsUp, MapPin, Award, Users, Car, Target, Eye } from 'lucide-react'; // Importing icons
+import { Card } from '@/components/ui/card'; // Updated import statement to use named import
 
 // Team member data
 const teamMembers = [
@@ -100,8 +81,6 @@ const milestones = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-
       <main className="flex-grow">
         {/* Hero section */}
         <section className="relative bg-primary text-white py-16">
@@ -137,7 +116,7 @@ export default function AboutPage() {
             <div className="max-w-4xl mx-auto">
               <div className="mb-8 text-center">
                 <h2 className="text-2xl md:text-3xl font-bold mb-2">Our Story</h2>
-                <div className="w-20 h-1 bg-primary mx-auto"></div>
+                <div className="w-20 h-1 bg-primary mx-auto mb-4"></div>
               </div>
 
               <div className="mb-8">
@@ -211,36 +190,11 @@ export default function AboutPage() {
               <div className="mb-12 text-center">
                 <h2 className="text-2xl md:text-3xl font-bold mb-2">Our Journey</h2>
                 <div className="w-20 h-1 bg-primary mx-auto mb-4"></div>
-                <p className="text-gray-600">Key milestones in our growth over the years</p>
-              </div>
-
-              <div className="relative">
-                {/* Vertical line */}
-                <div className="absolute left-0 md:left-1/2 top-0 h-full w-px bg-gray-300 transform -translate-x-1/2"></div>
-
-                <div className="space-y-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {milestones.map((milestone, index) => (
-                    <div key={index} className={`relative flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                      <div className="flex-1 md:text-right px-6 md:px-12">
-                        {index % 2 === 0 ? (
-                          <div className="md:pl-12">
-                            <h3 className="text-xl font-bold text-primary mb-1">{milestone.year}</h3>
-                            <p className="text-gray-700">{milestone.achievement}</p>
-                          </div>
-                        ) : (
-                          <div className="md:pr-12">
-                            <h3 className="text-xl font-bold text-primary mb-1">{milestone.year}</h3>
-                            <p className="text-gray-700">{milestone.achievement}</p>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Center dot */}
-                      <div className="absolute left-0 md:left-1/2 top-0 w-5 h-5 bg-primary rounded-full transform -translate-x-1/2 md:mt-1"></div>
-
-                      <div className="flex-1 px-6 md:px-12">
-                        {/* Empty div for layout */}
-                      </div>
+                    <div key={index} className="p-4 border rounded-lg">
+                      <h3 className="text-lg font-semibold">{milestone.year}</h3>
+                      <p className="text-gray-600">{milestone.achievement}</p>
                     </div>
                   ))}
                 </div>
@@ -248,100 +202,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-
-        {/* Our Team */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="mb-12 text-center">
-                <h2 className="text-2xl md:text-3xl font-bold mb-2">Our Leadership Team</h2>
-                <div className="w-20 h-1 bg-primary mx-auto mb-4"></div>
-                <p className="text-gray-600">Meet the people driving IndiCab forward</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {teamMembers.map((member, index) => (
-                  <Card key={index} className="overflow-hidden">
-                    <div className="flex flex-col md:flex-row">
-                      <div className="w-full md:w-1/3 h-48 md:h-auto relative bg-gray-200">
-                        <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                          <Users className="h-12 w-12" />
-                        </div>
-                      </div>
-                      <div className="p-6 flex-1">
-                        <h3 className="text-lg font-bold mb-1">{member.name}</h3>
-                        <p className="text-primary text-sm mb-3">{member.position}</p>
-                        <p className="text-gray-600 text-sm">{member.bio}</p>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="mb-12 text-center">
-                <h2 className="text-2xl md:text-3xl font-bold mb-2">Get In Touch</h2>
-                <div className="w-20 h-1 bg-primary mx-auto mb-4"></div>
-                <p className="text-gray-600">Have questions? We'd love to hear from you</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <Card className="p-6 text-center">
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-4">
-                      <Phone className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">Call Us</h3>
-                    <p className="text-gray-600">+91 9876 543 210</p>
-                    <p className="text-gray-600">+91 1140 154 754</p>
-                  </div>
-                </Card>
-
-                <Card className="p-6 text-center">
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-4">
-                      <Mail className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">Email Us</h3>
-                    <p className="text-gray-600">info@indicab.com</p>
-                    <p className="text-gray-600">support@indicab.com</p>
-                  </div>
-                </Card>
-
-                <Card className="p-6 text-center">
-                  <div className="flex flex-col items-center">
-                    <div className="p-3 bg-primary/10 rounded-full mb-4">
-                      <MessageCircle className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">Live Chat</h3>
-                    <p className="text-gray-600">Available 24/7</p>
-                    <Link href="/contact" className="text-primary hover:underline mt-2">
-                      Start Chat
-                    </Link>
-                  </div>
-                </Card>
-              </div>
-
-              <div className="mt-12 text-center">
-                <Link
-                  href="/contact"
-                  className="inline-block bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

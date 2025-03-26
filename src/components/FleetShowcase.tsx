@@ -134,6 +134,7 @@ export function FleetShowcase() {
                   width={280}
                   height={160}
                   className="object-contain transform group-hover:scale-105 transition-transform duration-300"
+                  style={{ position: 'relative' }} // Ensuring the image has a relative position
                 />
               </div>
 

@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { User, MapPin, Settings, LogOut, Edit, Clock, Car, CreditCard, Bell, Shield, Calendar, Star, Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { useFavorites } from '@/context/FavoritesContext';
-import { routes } from '@/data/routes';
+import { Button } from './ui/button';
+import { Card } from './ui/card';
+import { useFavorites } from '../context/FavoritesContext';
+import { routes } from '../data/routes';
 import Image from 'next/image';
 
 // Mock user data
@@ -221,7 +221,7 @@ export function ProfileContent() {
                 </Card>
               ) : (
                 <div className="space-y-4">
-                  {rideHistory.map((ride) => (
+                  {rideHistory.map((ride: { id: number; from: string; to: string; date: string; time: string; fare: string; carType: string; driverName: string; driverRating: number; status: string; }) => (
                     <Card key={ride.id} className={`overflow-hidden ${ride.status === 'upcoming' ? 'border-primary border-2' : ''}`}>
                       {ride.status === 'upcoming' && (
                         <div className="bg-primary text-white text-xs px-3 py-1">Upcoming Ride</div>
@@ -335,7 +335,7 @@ export function ProfileContent() {
                 </Card>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {favoriteRoutes.map((route) => (
+                  {favoriteRoutes.map((route: { id: number; from: string; to: string; image: string; description: string; distance: string; duration: string; price: string; }) => (
                     <Card key={route.id} className="overflow-hidden">
                       <div className="relative h-40">
                         <div className="absolute inset-0">
@@ -345,7 +345,6 @@ export function ProfileContent() {
                             fill
                             sizes="(max-width: 768px) 100vw, 50vw"
                             style={{ objectFit: "cover" }}
-                            unoptimized
                             crossOrigin="anonymous"
                             className="w-full h-full object-cover"
                           />
@@ -423,7 +422,7 @@ export function ProfileContent() {
                 </Card>
               ) : (
                 <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-                  {savedLocations.map((location) => (
+                  {savedLocations.map((location: { id: number; name: string; address: string; type: string; }) => (
                     <Card key={location.id} className="p-4">
                       <div className="flex justify-between items-start">
                         <div className="flex">

@@ -4,7 +4,8 @@
 
 This document outlines the technical approach for transforming the IndiCab platform to focus on Maharashtra tourism and Pune local services. It provides detailed specifications, implementation steps, and technical requirements for development teams.
 
-## Architecture & Technology Stack
+## Architecture & Technology Stack (Updated)
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS, with a focus on performance optimization and user experience.
 
 ### Current Stack
 
@@ -14,7 +15,11 @@ This document outlines the technical approach for transforming the IndiCab platf
 - **Maps Integration**: Leaflet/Mapbox
 - **Deployment**: Netlify
 
-### Enhancement Requirements
+### Enhancement Requirements (Revised)
+We'll maintain the current stack while implementing the following enhancements:
+1. **Location-based Services**: Enhanced geospatial functionality and route optimization.
+2. **Content Management System**: Dynamic pricing system and tour package management.
+3. **User Experience Improvements**: Mobile-first design and progressive web app capabilities.
 
 We'll maintain the current stack while implementing the following enhancements:
 
@@ -142,7 +147,11 @@ interface VehicleType {
 }
 ```
 
-## Frontend Implementation Plan
+## Frontend Implementation Plan (Updated)
+### 1. Homepage Redesign
+- Update hero section with a focus on Maharashtra tourism and popular destinations.
+### 2. Booking System Enhancements
+- Implement dynamic pricing calculator and route-specific booking options.
 
 ### 1. Homepage Redesign
 
@@ -322,7 +331,9 @@ interface VehicleType {
 - Lighthouse Performance Score: > 85
 - Core Web Vitals compliance
 
-### Testing Strategy
+### Testing Strategy (Revised)
+- Unit tests for all core components and integration tests for booking flows.
+- End-to-end tests for critical user journeys and visual regression testing for UI changes.
 
 - Unit tests for all core components
 - Integration tests for booking flows
@@ -330,7 +341,10 @@ interface VehicleType {
 - Visual regression testing for UI changes
 - Mobile responsive testing across devices
 
-## Required Resources
+## Required Resources (Updated)
+### Development Team
+- 2 Frontend Developers (React/Next.js) with experience in performance optimization.
+- 1 UI/UX Designer with expertise in mobile-first design.
 
 ### Development Team
 

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button } from './ui/button';
 import { Cloud, Sun, Droplets, Wind, ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface Season {
@@ -185,6 +185,7 @@ export function SeasonalHighlights() {
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {seasons.map((season) => (
             <button
+              aria-label={`Filter highlights for ${season.name}`}
               key={season.id}
               onClick={() => filterHighlights(season.id)}
               className={`px-4 py-2 rounded-full flex items-center gap-2 transition-colors ${
@@ -225,6 +226,9 @@ export function SeasonalHighlights() {
               >
                 <div className="relative h-48">
                   <Image
+                    onError={(e) => {
+                      e.currentTarget.src = '/images/default-image.jpg'; // Fallback image
+                    }}
                     src={highlight.image}
                     alt={highlight.title}
                     fill
@@ -241,7 +245,7 @@ export function SeasonalHighlights() {
                     <span className="text-xs text-gray-500 dark:text-gray-400">
                       Best time: <span className="font-medium">{highlight.bestTime}</span>
                     </span>
-                    <Link href={`/maharashtra-tours/${highlight.slug}`}>
+                    <Link ref={`/maharashtra-tours/${highlight.slug}`} href={'/'}>
                       <Button variant="outline" size="sm" className="text-primary hover:text-primary-foreground hover:bg-primary">
                         Explore
                       </Button>

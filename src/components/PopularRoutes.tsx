@@ -129,7 +129,7 @@ const PopularRoutes = () => {
               className="group"
             >
               <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow duration-300">
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 overflow-hidden" style={{ position: 'relative' }}>
                   <Image
                     src={route.image}
                     alt={`${route.from} to ${route.to}`}

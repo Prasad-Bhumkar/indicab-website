@@ -42,6 +42,7 @@ const RouteSearch = ({ className = '' }: RouteSearchProps) => {
       } catch (error) {
         console.error('Error searching routes:', error);
         setSearchResults([]);
+        alert('An error occurred while searching for routes. Please try again.'); // User feedback
       }
     }, 300),
     []
@@ -97,7 +98,8 @@ const RouteSearch = ({ className = '' }: RouteSearchProps) => {
   return (
     <div className={`relative ${className}`}>
       <div className="relative">
-        <input
+          <input
+            aria-label="Search for routes"
           type="text"
           value={searchTerm}
           onChange={handleInputChange}
