@@ -1,0 +1,135 @@
+.admin-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 30px;
+}
+
+.admin-login-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.admin-login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-login-header h1 {
+  color: #0d785c;
+  margin: 0 0 10px;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.admin-login-header p {
+  color: #666;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.admin-login-error {
+  background-color: #ffe5e5;
+  color: #d92626;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.admin-login-form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #0d785c;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 120, 92, 0.1);
+}
+
+.password-hint {
+  margin-top: 8px;
+  color: #888;
+  font-style: italic;
+}
+
+.admin-login-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #0d785c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admin-login-button:hover {
+  background-color: #096a50;
+}
+
+.admin-login-button:disabled {
+  background-color: #74b6a5;
+  cursor: not-allowed;
+}
+
+.admin-login-footer {
+  text-align: center;
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.admin-login-footer p {
+  margin: 10px 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.admin-link {
+  color: #0d785c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.admin-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+  .admin-login-card {
+    padding: 30px 20px;
+  }
+
+  .admin-login-header h1 {
+    font-size: 1.8rem;
+  }
+}

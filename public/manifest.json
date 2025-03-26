@@ -1,0 +1,21 @@
+{
+  "name": "IndiCab",
+  "short_name": "IndiCab",
+  "description": "Book reliable cab services across major Indian cities with trusted Indian drivers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c9242",
+  "theme_color": "#0c9242",
+  "icons": [
+    {
+      "src": "/indicab-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/indicab-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

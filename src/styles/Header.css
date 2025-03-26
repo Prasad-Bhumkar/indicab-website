@@ -1,0 +1,263 @@
+.header {
+  background-color: #0d785c;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  text-decoration: none;
+  color: white;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.main-nav {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin: 0 15px;
+}
+
+.nav-item a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 5px 0;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-item a:hover,
+.nav-item a.active {
+  color: white;
+}
+
+.nav-item a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-login,
+.btn-signup,
+.btn-logout,
+.btn-dashboard,
+.btn-book-now {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s;
+  margin-left: 10px;
+}
+
+.btn-login {
+  color: white;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-login:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-signup,
+.btn-dashboard {
+  color: #0d785c;
+  background-color: white;
+}
+
+.btn-signup:hover,
+.btn-dashboard:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-logout {
+  color: white;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-book-now {
+  background-color: #ff6b00;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(255, 107, 0, 0.3);
+}
+
+.btn-book-now:hover {
+  background-color: #ff5100;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 107, 0, 0.4);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  transition: all 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: white;
+  transition: all 0.3s;
+}
+
+.hamburger::before {
+  transform: translateY(-8px);
+}
+
+.hamburger::after {
+  transform: translateY(8px);
+}
+
+.hamburger.active {
+  background-color: transparent;
+}
+
+.hamburger.active::before {
+  transform: translateY(0) rotate(45deg);
+}
+
+.hamburger.active::after {
+  transform: translateY(0) rotate(-45deg);
+}
+
+@media (max-width: 992px) {
+  .main-nav {
+    margin-right: 0;
+  }
+
+  .nav-item {
+    margin: 0 10px;
+  }
+
+  .nav-item a {
+    font-size: 15px;
+  }
+
+  .btn-login,
+  .btn-signup,
+  .btn-logout,
+  .btn-dashboard,
+  .btn-book-now {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+    order: 3;
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .header-actions {
+    order: 2;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: #0d785c;
+    transition: left 0.3s ease-in-out;
+    z-index: 10;
+  }
+
+  .main-nav.mobile-active {
+    left: 0;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .nav-item {
+    margin: 15px 0;
+  }
+
+  .header-actions {
+    .btn-login,
+    .btn-signup,
+    .btn-dashboard {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-content {
+    padding: 5px 0;
+  }
+}
