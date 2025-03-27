@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0",
+    "dev": "next dev --turbo -H 0.0.0.0",
     "build": "next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
@@ -42,9 +42,9 @@
     "mapbox-gl": "^3.10.0",
     "@sentry/nextjs": "^8.7.0",
     "next": "^15.2.0",
-    "react": "^18.3.1",
+    "react": "^19.0.0",
     "react-confetti": "^6.4.0",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.0.0",
     "react-leaflet": "^5.0.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7"
@@ -66,13 +66,11 @@
     "@tailwindcss/typography": "^0.5.10",
     "@sentry/types": "^8.7.0",
     "lighthouse-ci": "^5.0.0",
-        "@lhci/cli": "^0.12.0",
-        "next-pwa": "^5.6.0",
+    "@lhci/cli": "^0.12.0",
+    "next-pwa": "^5.6.0",
     "@next/bundle-analyzer": "^15.0.0",
     "webpack-bundle-analyzer": "^4.9.1",
     "size-limit": "^8.0.0",
-
-
     "eslint": "^9",
     "eslint-config-next": "15.1.7", 
     "eslint-define-config": "^2.1.0",

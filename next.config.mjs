@@ -39,6 +39,18 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
     typedRoutes: true,
+    turbo: {
+      resolveAlias: {
+        components: './src/components',
+        utils: './src/utils'
+      },
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.jsx'
+        }
+      }
+    }
   },
 };
 
