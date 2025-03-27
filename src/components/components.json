@@ -1,0 +1,86 @@
+{
+  "$schema": "./schema.json",
+  "categories": {
+    "features": {
+      "description": "Feature-specific components",
+      "components": [
+        "BookingHistory",
+        "CarShowcase",
+        "ContactForm",
+        "DriverApplicationForm",
+        "FeaturedCars",
+        "FleetShowcase",
+        "HelpDesk",
+        "Hero",
+        "HowItWorks",
+        "MaharashtraMap",
+        "MapComponent",
+        "MapView",
+        "MobileApp",
+        "PopularCities",
+        "PopularRides",
+        "PopularRoutes",
+        "PricingCalculator",
+        "ProfileContent",
+        "RideTracker",
+        "RouteDetails",
+        "RouteMapView",
+        "RouteRecommendations",
+        "RouteSearch",
+        "SeasonalHighlights",
+        "Testimonials",
+        "VehicleComparison"
+      ]
+    },
+    "ui": {
+      "description": "Reusable UI primitives",
+      "components": [
+        "Badge",
+        "Button",
+        "Card",
+        "Dialog",
+        "DropdownMenu",
+        "LoadingSpinner",
+        "Select",
+        "Sheet",
+        "Tabs"
+      ]
+    },
+    "layout": {
+      "description": "Layout components",
+      "components": [
+        "Footer",
+        "Header",
+        "PageTransition"
+      ]
+    },
+    "shared": {
+      "description": "Utility components",
+      "components": [
+        "DarkModeToggle",
+        "ErrorBoundary",
+        "GlobalErrorBoundary",
+        "SimpleErrorBoundary",
+        "SuspenseBoundary",
+        "ThemeProvider",
+        "UserPreferences"
+      ]
+    }
+  },
+  "organization": {
+    "principles": [
+      "Components should be grouped by domain/feature",
+      "UI primitives should be reusable and generic",
+      "Layout components should handle page structure",
+      "Utility components should be framework-agnostic"
+    ],
+    "naming": {
+      "conventions": [
+        "Feature components: PascalCase with feature prefix (e.g. BookingHistory)",
+        "UI components: Simple descriptive names (e.g. Button)",
+        "Layout components: Structural names (e.g. Header)",
+        "Utility components: Functional names (e.g. ErrorBoundary)"
+      ]
+    }
+  }
+}

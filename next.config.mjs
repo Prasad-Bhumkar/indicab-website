@@ -1,17 +1,14 @@
 /** @type {import('next').NextConfig} */
-const { withSentryConfig } = require('@sentry/nextjs');
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+import { withSentryConfig } from '@sentry/nextjs';
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
-const imageConfig = require('./config/images')
+const imageConfig = require('./config/images');
 
 const nextConfig = {
   images: imageConfig,
-
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
-    images: {
+  images: {
     domains: [
       'images.unsplash.com',
       'same-assets.com',
@@ -29,7 +26,6 @@ const nextConfig = {
     ],
     contentSecurityPolicy: "default-src 'self'; img-src 'self' data: https://*;",
   },
-
   headers: async () => [
     {
       source: '/(.*)',
@@ -52,7 +48,7 @@ const sentryWebpackPluginOptions = {
   project: 'your-project-name',
 };
 
-module.exports = withSentryConfig(
+export default withSentryConfig(
   withBundleAnalyzer(nextConfig),
   sentryWebpackPluginOptions
 );
