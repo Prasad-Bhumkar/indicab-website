@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   domains: [
     'images.unsplash.com',
     'same-assets.com',

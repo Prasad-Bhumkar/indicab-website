@@ -2,7 +2,7 @@
 import { withSentryConfig } from '@sentry/nextjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
-const imageConfig = require('./config/images');
+import imageConfig from './config/images.mjs';
 
 const nextConfig = {
   images: imageConfig,

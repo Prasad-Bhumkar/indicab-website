@@ -1,32 +1,22 @@
-import type { Metadata, Viewport } from 'next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/context/ThemeContext';
+import { ThemeProvider } from '@context/ThemeContext';
 import dynamic from 'next/dynamic';
 
-const Header = dynamic(() => import('@/components/layout/header/Header'), { 
+const Header = dynamic(() => import('@components/layout/header/Header'), { 
   loading: () => <div className="h-16 bg-gray-100" />,
   ssr: false 
 });
 
-const Footer = dynamic(() => import('@/components/layout/footer/Footer'), {
+const Footer = dynamic(() => import('@components/layout/footer/Footer'), {
   loading: () => <div className="h-12 bg-gray-100" />,
   ssr: false
 });
 
-import AppErrorBoundary from '@/components/common/AppErrorBoundary';
+import AppErrorBoundary from '@components/common/AppErrorBoundary';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const viewport: Viewport = {
-  themeColor: '#0c9242',
-  width: 'device-width',
-  initialScale: 1,
-  minimumScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  viewportFit: 'cover',
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://indicab.same-app.com'),
