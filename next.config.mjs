@@ -1,29 +1,58 @@
 /** @type {import('next').NextConfig} */
+const { withSentryConfig } = require('@sentry/nextjs');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const imageConfig = require('./config/images')
+
 const nextConfig = {
-  reactStrictMode: false, // Disable strict mode to prevent double renders
-  typescript: {
-    // Disable TypeScript errors during builds
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true, // Disable ESLint during builds
-  },
-  images: {
-    domains: ['source.unsplash.com', 'images.unsplash.com', 'same-assets.com'],
-    unoptimized: true,
+  images: imageConfig,
+
+  reactStrictMode: true,
+  productionBrowserSourceMaps: false,
+    images: {
+    domains: [
+      'images.unsplash.com',
+      'same-assets.com',
+      'localhost' // For development
+    ],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ['image/webp'],
+    minimumCacheTTL: 86400,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
       },
     ],
+    contentSecurityPolicy: "default-src 'self'; img-src 'self' data: https://*;",
   },
-  experimental: {
-    typedRoutes: true,
-    serverActions: {
-      allowedOrigins: ['localhost:3000', '*.same-app.com'],
+
+  headers: async () => [
+    {
+      source: '/(.*)',
+      headers: [
+        { key: 'X-Frame-Options', value: 'DENY' },
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+        { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      ],
     },
+  ],
+  experimental: {
+    optimizePackageImports: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+    typedRoutes: true,
   },
 };
 
-export default nextConfig;
+const sentryWebpackPluginOptions = {
+  silent: true,
+  org: 'your-org-name',
+  project: 'your-project-name',
+};
+
+module.exports = withSentryConfig(
+  withBundleAnalyzer(nextConfig),
+  sentryWebpackPluginOptions
+);

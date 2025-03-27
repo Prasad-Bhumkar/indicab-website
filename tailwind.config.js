@@ -29,5 +29,30 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+  purge: {
+    enabled: process.env.NODE_ENV === 'production',
+    content: [
+      './src/**/*.{js,ts,jsx,tsx}',
+      './public/**/*.html'
+    ],
+    options: {
+      safelist: [
+        /^bg-/,
+        /^text-/,
+        /^border-/,
+        /^hover:bg-/,
+        /^hover:text-/,
+        'dark',
+        'dark:*'
+      ]
+    }
+  }
 }

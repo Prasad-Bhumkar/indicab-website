@@ -1,17 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import dynamic from 'next/dynamic';
-const Header = dynamic(() => import('../components/Header'), { 
-  loading: () => <div className="h-16 bg-gray-100" />,
-  ssr: false 
-});
-const Footer = dynamic(() => import('../components/Footer'), {
-  loading: () => <div className="h-12 bg-gray-100" />,
-  ssr: false
-});
-
-import AppErrorBoundary from '../components/AppErrorBoundary';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -67,11 +58,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AppErrorBoundary>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </AppErrorBoundary>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

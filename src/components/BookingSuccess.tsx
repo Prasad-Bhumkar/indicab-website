@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import PaymentModal from './PaymentModal';
 import ReactConfetti from 'react-confetti';
 import { motion } from 'framer-motion';
 import { CheckCircle, Calendar, MapPin, Car, X, ArrowRight } from 'lucide-react';
@@ -9,17 +10,10 @@ import {
   DialogContent,
   DialogTitle,
   DialogHeader
-} from '@/components/ui/dialog';
+} from 'components/ui/dialog';
 
-const BookingSuccess = ({
-  origin = "Delhi",
-  destination = "Agra",
-  date = "25 Mar 2025",
-  carType = "Premium Sedan",
-  fare = "₹2,499",
-  onClose,
-  onTrackRide
-}: {
+interface BookingSuccessProps {
+  bookingId?: string;
   origin?: string;
   destination?: string;
   date?: string;
@@ -27,7 +21,32 @@ const BookingSuccess = ({
   fare?: string;
   onClose: () => void;
   onTrackRide: () => void;
-}) => {
+  paymentStatus?: 'paid' | 'pending';
+  driverName?: string;
+  driverContact?: string;
+  driverRating?: number;
+  vehicleModel?: string;
+  vehicleColor?: string;
+  vehiclePlate?: string;
+}
+
+const BookingSuccess = ({
+  bookingId = "12345",
+  origin = "Delhi",
+  destination = "Agra",
+  date = "25 Mar 2025",
+  carType = "Premium Sedan",
+  fare = "₹2,499",
+  onClose,
+  onTrackRide,
+  paymentStatus = 'pending',
+  driverName = "Raj Kumar",
+  driverContact = "123-456-7890",
+  driverRating = 4.8,
+  vehicleModel = "Toyota Innova",
+  vehicleColor = "White",
+  vehiclePlate = "ABC-1234"
+}: BookingSuccessProps) => {
   const [confettiParticles, setConfettiParticles] = useState(200);
   const [windowDimensions, setWindowDimensions] = useState({
     width: 0,
@@ -35,28 +54,21 @@ const BookingSuccess = ({
   });
 
   useEffect(() => {
-    // Set window dimensions for confetti
     setWindowDimensions({
       width: window.innerWidth,
       height: window.innerHeight
     });
 
-    // Reduce confetti particles over time
     const confettiTimer = setTimeout(() => {
       setConfettiParticles(50);
-
-      const finalTimer = setTimeout(() => {
-        setConfettiParticles(0);
-      }, 3000);
-
-      return () => clearTimeout(finalTimer);
+      setTimeout(() => setConfettiParticles(0), 3000);
     }, 3000);
 
     return () => clearTimeout(confettiTimer);
   }, []);
 
   return (
-    <Dialog open={true} onOpenChange={() => onClose()}>
+    <Dialog open={true} onOpenChange={onClose}>
       <ReactConfetti
         width={windowDimensions.width}
         height={windowDimensions.height}
@@ -95,7 +107,7 @@ const BookingSuccess = ({
             <div className="text-center mb-6">
               <h2 className="text-xl font-bold mb-1">Your ride is booked!</h2>
               <p className="text-gray-600 text-sm">
-                A confirmation has been sent to your email
+                Booking ID: {bookingId}
               </p>
             </div>
 
@@ -124,11 +136,22 @@ const BookingSuccess = ({
                 </div>
               </div>
 
-              <div className="flex items-start">
+              <div className="flex items-start mb-4">
                 <Car className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
                 <div>
                   <h4 className="font-medium text-sm">Car Type</h4>
-                  <p className="text-gray-600 text-xs mt-1">{carType}</p>
+                  <p className="text-gray-600 text-xs mt-1">{carType} ({vehicleColor}, {vehiclePlate})</p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex items-center">
+                  <span className="font-medium text-sm">Driver:</span>
+                  <span className="text-gray-600 text-xs mt-1 ml-2">{driverName} ({driverRating} ★)</span>
+                </div>
+                <div className="flex items-center ml-4">
+                  <span className="font-medium text-sm">Contact:</span>
+                  <span className="text-gray-600 text-xs mt-1 ml-2">{driverContact}</span>
                 </div>
               </div>
             </div>
@@ -138,8 +161,12 @@ const BookingSuccess = ({
                 <span className="text-sm text-gray-600">Total Fare</span>
                 <p className="text-xl font-bold text-primary">{fare}</p>
               </div>
-              <div className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">
-                Pay at pickup
+              <div className={`px-2 py-1 rounded text-xs ${
+                paymentStatus === 'paid' 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-orange-100 text-orange-800'
+              }`}>
+                {paymentStatus === 'paid' ? 'Paid' : 'Pay at pickup'}
               </div>
             </div>
 
