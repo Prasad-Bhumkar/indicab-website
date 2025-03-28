@@ -42,7 +42,4 @@ const sentryWebpackPluginOptions = {
   project: 'production',
 };
 
-export default withSentryConfig(
-  withBundleAnalyzer(nextConfig),
-  sentryWebpackPluginOptions
-);
+export default withBundleAnalyzer(nextConfig);

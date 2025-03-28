@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.paths.json",
+"extends": "./src/tsconfig.paths.json",
   "compilerOptions": {
     "jsx": "preserve",
     "types": [
