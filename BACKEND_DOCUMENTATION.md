@@ -5,6 +5,7 @@
 ### Authentication Route
 - **POST /api/auth**
   - **Description**: Authenticates a user and returns a JWT token.
+  - **Rate Limit**: 10 requests per minute
   - **Request Body**:
     ```json
     {
@@ -13,7 +14,7 @@
     }
     ```
   - **Response**:
-    - On success:
+    - On success (200):
       ```json
       {
         "user": {
@@ -26,10 +27,18 @@
         "expiresIn": "1d"
       }
       ```
-    - On failure:
+    - On failure (401):
       ```json
       {
-        "error": "Invalid credentials"
+        "error": "Invalid credentials",
+        "code": "AUTH_001"
+      }
+      ```
+    - On rate limit (429):
+      ```json
+      {
+        "error": "Too many requests",
+        "retryAfter": 60
       }
       ```
 
@@ -74,12 +83,21 @@
 - **File**: `lib/db-connection.ts`
 - **Description**: Establishes a connection to MongoDB using Mongoose.
 - **Connection Logic**:
-  - Uses a cached connection to avoid multiple connections.
-  - Throws an error if the `MONGODB_URI` environment variable is not defined.
+  - Uses a cached connection to avoid multiple connections
+  - Implements connection pooling (default poolSize: 5)
+  - Automatic reconnection with exponential backoff
+  - Throws an error if the `MONGODB_URI` environment variable is not defined
+- **Cache Strategy**:
+  - Connection cached for 30 minutes
+  - Auto-renews when used
+  - Drops after inactivity timeout
 
 ## Environment Variables
-- `MONGODB_URI`: MongoDB connection string
-- `JWT_SECRET`: Secret key for JWT signing
-- `JWT_EXPIRES_IN`: Token expiration time
+- `MONGODB_URI`: MongoDB connection string (required)
+- `JWT_SECRET`: Secret key for JWT signing (required)
+- `JWT_EXPIRES_IN`: Token expiration time (default: "1d")
+- `REDIS_URL`: Redis connection URL for caching (optional)
+- `RATE_LIMIT_WINDOW`: Rate limit window in ms (default: 60000)
+- `RATE_LIMIT_MAX`: Max requests per window (default: 100)
 
 This documentation provides an overview of the backend architecture and API functionality for the IndiCab project.

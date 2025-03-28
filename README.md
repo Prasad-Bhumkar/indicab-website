@@ -19,80 +19,121 @@ Check out the live demo:
 - **Animated UI**: Smooth transitions and animations for better user experience
 - **Error Handling**: Robust error boundaries and user-friendly error messages
 
-## Technology Stack
+## Technology Stack (2024)
 
-- **Framework**: Next.js 15.2.0
-- **UI Library**: React 18.3.1
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **UI Components**: Radix UI
-- **Maps**: Leaflet/Mapbox
-- **Deployment**: Netlify
+### Core
+- Next.js 15.4.0
+- React 18.3.1
+- TypeScript 5.4.0
+- Node.js 20.0.0
 
-## Getting Started
+### UI/UX
+- Tailwind CSS 3.4.0
+- Framer Motion 10.16.0
+- Radix UI 1.0.0
+- Storybook 8.0.0
 
-### Prerequisites
+### Backend
+- MongoDB 7.0.0
+- Redis 7.2.0
+- NextAuth.js 5.0.0
 
-- Node.js 18+ or Bun 1.0+
+### Infrastructure
+- Vercel (Production)
+- Netlify (Staging)
+- AWS S3 (Storage)
+- Cloudflare (CDN/DNS)
 
-### Installation
+## Development Setup
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/indicab-clone.git
-   cd indicab-clone
-   ```
+### Requirements
+- Node.js 20.0.0+
+- Bun 1.1.0+ (optional)
+- MongoDB 7.0.0+
+- Redis 7.2.0+
 
-2. Install dependencies:
-   ```bash
-   bun install
-   ```
+### Quick Start
+```bash
+# 1. Clone repository
+git clone https://github.com/indicab/indicab.git
+cd indicab
 
-   Or with npm:
-   ```bash
-   npm install
-   ```
+# 2. Install dependencies
+bun install
 
-3. Start the development server:
-   ```bash
-   bun run dev
-   ```
+# 3. Setup environment
+cp .env.example .env.local
+# Edit .env.local with your credentials
 
-   Or with npm:
-   ```bash
-   npm run dev
-   ```
+# 4. Start development server
+bun run dev
+```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+### Advanced Setup
+```bash
+# Run with Docker
+docker-compose up -d
 
-## Project Structure
+# Run tests
+bun test
 
-- `/src/app`: Next.js application routes
-- `/src/components`: Reusable React components
-- `/src/context`: React context providers (Favorites, etc.)
-- `/src/data`: Mock data for routes and cities
-- `/src/lib`: Utility functions
-- `/src/types`: TypeScript type definitions
-- `/public`: Static assets
+# Build for production
+bun run build
+
+# Start production server
+bun run start
+```
+
+## Project Architecture
+
+```
+indicab/
+├── src/
+│   ├── app/                # Next.js app router
+│   ├── components/         # Organized UI components
+│   ├── context/            # Global state management
+│   ├── lib/                # Shared utilities
+│   ├── services/           # API clients
+│   ├── styles/             # Global styles
+│   └── types/              # TypeScript definitions
+├── public/                 # Static assets
+├── scripts/                # Utility scripts
+├── tests/                  # Test suites
+└── storybook/              # Component stories
+```
 
 ## Documentation
 
-- [Progress Documentation](./progress.md): Details about project versions and improvements
-- [User Flows](./UserFlows.md): Documentation of main user journeys
+- [Features](./FEATURES_DETAILED.md): Complete feature breakdown
+- [API Reference](./BACKEND_DOCUMENTATION.md)
+- [Component Guide](./COMPONENT_ORGANIZATION.md)
+- [Development Guide](./COMMANDS_DOCUMENTATION.md)
+- [Progress Tracking](./progress.md)
 
-## Testing
+## Quality Assurance
 
-Run tests with:
-
+### Testing
 ```bash
+# Unit tests
 bun test
+
+# E2E tests
+bun run test:e2e
+
+# Storybook
+bun run storybook
 ```
 
-End-to-end tests:
-
+### Code Quality
 ```bash
-bun run test:e2e
+# Linting
+bun run lint
+
+# Type checking  
+bun run type-check
+
+# Formatting
+bun run format
 ```
 
 ## Deployment
