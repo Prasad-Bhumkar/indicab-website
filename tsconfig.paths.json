@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": [
+      "*": [
         "./src/*"
       ],
       "@components/*": [
@@ -10,18 +10,6 @@
       ],
       "@features/*": [
         "./src/components/features/*"
-      ],
-      "@features/marketing/hero/HeroEnhanced": [
-        "./src/components/features/marketing/hero/HeroEnhanced.tsx"
-      ],
-      "@features/booking/FeaturedCars": [
-        "./src/components/features/booking/FeaturedCars.tsx"
-      ],
-      "@features/marketing/PopularRoutes": [
-        "./src/components/features/marketing/PopularRoutes.tsx"
-      ],
-      "@features/marketing/HowItWorks": [
-        "./src/components/features/marketing/HowItWorks.tsx"
       ]
     },
     "lib": [

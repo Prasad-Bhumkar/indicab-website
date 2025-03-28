@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { User, Lock, Mail, Phone, ArrowRight, Check } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import Header from '@/components/layout/header/Header';
+import Footer from '@/components/layout/footer/Footer';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 
 type FormErrorType = {
   name?: string;
@@ -49,7 +49,6 @@ const AuthPage = () => {
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
-      // For demo purposes - in a real app, we'd call an API
       setSuccessMessage('Login successful! Redirecting...');
       setTimeout(() => {
         router.push('/');
@@ -84,7 +83,6 @@ const AuthPage = () => {
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
-      // For demo purposes - in a real app, we'd call an API
       setSuccessMessage('Account created successfully! Redirecting to login...');
       setTimeout(() => {
         setActiveTab('login');

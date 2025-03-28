@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, Suspense, useEffect, useCallback } from 'react';
+import React from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from 'components/layout/header/Header';
 import Footer from 'components/layout/footer/Footer';
