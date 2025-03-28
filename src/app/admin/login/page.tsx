@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button/button';
-import { Card } from '@/components/ui/card/card';
+import { Button } from '@components/ui/button/index';
+import { Card } from '@components/ui/card/index';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
 
 export default function AdminLogin() {
@@ -21,10 +21,7 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      // In a real application, this would be an actual API call
-      // For demo purposes, we'll just do a simple check and redirect
       if (email === 'admin@indicab.com' && password === 'admin123') {
-        // Simulate API delay
         setTimeout(() => {
           router.push('/admin');
         }, 1000);
