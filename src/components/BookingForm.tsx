@@ -1,5 +1,5 @@
 'use client'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,8 +9,8 @@ import { useAuthContext } from '../context/AuthContext'
 import LocationSearch from './booking/LocationSearch'
 import DateRangePicker from './DateRangePicker'
 import VehicleTypeSelector from './VehicleTypeSelector'
-import { calculateFare } from '../../lib/pricing'
-import { createBooking } from '../../services/booking/api'
+import { calculateFare } from '@/lib/pricing'
+import { createBooking } from '@/services/booking/api'
 import PaymentStep from './PaymentStep.new'
 
 type BookingFormData = z.infer<typeof bookingSchema>
@@ -31,6 +31,26 @@ export default function BookingForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const [defaultValues, setDefaultValues] = useState<Partial<BookingFormData>>({
+    pickup: '',
+    destination: '',
+    startDate: new Date(),
+    endDate: new Date(Date.now() + 86400000),
+    vehicleType: ''
+  })
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setDefaultValues({
+        pickup: localStorage.getItem('booking_pickup') || '',
+        destination: localStorage.getItem('booking_destination') || '',
+        startDate: new Date(localStorage.getItem('booking_startDate') || Date.now()),
+        endDate: new Date(localStorage.getItem('booking_endDate') || Date.now() + 86400000),
+        vehicleType: localStorage.getItem('booking_vehicleType') || ''
+      })
+    }
+  }, [])
+
   const {
     register,
     handleSubmit,
@@ -40,13 +60,7 @@ export default function BookingForm() {
     setValue
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
-    defaultValues: {
-      pickup: localStorage.getItem('booking_pickup') || '',
-      destination: localStorage.getItem('booking_destination') || '',
-      startDate: new Date(localStorage.getItem('booking_startDate') || Date.now()),
-      endDate: new Date(localStorage.getItem('booking_endDate') || Date.now() + 86400000),
-      vehicleType: localStorage.getItem('booking_vehicleType') || ''
-    }
+    defaultValues
   })
 
   const persistFormData = (data: Partial<BookingFormData>) => {
@@ -135,7 +149,6 @@ export default function BookingForm() {
               startName="startDate"
               endName="endDate"
               errors={errors}
-              disabled={loading}
             />
 
             <VehicleTypeSelector 
