@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "optimize-images": "node scripts/optimize-images.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

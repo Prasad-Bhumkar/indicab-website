@@ -13,7 +13,7 @@
       "Dharavi Slum Tour (optional)",
       "Bollywood Film City (optional)"
     ],
-    "image": "/images/mumbai.jpg"
+    "image": "/assets/cities/mumbai.jpg"
   },
   {
     "id": "delhi-agra",
@@ -45,7 +45,7 @@
       "Jantar Mantar",
       "Albert Hall Museum"
     ],
-    "image": "/images/jaipur.jpg"
+    "image": "/assets/cities/jaipur.jpg"
   },
   {
     "id": "golden-triangle",
@@ -61,6 +61,6 @@
       "Cultural experiences",
       "Local cuisine tastings"
     ],
-    "image": "/images/taj-mahal.jpg"
+    "image": "/assets/cities/taj-mahal.jpg"
   }
 ]

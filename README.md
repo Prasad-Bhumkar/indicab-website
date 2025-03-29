@@ -110,6 +110,28 @@ indicab/
 - [Development Guide](./COMMANDS_DOCUMENTATION.md)
 - [Progress Tracking](./progress.md)
 
+## Image Handling System
+
+### Key Features
+- Automatic redirects (308) from legacy /images/ paths to /assets/
+- WebP optimization pipeline (60-70% size reduction)
+- Lazy loading with blur placeholders
+- Responsive image sizing
+- Comprehensive error handling
+- Default fallback images
+
+### Maintenance Guide
+1. Add new images to `/public/assets/` directory
+2. Run `npm run optimize-images` to generate WebP versions
+3. Test redirects: `curl -I http://localhost:3000/images/path/to/image.jpg`
+4. Reference images using `/assets/` path prefix
+
+### Performance Benefits
+- Faster page loads
+- Reduced bandwidth usage
+- Better SEO through proper image handling
+- Improved user experience
+
 ## Quality Assurance
 
 ### Testing
