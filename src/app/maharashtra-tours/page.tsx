@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client";
 
 import React from 'react';
@@ -245,5 +244,3 @@ const MaharashtraTours = () => {
 };
 
 export default MaharashtraTours;
-=======
->>>>>>> a221f754dfc85ba9d53030c8d6d50408b6346969
