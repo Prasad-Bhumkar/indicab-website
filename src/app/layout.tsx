@@ -1,20 +1,20 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/context/ThemeContext';
+import { ThemeProvider } from 'indicab/src/context/ThemeContext';
 import dynamic from 'next/dynamic';
 
-const Header = dynamic(() => import('@/components/layout/header/Header'), { 
+const Header = dynamic(() => import('indicab/src/components/layout/header/Header'), { 
   loading: () => <div className="h-16 bg-gray-100" />,
   ssr: false 
 });
 
-const Footer = dynamic(() => import('@/components/layout/footer/Footer'), {
+const Footer = dynamic(() => import('indicab/src/components/layout/footer/Footer'), {
   loading: () => <div className="h-12 bg-gray-100" />,
   ssr: false
 });
 
-import AppErrorBoundary from '@/components/common/AppErrorBoundary';
+import AppErrorBoundary from 'indicab/src/components/common/AppErrorBoundary';
 
 const inter = Inter({ subsets: ['latin'] });
 

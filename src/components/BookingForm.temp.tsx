@@ -1,0 +1,16 @@
+'use client'
+import { useContext } from 'react'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { BookingContext } from '@context/BookingContext'
+import { useAuthContext } from '@context/AuthContext'
+import LocationSearch from '@components/booking/LocationSearch'
+import DateRangePicker from '@components/DateRangePicker'
+import VehicleTypeSelector from '@components/VehicleTypeSelector'
+import { calculateFare } from '@lib/pricing'
+import { createBooking } from '@services/booking/api'
+import PaymentStep from '@components/PaymentStep'
+
+// [Rest of the original component code]
