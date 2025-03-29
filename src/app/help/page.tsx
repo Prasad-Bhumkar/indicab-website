@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import Header from '../../components/layout/header/Header';
+import Footer from '../../components/layout/footer/Footer';
+import { Card } from '../../components/ui/card';
+import { Button } from '../../components/ui/button';
 import {
   Phone,
   Mail,

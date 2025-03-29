@@ -68,8 +68,8 @@ export class ErrorService {
       console.groupEnd();
     }
 
-    // TODO: Add error reporting service integration
-    // this.reportError(appError);
+    // Report error to the error reporting service
+    this.reportError(appError);
 
     // Show toast notification
     toast.error(this.errorMessages[appError.type], {
@@ -80,15 +80,19 @@ export class ErrorService {
   }
 
   private static reportError(error: AppError) {
-    // Implementation for error reporting service (Sentry, etc.)
-    // fetch('/api/errors', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     type: error.type,
-    //     message: error.message,
-    //     stack: error.stack,
-    //     context: error.context
-    //   })
-    // });
+    fetch('/api/errors', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: error.type,
+        message: error.message,
+        stack: error.stack,
+        context: error.context
+      })
+    }).catch(err => {
+      console.error('Error reporting failed:', err);
+    });
   }
 }

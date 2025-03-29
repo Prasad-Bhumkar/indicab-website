@@ -3,8 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Header from '../../components/layout/header/Header';
+import Footer from '../../components/layout/footer/Footer';
 import { motion } from 'framer-motion';
 
 interface TourDestination {
