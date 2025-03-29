@@ -1,13 +1,15 @@
 import { createContext, useContext, useReducer } from 'react'
 
 export interface BookingState {
-  id?: string
+  id: string
   pickup: string
   destination: string
   startDate: Date
   endDate: Date
   vehicleType: string
-  fare?: number
+  fare: number
+  customerId: string
+  status: 'pending' | 'confirmed' | 'cancelled'
 }
 
 type BookingAction = 
@@ -15,12 +17,15 @@ type BookingAction =
   | { type: 'RESET_BOOKING' }
 
 const initialState: BookingState = {
+  id: '',
   pickup: '',
   destination: '',
   startDate: new Date(),
   endDate: new Date(),
   vehicleType: '',
-  fare: 0
+  fare: 0,
+  customerId: '',
+  status: 'pending'
 }
 
 const reducer = (state: BookingState, action: BookingAction): BookingState => {

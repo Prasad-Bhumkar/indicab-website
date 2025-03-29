@@ -1,6 +1,6 @@
 "use client";
 
-import BookingHistory from '../../components/BookingHistory';
+import BookingHistory from '../../components/features/booking/BookingHistory';
 import { Suspense } from 'react';
 import LoadingSpinner from '../../components/LoadingSpinner';
 

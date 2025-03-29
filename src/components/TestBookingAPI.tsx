@@ -1,9 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { createBooking } from '../../services/booking/api'
+import { createBooking } from '../services/booking/api'
 
-export default function TestBookingPage() {
-  const [result, setResult] = useState<string>('Testing Booking API...')
+export default function TestBookingAPI() {
+  const [result, setResult] = useState<string>('Testing...')
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function TestBookingPage() {
         }
 
         const booking = await createBooking(testData)
-        setResult(`✅ Success! Booking created with ID: ${booking.id}`)
+        setResult(`✅ Success! Booking ID: ${booking.id}`)
       } catch (err) {
         setError(`❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`)
       }
@@ -31,15 +31,13 @@ export default function TestBookingPage() {
   }, [])
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Booking API Test</h1>
-      <div className="p-4 border rounded-lg bg-gray-50">
-        {error ? (
-          <p className="text-red-600">{error}</p>
-        ) : (
-          <p className="text-green-600">{result}</p>
-        )}
-      </div>
+    <div className="p-4 border rounded-lg bg-gray-50">
+      <h2 className="text-lg font-bold mb-2">Booking API Test</h2>
+      {error ? (
+        <p className="text-red-600">{error}</p>
+      ) : (
+        <p className="text-green-600">{result}</p>
+      )}
     </div>
   )
 }
