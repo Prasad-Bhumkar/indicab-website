@@ -2,18 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from 'indicab/src/context/ThemeContext';
-import dynamic from 'next/dynamic';
-
-const Header = dynamic(() => import('indicab/src/components/layout/header/Header'), { 
-  loading: () => <div className="h-16 bg-gray-100" />,
-  ssr: false 
-});
-
-const Footer = dynamic(() => import('indicab/src/components/layout/footer/Footer'), {
-  loading: () => <div className="h-12 bg-gray-100" />,
-  ssr: false
-});
-
+import HeaderFooter from 'indicab/src/components/layout/HeaderFooter';
 import AppErrorBoundary from 'indicab/src/components/common/AppErrorBoundary';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -72,9 +61,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <AppErrorBoundary>
-            <Header />
+            <HeaderFooter />
             <main>{children}</main>
-            <Footer />
           </AppErrorBoundary>
         </ThemeProvider>
       </body>

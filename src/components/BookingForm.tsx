@@ -1,5 +1,6 @@
 'use client'
 import { useState, useContext, useEffect } from 'react'
+import { BookingState } from '../context/BookingContext' // Import BookingState type
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,6 +24,8 @@ const bookingSchema = z.object({
   vehicleType: z.string().min(1, 'Vehicle type is required')
 })
 
+import ErrorBoundary from './common/ErrorBoundary'
+
 export default function BookingForm() {
   const router = useRouter()
   const { user } = useAuthContext()
@@ -30,6 +33,11 @@ export default function BookingForm() {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const handleError = (error: Error) => {
+    console.error('BookingForm error:', error)
+    setError(error.message)
+  }
 
   const [defaultValues, setDefaultValues] = useState<Partial<BookingFormData>>({
     pickup: '',
@@ -83,18 +91,30 @@ export default function BookingForm() {
     setLoading(true)
     try {
       const fare = calculateFare(data.vehicleType, data.startDate, data.endDate)
-      const booking = await createBooking({
+      const bookingData = {
         ...data,
-        userId: user.id,
-        fare
-      })
+        customerId: user.id,  // Changed from userId to match expected type
+        fare,
+        status: 'pending' as const
+      }
+      const booking = await createBooking(bookingData)
       persistFormData(data)
-      dispatch({ 
-        type: 'SET_BOOKING', 
-        payload: {
-          ...booking,
-          fare: booking.fare || 0
-        }
+      
+      const bookingState: BookingState = {
+        id: booking.id || '',
+        pickup: data.pickup,
+        destination: data.destination,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        vehicleType: data.vehicleType,
+        fare: booking.fare || 0,
+        customerId: user.id,
+        status: 'pending'
+      }
+
+      dispatch({
+        type: 'SET_BOOKING',
+        payload: bookingState
       })
       setStep(2)
     } catch (err: unknown) {
@@ -105,7 +125,24 @@ export default function BookingForm() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <ErrorBoundary 
+      onError={handleError}
+      fallback={
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-lg font-medium text-red-800 mb-4">Booking Error</h3>
+          <p className="text-red-700 mb-4">
+            We encountered an issue loading the booking form. Please try refreshing the page.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+          >
+            Refresh Page
+          </button>
+        </div>
+      }
+    >
+      <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex mb-6">
         {[1, 2].map((i) => (
           <div key={i} className="flex-1">
@@ -177,10 +214,17 @@ export default function BookingForm() {
         </form>
       ) : (
         <PaymentStep 
-          booking={watch()} 
+          booking={{
+            ...watch(),
+            id: '',
+            fare: 0,
+            customerId: user?.id || '',
+            status: 'pending'
+          }}
           onBack={() => setStep(1)} 
         />
       )}
-    </div>
+      </div>
+    </ErrorBoundary>
   )
 }
