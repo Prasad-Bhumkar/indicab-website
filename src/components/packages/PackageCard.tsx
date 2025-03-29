@@ -5,13 +5,28 @@ import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 
+interface Package {
+  id: string;
+  title: string;
+  price?: string;
+  description?: string;
+}
+
+interface PackageCardProps {
+  package: Package;
+  children: React.ReactNode;
+  actionText?: string;
+  actionHref?: string;
+  badgeText?: string;
+}
+
 export default function PackageCard({ 
   package: pkg, 
   children,
   actionText = "Book Now",
   actionHref = "/booking",
   badgeText
-}) {
+}: PackageCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
       {badgeText && (
