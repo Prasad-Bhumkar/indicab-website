@@ -1,0 +1,22 @@
+[
+  {
+    "question": "How do I book a package?",
+    "answer": "You can book any package through our website or mobile app. Simply select the package you're interested in, choose your preferred date, time, and vehicle type, and proceed to checkout."
+  },
+  {
+    "question": "What happens if I exceed the package time or distance limit?",
+    "answer": "Additional charges apply for extra hours or kilometers beyond the package limit. The extra hour rate is approximately 15% of the base package hourly rate, and extra kilometers are charged at ₹12-15 per km depending on the vehicle type."
+  },
+  {
+    "question": "Can I customize a tour package?",
+    "answer": "Yes, we offer customization options for all our tour packages. You can add or remove attractions, extend the duration, or upgrade your vehicle. Contact our customer service to create a personalized itinerary."
+  },
+  {
+    "question": "Do you provide guides for the tour packages?",
+    "answer": "Our tour packages include a knowledgeable driver who can provide basic information about the destinations. Professional guides can be arranged at an additional cost upon request."
+  },
+  {
+    "question": "How can businesses sign up for corporate packages?",
+    "answer": "Businesses can contact our corporate sales team through the website or by calling our corporate helpline. We'll assign a dedicated account manager who will understand your requirements and propose suitable packages."
+  }
+]

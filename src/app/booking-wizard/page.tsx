@@ -1,22 +1,28 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Car, Star, Clock, Phone } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import Header from '@components/layout/header/Header';
+import Footer from '@components/layout/footer/Footer';
 
-// Use dynamic import with no SSR for the BookingWizard component
-const BookingWizard = dynamic(() => import('@/components/BookingWizard'), {
-  ssr: false,
-  loading: () => (
-    <div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 max-w-4xl mx-auto p-8 flex justify-center">
-      <div className="animate-pulse">
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-32 mb-4"></div>
-        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-48 mb-2.5"></div>
-        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-40 mb-2.5"></div>
-        <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-full mt-6"></div>
+interface BookingWizardProps {
+  // Add any required props here
+}
+
+const BookingWizard = dynamic<BookingWizardProps>(
+  () => import('@components/features/booking/BookingWizard'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 max-w-4xl mx-auto p-8 flex justify-center">
+        <div className="animate-pulse">
+          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-32 mb-4"></div>
+          <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-48 mb-2.5"></div>
+          <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-40 mb-2.5"></div>
+          <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-full mt-6"></div>
+        </div>
       </div>
-    </div>
-  )
-});
+    )
+  }
+);
 
 export default function BookingWizardPage() {
   return (
@@ -34,10 +40,8 @@ export default function BookingWizardPage() {
             </p>
           </div>
 
-          {/* Booking wizard component */}
           <BookingWizard />
 
-          {/* Features section */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16 max-w-5xl mx-auto">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -69,7 +73,6 @@ export default function BookingWizardPage() {
             </div>
           </div>
 
-          {/* Testimonial */}
           <div className="mt-16 max-w-4xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center">
             <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">What Our Customers Say</h3>
             <div className="flex flex-col items-center">

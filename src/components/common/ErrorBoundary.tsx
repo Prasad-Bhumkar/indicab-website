@@ -1,5 +1,6 @@
 'use client'
 import { ReactNode, useState, useEffect } from 'react'
+import * as Sentry from '@sentry/nextjs'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -19,11 +20,24 @@ export default function ErrorBoundary({
       const error = event.error
       setError(error)
       onError?.(error)
+      Sentry.captureException(error)
       console.error('ErrorBoundary caught:', error)
     }
 
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      const error = event.reason
+      setError(error)
+      onError?.(error)
+      Sentry.captureException(error)
+      console.error('Unhandled rejection:', error)
+    }
+
     window.addEventListener('error', handleError)
-    return () => window.removeEventListener('error', handleError)
+    window.addEventListener('unhandledrejection', handleUnhandledRejection)
+    return () => {
+      window.removeEventListener('error', handleError)
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection)
+    }
   }, [onError])
 
   if (error) {
