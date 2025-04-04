@@ -1,0 +1,70 @@
+/* Utility classes for common styles */
+
+/* Flexbox utilities */
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Margin and padding utilities */
+.m-0 {
+  margin: 0;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+/* Color utilities */
+.text-primary {
+  color: #0d785c;
+}
+
+.bg-primary {
+  background-color: #0d785c;
+  color: white;
+}
+
+/* Button styles */
+.btn {
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #0d785c;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #096a50;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #0d785c;
+  border: 1px solid #0d785c;
+}
+
+.btn-secondary:hover {
+  background-color: #f0f8f5;
+}

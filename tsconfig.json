@@ -19,7 +19,7 @@
       "./node_modules/@types",
       "./src/types"
     ],
-    "types": ["@types/bcryptjs"]
+    "types": []
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

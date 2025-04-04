@@ -27,6 +27,12 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['next-image'],
     allowedDevOrigins: ['yk9qkx-3001.csb.app'],
+    turbo: {
+      resolveAlias: {
+        components: './src/components',
+        utils: './src/utils'
+      }
+    }
   },
   async redirects() {
     return [

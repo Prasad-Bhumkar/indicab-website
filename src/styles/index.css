@@ -1,0 +1,10 @@
+/* Main stylesheet entry */
+@import './base.css';
+@import './components.css';
+@import './layout.css';
+@import './utilities.css';
+
+/* Enable smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

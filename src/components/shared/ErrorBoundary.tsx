@@ -3,6 +3,7 @@
 import React, { Component, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { Button } from '../ui/button';
+import { ErrorService, ErrorType, AppError } from '@/services/ErrorService';
 
 interface ErrorBoundaryProps {
   fallback?: ReactNode;
@@ -35,9 +36,15 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    // You can log the error to an error reporting service
-    console.error('ErrorBoundary caught an error', error, errorInfo);
-    this.setState({ errorInfo });
+    const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
+      component: this.constructor.name,
+      metadata: { errorInfo }
+    });
+
+    this.setState({ 
+      errorInfo,
+      error: appError
+    });
   }
 
   resetErrorBoundary = () => {
@@ -58,39 +65,20 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render(): ReactNode {
     if (this.state.hasError) {
-      // If a custom fallback is provided, use it
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-
-      // Default fallback UI
       return (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-md my-4">
-          <div className="flex items-center gap-3 mb-3">
-            <AlertTriangle className="h-5 w-5 text-red-500" />
-            <h2 className="text-lg font-semibold text-red-700">Something went wrong</h2>
+        <div className="min-h-[400px] flex items-center justify-center">
+          <div className="text-center p-6">
+            <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold mb-2">Something went wrong</h2>
+            <p className="text-gray-600 mb-4">We apologize for the inconvenience</p>
+            <Button
+              onClick={this.resetErrorBoundary}
+              className="inline-flex items-center"
+            >
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Try again
+            </Button>
           </div>
-
-          <p className="mb-3 text-red-600 text-sm">
-            {this.state.error?.message || 'An unexpected error occurred'}
-          </p>
-
-          {process.env.NODE_ENV !== 'production' && this.state.errorInfo && (
-            <details className="mb-4">
-              <summary className="text-sm text-gray-600 cursor-pointer mb-1">View error details</summary>
-              <pre className="p-3 bg-gray-100 overflow-auto text-xs text-gray-700 rounded max-h-56 whitespace-pre-wrap">
-                {this.state.error?.stack}
-              </pre>
-            </details>
-          )}
-
-          <Button
-            onClick={this.resetErrorBoundary}
-            className="bg-red-600 hover:bg-red-700 text-white flex items-center gap-2"
-          >
-            <RefreshCw className="h-4 w-4" />
-            Try again
-          </Button>
         </div>
       );
     }
