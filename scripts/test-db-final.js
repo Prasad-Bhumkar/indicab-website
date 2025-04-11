@@ -1,5 +1,5 @@
 // Database test with verified paths
-const { connectDB } = require('../src/lib/db');
+const { connectDB } = require('../src/lib/db.ts');
 
 async function testConnection() {
   try {

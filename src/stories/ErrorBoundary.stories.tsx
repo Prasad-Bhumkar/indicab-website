@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import ErrorBoundary from '../components/common/ErrorBoundary'
-import { fn } from '@storybook/test'
 import { Button } from '../components/ui/button'
 
 // Component metadata

@@ -7,7 +7,7 @@ interface CachedConnection {
 
 // Global variable to cache the connection
 declare global {
-  var mongooseCache: CachedConnection;
+  var mongoose: CachedConnection;
 }
 
 const MONGODB_URI = process.env.MONGODB_URI || '';
@@ -17,36 +17,38 @@ if (!MONGODB_URI) {
 }
 
 // Initialize cache if it doesn't exist
-if (!global.mongooseCache) {
-  global.mongooseCache = { conn: null, promise: null };
+if (!global.mongoose) {
+  global.mongoose = { conn: null, promise: null };
 }
+
+const cached = global.mongoose;
 
 /**
  * Establishes a connection to MongoDB
  * @returns Promise<mongoose>
  */
 export async function connectToDatabase(): Promise<typeof mongoose> {
-  if (global.mongooseCache.conn) {
-    return global.mongooseCache.conn;
+  if (cached.conn) {
+    return cached.conn;
   }
 
-  if (!global.mongooseCache.promise) {
+  if (!cached.promise) {
     const opts: ConnectOptions = {
       bufferCommands: false,
     };
 
-    global.mongooseCache.promise = mongoose.connect(MONGODB_URI, opts)
+    cached.promise = mongoose.connect(MONGODB_URI, opts)
       .then(mongoose => mongoose);
   }
 
   try {
-    global.mongooseCache.conn = await global.mongooseCache.promise;
+    cached.conn = await cached.promise;
   } catch (e) {
-    global.mongooseCache.promise = null;
+    cached.promise = null;
     throw e;
   }
 
-  return global.mongooseCache.conn;
+  return cached.conn;
 }
 
 // Export mongoose utilities for model definitions

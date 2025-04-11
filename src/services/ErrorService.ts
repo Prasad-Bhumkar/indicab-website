@@ -1,5 +1,4 @@
-import { toast } from 'react-hot-toast';
-import { ErrorContext, ErrorMetadata, ErrorSeverity, ErrorType } from '../types/errors';
+import { ErrorContext, ErrorMetadata, ErrorType } from '../types/errors';
 
 class AppError extends Error {
   constructor(
@@ -12,13 +11,7 @@ class AppError extends Error {
   }
 }
 
-const ERROR_MESSAGES: Record<ErrorType, string> = {
-  VALIDATION: 'Validation Error',
-  AUTHENTICATION: 'Authentication Error',
-  AUTHORIZATION: 'Authorization Error',
-  NOT_FOUND: 'Resource Not Found',
-  SERVER_ERROR: 'Internal Server Error'
-};
+
 
 export class ErrorService {
   public static createError(

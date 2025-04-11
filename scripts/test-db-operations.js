@@ -1,3 +1,13 @@
+// Load environment variables
+require('dotenv').config();
+
+// Configure ts-node to handle TypeScript imports
+require('ts-node').register({
+  transpileOnly: true,
+  compilerOptions: {
+    module: 'CommonJS'
+  }
+});
 const { connectDB } = require('../src/lib/db');
 const User = require('../src/models/User');
 

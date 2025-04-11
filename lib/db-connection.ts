@@ -6,11 +6,7 @@ interface CachedConnection {
 }
 
 declare global {
-  namespace NodeJS {
-    interface Global {
-      mongoose: CachedConnection;
-    }
-  }
+  var mongooseCache: CachedConnection;
 }
 
 const MONGODB_URI = process.env.MONGODB_URI || '';
@@ -21,10 +17,10 @@ if (!MONGODB_URI) {
   );
 }
 
-let cached: CachedConnection = (global as any).mongoose;
+let cached: CachedConnection = (global as any).mongooseCache;
 
 if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+  cached = (global as any).mongooseCache = { conn: null, promise: null };
 }
 
 async function dbConnect(): Promise<typeof mongoose> {
