@@ -9,94 +9,94 @@ A modern cab booking service built with Next.js, React, and TypeScript. IndiCab 
 Check out the live demo:
 - [IndiCab Application](https://solidcab.same-app.com)
 
-## Features
+## Key Features
 
-- **Intuitive Booking Interface**: Easy-to-use forms for various trip types
-- **Route Search**: Quick search with autocomplete for popular routes
-- **City Exploration**: Browse cab services by city
-- **Favorites System**: Save and manage your favorite routes with localStorage persistence
-- **Responsive Design**: Optimized for both desktop and mobile devices
-- **Animated UI**: Smooth transitions and animations for better user experience
-- **Error Handling**: Robust error boundaries and user-friendly error messages
+### Booking Experience
+- **Intuitive Interface**: Simple forms for all trip types
+- **Smart Route Search**: Autocomplete with popular routes
+- **City Explorer**: Browse services by city
+- **Favorites System**: Save routes with localStorage sync
+- **Responsive Design**: Optimized for all devices
+- **Animated UI**: Smooth transitions and micro-interactions
+- **Error Handling**: Robust error boundaries and clear messages
 
-## Technology Stack (2024)
+## Technology Stack (2024 Q3)
 
-### Core
-- Next.js 15.4.0
-- React 18.3.1
-- TypeScript 5.4.0
-- Node.js 20.0.0
+### Core Framework
+- Next.js 15.4.0 (App Router)
+- React 18.3.1 (Concurrent Features)
+- TypeScript 5.4.0 (Strict Mode)
+- Node.js 20.0.0 (LTS)
 
-### UI/UX
-- Tailwind CSS 3.4.0
-- Framer Motion 10.16.0
-- Radix UI 1.0.0
-- Storybook 8.0.0
+### UI Components
+- Tailwind CSS 3.4.0 + CSS Modules
+- Framer Motion 10.16.0 (Animations)
+- Radix UI 1.0.0 (Accessible Primitives)
+- Storybook 8.0.0 (Component Library)
 
-### Backend
-- MongoDB 7.0.0
-- Redis 7.2.0
-- NextAuth.js 5.0.0
+### Backend Services
+- MongoDB 7.0.0 (Atlas)
+- Redis 7.2.0 (Caching)
+- NextAuth.js 5.0.0 (Authentication)
 
 ### Infrastructure
-- Vercel (Production)
-- Netlify (Staging)
-- AWS S3 (Storage)
-- Cloudflare (CDN/DNS)
+- Vercel (Production Hosting)
+- Netlify (Staging Environment)
+- AWS S3 (Media Storage)
+- Cloudflare (CDN & DNS)
 
-## Development Setup
+## Getting Started
 
-### Requirements
+### Prerequisites
 - Node.js 20.0.0+
-- Bun 1.1.0+ (optional)
-- MongoDB 7.0.0+
-- Redis 7.2.0+
+- Bun 1.1.0+ (recommended)
+- MongoDB 7.0.0+ (local or Atlas)
+- Redis 7.2.0+ (optional for caching)
 
 ### Quick Start
 ```bash
-# 1. Clone repository
+# Clone repository
 git clone https://github.com/indicab/indicab.git
 cd indicab
 
-# 2. Install dependencies
+# Install dependencies
 bun install
 
-# 3. Setup environment
+# Configure environment
 cp .env.example .env.local
 # Edit .env.local with your credentials
 
-# 4. Start development server
+# Start development server
 bun run dev
 ```
 
 ### Advanced Setup
 ```bash
-# Run with Docker
+# Docker Compose (includes MongoDB and Redis)
 docker-compose up -d
 
-# Run tests
+# Run test suite
 bun test
 
-# Build for production
+# Production build
 bun run build
 
 # Start production server
 bun run start
 ```
 
-## Project Architecture
+## Project Structure
 
 ```
 indicab/
 ├── src/
 │   ├── app/                # Next.js app router
-│   ├── components/         # Organized UI components
-│   ├── context/            # Global state management
+│   ├── components/         # UI components (atomic design)
+│   ├── context/            # React context providers
 │   ├── lib/                # Shared utilities
 │   ├── services/           # API clients
-│   ├── styles/             # Global styles
+│   ├── styles/             # Global CSS
 │   └── types/              # TypeScript definitions
-├── public/                 # Static assets
 ├── scripts/                # Utility scripts
 ├── tests/                  # Test suites
 └── storybook/              # Component stories
