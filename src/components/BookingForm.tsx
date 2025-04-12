@@ -10,9 +10,9 @@ import { useAuthContext } from '../context/AuthContext'
 import LocationSearch from './booking/LocationSearch'
 import DateRangePicker from './DateRangePicker'
 import VehicleTypeSelector from './VehicleTypeSelector'
-import { calculateFare } from '@/lib/pricing'
-import { createBooking } from '@/services/booking/api'
-import PaymentStep from './PaymentStep.new'
+import { calculateFare } from 'lib/pricing' // Updated import statement
+import { createBooking } from 'services/booking/api' // Updated import statement
+import PaymentStep from './PaymentStep'
 
 type BookingFormData = z.infer<typeof bookingSchema>
 
@@ -32,11 +32,11 @@ export default function BookingForm() {
   const { dispatch } = useContext(BookingContext)
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>('') // Explicit type definition
 
-  const handleError = (error: Error) => {
+  const handleError = (error: unknown) => { // Explicit type definition
     console.error('BookingForm error:', error)
-    setError(error.message)
+    setError(error instanceof Error ? error.message : 'An unknown error occurred')
   }
 
   const [defaultValues, setDefaultValues] = useState<Partial<BookingFormData>>({

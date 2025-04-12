@@ -2,7 +2,6 @@
 module.exports = {
   darkMode: 'class',
   theme: {
-
     extend: {
       colors: {
         primary: '#0c9242',
@@ -39,15 +38,12 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   safelist: [
-
-
     /^bg-/,
     /^text-/,
     /^border-/,
     /^hover:bg-/,
     /^hover:text-/,
     'dark',
-    'dark:*'
-  ]
-
-}
+    'dark:*',
+  ],
+};

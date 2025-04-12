@@ -7,9 +7,9 @@
  * and generates a migration tracking markdown file.
  */
 
-const fs = require('fs');
-const path = require('path');
-const util = require('util');
+const fs = require('node:fs');
+const path = require('node:path');
+const util = require('node:util');
 
 const readdir = util.promisify(fs.readdir);
 const stat = util.promisify(fs.stat);

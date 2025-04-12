@@ -3,32 +3,7 @@ import { Shield, Clock, ThumbsUp, MapPin, Award, Users, Car, Target, Eye } from 
 import { Card } from '@/components/ui/card'; // Updated import statement to use named import
 
 // Team member data
-const teamMembers = [
-  {
-    name: 'Rahul Sharma',
-    position: 'Founder & CEO',
-    image: '/images/team/rahul.jpg',
-    bio: 'With over 15 years in the transportation industry, Rahul founded IndiCab with a vision to transform intercity travel in India.'
-  },
-  {
-    name: 'Priya Patel',
-    position: 'Chief Operations Officer',
-    image: '/images/team/priya.jpg',
-    bio: 'Priya oversees all operations, ensuring our service quality meets the highest standards across all cities we serve.'
-  },
-  {
-    name: 'Amit Singh',
-    position: 'Chief Technology Officer',
-    image: '/images/team/amit.jpg',
-    bio: 'Leading our technical team, Amit is responsible for our cutting-edge booking platform and driver applications.'
-  },
-  {
-    name: 'Neha Gupta',
-    position: 'Customer Experience Director',
-    image: '/images/team/neha.jpg',
-    bio: 'Neha ensures every customer journey is smooth from booking to destination, heading our customer support team.'
-  }
-];
+
 
 // Company values
 const companyValues = [

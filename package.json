@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-slot": "^1.1.2",
     "@sentry/nextjs": "^9.9.0",
     "@stripe/react-stripe-js": "^3.5.1",
@@ -24,6 +25,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/stripe": "^8.0.417",
     "bcryptjs": "^3.0.2",
+    "bun": "^1.2.9",
     "class-variance-authority": "^0.7.1",
     "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.2",
@@ -33,12 +35,15 @@
     "next": "^15.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.55.0",
     "react-hot-toast": "^2.5.2",
     "stripe": "^17.7.0",
     "tailwind-merge": "^3.0.2",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@chromatic-com/storybook": "^3.2.6",
     "@next/bundle-analyzer": "^15.2.4",
     "@playwright/test": "^1.51.1",
@@ -70,5 +75,9 @@
     "tailwindcss": "^3.3.0",
     "ts-node": "^10.9.2",
     "vitest": "^3.0.9"
-  }
+  },
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "@sentry/cli"
+  ]
 }

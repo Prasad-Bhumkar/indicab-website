@@ -9,28 +9,28 @@ const steps = [
   {
     id: 1,
     title: 'Choose Your Route',
-    description: 'Select your pickup and drop-off locations, along with your preferred date and time.',
+    description: 'Select your pickup and drop-off locations in Pune or nearby cities, along with your preferred date and time.',
     icon: <Search className="h-8 w-8 text-orange-500" />,
     delay: 0
   },
   {
     id: 2,
     title: 'Select Your Car',
-    description: 'Browse our range of vehicles and choose the one that best suits your needs and budget.',
+    description: 'Browse our range of vehicles and choose the one that best suits your travel needs in Pune.',
     icon: <Car className="h-8 w-8 text-orange-500" />,
     delay: 0.1
   },
   {
     id: 3,
     title: 'Book Your Ride',
-    description: 'Confirm your booking details and make a secure payment to reserve your ride.',
+    description: 'Confirm your booking details and make a secure payment to reserve your ride in Pune.',
     icon: <Calendar className="h-8 w-8 text-orange-500" />,
     delay: 0.2
   },
   {
     id: 4,
     title: 'Enjoy Your Trip',
-    description: 'Relax and enjoy your journey with our experienced and professional drivers.',
+    description: 'Relax and enjoy your journey with our experienced drivers who know Pune’s routes and landmarks.',
     icon: <Map className="h-8 w-8 text-orange-500" />,
     delay: 0.3
   }
@@ -87,6 +87,16 @@ const HowItWorks = () => {
                 <h3 className="text-2xl font-bold mb-4">Why Choose IndiCab?</h3>
 
                 <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 mr-3 mt-1">
+                      <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-xs">✓</div>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-base">Local Expertise</h4>
+                      <p className="text-gray-600 text-sm">Our drivers are familiar with Pune’s routes, ensuring a smooth and efficient journey.</p>
+                    </div>
+                  </li>
+
                   <li className="flex items-start">
                     <div className="flex-shrink-0 mr-3 mt-1">
                       <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-xs">✓</div>

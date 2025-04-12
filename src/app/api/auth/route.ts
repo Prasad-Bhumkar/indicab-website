@@ -47,7 +47,8 @@ export async function POST(request: Request) {
       token,
       expiresIn: JWT_EXPIRES_IN
     });
-  } catch (error) {
+  } catch (error: unknown) {
+
     return NextResponse.json(
       { error: 'Login failed' },
       { status: 500 }

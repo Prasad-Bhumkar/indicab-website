@@ -1,8 +1,8 @@
 // Load environment variables
-require('dotenv').config();
+require('node:dotenv').config();
 
 // Configure ts-node to handle TypeScript imports
-require('ts-node').register({
+require('node:ts-node').register({
   transpileOnly: true,
   compilerOptions: {
     module: 'CommonJS'

@@ -11,6 +11,30 @@ import { MapPin, ChevronRight, Car, ArrowRight } from 'lucide-react';
 const popularRoutes = [
   {
     id: 1,
+    from: 'Pune',
+    to: 'Mumbai',
+    image: '/images/mumbai.jpg',
+    carImage: '/images/cars/swift/swift-blue.jpg',
+    distance: '150 km',
+    time: '2.5 hrs',
+    price: '₹1,999',
+    description: 'Quick and comfortable travel to Mumbai',
+    popular: true
+  },
+  {
+    id: 2,
+    from: 'Pune',
+    to: 'Lonavala',
+    image: '/images/lonavala.jpg',
+    carImage: '/images/cars/ertiga/ertiga-white.jpg',
+    distance: '65 km',
+    time: '1.5 hrs',
+    price: '₹999',
+    description: 'Scenic drive to the hill station',
+    popular: true
+  },
+  {
+    id: 3,
     from: 'Delhi',
     to: 'Agra',
     image: '/images/taj-mahal.jpg',
@@ -22,7 +46,7 @@ const popularRoutes = [
     popular: true
   },
   {
-    id: 2,
+    id: 4,
     from: 'Mumbai',
     to: 'Pune',
     image: '/images/pune.jpg',
@@ -34,7 +58,7 @@ const popularRoutes = [
     popular: false
   },
   {
-    id: 3,
+    id: 5,
     from: 'Bangalore',
     to: 'Mysore',
     image: '/images/mysore-palace.jpg',
@@ -46,7 +70,7 @@ const popularRoutes = [
     popular: true
   },
   {
-    id: 4,
+    id: 6,
     from: 'Delhi',
     to: 'Jaipur',
     image: '/images/jaipur.jpg',
@@ -58,7 +82,7 @@ const popularRoutes = [
     popular: false
   },
   {
-    id: 5,
+    id: 7,
     from: 'Chennai',
     to: 'Pondicherry',
     image: '/images/pondicherry.jpg',
@@ -70,7 +94,7 @@ const popularRoutes = [
     popular: false
   },
   {
-    id: 6,
+    id: 8,
     from: 'Kolkata',
     to: 'Digha',
     image: '/images/digha.jpg',
@@ -102,6 +126,13 @@ const PopularRoutes = () => {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-2">Explore Popular Routes from Pune</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Discover affordable and comfortable travel options for intercity and local destinations. Our routes are tailored to meet your travel needs with reliability and ease.
+          </p>
+        </div>
+
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold">
             Popular <span className="text-orange-500">Routes</span>

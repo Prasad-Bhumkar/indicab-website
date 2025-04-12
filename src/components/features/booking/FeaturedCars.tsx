@@ -83,9 +83,16 @@ const FeaturedCars = () => {
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-2">Why Choose Our Fleet?</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Our vehicles are perfect for Pune's intercity and local travel needs. Enjoy reliability, comfort, and the expertise of professional drivers.
+          </p>
+        </div>
+
+        <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-2">Featured Vehicles</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Choose from our fleet of well-maintained vehicles for your journey. Clean, comfortable, and reliable cars with experienced drivers.
+            Choose from our fleet of well-maintained vehicles for your journey. Clean, comfortable, and reliable cars tailored for Pune's unique travel requirements.
           </p>
         </div>
 
