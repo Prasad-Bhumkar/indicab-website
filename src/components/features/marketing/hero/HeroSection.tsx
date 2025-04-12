@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '@components/ui/Button';
+import { Button } from '@components/ui/button'; // Updated import
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 
 export default function HeroSection() {
@@ -31,7 +31,7 @@ export default function HeroSection() {
         </p>
         <Button
           className="mt-8 px-8 py-3 text-lg font-semibold"
-          variant="primary"
+          variant="default" // Updated variant
           size="lg"
         >
           Book Now

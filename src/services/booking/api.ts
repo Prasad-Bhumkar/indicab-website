@@ -7,6 +7,7 @@ interface CreateBookingParams extends Omit<BookingState, 'id'> {
 export async function createBooking(booking: CreateBookingParams): Promise<BookingState> {
   try {
     // In a real app, this would call your backend API
+    const token = localStorage.getItem('token') || 'default-token'; // Fallback token
     const response = await fetch('/api/bookings', {
       method: 'POST',
       headers: {

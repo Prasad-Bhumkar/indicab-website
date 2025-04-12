@@ -7,7 +7,7 @@ interface CachedConnection {
 
 // Global variable to cache the connection
 declare global {
-  var mongoose: CachedConnection;
+  const mongoose: CachedConnection;
 }
 
 const MONGODB_URI = process.env.MONGODB_URI || '';

@@ -88,6 +88,22 @@
 
 ## Utility Scripts
 
+### Cache Management
+- **Clear Playwright Reports**:
+  ```bash
+  Remove-Item -Recurse -Force playwright-report
+  ```
+
+- **Clear Storybook Static Files**:
+  ```bash
+  Remove-Item -Recurse -Force storybook-static
+  ```
+
+- **Clear Test Results**:
+  ```bash
+  Remove-Item -Recurse -Force test-results
+  ```
+
 ### Testing
 - `test-api.ts`: API endpoint tests
   ```bash

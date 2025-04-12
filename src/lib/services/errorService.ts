@@ -1,53 +1,24 @@
-import { logger } from '../logger';
+export enum ErrorType {
+  RUNTIME = 'RUNTIME',
+  VALIDATION = 'VALIDATION',
+}
 
 export class AppError extends Error {
-  constructor(
-    public message: string,
-    public statusCode: number = 500,
-    public code?: string
-  ) {
+  constructor(message: string, public type: ErrorType = ErrorType.RUNTIME) {
     super(message);
     this.name = 'AppError';
   }
 }
 
 export class ErrorService {
-  static async handleError(error: unknown, context?: string): Promise<AppError> {
-    let appError: AppError;
-
-    if (error instanceof AppError) {
-      appError = error;
-    } else if (error instanceof Error) {
-      appError = new AppError(error.message);
-    } else {
-      appError = new AppError('An unexpected error occurred');
-    }
-
-    // Log the error with context
-    await logger.error(appError.message, {
-      message: appError.message,
-      code: appError.code,
-      statusCode: appError.statusCode,
-      context,
-      stack: appError.stack
-    });
-
-    return appError;
+  static handleError(error: Error, type: ErrorType, context: any) {
+    // Log the error to the console or a logging service
+    console.error('Error handled:', { error, type, context });
+    return new AppError(error.message, type);
   }
 
-  static async logWarning(message: string, context?: string): Promise<void> {
-    await logger.warn(message, {
-      message,
-      context,
-      timestamp: new Date().toISOString()
-    });
-  }
-
-  static async logInfo(message: string, context?: string): Promise<void> {
-    await logger.info(message, {
-      message,
-      context,
-      timestamp: new Date().toISOString()
-    });
+  static logInfo(message: string, context: any) {
+    // Log informational messages
+    console.info('Info:', { message, context });
   }
 }

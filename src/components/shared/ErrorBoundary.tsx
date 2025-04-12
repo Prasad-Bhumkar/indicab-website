@@ -3,7 +3,8 @@
 import React, { Component, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { Button } from '../ui/button';
-import { ErrorService, ErrorType, AppError } from '@/services/ErrorService';
+import { ErrorService, AppError } from '@/services/ErrorService';
+import { ErrorType } from '@/lib/services/errorService';
 
 interface ErrorBoundaryProps {
   fallback?: ReactNode;
@@ -13,9 +14,15 @@ interface ErrorBoundaryProps {
 
 interface ErrorBoundaryState {
   hasError: boolean;
-  error: Error | null;
+  error: AppError | null;
   errorInfo: React.ErrorInfo | null;
 }
+
+
+
+
+
+
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -28,12 +35,24 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
-    // Update state so the next render will show the fallback UI.
+    // Report error and update state
+    const appError = ErrorService.handleError(error, ErrorType.RUNTIME, {
+      component: 'ErrorBoundary'
+    });
     return {
       hasError: true,
-      error
+      error: appError,
+      errorInfo: null
     };
   }
+
+
+
+
+
+
+
+
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
@@ -50,6 +69,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   resetErrorBoundary = () => {
     const { onReset } = this.props;
 
+    // Log recovery attempt
+    ErrorService.logInfo('Error boundary reset', {
+      component: this.constructor.name,
+      errorId: this.state.error?.id
+    });
+
     // Call the optional onReset callback
     if (onReset) {
       onReset();
@@ -57,11 +82,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
     // Reset the error state
     this.setState({
-      hasError: false,
+      hasError: false, 
       error: null,
       errorInfo: null
     });
   };
+
+
 
   render(): ReactNode {
     if (this.state.hasError) {
@@ -70,7 +97,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           <div className="text-center p-6">
             <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold mb-2">Something went wrong</h2>
-            <p className="text-gray-600 mb-4">We apologize for the inconvenience</p>
+            <p className="text-gray-600 mb-4">
+              We're sorry - an error occurred (ID: {this.state.error?.id}). Our team has been notified.
+            </p>
+
             <Button
               onClick={this.resetErrorBoundary}
               className="inline-flex items-center"

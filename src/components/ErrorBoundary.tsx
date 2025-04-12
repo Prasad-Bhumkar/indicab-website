@@ -20,17 +20,43 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
+    // Capture error details for reporting
+    const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
+      component: this.constructor.name
+    });
+    return { 
+      hasError: true,
+      error: appError,
+      errorInfo: null
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    this.setState({ error, errorInfo });
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    // Report full error with component stack
+    const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
+      component: this.constructor.name,
+      metadata: { errorInfo }
+    });
+    this.setState({ 
+      error: appError,
+      errorInfo 
+    });
   }
 
+
   handleReset = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null });
+    // Log recovery attempt
+    ErrorService.logInfo('Error boundary reset', {
+      component: this.constructor.name,
+      error: this.state.error?.message
+    });
+    this.setState({ 
+      hasError: false, 
+      error: null, 
+      errorInfo: null 
+    });
   };
+
 
   render() {
     if (this.state.hasError) {
@@ -42,8 +68,10 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
             </div>
             <h2 className="text-xl font-bold text-center mb-2">Something went wrong</h2>
             <p className="text-gray-600 mb-4">
-              We're sorry, but an unexpected error occurred. Our team has been notified.
+              We're sorry, but an unexpected error occurred (Error ID: {this.state.error?.id}). 
+              Our team has been notified.
             </p>
+
             <div className="bg-gray-100 p-3 rounded mb-4">
               <p className="text-sm font-mono text-gray-800 break-words">
                 {this.state.error?.toString()}

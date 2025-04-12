@@ -1,7 +1,7 @@
-const { connectDB } = require('../src/lib/db');
-const User = require('../src/models/User');
-const Vehicle = require('../src/models/Vehicle');
-const Booking = require('../src/models/Booking');
+import { connectDB } from '../src/lib/db';
+import User from '../src/models/User';
+import Vehicle from '../src/models/Vehicle';
+import Booking from '../src/models/Booking';
 
 async function testBookingFlow() {
   try {

@@ -1,2 +1,4 @@
-export { Button } from './button';
-export type { ButtonProps } from './button';
+import React from 'react';
+import { Button } from './Button'; // Corrected casing
+
+export { Button };

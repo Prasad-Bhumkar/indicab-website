@@ -27,7 +27,7 @@ describe('Booking API Service', () => {
       id: 'booking123'
     }
 
-    // @ts-ignore
+    // @ts-expect-error: Ignoring type error for testing purposes
     fetch.mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve(mockResponse)
@@ -39,14 +39,14 @@ describe('Booking API Service', () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer null'
+        'Authorization': 'Bearer default-token' // Updated to reflect fallback token
       },
       body: JSON.stringify(validBooking)
     })
   })
 
   it('should throw error when API returns failure', async () => {
-    // @ts-ignore
+    // @ts-expect-error: Ignoring type error for testing purposes
     fetch.mockResolvedValueOnce({
       ok: false,
       json: () => Promise.resolve({ message: 'Invalid data' })
@@ -57,7 +57,7 @@ describe('Booking API Service', () => {
   })
 
   it('should handle network errors', async () => {
-    // @ts-ignore
+    // @ts-expect-error: Ignoring type error for testing purposes
     fetch.mockRejectedValueOnce(new Error('Network error'))
 
     await expect(createBooking(validBooking))

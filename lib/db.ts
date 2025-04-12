@@ -1,7 +1,7 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 
 declare global {
-  var mongoose: {
+  const mongoose: {
     conn: typeof mongoose | null;
     promise: Promise<typeof mongoose> | null;
   };

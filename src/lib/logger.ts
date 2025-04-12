@@ -1,4 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
+import fs from 'fs';
+import path from 'path';
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
@@ -27,8 +29,6 @@ class Logger {
   private logToFile(message: string) {
     if (process.env.NODE_ENV === 'production') {
       try {
-        const fs = require('fs');
-        const path = require('path');
         const logDir = path.dirname(this.logFile);
         
         if (!fs.existsSync(logDir)) {

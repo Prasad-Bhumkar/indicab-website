@@ -1,6 +1,6 @@
 // @ts-check
-require('ts-node').register();
-const { connectDB } = require('../src/lib/db');
+import 'ts-node/register';
+import { connectDB } from '../src/lib/db';
 
 async function testConnection() {
   try {

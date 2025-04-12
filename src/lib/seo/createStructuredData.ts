@@ -1,11 +1,38 @@
 /**
  * Generates JSON-LD structured data for SEO enhancement
- *
+ * 
+ * This module provides functions to create structured data following schema.org specifications
+ * for better search engine visibility and rich snippets.
+ * 
  * @see https://developers.google.com/search/docs/advanced/structured-data/intro-structured-data
+ * @see https://schema.org/docs/schemas.html
  */
 
-// Organization structured data
-export function createOrganizationData() {
+/**
+ * Creates structured data for an organization
+ * @param {Object} [options] - Optional configuration
+ * @param {string} [options.url] - Organization website URL
+ * @param {string} [options.logo] - URL to organization logo
+ * @param {string[]} [options.socialProfiles] - Array of social profile URLs
+ * @param {string} [options.phone] - Contact phone number
+ * @returns {Object} JSON-LD structured data
+ * @throws {Error} If required fields are missing
+ */
+export function createOrganizationData(options: {
+  url?: string;
+  logo?: string;
+  socialProfiles?: string[];
+  phone?: string;
+} = {}) {
+  const { url = 'https://indicab.example.com', logo = 'https://indicab.example.com/indicab-logo.svg', socialProfiles = [], phone = '+91-9876543210' } = options;
+
+  if (!url || !logo) {
+    throw new Error('Organization URL and logo are required');
+  }
+
+  if (!phone) {
+    throw new Error('Contact phone number is required');
+  }
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -26,8 +53,47 @@ export function createOrganizationData() {
   };
 }
 
-// Local business structured data (for cab service)
-export function createLocalBusinessData() {
+/**
+ * Creates structured data for a local business (taxi service)
+ * @param {Object} [options] - Configuration options
+ * @param {string} options.name - Business name
+ * @param {string} options.image - Business logo/image URL
+ * @param {string} options.url - Business website URL
+ * @param {string} options.phone - Contact phone number
+ * @param {Object} options.address - Physical address
+ * @param {Object} options.geo - Geo coordinates
+ * @returns {Object} JSON-LD structured data
+ * @throws {Error} If required fields are missing
+ */
+export function createLocalBusinessData(options: {
+  name: string;
+  image: string;
+  url: string;
+  phone: string;
+  address: {
+    streetAddress: string;
+    addressLocality: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  geo: {
+    latitude: number;
+    longitude: number;
+  };
+}) {
+  const { name, image, url, phone, address, geo } = options;
+
+  if (!name || !image || !url || !phone) {
+    throw new Error('Name, image, URL and phone are required');
+  }
+
+  if (!address || !address.streetAddress || !address.addressLocality || !address.postalCode || !address.addressCountry) {
+    throw new Error('Complete address information is required');
+  }
+
+  if (!geo || !geo.latitude || !geo.longitude) {
+    throw new Error('Geo coordinates are required');
+  }
   return {
     '@context': 'https://schema.org',
     '@type': 'TaxiService',
@@ -61,8 +127,22 @@ export function createLocalBusinessData() {
   };
 }
 
-// FAQ structured data
+/**
+ * Creates structured data for FAQ content
+ * @param {Array<{question: string, answer: string}>} faqs - Array of FAQ items
+ * @returns {Object} JSON-LD structured data
+ * @throws {Error} If FAQ array is empty or items are invalid
+ */
 export function createFaqData(faqs: Array<{question: string, answer: string}>) {
+  if (!faqs || !faqs.length) {
+    throw new Error('At least one FAQ item is required');
+  }
+
+  for (const faq of faqs) {
+    if (!faq.question || !faq.answer) {
+      throw new Error('Each FAQ item must have both question and answer');
+    }
+  }
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -77,7 +157,18 @@ export function createFaqData(faqs: Array<{question: string, answer: string}>) {
   };
 }
 
-// Service structured data (for cab service types)
+/**
+ * Creates structured data for a service (taxi service)
+ * @param {Object} service - Service configuration
+ * @param {string} service.name - Service name
+ * @param {string} service.description - Service description
+ * @param {string} [service.provider] - Service provider name
+ * @param {string[]} [service.areaServed] - Areas served by the service
+ * @param {string} [service.price] - Service price
+ * @param {string} [service.image] - Service image URL
+ * @returns {Object} JSON-LD structured data
+ * @throws {Error} If required fields are missing
+ */
 export function createServiceData(service: {
   name: string;
   description: string;
@@ -86,6 +177,9 @@ export function createServiceData(service: {
   price?: string;
   image?: string;
 }) {
+  if (!service.name || !service.description) {
+    throw new Error('Service name and description are required');
+  }
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -109,7 +203,18 @@ export function createServiceData(service: {
   };
 }
 
-// Article structured data (for blog posts)
+/**
+ * Creates structured data for an article/blog post
+ * @param {Object} article - Article details
+ * @param {string} article.headline - Article headline
+ * @param {string} article.description - Article description
+ * @param {string} article.image - Article image URL
+ * @param {string} article.datePublished - Publication date (ISO format)
+ * @param {string} [article.dateModified] - Last modified date (ISO format)
+ * @param {string} article.author - Author name
+ * @returns {Object} JSON-LD structured data
+ * @throws {Error} If required fields are missing or invalid
+ */
 export function createArticleData(article: {
   headline: string;
   description: string;
@@ -118,6 +223,15 @@ export function createArticleData(article: {
   dateModified?: string;
   author: string;
 }) {
+  if (!article.headline || !article.description || !article.image) {
+    throw new Error('Article headline, description and image are required');
+  }
+  if (!article.datePublished || isNaN(Date.parse(article.datePublished))) {
+    throw new Error('Valid publication date is required');
+  }
+  if (!article.author) {
+    throw new Error('Author name is required');
+  }
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -141,8 +255,21 @@ export function createArticleData(article: {
   };
 }
 
-// Breadcrumb structured data
+/**
+ * Creates structured data for breadcrumb navigation
+ * @param {Array<{name: string, url: string}>} breadcrumbs - Array of breadcrumb items
+ * @returns {Object} JSON-LD structured data
+ * @throws {Error} If breadcrumbs array is empty or items are invalid
+ */
 export function createBreadcrumbData(breadcrumbs: Array<{name: string, url: string}>) {
+  if (!breadcrumbs || !breadcrumbs.length) {
+    throw new Error('At least one breadcrumb item is required');
+  }
+  for (const crumb of breadcrumbs) {
+    if (!crumb.name || !crumb.url) {
+      throw new Error('Each breadcrumb must have both name and URL');
+    }
+  }
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
