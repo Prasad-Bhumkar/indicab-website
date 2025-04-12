@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import BookingForm from '@/components/BookingForm'
+import VehicleCard from '../../../components/VehicleCard' // Adjusted relative path
 
 interface Vehicle {
   _id: string
@@ -11,30 +10,35 @@ interface Vehicle {
   type: string
   dailyRate: number
   imageUrl: string
-  seatingCapacity: number
-  fuelType: string
-  transmission: string
-  features: string[]
 }
 
-export default function VehicleDetails({ params }: { params: { id: string } }) {
-  const [vehicle, setVehicle] = useState<Vehicle | null>(null)
+export default function VehiclesPage() {
+  const [vehicles, setVehicles] = useState<Vehicle[]>([])
   const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState('') // New state for filter
+  const [searchTerm, setSearchTerm] = useState(''); // New state for search term
 
   useEffect(() => {
-    async function fetchVehicle() {
+    async function fetchVehicles() {
       try {
-        const res = await fetch(`/api/vehicles/${params.id}`)
+        const res = await fetch('/api/vehicles')
         const data = await res.json()
-        setVehicle(data)
+        setVehicles(data)
       } catch (error) {
-        console.error('Error fetching vehicle:', error)
+        console.error('Error fetching vehicles:', error)
       } finally {
         setLoading(false)
       }
     }
-    fetchVehicle()
-  }, [params.id])
+    fetchVehicles()
+  }, [])
+
+  const filteredVehicles = vehicles.filter(vehicle => {
+    const matchesType = filter ? vehicle.type === filter : true;
+    const matchesSearch = vehicle.make.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          vehicle.model.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesType && matchesSearch;
+  });
 
   if (loading) {
     return (
@@ -44,67 +48,31 @@ export default function VehicleDetails({ params }: { params: { id: string } }) {
     )
   }
 
-  if (!vehicle) {
-    return <div className="text-center py-8">Vehicle not found</div>
-  }
-
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
-              src={vehicle.imageUrl}
-              alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-              className="w-full h-96 object-cover"
-            />
-          </div>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Available Vehicles</h1>
+        <div className="flex space-x-4">
+          <select className="border rounded px-3 py-2" value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value="">Filter by Type</option>
+            <option value="Sedan">Sedan</option>
+            <option value="SUV">SUV</option>
+            <option value="Luxury">Luxury</option>
+          </select>
+          <input 
+            type="text" 
+            placeholder="Search vehicles..." 
+            className="border rounded px-3 py-2 w-64"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-        
-        <div>
-          <h1 className="text-3xl font-bold mb-2">
-            {vehicle.year} {vehicle.make} {vehicle.model}
-          </h1>
-          <div className="flex items-center space-x-4 mb-6">
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-              {vehicle.type}
-            </span>
-            <span className="text-gray-600">${vehicle.dailyRate}/day</span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <div>
-              <h3 className="font-semibold text-gray-500">Fuel Type</h3>
-              <p className="capitalize">{vehicle.fuelType}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-500">Transmission</h3>
-              <p className="capitalize">{vehicle.transmission}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-500">Seating</h3>
-              <p>{vehicle.seatingCapacity} people</p>
-            </div>
-          </div>
-
-          {vehicle.features && vehicle.features.length > 0 && (
-            <div className="mb-8">
-              <h3 className="font-semibold text-gray-500 mb-2">Features</h3>
-              <div className="flex flex-wrap gap-2">
-                {vehicle.features.map((feature, index) => (
-                  <span 
-                    key={index}
-                    className="bg-gray-100 px-3 py-1 rounded-full text-sm"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <BookingForm vehicleId={vehicle._id} dailyRate={vehicle.dailyRate} />
-        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredVehicles.map(vehicle => (
+          <VehicleCard key={vehicle._id} vehicle={vehicle} />
+        ))}
       </div>
     </div>
   )
