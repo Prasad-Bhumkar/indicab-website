@@ -2,7 +2,7 @@
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
-import { Button } from './ui/Button'
+import Button from './ui/Button'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -49,8 +49,12 @@ function CheckoutForm({ amount, bookingId }: { amount: number, bookingId: string
       })
 
       if (error) throw error
-    } catch (err: any) {
-      setError(err.message || 'Payment failed')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('Payment failed')
+      }
     } finally {
       setLoading(false)
     }

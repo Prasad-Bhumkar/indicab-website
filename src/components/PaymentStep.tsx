@@ -1,7 +1,7 @@
 'use client'
-import { Elements } from '@stripe/stripe-react-components'
+import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import PaymentForm from './PaymentForm'
+import { PaymentForm } from './PaymentForm'
 import { useBookingContext } from '../context/BookingContext'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
@@ -35,7 +35,7 @@ export default function PaymentStep({ booking, onBack }: {
       <Elements stripe={stripePromise}>
         <PaymentForm 
           amount={state.fare} 
-          onSuccess={() => console.log('Payment successful!')}
+          bookingId={booking.id}
         />
       </Elements>
 

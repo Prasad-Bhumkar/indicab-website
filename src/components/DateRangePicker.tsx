@@ -1,12 +1,21 @@
-import { Controller } from 'react-hook-form'
+import { Controller, Control, FieldErrors } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import React from 'react'
+
+const DatePickerComponent = DatePicker as unknown as React.ComponentType<any>
 
 interface DateRangePickerProps {
-  control: any
+  control: Control<any>
   startName: string
   endName: string
-  errors: any
+  errors: FieldErrors<any>
+}
+
+function renderErrorMessage(error: string | { message?: string } | undefined) {
+  if (!error) return null
+  const message = typeof error === 'string' ? error : error.message
+  return <p className="mt-1 text-sm text-red-600">{message}</p>
 }
 
 export default function DateRangePicker({ control, startName, endName, errors }: DateRangePickerProps) {
@@ -20,9 +29,9 @@ export default function DateRangePicker({ control, startName, endName, errors }:
           name={startName}
           control={control}
           render={({ field }) => (
-            <DatePicker
+            <DatePickerComponent
               selected={field.value}
-              onChange={(date) => field.onChange(date)}
+              onChange={(date: Date | null) => field.onChange(date)}
               selectsStart
               startDate={field.value}
               endDate={control._formValues[endName]}
@@ -31,9 +40,7 @@ export default function DateRangePicker({ control, startName, endName, errors }:
             />
           )}
         />
-        {errors[startName] && (
-          <p className="mt-1 text-sm text-red-600">{errors[startName].message}</p>
-        )}
+        {renderErrorMessage(errors[startName])}
       </div>
 
       <div>
@@ -44,9 +51,9 @@ export default function DateRangePicker({ control, startName, endName, errors }:
           name={endName}
           control={control}
           render={({ field }) => (
-            <DatePicker
+            <DatePickerComponent
               selected={field.value}
-              onChange={(date) => field.onChange(date)}
+              onChange={(date: Date | null) => field.onChange(date)}
               selectsEnd
               startDate={control._formValues[startName]}
               endDate={field.value}
@@ -55,9 +62,7 @@ export default function DateRangePicker({ control, startName, endName, errors }:
             />
           )}
         />
-        {errors[endName] && (
-          <p className="mt-1 text-sm text-red-600">{errors[endName].message}</p>
-        )}
+        {renderErrorMessage(errors[endName])}
       </div>
     </div>
   )

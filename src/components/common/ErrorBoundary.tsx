@@ -1,17 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { ErrorService, AppError } from '../../services/ErrorService';
-import type { ErrorType } from '../../types/errors';
-import { ErrorType as ErrorTypeValue } from '../../types/errors';
-
-interface ErrorContext {
-  component?: string;
-  reactErrorInfo?: {
-    componentStack: string;
-  };
-  metadata?: {
-    errorInfo?: ErrorInfo;
-  };
-}
+import type { ErrorType, ErrorContext } from '../../types/errors';
 import { Button } from '../ui/Button';
 import { AlertCircle, RefreshCw, Home } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -41,9 +30,10 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, ErrorBoundaryStat
   }
 
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
-    const appError = ErrorService.handleError(error, ErrorTypeValue.RUNTIME, {
-      component: 'ErrorBoundary'
-    });
+    const context: ErrorContext = {
+      timestamp: new Date()
+    };
+    const appError = ErrorService.handleError(error, 'SERVER_ERROR', context);
     return {
       hasError: true,
       error: appError,
@@ -52,10 +42,10 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryProps, ErrorBoundaryStat
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    const appError = ErrorService.handleError(error, ErrorTypeValue.RUNTIME, {
-      component: this.props.component || 'unknown',
-      metadata: { errorInfo }
-    });
+    const context: ErrorContext = {
+      timestamp: new Date()
+    };
+    const appError = ErrorService.handleError(error, 'SERVER_ERROR', context);
 
     this.setState({ 
       errorInfo,
@@ -153,7 +143,6 @@ function ErrorFallback({ error, onReset }: ErrorFallbackProps) {
   );
 }
 
-// Export a component that uses the router hook
 export default function ErrorBoundary(props: ErrorBoundaryProps) {
   return <ErrorBoundaryClass {...props} />;
 }
