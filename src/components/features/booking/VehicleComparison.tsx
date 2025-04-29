@@ -13,7 +13,7 @@ import {
   Star,
   AlertTriangle
 } from 'lucide-react';
-import { Button } from '../../ui/button'; // Corrected import statement
+import { Button } from '../../ui/Button'; // Corrected import statement
 import Link from 'next/link';
 
 interface VehicleFeature {

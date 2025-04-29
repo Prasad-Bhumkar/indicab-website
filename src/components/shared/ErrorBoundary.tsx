@@ -2,7 +2,7 @@
 
 import React, { Component, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from '../ui/Button';
 import { ErrorService, AppError } from '@/services/ErrorService';
 import { ErrorType } from '@/lib/services/errorService';
 

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '../ui/button';
+import { Button } from '../ui/Button';
 import { Cloud, Sun, Droplets, Wind, ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface Season {

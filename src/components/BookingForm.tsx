@@ -10,8 +10,8 @@ import { useAuthContext } from '../context/AuthContext'
 import LocationSearch from './booking/LocationSearch'
 import DateRangePicker from './DateRangePicker'
 import VehicleTypeSelector from './VehicleTypeSelector'
-import { calculateFare } from 'lib/pricing' // Updated import statement
-import { createBooking } from 'services/booking/api' // Updated import statement
+import { calculateFare } from '../lib/pricing' // Updated import statement
+import { createBooking } from '../services/booking/api' // Updated import statement
 import PaymentStep from './PaymentStep'
 
 type BookingFormData = z.infer<typeof bookingSchema>
@@ -34,7 +34,7 @@ export default function BookingForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string>('') // Explicit type definition
 
-  const handleError = (error: unknown) => { // Explicit type definition
+  const handleError = (error: unknown) => { // Improved error handling
     console.error('BookingForm error:', error)
     setError(error instanceof Error ? error.message : 'An unknown error occurred')
   }
@@ -90,10 +90,20 @@ export default function BookingForm() {
 
     setLoading(true)
     try {
+      // Validate date range
+      if (data.startDate >= data.endDate) {
+        throw new Error('End date must be after start date')
+      }
+      
+      // Validate pickup and destination are different
+      if (data.pickup.toLowerCase() === data.destination.toLowerCase()) {
+        throw new Error('Pickup and destination cannot be the same')
+      }
+
       const fare = calculateFare(data.vehicleType, data.startDate, data.endDate)
       const bookingData = {
         ...data,
-        customerId: user.id,  // Changed from userId to match expected type
+        customerId: user.id,
         fare,
         status: 'pending' as const
       }

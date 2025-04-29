@@ -1,83 +1,99 @@
 import * as Sentry from '@sentry/nextjs';
-import fs from 'fs';
-import path from 'path';
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
-interface LogContext {
+interface LogData {
+  message?: string;
   [key: string]: any;
 }
 
+/**
+ * Standardized logger for the application
+ * Logs to console in development and both console and Sentry in production
+ */
 class Logger {
-  private static instance: Logger;
-  private logFile = './logs/app.log';
+  private isDev = process.env.NODE_ENV !== 'production';
 
-  private constructor() {}
-
-  static getInstance(): Logger {
-    if (!Logger.instance) {
-      Logger.instance = new Logger();
-    }
-    return Logger.instance;
-  }
-
-  private formatTimestamp(): string {
-    const now = new Date();
-    return now.toISOString().replace('T', ' ').replace(/\..+/, '');
-  }
-
-  private logToFile(message: string) {
-    if (process.env.NODE_ENV === 'production') {
-      try {
-        const logDir = path.dirname(this.logFile);
-        
-        if (!fs.existsSync(logDir)) {
-          fs.mkdirSync(logDir, { recursive: true });
-        }
-        
-        fs.appendFileSync(this.logFile, message);
-      } catch (err) {
-        console.error('Failed to write to log file:', err);
+  /**
+   * Log debug message
+   */
+  debug(data: LogData | string): void {
+    if (this.isDev) {
+      if (typeof data === 'string') {
+        console.debug('[DEBUG]', data);
+      } else {
+        console.debug('[DEBUG]', data.message || '', data);
       }
     }
   }
 
-  log(level: LogLevel, message: string, context?: LogContext) {
-    const timestamp = this.formatTimestamp();
-    const logMessage = `[${timestamp}] [${level.toUpperCase()}] ${message}`;
-    const fullMessage = context 
-      ? `${logMessage}\n${JSON.stringify(context, null, 2)}` 
-      : logMessage;
+  /**
+   * Log info message
+   */
+  info(data: LogData | string): void {
+    if (typeof data === 'string') {
+      console.info('[INFO]', data);
+    } else {
+      console.info('[INFO]', data.message || '', data);
+    }
 
-    // Log to appropriate console method
-    console[level](fullMessage);
-
-    // Log to file in production
-    this.logToFile(fullMessage + '\n');
-
-    // Capture errors to Sentry
-    if (level === 'error') {
-      Sentry.captureException(new Error(message), { extra: context });
+    // Only send to Sentry if explicitly requested
+    if (typeof data === 'object' && data.reportToSentry) {
+      Sentry.captureMessage(
+        data.message || 'Info event',
+        Sentry.Severity.Info
+      );
     }
   }
 
-  debug(message: string, context?: LogContext) {
-    if (process.env.NODE_ENV !== 'production') {
-      this.log('debug', message, context);
+  /**
+   * Log warning message
+   */
+  warn(data: LogData | string): void {
+    if (typeof data === 'string') {
+      console.warn('[WARN]', data);
+    } else {
+      console.warn('[WARN]', data.message || '', data);
+    }
+
+    // Send warnings to Sentry in production
+    if (!this.isDev) {
+      const message = typeof data === 'string' ? data : (data.message || 'Warning event');
+      Sentry.captureMessage(message, Sentry.Severity.Warning);
     }
   }
 
-  info(message: string, context?: LogContext) {
-    this.log('info', message, context);
-  }
-
-  warn(message: string, context?: LogContext) {
-    this.log('warn', message, context);
-  }
-
-  error(message: string, context?: LogContext) {
-    this.log('error', message, context);
+  /**
+   * Log error message
+   */
+  error(data: LogData | string | Error): void {
+    if (data instanceof Error) {
+      console.error('[ERROR]', data.message, data);
+      
+      if (!this.isDev) {
+        Sentry.captureException(data);
+      }
+    } else if (typeof data === 'string') {
+      console.error('[ERROR]', data);
+      
+      if (!this.isDev) {
+        Sentry.captureMessage(data, Sentry.Severity.Error);
+      }
+    } else {
+      console.error('[ERROR]', data.message || '', data);
+      
+      if (!this.isDev) {
+        if (data.error instanceof Error) {
+          Sentry.captureException(data.error);
+        } else {
+          Sentry.captureMessage(
+            data.message || 'Error event',
+            Sentry.Severity.Error
+          );
+        }
+      }
+    }
   }
 }
 
-export const logger = Logger.getInstance();
+export const logger = new Logger();

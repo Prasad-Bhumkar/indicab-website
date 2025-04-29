@@ -1,84 +1,159 @@
-'use client'
-import { ReactNode, useState, useEffect } from 'react'
-import * as Sentry from '@sentry/nextjs'
+import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { ErrorService, AppError } from '../../services/ErrorService';
+import type { ErrorType } from '../../types/errors';
+import { ErrorType as ErrorTypeValue } from '../../types/errors';
+
+interface ErrorContext {
+  component?: string;
+  reactErrorInfo?: {
+    componentStack: string;
+  };
+  metadata?: {
+    errorInfo?: ErrorInfo;
+  };
+}
+import { Button } from '../ui/Button';
+import { AlertCircle, RefreshCw, Home } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface ErrorBoundaryProps {
-  children: ReactNode
-  fallback?: ReactNode
-  onError?: (error: Error) => void
+  children: ReactNode;
+  fallback?: ReactNode;
+  onError?: (error: AppError, errorInfo: ErrorInfo) => void;
+  onReset?: () => void;
+  component?: string;
 }
 
-export default function ErrorBoundary({ 
-  children, 
-  fallback,
-  onError 
-}: ErrorBoundaryProps) {
-  const [error, setError] = useState<Error | null>(null)
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: AppError | null;
+  errorInfo: ErrorInfo | null;
+}
 
-  useEffect(() => {
-    const handleError = (event: ErrorEvent) => {
-      const error = event.error
-      setError(error)
-      onError?.(error)
-      Sentry.captureException(error)
-      console.error('ErrorBoundary caught:', error)
-    }
-
-    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      const error = event.reason
-      setError(error)
-      onError?.(error)
-      Sentry.captureException(error)
-      console.error('Unhandled rejection:', error)
-    }
-
-    window.addEventListener('error', handleError)
-    window.addEventListener('unhandledrejection', handleUnhandledRejection)
-    return () => {
-      window.removeEventListener('error', handleError)
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection)
-    }
-  }, [onError])
-
-  if (error) {
-    return fallback || (
-      <div className="error-boundary p-6 bg-red-50 rounded-lg border border-red-200">
-        <div className="flex items-start gap-4">
-          <div className="flex-shrink-0">
-            <svg 
-              className="h-6 w-6 text-red-600" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-              />
-            </svg>
-          </div>
-          <div>
-            <h3 className="text-lg font-medium text-red-800">
-              Something went wrong
-            </h3>
-            <p className="mt-1 text-sm text-red-700">
-              {error.message || 'An unexpected error occurred'}
-            </p>
-            <div className="mt-4">
-              <button
-                onClick={() => window.location.reload()}
-                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              >
-                Reload Page
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+class ErrorBoundaryClass extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null,
+      errorInfo: null
+    };
   }
 
-  return children
+  static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
+    const appError = ErrorService.handleError(error, ErrorTypeValue.RUNTIME, {
+      component: 'ErrorBoundary'
+    });
+    return {
+      hasError: true,
+      error: appError,
+      errorInfo: null
+    };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    const appError = ErrorService.handleError(error, ErrorTypeValue.RUNTIME, {
+      component: this.props.component || 'unknown',
+      metadata: { errorInfo }
+    });
+
+    this.setState({ 
+      errorInfo,
+      error: appError
+    });
+
+    if (this.props.onError) {
+      this.props.onError(appError, errorInfo);
+    }
+  }
+
+  resetErrorBoundary = () => {
+    const { onReset } = this.props;
+
+    ErrorService.logInfo('Error boundary reset', {
+      component: this.constructor.name,
+      errorId: (this.state.error as any)?.id
+    });
+
+    if (onReset) {
+      onReset();
+    }
+
+    this.setState({
+      hasError: false, 
+      error: null,
+      errorInfo: null
+    });
+  };
+
+  render(): ReactNode {
+    if (this.state.hasError) {
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
+
+      return <ErrorFallback 
+        error={this.state.error} 
+        onReset={this.resetErrorBoundary}
+      />;
+    }
+
+    return this.props.children;
+  }
+}
+
+interface ErrorFallbackProps {
+  error?: AppError | null;
+  onReset?: () => void;
+}
+
+function ErrorFallback({ error, onReset }: ErrorFallbackProps) {
+  const router = useRouter();
+  
+  return (
+    <div className="flex h-full min-h-[300px] w-full items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <div className="max-w-md rounded-lg bg-white dark:bg-gray-800 p-8 shadow-lg">
+        <div className="flex items-center gap-3 mb-4">
+          <AlertCircle className="h-8 w-8 text-red-500 dark:text-red-400" />
+          <h1 className="text-2xl font-bold text-red-600 dark:text-red-400">
+            Something went wrong
+          </h1>
+        </div>
+        
+        {error && (
+          <p className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md text-red-600 dark:text-red-400 text-sm">
+            {error.message}
+          </p>
+        )}
+        
+        <p className="mb-6 text-gray-600 dark:text-gray-300">
+          We're sorry for the inconvenience. Our team has been notified of this issue.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button
+            onClick={onReset || (() => window.location.reload())}
+            className="flex items-center gap-2"
+            variant="outline"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Try Again
+          </Button>
+          
+          <Button
+            onClick={() => router.push('/')}
+            className="flex items-center gap-2"
+          >
+            <Home className="h-4 w-4" />
+            Go to Homepage
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Export a component that uses the router hook
+export default function ErrorBoundary(props: ErrorBoundaryProps) {
+  return <ErrorBoundaryClass {...props} />;
 }

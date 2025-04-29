@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '@components/ui/button'; // Updated import
+import { Button } from '@components/ui/Button'; // Updated import
 import LoadingSpinner from '@components/ui/LoadingSpinner';
 
 export default function HeroSection() {

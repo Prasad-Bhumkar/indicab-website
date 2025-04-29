@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Button } from '../../ui/button';
+import { Button } from '../../ui/Button';
 import { Users, Briefcase, ShieldCheck, Star } from 'lucide-react';
 
 // Define car data

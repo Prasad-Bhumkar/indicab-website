@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import { Route } from '../../data/routes';
-import { Button } from '../../ui/button';
+import { Button } from '../../ui/Button';
 
 // Fix for Leaflet marker issue in Next.js
 const markerIcon = new Icon({

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../ui/dialog';
-import { Button } from '../../ui/button';
+import { Button } from '../../ui/Button';
 import { MapPin, Star, Calendar, Clock, MessageSquare, Heart, Share, Car, X, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

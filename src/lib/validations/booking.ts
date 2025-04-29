@@ -18,6 +18,8 @@ export const bookingSchema = z.object({
 
 export type BookingInput = z.infer<typeof bookingSchema>;
 
-export const bookingUpdateSchema = bookingSchema.partial();
+export const bookingUpdateSchema = bookingSchema.partial().extend({
+  id: z.string().min(1, 'Booking ID is required')
+});
 
 export type BookingUpdateInput = z.infer<typeof bookingUpdateSchema>;

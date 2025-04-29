@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import ErrorBoundary from '../components/common/ErrorBoundary'
-import { Button } from '../components/ui/button'
+import ErrorBoundary from '../components/shared/ErrorBoundary'
+import { Button } from '../components/ui/Button'
 
 // Component metadata
 const meta: Meta<typeof ErrorBoundary> = {
@@ -15,9 +15,7 @@ const meta: Meta<typeof ErrorBoundary> = {
       }
     }
   },
-  argTypes: {
-    onError: { action: 'error captured' }
-  }
+  argTypes: {}
 }
 
 export default meta

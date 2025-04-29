@@ -23,7 +23,8 @@
       "./src/types"
     ],
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "plugins": [
       {

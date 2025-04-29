@@ -1,6 +1,6 @@
 import React from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from './ui/Button';
 
 type ErrorBoundaryProps = {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   static getDerivedStateFromError(error: Error) {
-    // Capture error details for reporting
+    // Improved error handling
     const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
       component: this.constructor.name
     });
@@ -32,7 +32,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Report full error with component stack
+    // Improved error reporting
     const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
       component: this.constructor.name,
       metadata: { errorInfo }

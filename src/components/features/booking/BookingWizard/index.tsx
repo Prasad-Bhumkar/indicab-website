@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
-import { Button } from '../../ui/button';
-import RouteSelection from '../RouteSelection';
-import VehicleSelection from '../VehicleSelection';
-import DateTimeSelection from '../DateTimeSelection';
-import PassengerDetails from '../PassengerDetails';
-import PaymentSelection from '../PaymentSelection';
-import BookingConfirmation from '../BookingConfirmation';
+import { Button } from '@/components/ui/button';
+import * as Sentry from '@sentry/nextjs';
+import RouteSelection from './RouteSelection';
+import VehicleSelection from './VehicleSelection';
+import DateTimeSelection from './DateTimeSelection';
+import PassengerDetails from './PassengerDetails';
+import PaymentSelection from './PaymentSelection';
+import BookingConfirmation from './BookingConfirmation';
 
 // Step interface
 export interface BookingStep {
@@ -161,22 +162,30 @@ export default function BookingWizard() {
     setError(null);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Call the real API endpoint
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      // Simulate API validation check
-      if (!formData.name || !formData.email || !formData.phone) {
-        throw new Error('Please complete all required fields');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create booking');
       }
 
-      // Generate a random booking ID
-      const generatedBookingId = `IND${Math.floor(100000 + Math.random() * 900000)}`;
-      setBookingId(generatedBookingId);
+      const data = await response.json();
+      setBookingId(data.bookingId);
       setIsComplete(true);
       setCurrentStep(bookingSteps.length - 1);
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
       console.error('Error submitting booking:', error);
+      
+      // Log error to Sentry
+      Sentry.captureException(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -198,6 +207,25 @@ export default function BookingWizard() {
     setIsComplete(false);
     setBookingId(null);
     setError(null);
+  };
+
+  const handleError = (error: Error) => {
+    console.error('Booking error:', error);
+    setError({
+      message: error.message,
+      retry: () => {
+        setError(null);
+        // Add retry logic for specific operations here
+      }
+    });
+  };
+
+  const sanitizeHTML = (html: string): string => {
+    // Basic HTML sanitization to prevent XSS
+    return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/on\w+=\s*"[^"]*"/gi, '')
+      .replace(/on\w+=\s*'[^']*'/gi, '')
+      .replace(/on\w+=\s*[^\s>]+/gi, '');
   };
 
   // Render current step content
@@ -260,13 +288,17 @@ export default function BookingWizard() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 max-w-4xl mx-auto transition-all">
+    <div 
+      className="bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 max-w-4xl mx-auto transition-all"
+      role="region"
+      aria-label="Booking wizard"
+    >
       {/* Header */}
       <div className="bg-gray-50 dark:bg-gray-800 p-6 border-b border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100" id="booking-wizard-title">
           Book Your Cab
         </h2>
-        <p className="text-gray-500 dark:text-gray-400">
+        <p className="text-gray-500 dark:text-gray-400" id="booking-wizard-description">
           Complete the steps below to book your ride
         </p>
       </div>
@@ -274,130 +306,153 @@ export default function BookingWizard() {
       {/* Progress bar */}
       <div className="px-6 pt-6">
         <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-          <motion.div
-            className="absolute h-full bg-primary rounded-full"
-            initial={{ width: '0%' }}
-            animate={{ width: `${progressPercentage}%` }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
+          <div 
+            className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={progressPercentage}
+            aria-labelledby="booking-progress-label"
+          >
+            <span id="booking-progress-label" className="sr-only">
+              Step {currentStep + 1} of {bookingSteps.length}, {progressPercentage}% complete
+            </span>
+            <motion.div
+              className="absolute h-full bg-primary rounded-full"
+              initial={{ width: '0%' }}
+              animate={{ width: `${progressPercentage}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
 
-        {/* Step indicators */}
-        <div className="flex justify-between mt-4">
-          {bookingSteps.map((step, index) => (
-            <div
-              key={step.id}
-              className="flex flex-col items-center"
-              style={{ width: `${100 / bookingSteps.length}%` }}
-            >
-              <motion.button
-                className={`w-9 h-9 rounded-full flex items-center justify-center font-medium text-sm mb-2 transition-all ${
-                  index < currentStep
-                    ? 'bg-primary text-white shadow-md'
-                    : index === currentStep
-                      ? 'bg-primary/20 text-primary border-2 border-primary shadow-md'
-                      : index <= highestStepVisited
-                        ? 'bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-500'
-                        : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed'
-                }`}
-                onClick={() => goToStep(index)}
-                disabled={index > highestStepVisited}
-                whileHover={index <= highestStepVisited ? { scale: 1.05 } : {}}
-                whileTap={index <= highestStepVisited ? { scale: 0.95 } : {}}
+          {/* Step indicators */}
+          <div className="flex justify-between mt-4" role="tablist">
+            {bookingSteps.map((step, index) => (
+              <div
+                key={step.id}
+                className="flex flex-col items-center"
+                style={{ width: `${100 / bookingSteps.length}%` }}
               >
-                {index < currentStep ? <Check className="h-5 w-5" /> : index + 1}
-              </motion.button>
-              <span className={`text-xs font-medium whitespace-nowrap ${
-                index <= currentStep
-                  ? 'text-primary'
-                  : index <= highestStepVisited
-                    ? 'text-gray-600 dark:text-gray-300'
-                    : 'text-gray-400 dark:text-gray-500'
-              }`}>
-                {step.title}
-              </span>
-            </div>
-          ))}
+                <motion.button
+                  className={`w-9 h-9 rounded-full flex items-center justify-center font-medium text-sm mb-2 transition-all ${
+                    index < currentStep
+                      ? 'bg-primary text-white shadow-md'
+                      : index === currentStep
+                        ? 'bg-primary/20 text-primary border-2 border-primary shadow-md'
+                        : index <= highestStepVisited
+                          ? 'bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-500'
+                          : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed'
+                  }`}
+                  onClick={() => goToStep(index)}
+                  disabled={index > highestStepVisited}
+                  whileHover={index <= highestStepVisited ? { scale: 1.05 } : {}}
+                  whileTap={index <= highestStepVisited ? { scale: 0.95 } : {}}
+                  role="tab"
+                  id={`step-${step.id}-tab`}
+                  aria-controls={`step-${step.id}-content`}
+                  aria-selected={currentStep === index}
+                  aria-disabled={index > highestStepVisited}
+                >
+                  {index < currentStep ? <Check className="h-5 w-5" aria-hidden="true" /> : index + 1}
+                  <span className="sr-only">{step.title}</span>
+                </motion.button>
+                <span className={`text-xs font-medium whitespace-nowrap ${
+                  index <= currentStep
+                    ? 'text-primary'
+                    : index <= highestStepVisited
+                      ? 'text-gray-600 dark:text-gray-300'
+                      : 'text-gray-400 dark:text-gray-500'
+                }`}>
+                  {step.title}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Step content */}
-      <div className="p-6">
-        {error && (
-          <motion.div
-            className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md text-red-600 dark:text-red-400 flex items-center gap-2"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <AlertCircle className="h-5 w-5 flex-shrink-0" />
-            <p>{error}</p>
-          </motion.div>
-        )}
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={stepVariants}
-            transition={{ duration: 0.3 }}
-            className="min-h-[300px]"
-          >
-            {renderStepContent()}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Navigation buttons */}
-      {!isComplete && (
-        <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-between">
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              variant="outline"
-              onClick={goToPreviousStep}
-              disabled={currentStep === 0 || isSubmitting}
-              className="flex items-center gap-1"
+        {/* Step content */}
+        <div className="p-6">
+          {error && (
+            <motion.div
+              className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md text-red-600 dark:text-red-400 flex items-center gap-2"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              role="alert"
             >
-              <ChevronLeft className="h-4 w-4" />
-              Back
-            </Button>
-          </motion.div>
+              <AlertCircle className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+              <p>{error}</p>
+            </motion.div>
+          )}
 
-          {currentStep < bookingSteps.length - 1 ? (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={stepVariants}
+              transition={{ duration: 0.3 }}
+              className="min-h-[300px]"
+              role="tabpanel"
+              id={`step-${bookingSteps[currentStep].id}-content`}
+              aria-labelledby={`step-${bookingSteps[currentStep].id}-tab`}
+            >
+              {renderStepContent()}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Navigation buttons */}
+        {!isComplete && (
+          <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-between">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
-                onClick={goToNextStep}
-                disabled={!isStepValid || isSubmitting}
-                className="bg-primary hover:bg-primary/90 text-white flex items-center gap-1 px-6"
+                variant="outline"
+                onClick={goToPreviousStep}
+                disabled={currentStep === 0 || isSubmitting}
+                className="flex items-center gap-1"
               >
-                Continue
-                <ChevronRight className="h-4 w-4" />
+                <ChevronLeft className="h-4 w-4" />
+                Back
               </Button>
             </motion.div>
-          ) : (
-            !isComplete && (
+
+            {currentStep < bookingSteps.length - 1 ? (
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
-                  onClick={submitBooking}
+                  onClick={goToNextStep}
                   disabled={!isStepValid || isSubmitting}
-                  className="bg-primary hover:bg-primary/90 text-white px-6"
+                  className="bg-primary hover:bg-primary/90 text-white flex items-center gap-1 px-6"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>Complete Booking</>
-                  )}
+                  Continue
+                  <ChevronRight className="h-4 w-4" />
                 </Button>
               </motion.div>
-            )
-          )}
-        </div>
-      )}
+            ) : (
+              !isComplete && (
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    onClick={submitBooking}
+                    disabled={!isStepValid || isSubmitting}
+                    className="bg-primary hover:bg-primary/90 text-white px-6"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Processing...
+                      </>
+                    ) : (
+                      <>Complete Booking</>
+                    )}
+                  </Button>
+                </motion.div>
+              )
+            )}
+          </div>
+        )}
+      </div>
+    );
     </div>
   );
 }

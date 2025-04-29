@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Card } from '../../ui/card';
-import { Button } from '../../ui/button';
+import { Button } from '../../ui/Button';
 import { MapPin, ChevronRight, Car, ArrowRight } from 'lucide-react';
 
 const popularRoutes = [

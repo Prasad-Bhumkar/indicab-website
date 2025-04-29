@@ -1,15 +1,16 @@
 import { createContext, useContext, useState } from 'react'
-
-type User = {
-  id: string
-  email: string
-  name?: string
-}
+import { useSession } from 'next-auth/react'
 
 type AuthContextType = {
-  user: User | null
-  login: (user: User) => void
-  logout: () => void
+  user: {
+    id: string
+    email?: string
+    name?: string
+    image?: string
+  } | null
+  status: 'loading' | 'authenticated' | 'unauthenticated'
+  signIn: () => Promise<void>
+  signOut: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -18,19 +19,38 @@ const AuthContext = createContext<AuthContextType>({
   logout: () => {}
 })
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null)
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const { data: session, status } = useSession()
+  const [user, setUser] = useState<AuthContextType['user']>(null)
 
-  const login = (userData: User) => {
-    setUser(userData)
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      setUser({
+        id: session.user.id,
+        name: session.user.name || undefined,
+        email: session.user.email || undefined,
+        image: session.user.image || undefined
+      })
+    } else {
+      setUser(null)
+    }
+  }, [status, session])
+
+  const handleSignIn = async () => {
+    await signIn('google')
   }
 
-  const logout = () => {
-    setUser(null)
+  const handleSignOut = async () => {
+    await signOut({ redirect: false })
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      status,
+      signIn: handleSignIn,
+      signOut: handleSignOut
+    }}>
       {children}
     </AuthContext.Provider>
   )
