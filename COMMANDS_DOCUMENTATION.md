@@ -91,17 +91,17 @@
 ### Cache Management
 - **Clear Playwright Reports**:
   ```bash
-  Remove-Item -Recurse -Force playwright-report
+  rm -rf playwright-report
   ```
 
 - **Clear Storybook Static Files**:
   ```bash
-  Remove-Item -Recurse -Force storybook-static
+  rm -rf storybook-static
   ```
 
 - **Clear Test Results**:
   ```bash
-  Remove-Item -Recurse -Force test-results
+  rm -rf test-results
   ```
 
 ### Testing

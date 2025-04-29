@@ -15,8 +15,8 @@
 ## User Interface Components
 | Component          | Status | Version | Notes                                   |
 |--------------------|--------|---------|-----------------------------------------|
-| Hero section       | ✅ Live | v1.0   | Dynamic form tabs                       |
-| Vehicle cards      | ✅ Live | v1.1   | 3D rotation effects                     |
+| Hero section       | ✅ Live | v1.0   | Full-width background image with overlay, responsive typography, and CTAs |
+| Vehicle cards      | ✅ Live | v1.1   | Vehicle showcase with images, ratings, features, and animated transitions |
 | Route display      | ✅ Live | v1.3   | Interactive map integration             |
 | Booking wizard     | ✅ Live | v1.2   | 5-step process with save points        |
 | Dark mode          | ✅ Live | v1.4   | Full theme support                      |

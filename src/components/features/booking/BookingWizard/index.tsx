@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../../../ui/button/button';
 import * as Sentry from '@sentry/nextjs';
 import RouteSelection from './RouteSelection';
 import VehicleSelection from './VehicleSelection';
@@ -77,6 +77,10 @@ export interface BookingFormData {
   passengers: number;
   specialRequests: string;
 
+  // Group booking
+  isGroupBooking: boolean;
+  groupSize?: number;
+
   // Payment details
   paymentMethod: 'card' | 'upi' | 'cash';
   promoCode?: string;
@@ -102,6 +106,8 @@ const defaultFormData: BookingFormData = {
   phone: '',
   passengers: 1,
   specialRequests: '',
+  isGroupBooking: false,
+  groupSize: 1,
   paymentMethod: 'card',
   basePrice: 0,
   tax: 0,
@@ -183,7 +189,7 @@ export default function BookingWizard() {
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
       console.error('Error submitting booking:', error);
-      
+
       // Log error to Sentry
       Sentry.captureException(error);
     } finally {
@@ -211,21 +217,7 @@ export default function BookingWizard() {
 
   const handleError = (error: Error) => {
     console.error('Booking error:', error);
-    setError({
-      message: error.message,
-      retry: () => {
-        setError(null);
-        // Add retry logic for specific operations here
-      }
-    });
-  };
-
-  const sanitizeHTML = (html: string): string => {
-    // Basic HTML sanitization to prevent XSS
-    return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/on\w+=\s*"[^"]*"/gi, '')
-      .replace(/on\w+=\s*'[^']*'/gi, '')
-      .replace(/on\w+=\s*[^\s>]+/gi, '');
+    setError(error instanceof Error ? error.message : 'An unexpected error occurred');
   };
 
   // Render current step content
@@ -452,7 +444,6 @@ export default function BookingWizard() {
           </div>
         )}
       </div>
-    );
     </div>
   );
 }

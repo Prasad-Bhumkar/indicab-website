@@ -93,3 +93,9 @@ src/components/
    - Mark legacy components with `@deprecated`
    - Add migration path in JSDoc
    - Remove after 2 release cycles
+
+## Additional Notes
+- The `ErrorBoundary` component is critical for robust error handling and should be maintained in the `shared` directory.
+- Feature components are dynamically imported in pages for performance optimization.
+- UI components use Tailwind CSS and Framer Motion for styling and animations.
+- Ensure all new components follow accessibility best practices and responsive design principles.

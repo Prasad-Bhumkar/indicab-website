@@ -92,6 +92,22 @@
   - Auto-renews when used
   - Drops after inactivity timeout
 
+## API Integration and Error Handling
+- API clients in `src/services` use fetch with try-catch blocks.
+- Meaningful error messages are thrown and logged.
+- Authorization tokens are managed via localStorage.
+- Example: `createBooking` function in `src/services/booking/api.ts`.
+
+## Caching
+- Redis is used for caching to improve performance.
+- Connection details managed via `REDIS_URL` environment variable.
+
+## Deployment and Infrastructure
+- Docker Compose setup includes MongoDB and Redis for local development.
+- Production hosting on Vercel and staging on Netlify.
+- Media storage on AWS S3.
+- CDN and DNS managed by Cloudflare.
+
 ## Environment Variables
 - `MONGODB_URI`: MongoDB connection string (required)
 - `JWT_SECRET`: Secret key for JWT signing (required)
@@ -99,5 +115,3 @@
 - `REDIS_URL`: Redis connection URL for caching (optional)
 - `RATE_LIMIT_WINDOW`: Rate limit window in ms (default: 60000)
 - `RATE_LIMIT_MAX`: Max requests per window (default: 100)
-
-This documentation provides an overview of the backend architecture and API functionality for the IndiCab project.
