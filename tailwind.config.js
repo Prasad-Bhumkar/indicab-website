@@ -38,12 +38,24 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   safelist: [
-    /^bg-/,
-    /^text-/,
-    /^border-/,
-    /^hover:bg-/,
-    /^hover:text-/,
+    {
+      pattern: /^bg-/,
+    },
+    {
+      pattern: /^text-/,
+    },
+    {
+      pattern: /^border-/,
+    },
+    {
+      pattern: /^hover:bg-/,
+    },
+    {
+      pattern: /^hover:text-/,
+    },
     'dark',
-    'dark:*',
+    {
+      pattern: /^dark:/,
+    },
   ],
 };

@@ -3,7 +3,7 @@
 import React from 'react';
 import { BookingFormData } from './';
 import { CheckCircle, Calendar, MapPin, Clock, Car, User, Phone, Mail, CreditCard, Copy, Share2, Download, Printer } from 'lucide-react';
-import { Button } from '../../ui/button';
+import { Button } from '@components/ui/button';
 import { motion } from 'framer-motion';
 
 interface BookingConfirmationProps {
@@ -13,17 +13,18 @@ interface BookingConfirmationProps {
   isSubmitting: boolean;
   submitBooking: () => void;
   resetBooking: () => void;
+  shareBooking: () => void;
 }
 
-export default function BookingConfirmation({
+const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
   formData,
   bookingId,
   isComplete,
   isSubmitting,
   submitBooking,
-  resetBooking
-}: BookingConfirmationProps) {
-  // Copy booking ID to clipboard
+  resetBooking,
+  shareBooking,
+}) => {
   const copyBookingId = () => {
     if (bookingId) {
       navigator.clipboard.writeText(bookingId);
@@ -31,50 +32,35 @@ export default function BookingConfirmation({
     }
   };
 
-  // Share booking details (mock function)
-  const shareBooking = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: 'IndiCab Booking',
-        text: `My IndiCab booking (${bookingId}) from ${formData.pickup} to ${formData.dropoff} on ${formData.date} at ${formData.time}`,
-        url: window.location.href,
-      }).catch(err => {
-        console.log('Error sharing', err);
-      });
-    } else {
-      alert('Sharing not supported on this browser');
-    }
-  };
-
   return (
-    <div className="space-y-6">
+    <div>
+      <div className="flex items-center">
+        <span className="font-bold text-primary">{bookingId}</span>
+        {bookingId && (
+          <button
+            onClick={copyBookingId}
+            className="ml-2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+            aria-label="Copy booking ID"
+          >
+            <Copy className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+
       {isComplete ? (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-6"
+          className="space-y-4"
         >
-          <div className="flex justify-center mb-4">
-            <CheckCircle className="h-20 w-20 text-green-500" />
+          <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+            <CheckCircle className="h-5 w-5" />
+            <h3 className="text-xl font-bold">Booking Confirmed!</h3>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-            Booking Confirmed!
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Your cab has been booked successfully. Details have been sent to your email and phone.
+          <p className="text-gray-600 dark:text-gray-300">
+            Your booking has been successfully confirmed. A confirmation has been sent to your email.
           </p>
-          <div className="bg-gray-50 dark:bg-gray-800 py-2 px-4 rounded-lg inline-flex items-center">
-            <span className="font-medium text-gray-700 dark:text-gray-300 mr-2">Booking ID:</span>
-            <span className="font-bold text-primary">{bookingId}</span>
-            <button
-              onClick={copyBookingId}
-              className="ml-2 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-              aria-label="Copy booking ID"
-            >
-              <Copy className="h-4 w-4" />
-            </button>
-          </div>
         </motion.div>
       ) : (
         <div>

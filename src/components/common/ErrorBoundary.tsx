@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { ErrorService, AppError } from '../../services/ErrorService';
 import type { ErrorType, ErrorContext } from '../../types/errors';
