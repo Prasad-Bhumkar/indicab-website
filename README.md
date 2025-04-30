@@ -1,175 +1,346 @@
-# IndiCab - Indian Cab Booking Service
+# Comprehensive Documentation for IndiCab Project
 
-![IndiCab Logo](/public/indicab-logo.svg)
+## Backend Documentation
 
-A modern cab booking service built with Next.js, React, and TypeScript. IndiCab offers one-way, round trip, and rental services across major Indian cities.
+### API Routes
 
-## Live Demo
+#### Authentication Route
+- **POST /api/auth**
+  - **Description**: Authenticates a user and returns a JWT token.
+  - **Rate Limit**: 10 requests per minute
+  - **Request Body**:
+    ```json
+    {
+      "email": "user@example.com",
+      "password": "userpassword"
+    }
+    ```
+  - **Response**:
+    - On success (200):
+      ```json
+      {
+        "user": {
+          "id": "user_id",
+          "name": "User Name",
+          "email": "user@example.com",
+          "role": "user"
+        },
+        "token": "jwt_token",
+        "expiresIn": "1d"
+      }
+      ```
+    - On failure (401):
+      ```json
+      {
+        "error": "Invalid credentials",
+        "code": "AUTH_001"
+      }
+      ```
+    - On rate limit (429):
+      ```json
+      {
+        "error": "Too many requests",
+        "retryAfter": 60
+      }
+      ```
 
-Check out the live demo:
-- [IndiCab Application](https://solidcab.same-app.com)
+#### Token Refresh Route
+- **POST /api/auth/refresh**
+  - **Description**: Refreshes the JWT token using the provided token.
+  - **Request Body**:
+    ```json
+    {
+      "token": "jwt_token"
+    }
+    ```
+  - **Response**:
+    - On success:
+      ```json
+      {
+        "token": "new_jwt_token",
+        "expiresIn": "86400"
+      }
+      ```
+    - On failure:
+      ```json
+      {
+        "error": "Token refresh failed"
+      }
+      ```
 
-## Key Features
+### Database Models
 
-### Booking Experience
-- **Intuitive Interface**: Simple forms for all trip types
-- **Smart Route Search**: Autocomplete with popular routes
-- **City Explorer**: Browse services by city
-- **Favorites System**: Save routes with localStorage sync
-- **Responsive Design**: Optimized for all devices
-- **Animated UI**: Smooth transitions and micro-interactions
-- **Error Handling**: Robust error boundaries and clear messages
+#### User Model
+- **Schema**:
+  - `email`: String, required, unique, validated with regex
+  - `passwordHash`: String, required, not selectable
+  - `name`: String, required
+  - `phone`: String, validated for 10 digits
+  - `role`: String, enum (user, admin, driver), default: user
+  - `bookings`: Array of ObjectId references to Booking
+  - `createdAt`: Date, default: now
+  - `updatedAt`: Date, updated on save
 
-## Technology Stack (2024 Q3)
+### Database Connection
+- **File**: `lib/db-connection.ts`
+- **Description**: Establishes a connection to MongoDB using Mongoose.
+- **Connection Logic**:
+  - Uses a cached connection to avoid multiple connections
+  - Implements connection pooling (default poolSize: 5)
+  - Automatic reconnection with exponential backoff
+  - Throws an error if the `MONGODB_URI` environment variable is not defined
+- **Cache Strategy**:
+  - Connection cached for 30 minutes
+  - Auto-renews when used
+  - Drops after inactivity timeout
 
-### Core Framework
-- Next.js 15.4.0 (App Router)
-- React 18.3.1 (Concurrent Features)
-- TypeScript 5.4.0 (Strict Mode)
-- Node.js 20.0.0 (LTS)
+### API Integration and Error Handling
+- API clients in `src/services` use fetch with try-catch blocks.
+- Meaningful error messages are thrown and logged.
+- Authorization tokens are managed via localStorage.
+- Example: `createBooking` function in `src/services/booking/api.ts`.
 
-### UI Components
-- Tailwind CSS 3.4.0 + CSS Modules
-- Framer Motion 10.16.0 (Animations)
-- Radix UI 1.0.0 (Accessible Primitives)
-- Storybook 8.0.0 (Component Library)
+### Caching
+- Redis is used for caching to improve performance.
+- Connection details managed via `REDIS_URL` environment variable.
 
-### Backend Services
-- MongoDB 7.0.0 (Atlas)
-- Redis 7.2.0 (Caching)
-- NextAuth.js 5.0.0 (Authentication)
+### Deployment and Infrastructure
+- Docker Compose setup includes MongoDB and Redis for local development.
+- Production hosting on Vercel and staging on Netlify.
+- Media storage on AWS S3.
+- CDN and DNS managed by Cloudflare.
 
-### Infrastructure
-- Vercel (Production Hosting)
-- Netlify (Staging Environment)
-- AWS S3 (Media Storage)
-- Cloudflare (CDN & DNS)
+### Environment Variables
+- `MONGODB_URI`: MongoDB connection string (required)
+- `JWT_SECRET`: Secret key for JWT signing (required)
+- `JWT_EXPIRES_IN`: Token expiration time (default: "1d")
+- `REDIS_URL`: Redis connection URL for caching (optional)
+- `RATE_LIMIT_WINDOW`: Rate limit window in ms (default: 60000)
+- `RATE_LIMIT_MAX`: Max requests per window (default: 100)
 
-## Getting Started
+---
 
-### Prerequisites
-- Node.js 20.0.0+
-- Bun 1.1.0+ (recommended)
-- MongoDB 7.0.0+ (local or Atlas)
-- Redis 7.2.0+ (optional for caching)
+## Commands Documentation
 
-### Quick Start
-```bash
-# Clone repository
-git clone https://github.com/indicab/indicab.git
-cd indicab
+### NPM Scripts
 
-# Install dependencies
-bun install
+#### Development
+- `dev`: Starts development server (Next.js)
+  ```bash
+  npm run dev
+  # Options:
+  # --port=3000 (default)
+  # --host=0.0.0.0
+  ```
 
-# Configure environment
-cp .env.example .env.local
-# Edit .env.local with your credentials
+- `dev:debug`: Starts with Node.js inspector
+  ```bash
+  NODE_OPTIONS='--inspect' npm run dev
+  ```
 
-# Start development server
-bun run dev
+#### Building
+- `build`: Creates production build
+  ```bash
+  npm run build
+  # Output: .next/ directory
+  ```
+
+- `build:analyze`: Build with bundle analysis
+  ```bash
+  ANALYZE=true npm run build
+  ```
+
+#### Testing
+- `test`: Runs unit tests (Vitest)
+  ```bash
+  npm run test
+  ```
+
+- `test:e2e`: Runs Playwright end-to-end tests
+  ```bash
+  npm run test:e2e
+  ```
+
+#### Production
+- `start`: Runs production server
+  ```bash
+  npm run start
+  # Requires build first
+  ```
+
+- `preview`: Local production preview
+  ```bash
+  npm run build && npm run start
+  ```
+
+### Utility Scripts
+
+#### Cache Management
+- **Clear Playwright Reports**:
+  ```bash
+  rm -rf playwright-report
+  ```
+
+- **Clear Storybook Static Files**:
+  ```bash
+  rm -rf storybook-static
+  ```
+
+- **Clear Test Results**:
+  ```bash
+  rm -rf test-results
+  ```
+
+#### Testing
+- `test-api.ts`: API endpoint tests
+  ```bash
+  bunx ts-node scripts/test-api.ts
+  ```
+
+#### Database
+- `mongo-connection-test.js`: Tests MongoDB connection
+  ```bash
+  node scripts/mongo-connection-test.js
+  ```
+
+- `verify-db.ts`: Database schema validation
+  ```bash
+  bunx ts-node scripts/verify-db.ts
+  ```
+
+#### Maintenance
+- `clean-cache.ts`: Clears Redis cache
+  ```bash
+  bunx ts-node scripts/clean-cache.ts
+  ```
+
+### Troubleshooting
+
+#### Common Issues
+1. **Port in use**:
+   ```bash
+   kill $(lsof -t -i:3000)
+   # Or specify port:
+   kill $(lsof -t -i:3001)
+   ```
+
+2. **Build failures**:
+   ```bash
+   npm ci && npm run type-check
+   ```
+
+3. **Database connection**:
+   ```bash
+   node scripts/mongo-connection-test.js
+   ```
+
+4. **Cache issues**:
+   ```bash
+   bunx ts-node scripts/clean-cache.ts
+   ```
+
+*Last Updated: 2024-07-15*
+
+---
+
+## Component Organization
+
+### Structure Overview
+
+Components are organized into 4 main categories:
+
+1. **Feature Components** (`/features`)
+   - Domain-specific functionality
+   - Examples: Booking, Maps, User Profiles
+   - Located in `src/components/features/`
+
+2. **UI Primitives** (`/ui`)  
+   - Reusable presentational components
+   - Examples: Buttons, Cards, Inputs
+   - Located in `src/components/ui/`
+
+3. **Layout Components** (`/layout`)
+   - Page structure and scaffolding  
+   - Examples: Header, Footer, PageContainer
+   - Located in `src/components/layout/`
+
+4. **Shared Utilities** (`/shared`)
+   - Cross-cutting functionality
+   - Examples: ErrorBoundary, ThemeProvider
+   - Located in `src/components/shared/`
+
+### Naming Conventions
+
+| Category       | Naming Pattern          | Example           |
+|----------------|-------------------------|-------------------|
+| Feature        | PascalCase + Feature    | `BookingHistory`  |  
+| UI             | Simple Descriptive      | `Button`          |
+| Layout         | Structural              | `Header`          |
+| Shared         | Functional              | `ErrorBoundary`   |
+
+### File Structure
+
+```
+src/components/
+├── features/
+│   ├── booking/
+│   ├── maps/  
+│   └── profile/
+├── ui/
+│   ├── buttons/
+│   ├── cards/
+│   └── inputs/
+├── layout/  
+│   ├── Header.tsx
+│   └── Footer.tsx
+└── shared/
+    ├── ErrorBoundary.tsx
+    └── ThemeProvider.tsx
 ```
 
-### Advanced Setup
-```bash
-# Docker Compose (includes MongoDB and Redis)
-docker-compose up -d
+### Current Implementation Status
 
-# Run test suite
-bun test
+#### Component Migration (95% complete)
+- ✅ All feature components moved to `/features`
+- ✅ UI primitives organized in `/ui`  
+- ✅ Layout components in `/layout`
+- ✅ Shared utilities in `/shared`
 
-# Production build
-bun run build
+#### Storybook Integration
+- ✅ 80% of UI components have stories
+- ⚠️ 15% need story updates
+- ❌ 5% missing stories (legacy components)
 
-# Start production server
-bun run start
-```
+#### TypeScript Coverage
+- ✅ 100% of new components
+- ⚠️ 90% of migrated components
+- ❌ Legacy components need typing
 
-## Project Structure
+#### Documentation
+- ✅ All components have JSDoc
+- ✅ PropTypes for legacy components
+- ✅ Usage examples in Storybook
 
-```
-indicab/
-├── src/
-│   ├── app/                # Next.js app router
-│   ├── components/         # UI components (atomic design)
-│   ├── context/            # React context providers
-│   ├── lib/                # Shared utilities
-│   ├── services/           # API clients
-│   ├── styles/             # Global CSS
-│   └── types/              # TypeScript definitions
-├── scripts/                # Utility scripts
-├── tests/                  # Test suites
-└── storybook/              # Component stories
-```
+### Best Practices
 
-## Documentation
+1. **New Components**:
+   - Create in appropriate category folder
+   - Add Storybook story
+   - Include JSDoc and PropTypes
+   - Write unit tests
 
-- [Features](./FEATURES_DETAILED.md): Complete feature breakdown
-- [API Reference](./BACKEND_DOCUMENTATION.md)
-- [Component Guide](./COMPONENT_ORGANIZATION.md)
-- [Development Guide](./COMMANDS_DOCUMENTATION.md)
-- [Progress Tracking](./progress.md)
+2. **Component Updates**:
+   - Update Storybook story
+   - Maintain TypeScript types
+   - Document changes in JSDoc
 
-## Image Handling System
+3. **Deprecation**:
+   - Mark legacy components with `@deprecated`
+   - Add migration path in JSDoc
+   - Remove after 2 release cycles
 
-### Key Features
-- Automatic redirects (308) from legacy /images/ paths to /assets/
-- WebP optimization pipeline (60-70% size reduction)
-- Lazy loading with blur placeholders
-- Responsive image sizing
-- Comprehensive error handling
-- Default fallback images
-
-### Maintenance Guide
-1. Add new images to `/public/assets/` directory
-2. Run `npm run optimize-images` to generate WebP versions
-3. Test redirects: `curl -I http://localhost:3000/images/path/to/image.jpg`
-4. Reference images using `/assets/` path prefix
-
-### Performance Benefits
-- Faster page loads
-- Reduced bandwidth usage
-- Better SEO through proper image handling
-- Improved user experience
-
-## Quality Assurance
-
-### Testing
-```bash
-# Unit tests
-bun test
-
-# E2E tests
-bun run test:e2e
-
-# Storybook
-bun run storybook
-```
-
-### Code Quality
-```bash
-# Linting
-bun run lint
-
-# Type checking  
-bun run type-check
-
-# Formatting
-bun run format
-```
-
-## Deployment
-
-The application is configured for deployment on Netlify. A `netlify.toml` file is included with the necessary configuration.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [Radix UI](https://www.radix-ui.com/)
-- [Lucide Icons](https://lucide.dev/)
+### Additional Notes
+- The `ErrorBoundary` component is critical for robust error handling and should be maintained in the `shared` directory.
+- Feature components are dynamically imported in pages for performance optimization.
+- UI components use Tailwind CSS and Framer Motion for styling and animations.
+- Ensure all new components follow accessibility best practices and responsive design principles.
