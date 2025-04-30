@@ -22,3 +22,21 @@ const Template: StoryFn = (args) => <BookingForm {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const WithData = Template.bind({});
+WithData.args = {
+  pickup: 'Mumbai',
+  destination: 'Pune',
+  startDate: new Date(),
+  endDate: new Date(new Date().setDate(new Date().getDate() + 3)),
+  vehicleType: 'Sedan',
+};
+
+export const WithValidationErrors = Template.bind({});
+WithValidationErrors.args = {
+  pickup: '',
+  destination: '',
+  startDate: new Date(),
+  endDate: new Date(new Date().setDate(new Date().getDate() - 1)),
+  vehicleType: '',
+};

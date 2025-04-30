@@ -1,5 +1,5 @@
 import React from 'react';
-import { VehicleType } from '@/types/vehicle';
+import { VehicleType } from '../types/vehicle';
 
 interface VehicleComparisonProps {
   vehicles?: VehicleType[];
@@ -7,7 +7,6 @@ interface VehicleComparisonProps {
 }
 
 const VehicleComparison = ({ vehicles = [], initialDistance = 0 }: VehicleComparisonProps) => {
-  console.log('Initial distance:', initialDistance); // For debugging
   return (
     <div className="p-6 bg-white rounded-lg shadow">
       <h2 className="text-2xl font-bold mb-4">Compare Vehicles</h2>

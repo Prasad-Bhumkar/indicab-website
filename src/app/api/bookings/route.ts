@@ -4,7 +4,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { validateRequest, handleApiError } from '../../../middleware/validateRequest';
 import { bookingSchema, bookingUpdateSchema } from '../../../lib/validations/booking';
 import { createBooking as createBookingApi } from '../../../lib/api/booking';
+
 import * as Sentry from '@sentry/nextjs';
+import logger from '../../../lib/logger';
 
 export async function getAllBookings() {
   try {
@@ -15,6 +17,7 @@ export async function getAllBookings() {
       .sort({ createdAt: -1 });
     return NextResponse.json(bookings);
   } catch (error) {
+    logger.error('API error getting all bookings:', error);
     return handleApiError(error);
   }
 }
@@ -27,6 +30,7 @@ export async function createBooking(request: Request) {
     await booking.save();
     return NextResponse.json(booking, { status: 201 });
   } catch (error) {
+    logger.error('API error creating booking:', error);
     return handleApiError(error);
   }
 }
@@ -52,6 +56,7 @@ export async function PUT(request: Request) {
 
     return NextResponse.json(booking);
   } catch (error) {
+    logger.error('API error updating booking:', error);
     return handleApiError(error);
   }
 }
@@ -72,11 +77,11 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const result = await createBooking(bookingData);
+    const result = await createBookingApi(bookingData);
     
     return NextResponse.json(result, { status: 201 });
   } catch (error) {
-    console.error('API error creating booking:', error);
+    logger.error('API error creating booking:', error);
     Sentry.captureException(error);
     
     return NextResponse.json(
@@ -109,7 +114,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json(booking);
   } catch (error) {
-    console.error('API error fetching booking:', error);
+    logger.error('API error fetching booking:', error);
     Sentry.captureException(error);
     
     return NextResponse.json(

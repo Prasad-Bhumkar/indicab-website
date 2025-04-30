@@ -5,7 +5,7 @@ import React from 'react'
 
 const DatePickerComponent = DatePicker as unknown as React.ComponentType<any>
 
-interface DateRangePickerProps {
+export interface DateRangePickerProps {
   control: Control<any>
   startName: string
   endName: string

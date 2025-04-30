@@ -1,7 +1,7 @@
 'use client'
 import { Control, FieldError } from 'react-hook-form'
 
-interface LocationSearchProps {
+export interface LocationSearchProps {
   name: string
   control: Control<any>
   label: string
