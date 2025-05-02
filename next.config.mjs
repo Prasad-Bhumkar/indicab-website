@@ -26,7 +26,7 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ['next-image'],
-    allowedDevOrigins: ['yk9qkx-3001.csb.app'],
+    allowedDevOrigins: ['yk9qkx-3001.csb.app', 'http://192.168.1.7'],
     turbo: {
       resolveAlias: {
         components: './src/components',

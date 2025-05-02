@@ -68,6 +68,84 @@
       }
       ```
 
+#### Vehicles API
+- **GET /api/vehicles**
+  - **Description**: Retrieves a list of all vehicles.
+  - **Response**:
+    - On success (200): Returns an array of vehicle objects.
+    - On failure (500): Returns an error message.
+
+- **POST /api/vehicles**
+  - **Description**: Creates a new vehicle entry.
+  - **Request Body**: Vehicle object.
+  - **Response**:
+    - On success (201): Returns the created vehicle object.
+    - On failure (400): Returns an error message.
+
+#### Users API
+- **GET /api/users**
+  - **Description**: Retrieves a list of all users (excluding password hashes).
+  - **Response**:
+    - On success (200): Returns an array of user objects.
+    - On failure (500): Returns an error message.
+
+- **POST /api/users**
+  - **Description**: Creates a new user.
+  - **Request Body**: User object.
+  - **Response**:
+    - On success (201): Returns the created user object.
+    - On failure (400): Returns an error message.
+
+#### Test API
+- **GET /api/test**
+  - **Description**: Runs a test booking creation to verify API functionality.
+  - **Response**:
+    - On success (200): Returns success message and booking data.
+    - On failure (500): Returns error message.
+
+#### Payment API
+- **POST /api/payment**
+  - **Description**: Creates a Stripe payment intent for a booking.
+  - **Request Body**:
+    ```json
+    {
+      "amount": number,
+      "bookingId": "string"
+    }
+    ```
+  - **Response**:
+    - On success (200): Returns Stripe client secret.
+    - On failure (400 or 500): Returns error message.
+
+#### Packages APIs
+- **GET /api/packages/tours**
+  - **Description**: Retrieves tour packages.
+  - **Response**:
+    - On success (200): Returns array of tour packages.
+    - On failure (500): Returns error message.
+
+- **GET /api/packages/hourly**
+  - **Description**: Retrieves hourly packages.
+  - **Response**:
+    - On success (200): Returns array of hourly packages.
+    - On failure (500): Returns error message.
+
+- **GET /api/packages/faqs**
+  - **Description**: Retrieves frequently asked questions.
+  - **Response**:
+    - On success (200): Returns array of FAQs.
+    - On failure (500): Returns error message.
+
+- **GET /api/packages/corporate**
+  - **Description**: Retrieves corporate packages.
+  - **Response**:
+    - On success (200): Returns array of corporate packages.
+    - On failure (500): Returns error message.
+
+> **Note**: Some data files for packages (tour-packages.json, hourly-packages.json, faqs.json, corporate-packages.json) are currently missing and may need to be added or restored.
+
+
+
 ### Database Models
 
 #### User Model

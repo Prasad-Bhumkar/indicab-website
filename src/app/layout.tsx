@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { ErrorBoundary } from '@components/ErrorBoundary';
+
+import { ThemeProvider } from '../context/ThemeContext';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -75,9 +78,11 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <ErrorBoundary component="RootLayout">
-          <main className="min-h-screen">{children}</main>
-        </ErrorBoundary>
+        <ThemeProvider>
+          <ErrorBoundary>
+            <main className="min-h-screen">{children}</main>
+          </ErrorBoundary>
+        </ThemeProvider>
       </body>
     </html>
   );
