@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card } from '../../ui/Card';
-import { Button } from '../../ui/button/Button';
-import { ChevronLeft, ChevronRight, Users, Briefcase, ShieldCheck, Fuel } from 'lucide-react';
+import { Button } from '../../ui/button/button';
+import { ChevronLeft, ChevronRight, Users, Briefcase, ShieldCheck } from 'lucide-react';
 
 type CarType = {
   id: string;
@@ -249,6 +249,6 @@ const CarShowcase = React.memo((): JSX.Element => {
       </div>
     </div>
   );
-};
+});
 
 export default CarShowcase;
