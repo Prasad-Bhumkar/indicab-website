@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from '../optimized/Image'
 
 interface Vehicle {
   _id: string
@@ -16,13 +17,14 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
       <div className="relative h-48 w-full">
-        <img 
-          src={vehicle.imageUrl || '/assets/cars/default-car.jpg'}
+        <Image
+          src={vehicle.imageUrl}
           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+          width={400}
+          height={300}
           className="w-full h-full object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/assets/cars/default-car.jpg'
-          }}
+          fallback="/assets/cars/default-car.jpg"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
       <div className="p-4">

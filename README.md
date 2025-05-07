@@ -422,3 +422,124 @@ src/components/
 - Feature components are dynamically imported in pages for performance optimization.
 - UI components use Tailwind CSS and Framer Motion for styling and animations.
 - Ensure all new components follow accessibility best practices and responsive design principles.
+
+---
+
+## Project Structure
+
+Below is a detailed structure of the project, including all files and directories:
+
+```
+/workspaces/indicab
+├── components.json                # Configuration for components
+├── env.d.ts                       # TypeScript environment definitions
+├── eslint.config.mjs              # ESLint configuration file
+├── LICENSE                        # License file (MIT License)
+├── lighthouserc.js                # Lighthouse configuration for performance audits
+├── netlify.toml                   # Netlify deployment configuration
+├── next-env.d.ts                  # Next.js environment types
+├── next.config.backup.mjs         # Backup of Next.js configuration
+├── next.config.mjs                # Main Next.js configuration file
+├── next.config.original.mjs       # Original Next.js configuration file
+├── package.json                   # Project dependencies and scripts
+├── package.test.json              # Test-specific package configuration
+├── playwright.config.ts           # Playwright testing configuration
+├── postcss.config.mjs             # PostCSS configuration for CSS processing
+├── progress.md                    # Project progress tracking document
+├── Prompt.txt                     # Instructions and guidelines for the project
+├── README.md                      # Comprehensive project documentation
+├── tailwind.config.js             # Tailwind CSS configuration
+├── tsconfig.final.json            # Final TypeScript configuration
+├── tsconfig.fixed.json            # Fixed TypeScript configuration
+├── tsconfig.json                  # Main TypeScript configuration
+├── tsconfig.resolved.json         # Resolved TypeScript configuration
+├── tsconfig.tsbuildinfo           # TypeScript build information
+├── vitest.config.ts               # Vitest testing configuration
+├── analyze/                       # Analysis-related files
+│   └── nodejs.html                # Node.js analysis report
+├── config/                        # Configuration files
+│   └── images.mjs                 # Image-related configuration
+├── lib/                           # Library files
+│   ├── database.ts                # Database utility functions
+│   ├── db-connection.ts           # MongoDB connection logic
+│   ├── db-fixed.ts                # Fixed database utilities
+│   ├── db.ts                      # Main database utilities
+│   ├── pricing.ts                 # Pricing-related utilities
+│   └── utils.ts                   # General utility functions
+├── public/                        # Public assets
+│   ├── favicon.ico                # Favicon for the website
+│   ├── indicab-logo.png           # IndiCab logo
+│   ├── manifest.json              # Web app manifest
+│   ├── robots.txt                 # Robots.txt for SEO
+│   ├── sitemap.xml                # Sitemap for search engines
+│   └── assets/                    # Asset files
+│       ├── default-tour.jpg       # Default tour image
+│       ├── avatars/               # User avatars
+│       ├── backgrounds/           # Background images
+│       ├── cars/                  # Car images
+│       ├── cities/                # City images
+│       ├── drivers/               # Driver images
+│       └── icons/                 # Icon files
+├── scripts/                       # Scripts for various tasks
+│   ├── analyze-bundle.js          # Bundle analysis script
+│   ├── document-linter-errors.js  # Linter error documentation script
+│   ├── identify-legacy-components.js # Legacy component identification
+│   ├── mongo-connection-test.js   # MongoDB connection test script
+│   ├── mongodb-connection-helper.js # MongoDB connection helper
+│   ├── mongodb-connection-options.js # MongoDB connection options
+│   ├── mongodb-connection.js      # MongoDB connection logic
+│   ├── optimize-images.mjs        # Image optimization script
+│   ├── test-api-cjs.ts            # CommonJS API test script
+│   ├── test-api-new.ts            # New API test script
+│   ├── test-api.ts                # Main API test script
+│   ├── test-booking-api-fixed.cjs # Fixed booking API test script
+│   ├── test-booking-api.cjs       # Booking API test script
+│   ├── test-booking-api.js        # JavaScript booking API test
+│   ├── test-config.cjs            # Test configuration
+│   ├── test-coverage-report.ts    # Test coverage report script
+│   ├── test-db-connection.js      # Database connection test
+│   ├── test-db-final.js           # Final database test script
+│   ├── test-db-operations.js      # Database operations test
+│   ├── test-db-ts.ts              # TypeScript database test
+│   ├── test-db-working.ts         # Working database test script
+│   ├── test-setup.cjs             # Test setup script
+│   └── verify-db.ts               # Database verification script
+├── services/                      # Service-related files
+│   └── booking/                   # Booking services
+│       └── api.ts                 # Booking API service
+├── src/                           # Source code
+│   ├── instrumentation-client.ts  # Instrumentation client
+│   ├── instrumentation.ts         # Instrumentation logic
+│   ├── test-imports.ts            # Test imports
+│   ├── tsconfig.paths.json        # TypeScript paths configuration
+│   ├── app/                       # Application-specific files
+│   ├── components/                # React components
+│   ├── context/                   # React context files
+│   ├── data/                      # Data files
+│   ├── features/                  # Feature-specific components
+│   ├── hooks/                     # React hooks
+│   ├── lib/                       # Library files
+│   ├── middleware/                # Middleware logic
+│   ├── models/                    # Data models
+│   ├── packages/                  # Package files
+│   ├── services/                  # Service files
+│   ├── shared/                    # Shared utilities
+│   ├── stories/                   # Storybook stories
+│   ├── styles/                    # CSS styles
+│   ├── types/                     # TypeScript types
+│   └── utils/                     # Utility functions
+└── tests/                         # Test files
+    ├── accessibility.spec.ts      # Accessibility tests
+    ├── authentication.spec.ts     # Authentication tests
+    ├── booking-api.spec.ts        # Booking API tests
+    ├── booking-flow.spec.ts       # Booking flow tests
+    ├── contact-form.spec.ts       # Contact form tests
+    ├── custom-matchers.spec.ts    # Custom matchers for tests
+    ├── error-handler.test.ts      # Error handler tests
+    ├── example.spec.ts            # Example test
+    ├── navigation.spec.ts         # Navigation tests
+    ├── new-booking-api.spec.ts    # New booking API tests
+    └── helpers/                   # Test helpers
+```
+
+Each file and directory is annotated with its purpose to provide a clear understanding of the project structure.
