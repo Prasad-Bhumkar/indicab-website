@@ -1,4 +1,5 @@
 'use client'
+import * as Sentry from '@sentry/nextjs'
 import { useState, useContext, useEffect } from 'react'
 import { BookingState } from '../context/BookingContext' // Import BookingState type
 import { useRouter } from 'next/navigation'
@@ -89,6 +90,12 @@ export default function BookingForm() {
       return
     }
 
+    Sentry.addBreadcrumb({
+      category: 'booking',
+      message: 'Booking submission started',
+      level: 'info',
+    })
+
     setLoading(true)
     try {
       // Validate date range
@@ -103,22 +110,28 @@ export default function BookingForm() {
 
       const fare = calculateFare(data.vehicleType, data.startDate, data.endDate)
       const bookingData = {
-        ...data,
+        pickupLocation: data.pickup,
+        dropLocation: data.destination,
+        pickupDate: data.startDate.toISOString(),
+        returnDate: data.endDate.toISOString(),
+        vehicleType: data.vehicleType,
         customerId: user.id,
         fare,
         status: 'pending' as const
       }
-      const booking = await createBooking(bookingData)
+      const bookingResponse = await createBooking(bookingData)
       persistFormData(data)
+
+      Sentry.captureMessage('Booking created successfully', 'info')
       
       const bookingState: BookingState = {
-        id: booking.id || '',
-        pickup: data.pickup,
-        destination: data.destination,
-        startDate: data.startDate,
-        endDate: data.endDate,
+        id: bookingResponse.id || '',
+        pickupLocation: data.pickup,
+        dropLocation: data.destination,
+        pickupDate: data.startDate.toISOString(),
+        returnDate: data.endDate.toISOString(),
         vehicleType: data.vehicleType,
-        fare: booking.fare || 0,
+        fare: bookingResponse.fare || 0,
         customerId: user.id,
         status: 'pending'
       }
@@ -129,6 +142,7 @@ export default function BookingForm() {
       })
       setStep(2)
     } catch (err: unknown) {
+      Sentry.captureException(err)
       setError(err instanceof Error ? err.message : 'Booking failed')
     } finally {
       setLoading(false)

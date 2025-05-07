@@ -9,6 +9,8 @@
 
 [context.production.environment]
   NEXT_PUBLIC_BASE_URL = "https://your-indicab-app.netlify.app"
+  SENTRY_DSN = "your_sentry_dsn_here"
+  NEXT_PUBLIC_SENTRY_DSN = "your_public_sentry_dsn_here"
 
 [build.environment]
   NODE_VERSION = "18.0.0"

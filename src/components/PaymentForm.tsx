@@ -1,4 +1,5 @@
 'use client'
+import * as Sentry from '@sentry/nextjs'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
@@ -23,6 +24,12 @@ function CheckoutForm({ amount, bookingId }: { amount: number, bookingId: string
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!stripe || !elements) return
+
+    Sentry.addBreadcrumb({
+      category: 'payment',
+      message: 'Payment submission started',
+      level: 'info',
+    })
 
     setLoading(true)
     setError('')
@@ -49,7 +56,10 @@ function CheckoutForm({ amount, bookingId }: { amount: number, bookingId: string
       })
 
       if (error) throw error
+
+      Sentry.captureMessage('Payment completed successfully', 'info')
     } catch (err: unknown) {
+      Sentry.captureException(err)
       if (err instanceof Error) {
         setError(err.message)
       } else {
