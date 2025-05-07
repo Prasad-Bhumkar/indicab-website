@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes, ReactNode } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  variant?: 'primary' | 'outline' | 'secondary'
+  variant?: 'primary' | 'outline' | 'secondary' | 'success'
   className?: string
 }
 
@@ -12,6 +12,7 @@ const variantStyles = {
   primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
   outline: 'border border-gray-300 text-gray-700 hover:bg-gray-100 focus:ring-gray-500',
   secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
+  success: 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500',
 }
 
 export const Button: React.FC<ButtonProps> = ({

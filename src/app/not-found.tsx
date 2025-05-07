@@ -1,11 +1,6 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
+import { Button } from '../components/ui/Button';
 import { Car } from 'lucide-react';
-import type { Viewport } from 'next';
-
-export const viewport: Viewport = {
-  themeColor: '#0c9242',
-};
 
 export default function NotFound() {
   return (
