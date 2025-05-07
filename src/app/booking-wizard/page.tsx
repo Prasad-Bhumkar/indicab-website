@@ -2,6 +2,7 @@ import { Car, Star, Clock, Phone } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Header from '@components/layout/header/Header';
 import Footer from '@components/layout/footer/Footer';
+import * as Sentry from '@sentry/nextjs';
 
 interface BookingWizardProps {
   // Add any required props here
@@ -25,6 +26,12 @@ const BookingWizard = dynamic<BookingWizardProps>(
 );
 
 export default function BookingWizardPage() {
+  Sentry.addBreadcrumb({
+    category: 'booking',
+    message: 'Booking wizard page loaded',
+    level: Sentry.Severity.Info,
+  });
+
   return (
     <>
       <Header />

@@ -1,0 +1,18 @@
+[
+  {
+    "question": "How do I make a booking?",
+    "answer": "You can make a booking by selecting your vehicle and dates, then completing the booking form."
+  },
+  {
+    "question": "What is the cancellation policy?",
+    "answer": "Cancellations made 24 hours before the booking date are fully refundable."
+  },
+  {
+    "question": "Are drivers licensed and insured?",
+    "answer": "Yes, all our drivers are fully licensed and insured for your safety."
+  },
+  {
+    "question": "Can I modify my booking?",
+    "answer": "Yes, you can modify your booking up to 12 hours before the scheduled time."
+  }
+]

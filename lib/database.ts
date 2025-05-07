@@ -5,15 +5,22 @@ interface CachedConnection {
   promise: Promise<typeof mongoose> | null;
 }
 
-// Global variable to cache the connection
-declare global {
-  const mongoose: CachedConnection;
-}
+// Import mongoose and types
+import mongoose, { ConnectOptions, Schema, model, models } from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || '';
+const MONGODB_URI = process.env.MONGODB_URI!;
 
 if (!MONGODB_URI) {
   throw new Error('Please define MONGODB_URI in your environment variables');
+}
+
+// Global variable to cache the connection and mongoose instance
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: {
+    conn: typeof mongoose | null;
+    promise: Promise<typeof mongoose> | null;
+  };
 }
 
 // Initialize cache if it doesn't exist
@@ -25,9 +32,9 @@ const cached = global.mongoose;
 
 /**
  * Establishes a connection to MongoDB
- * @returns Promise<mongoose>
+ * @returns Promise<typeof mongoose>
  */
-export async function connectToDatabase(): Promise<typeof mongoose> {
+async function dbConnect(): Promise<typeof mongoose> {
   if (cached.conn) {
     return cached.conn;
   }
@@ -37,8 +44,9 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts)
-      .then(mongoose => mongoose);
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then(() => {
+      return mongoose;
+    });
   }
 
   try {
@@ -50,6 +58,8 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
 
   return cached.conn;
 }
+
+export default dbConnect;
 
 // Export mongoose utilities for model definitions
 export { mongoose, Schema, model, models };
