@@ -11,6 +11,8 @@ import {
   Users,
   CheckCircle2
 } from 'lucide-react';
+import { useBookingContext } from '../../../context/BookingContext';
+import { createBooking } from '../../../services/booking/api';
 
 // Vehicle types with their base rates and capacity
 const vehicles = [
@@ -61,6 +63,8 @@ const formatCurrency = (amount: number): string => {
 };
 
 const PricingCalculator = () => {
+  const { dispatch } = useBookingContext();
+
   // Form state
   const [source, setSource] = useState('Mumbai');
   const [destination, setDestination] = useState('Pune');
@@ -77,6 +81,8 @@ const PricingCalculator = () => {
   const [gst, setGst] = useState(0);
   const [totalFare, setTotalFare] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  const [isBooking, setIsBooking] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Calculate the fare when form inputs change
   useEffect(() => {
@@ -105,21 +111,50 @@ const PricingCalculator = () => {
 
   // Set current date as default
   useEffect(() => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
+    const current = new Date();
+    const year = current.getFullYear();
+    const month = String(current.getMonth() + 1).padStart(2, '0');
+    const day = String(current.getDate()).padStart(2, '0');
     setDate(`${year}-${month}-${day}`);
 
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const hours = String(current.getHours()).padStart(2, '0');
+    const minutes = String(current.getMinutes()).padStart(2, '0');
     setTime(`${hours}:${minutes}`);
   }, []);
 
   // Handle form submission
-  const handleCalculate = (e: React.FormEvent) => {
+  const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
     setShowResults(true);
+    setIsBooking(true);
+    setError(null);
+
+    try {
+      const bookingData = {
+        pickupLocation: source,
+        dropLocation: destination,
+        pickupDate: `${date}T${time}`,
+        returnDate: isOneWay ? undefined : `${date}T${time}`,
+        vehicleType: selectedVehicle.name,
+        passengers: passengers,
+        contactName: 'John Doe', // Placeholder, should be from user input or auth context
+        contactPhone: '+911234567890', // Placeholder
+        contactEmail: 'john.doe@example.com', // Placeholder
+        isRoundTrip: !isOneWay,
+        paymentMethod: 'card', // Placeholder, should be selectable by user
+        promoCode: undefined,
+        fare: totalFare,
+        customerId: 'current-user-id', // Replace with actual user ID from auth context
+        status: 'pending' as const
+      };
+
+      const createdBooking = await createBooking(bookingData);
+      dispatch({ type: 'SET_BOOKING', payload: createdBooking });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Booking failed');
+    } finally {
+      setIsBooking(false);
+    }
   };
 
   return (
@@ -273,11 +308,18 @@ const PricingCalculator = () => {
             </div>
           </div>
 
+          {error && (
+            <div className="mb-4 text-red-600 font-medium">
+              {error}
+            </div>
+          )}
+
           <Button
             type="submit"
             className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-md font-medium transition-colors"
+            disabled={isBooking}
           >
-            Calculate Fare
+            {isBooking ? 'Booking...' : 'Book Now'}
           </Button>
         </form>
       </div>
@@ -361,13 +403,6 @@ const PricingCalculator = () => {
                 <li>24/7 customer support</li>
               </ul>
             </div>
-
-            <Button
-              className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-md font-medium transition-colors"
-              onClick={() => window.location.href = '/'}
-            >
-              Book This Ride Now
-            </Button>
           </div>
         )}
       </div>

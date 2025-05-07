@@ -1,9 +1,9 @@
 "use client";
 
 import React, { Suspense } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { ProfileContent } from '@/components/ProfileContent';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ProfileContent from "../../../components/ProfileContent";
 
 const ProfilePage = () => {
   return (

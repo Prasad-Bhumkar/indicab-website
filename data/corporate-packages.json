@@ -1,0 +1,29 @@
+[
+  {
+    "id": "corp-001",
+    "name": "Corporate City Tour",
+    "description": "A comprehensive city tour package tailored for corporate clients.",
+    "price": 15000,
+    "duration": "8 hours",
+    "features": [
+      "Luxury vehicle",
+      "Professional driver",
+      "Flexible schedule",
+      "Complimentary refreshments"
+    ],
+    "image": "/assets/corporate/city-tour.jpg"
+  },
+  {
+    "id": "corp-002",
+    "name": "Business Conference Transfer",
+    "description": "Reliable and comfortable transfers to and from business conferences.",
+    "price": 8000,
+    "duration": "Round trip",
+    "features": [
+      "On-time service",
+      "Wi-Fi enabled vehicle",
+      "Experienced drivers"
+    ],
+    "image": "/assets/corporate/conference-transfer.jpg"
+  }
+]

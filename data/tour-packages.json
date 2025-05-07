@@ -1,0 +1,30 @@
+[
+  {
+    "id": "tour-001",
+    "name": "Golden Triangle Tour",
+    "description": "Explore Delhi, Agra, and Jaipur in this classic Indian tour.",
+    "price": 25000,
+    "duration": "5 days",
+    "features": [
+      "Air-conditioned vehicle",
+      "Professional guide",
+      "Hotel pickups and drop-offs",
+      "Sightseeing at major attractions"
+    ],
+    "image": "/assets/tours/golden-triangle.jpg"
+  },
+  {
+    "id": "tour-002",
+    "name": "Kerala Backwaters Tour",
+    "description": "Experience the serene backwaters of Kerala with houseboat stays.",
+    "price": 30000,
+    "duration": "4 days",
+    "features": [
+      "Houseboat accommodation",
+      "Local cuisine",
+      "Guided tours",
+      "Cultural experiences"
+    ],
+    "image": "/assets/tours/kerala-backwaters.jpg"
+  }
+]

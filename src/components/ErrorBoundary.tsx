@@ -1,6 +1,9 @@
+// Mark this file as a client component to allow React class component usage
+"use client";
+
 import React from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { Button } from './ui/Button';
+import { Button } from './ui/button';
 
 type ErrorBoundaryProps = {
   children: React.ReactNode;
@@ -20,36 +23,22 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   static getDerivedStateFromError(error: Error) {
-    // Improved error handling
-    const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
-      component: this.constructor.name
-    });
     return { 
       hasError: true,
-      error: appError,
+      error,
       errorInfo: null
     };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Improved error reporting
-    const appError = ErrorService.handle(error, ErrorType.RUNTIME, {
-      component: this.constructor.name,
-      metadata: { errorInfo }
-    });
     this.setState({ 
-      error: appError,
+      error,
       errorInfo 
     });
   }
 
 
   handleReset = () => {
-    // Log recovery attempt
-    ErrorService.logInfo('Error boundary reset', {
-      component: this.constructor.name,
-      error: this.state.error?.message
-    });
     this.setState({ 
       hasError: false, 
       error: null, 
@@ -68,8 +57,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
             </div>
             <h2 className="text-xl font-bold text-center mb-2">Something went wrong</h2>
             <p className="text-gray-600 mb-4">
-              We're sorry, but an unexpected error occurred (Error ID: {this.state.error?.id}). 
-              Our team has been notified.
+              We're sorry, but an unexpected error occurred. Our team has been notified.
             </p>
 
             <div className="bg-gray-100 p-3 rounded mb-4">

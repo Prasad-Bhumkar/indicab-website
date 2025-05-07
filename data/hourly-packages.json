@@ -1,0 +1,29 @@
+[
+  {
+    "id": "hourly-001",
+    "name": "Hourly City Rental",
+    "description": "Rent a vehicle by the hour for city travel and errands.",
+    "pricePerHour": 500,
+    "minimumHours": 2,
+    "features": [
+      "Flexible timing",
+      "Choice of vehicle types",
+      "Experienced drivers",
+      "Easy booking process"
+    ],
+    "image": "/assets/hourly/city-rental.jpg"
+  },
+  {
+    "id": "hourly-002",
+    "name": "Airport Transfer",
+    "description": "Hourly rental service for airport pickups and drop-offs.",
+    "pricePerHour": 600,
+    "minimumHours": 1,
+    "features": [
+      "Punctual service",
+      "Meet and greet",
+      "Comfortable vehicles"
+    ],
+    "image": "/assets/hourly/airport-transfer.jpg"
+  }
+]

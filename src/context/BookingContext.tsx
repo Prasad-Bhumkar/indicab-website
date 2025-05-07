@@ -2,10 +2,10 @@ import { createContext, useContext, useReducer } from 'react'
 
 export interface BookingState {
   id: string
-  pickup: string
-  destination: string
-  startDate: Date
-  endDate: Date
+  pickupLocation: string
+  dropLocation: string
+  pickupDate: string
+  returnDate?: string
   vehicleType: string
   fare: number
   customerId: string
@@ -18,10 +18,10 @@ type BookingAction =
 
 const initialState: BookingState = {
   id: '',
-  pickup: '',
-  destination: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  pickupLocation: '',
+  dropLocation: '',
+  pickupDate: '',
+  returnDate: undefined,
   vehicleType: '',
   fare: 0,
   customerId: '',

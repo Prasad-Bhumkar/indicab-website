@@ -33,12 +33,11 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@app/*": ["./src/app/*"]
     }
   },
-
   "include": [
     "**/*.ts",
     "**/*.tsx",
