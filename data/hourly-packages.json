@@ -1,29 +1,151 @@
-[
-  {
-    "id": "hourly-001",
-    "name": "Hourly City Rental",
-    "description": "Rent a vehicle by the hour for city travel and errands.",
-    "pricePerHour": 500,
-    "minimumHours": 2,
-    "features": [
-      "Flexible timing",
-      "Choice of vehicle types",
-      "Experienced drivers",
-      "Easy booking process"
-    ],
-    "image": "/assets/hourly/city-rental.jpg"
-  },
-  {
-    "id": "hourly-002",
-    "name": "Airport Transfer",
-    "description": "Hourly rental service for airport pickups and drop-offs.",
-    "pricePerHour": 600,
-    "minimumHours": 1,
-    "features": [
-      "Punctual service",
-      "Meet and greet",
-      "Comfortable vehicles"
-    ],
-    "image": "/assets/hourly/airport-transfer.jpg"
-  }
-]
+{
+  "hourlyPackages": [
+    {
+      "id": "sedan-hourly",
+      "vehicleType": "Sedan",
+      "models": ["Swift Dzire", "Honda City", "Toyota Etios"],
+      "rates": {
+        "4hours": {
+          "amount": 1200,
+          "currency": "INR",
+          "kilometers": 40
+        },
+        "8hours": {
+          "amount": 2000,
+          "currency": "INR",
+          "kilometers": 80
+        },
+        "12hours": {
+          "amount": 2800,
+          "currency": "INR",
+          "kilometers": 120
+        }
+      },
+      "additionalCharges": {
+        "extraKm": 12,
+        "extraHour": 200,
+        "nightCharges": 300
+      },
+      "features": [
+        "Air conditioned",
+        "4 passengers",
+        "2 luggage pieces",
+        "Fuel included",
+        "Professional driver"
+      ]
+    },
+    {
+      "id": "suv-hourly",
+      "vehicleType": "SUV",
+      "models": ["Toyota Innova", "Mahindra XUV500", "Maruti Ertiga"],
+      "rates": {
+        "4hours": {
+          "amount": 1600,
+          "currency": "INR",
+          "kilometers": 40
+        },
+        "8hours": {
+          "amount": 2800,
+          "currency": "INR",
+          "kilometers": 80
+        },
+        "12hours": {
+          "amount": 3600,
+          "currency": "INR",
+          "kilometers": 120
+        }
+      },
+      "additionalCharges": {
+        "extraKm": 15,
+        "extraHour": 250,
+        "nightCharges": 400
+      },
+      "features": [
+        "Air conditioned",
+        "6-7 passengers",
+        "4 luggage pieces",
+        "Fuel included",
+        "Professional driver"
+      ]
+    },
+    {
+      "id": "luxury-hourly",
+      "vehicleType": "Luxury",
+      "models": ["Mercedes E-Class", "BMW 5 Series", "Audi A6"],
+      "rates": {
+        "4hours": {
+          "amount": 3000,
+          "currency": "INR",
+          "kilometers": 40
+        },
+        "8hours": {
+          "amount": 5000,
+          "currency": "INR",
+          "kilometers": 80
+        },
+        "12hours": {
+          "amount": 7000,
+          "currency": "INR",
+          "kilometers": 120
+        }
+      },
+      "additionalCharges": {
+        "extraKm": 25,
+        "extraHour": 500,
+        "nightCharges": 800
+      },
+      "features": [
+        "Premium air conditioning",
+        "4 passengers",
+        "3 luggage pieces",
+        "Fuel included",
+        "Professional chauffeur",
+        "Bottled water",
+        "Wi-Fi"
+      ]
+    },
+    {
+      "id": "tempo-hourly",
+      "vehicleType": "Tempo Traveller",
+      "models": ["Force Tempo Traveller", "Tata Winger"],
+      "rates": {
+        "4hours": {
+          "amount": 2500,
+          "currency": "INR",
+          "kilometers": 40
+        },
+        "8hours": {
+          "amount": 4000,
+          "currency": "INR",
+          "kilometers": 80
+        },
+        "12hours": {
+          "amount": 5500,
+          "currency": "INR",
+          "kilometers": 120
+        }
+      },
+      "additionalCharges": {
+        "extraKm": 20,
+        "extraHour": 400,
+        "nightCharges": 600
+      },
+      "features": [
+        "Air conditioned",
+        "12-15 passengers",
+        "12 luggage pieces",
+        "Fuel included",
+        "Professional driver",
+        "Push-back seats"
+      ]
+    }
+  ],
+  "terms": [
+    "Minimum booking duration is 4 hours",
+    "Night charges applicable from 10 PM to 6 AM",
+    "Toll and parking charges extra",
+    "Cancellation charges may apply",
+    "Interstate permits extra if applicable",
+    "GST will be charged as applicable"
+  ]
+}

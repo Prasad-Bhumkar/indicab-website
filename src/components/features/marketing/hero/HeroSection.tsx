@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { Button } from '@components/ui/Button'; // Updated import
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import { Button } from '@/components/ui/button/Button'; // Corrected casing
+import LoadingSpinner from '@/components/ui/LoadingSpinner'; // Adjusted path to match likely file structure
 
 export default function HeroSection() {
   return (

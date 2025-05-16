@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ErrorBoundary } from '@components/ErrorBoundary';
+import ErrorBoundary from '../components/ErrorBoundary';
 
-import { ThemeProvider } from '../context/ThemeContext';
-
+import { ThemeProvider } from 'next-themes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -78,7 +77,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <ThemeProvider>
+        <ThemeProvider attribute="class">
           <ErrorBoundary>
             <main className="min-h-screen">{children}</main>
           </ErrorBoundary>

@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { User, MapPin, Settings, LogOut, Edit, Clock, Car, CreditCard, Bell, Shield, Calendar, Star, Heart } from 'lucide-react';
-import { Button } from '../ui/button';
-import { Card } from '../ui/card';
-import { useFavorites } from '../../context/FavoritesContext';
-import { routes } from '../../data/routes';
+import { Button } from '@/components/ui/button/Button';
+import { Card } from '@/components/ui/Card';
+import { useFavorites } from '@/context/FavoritesContext';
+import { routes } from '@/data/routes';
 import Image from 'next/image';
 
 // Mock user data
@@ -100,10 +100,10 @@ export function ProfileContent() {
   const [showConfirmLogout, setShowConfirmLogout] = useState(false);
 
   // Get favorites from context
-  const { favorites, removeFavorite, isFavorite } = useFavorites();
+  const { favorites, removeFavorite } = useFavorites();
 
   // Get favorite routes data
-  const favoriteRoutes = routes.filter(route => favorites.includes(route.id));
+  const favoriteRoutes = routes.filter((route: { id: number }) => favorites.includes(route.id));
 
   // Set active tab based on URL parameter
   useEffect(() => {

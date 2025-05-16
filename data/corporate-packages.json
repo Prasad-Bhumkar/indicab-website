@@ -1,29 +1,186 @@
-[
-  {
-    "id": "corp-001",
-    "name": "Corporate City Tour",
-    "description": "A comprehensive city tour package tailored for corporate clients.",
-    "price": 15000,
-    "duration": "8 hours",
-    "features": [
-      "Luxury vehicle",
-      "Professional driver",
-      "Flexible schedule",
-      "Complimentary refreshments"
-    ],
-    "image": "/assets/corporate/city-tour.jpg"
-  },
-  {
-    "id": "corp-002",
-    "name": "Business Conference Transfer",
-    "description": "Reliable and comfortable transfers to and from business conferences.",
-    "price": 8000,
-    "duration": "Round trip",
-    "features": [
-      "On-time service",
-      "Wi-Fi enabled vehicle",
-      "Experienced drivers"
-    ],
-    "image": "/assets/corporate/conference-transfer.jpg"
-  }
-]
+{
+  "corporatePackages": [
+    {
+      "id": "employee-transport",
+      "name": "Employee Transportation Solution",
+      "description": "Reliable and comfortable transportation service for your employees with flexible scheduling and tracking.",
+      "features": [
+        "Dedicated fleet management",
+        "Real-time tracking system",
+        "Flexible scheduling",
+        "Monthly billing option",
+        "24/7 support desk",
+        "Backup vehicle guarantee",
+        "Employee attendance reports"
+      ],
+      "vehicleOptions": [
+        {
+          "type": "Sedan",
+          "capacity": "4 passengers",
+          "monthlyRate": {
+            "amount": 45000,
+            "currency": "INR",
+            "includes": [
+              "Driver salary",
+              "Fuel",
+              "Maintenance",
+              "GPS tracking",
+              "Basic insurance"
+            ]
+          }
+        },
+        {
+          "type": "SUV",
+          "capacity": "6-7 passengers",
+          "monthlyRate": {
+            "amount": 55000,
+            "currency": "INR",
+            "includes": [
+              "Driver salary",
+              "Fuel",
+              "Maintenance",
+              "GPS tracking",
+              "Basic insurance"
+            ]
+          }
+        },
+        {
+          "type": "Tempo Traveller",
+          "capacity": "12-15 passengers",
+          "monthlyRate": {
+            "amount": 75000,
+            "currency": "INR",
+            "includes": [
+              "Driver salary",
+              "Fuel",
+              "Maintenance",
+              "GPS tracking",
+              "Basic insurance"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "business-travel",
+      "name": "Business Travel Package",
+      "description": "Premium transportation service for business executives and corporate events with professional chauffeurs.",
+      "features": [
+        "Professional chauffeurs",
+        "Premium vehicles",
+        "Airport transfers",
+        "Corporate event transport",
+        "Priority booking",
+        "Centralized billing",
+        "Dedicated account manager"
+      ],
+      "vehicleOptions": [
+        {
+          "type": "Premium Sedan",
+          "models": ["Honda City", "Hyundai Verna"],
+          "rates": {
+            "airport": {
+              "amount": 2000,
+              "currency": "INR",
+              "description": "One-way airport transfer"
+            },
+            "hourly": {
+              "amount": 800,
+              "currency": "INR",
+              "description": "Minimum 4 hours"
+            },
+            "daily": {
+              "amount": 5000,
+              "currency": "INR",
+              "description": "8 hours, 80 km"
+            }
+          }
+        },
+        {
+          "type": "Luxury Sedan",
+          "models": ["Mercedes E-Class", "BMW 5 Series"],
+          "rates": {
+            "airport": {
+              "amount": 4000,
+              "currency": "INR",
+              "description": "One-way airport transfer"
+            },
+            "hourly": {
+              "amount": 1500,
+              "currency": "INR",
+              "description": "Minimum 4 hours"
+            },
+            "daily": {
+              "amount": 9000,
+              "currency": "INR",
+              "description": "8 hours, 80 km"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "event-transport",
+      "name": "Corporate Event Transportation",
+      "description": "Comprehensive transportation solution for corporate events, conferences, and team outings.",
+      "features": [
+        "Event-specific fleet planning",
+        "Multiple pickup/drop points",
+        "On-site coordinator",
+        "Backup vehicles",
+        "Custom branding options",
+        "Real-time tracking",
+        "Post-event reports"
+      ],
+      "services": [
+        {
+          "type": "Conference Shuttle",
+          "description": "Regular shuttle service between venue and designated points",
+          "pricing": {
+            "amount": 15000,
+            "currency": "INR",
+            "unit": "per vehicle per day",
+            "includes": [
+              "12 hours operation",
+              "Fuel",
+              "Driver",
+              "Coordinator"
+            ]
+          }
+        },
+        {
+          "type": "Team Outing Transport",
+          "description": "Transportation for team building events and outings",
+          "pricing": {
+            "amount": 12000,
+            "currency": "INR",
+            "unit": "per vehicle per day",
+            "includes": [
+              "10 hours operation",
+              "Fuel",
+              "Driver",
+              "Basic refreshments"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "terms": [
+    "Minimum contract period of 3 months for employee transportation",
+    "GST will be charged as applicable",
+    "Fuel surcharge may apply based on market rates",
+    "Interstate permits charged extra",
+    "Service available in major cities only",
+    "Customization available for large contracts"
+  ],
+  "benefits": [
+    "Reduced transportation costs",
+    "Enhanced employee satisfaction",
+    "Improved punctuality",
+    "Reduced carbon footprint",
+    "Simplified billing and accounting",
+    "24/7 support and assistance",
+    "Comprehensive insurance coverage"
+  ]
+}

@@ -20,8 +20,8 @@ import {
   DialogHeader,
   DialogFooter,
   DialogTrigger
-} from '../ui/dialog';
-import { Button } from '../ui/button';
+} from '../../ui/dialog/dialog';
+import { Button } from '../../ui/Button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +30,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
+} from '../../ui/dropdown-menu/dropdown-menu';
 
 // Language and currency options
 const languages = [
@@ -100,7 +100,7 @@ export function UserPreferences() {
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="rounded-full w-9 h-9 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 flex items-center justify-center">
+          <Button variant="outline" className="rounded-full w-9 h-9 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 flex items-center justify-center">
             <Settings className="h-5 w-5 text-gray-600 dark:text-gray-300" />
             <span className="sr-only">User preferences</span>
           </Button>
@@ -299,7 +299,7 @@ export function UserPreferences() {
               Cancel
             </Button>
             <Button
-              variant="default"
+              variant="primary"
               onClick={savePreferences}
               className="bg-primary hover:bg-primary/90 text-white"
             >
