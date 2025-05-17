@@ -2,105 +2,105 @@ import * as React from "react";
 import { cn } from "../../../utils/utils";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children?: React.ReactNode;
+    className?: string;
+    children?: React.ReactNode;
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className = '', ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-xl border bg-card text-card-foreground shadow",
-      className
-    )}
-    {...props}
-  />
-));
+    ({ className = '', ...props }, ref): JSX.Element => (
+        <div
+            ref={ref}
+            className={cn(
+                "rounded-xl border bg-card text-card-foreground shadow",
+                className
+            )}
+            {...props}
+        />
+    ));
 Card.displayName = "Card";
 
 interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children?: React.ReactNode;
+    className?: string;
+    children?: React.ReactNode;
 }
 
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ className = '', ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-));
+    ({ className = '', ...props }, ref): JSX.Element => (
+        <div
+            ref={ref}
+            className={cn("flex flex-col space-y-1.5 p-6", className)}
+            {...props}
+        />
+    ));
 CardHeader.displayName = "CardHeader";
 
 interface CardTitleProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children?: React.ReactNode;
+    className?: string;
+    children?: React.ReactNode;
 }
 
 const CardTitle = React.forwardRef<HTMLDivElement, CardTitleProps>(
-  ({ className = '', ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("font-semibold leading-none tracking-tight", className)}
-    {...props}
-  />
-));
+    ({ className = '', ...props }, ref): JSX.Element => (
+        <div
+            ref={ref}
+            className={cn("font-semibold leading-none tracking-tight", className)}
+            {...props}
+        />
+    ));
 CardTitle.displayName = "CardTitle";
 
 interface CardDescriptionProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children?: React.ReactNode;
+    className?: string;
+    children?: React.ReactNode;
 }
 
 const CardDescription = React.forwardRef<HTMLDivElement, CardDescriptionProps>(
-  ({ className = '', ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
-));
+    ({ className = '', ...props }, ref): JSX.Element => (
+        <div
+            ref={ref}
+            className={cn("text-sm text-muted-foreground", className)}
+            {...props}
+        />
+    ));
 CardDescription.displayName = "CardDescription";
 
 interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children?: React.ReactNode;
+    className?: string;
+    children?: React.ReactNode;
 }
 
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className = '', ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-));
+    ({ className = '', ...props }, ref): JSX.Element => (
+        <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+    ));
 CardContent.displayName = "CardContent";
 
 interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
-  children?: React.ReactNode;
+    className?: string;
+    children?: React.ReactNode;
 }
 
 const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className = '', ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
-    {...props}
-  />
-));
+    ({ className = '', ...props }, ref): JSX.Element => (
+        <div
+            ref={ref}
+            className={cn("flex items-center p-6 pt-0", className)}
+            {...props}
+        />
+    ));
 CardFooter.displayName = "CardFooter";
 
-export { 
-  Card, 
-  CardHeader, 
-  CardFooter, 
-  CardTitle, 
-  CardDescription, 
-  CardContent,
-  type CardProps,
-  type CardHeaderProps,
-  type CardTitleProps,
-  type CardDescriptionProps,
-  type CardContentProps,
-  type CardFooterProps
+export {
+    Card,
+    CardHeader,
+    CardFooter,
+    CardTitle,
+    CardDescription,
+    CardContent,
+    type CardProps,
+    type CardHeaderProps,
+    type CardTitleProps,
+    type CardDescriptionProps,
+    type CardContentProps,
+    type CardFooterProps
 };

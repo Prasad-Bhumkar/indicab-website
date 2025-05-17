@@ -5,15 +5,15 @@ import { ThemeProvider } from 'next-themes';
 import ErrorBoundary from './ErrorBoundary';
 
 interface ClientWrapperProps {
-  children: ReactNode;
+    children: ReactNode;
 }
 
-export default function ClientWrapper({ children }: ClientWrapperProps) {
-  return (
-    <ThemeProvider attribute="class">
-      <ErrorBoundary>
-        {children}
-      </ErrorBoundary>
-    </ThemeProvider>
-  );
+export default function ClientWrapper({ children }: ClientWrapperProps): JSX.Element {
+    return (
+        <ThemeProvider attribute="class">
+            <ErrorBoundary>
+                {children}
+            </ErrorBoundary>
+        </ThemeProvider>
+    );
 }

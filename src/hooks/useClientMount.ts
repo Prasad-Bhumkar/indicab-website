@@ -17,19 +17,19 @@ import { useState, useEffect } from 'react';
  * return <ComponentUsingBrowserAPIs />;
  */
 export function useClientMount(): boolean {
-  // Set initial state to false to represent not mounted
-  const [mounted, setMounted] = useState<boolean>(false);
+    // Set initial state to false to represent not mounted
+    const [mounted, setMounted] = useState<boolean>(false);
 
-  // Run once on mount to set mounted to true
-  useEffect(() => {
-    // Only run once on mount
-    setMounted(true);
+    // Run once on mount to set mounted to true
+    useEffect(() => {
+        // Only run once on mount
+        setMounted(true);
 
-    // No cleanup needed as this should only run once
-    // No dependencies as we only want to run this once
-  }, []);
+        // No cleanup needed as this should only run once
+        // No dependencies as we only want to run this once
+    }, []);
 
-  return mounted;
+    return mounted;
 }
 
 export default useClientMount;

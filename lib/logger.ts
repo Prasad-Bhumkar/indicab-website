@@ -1,16 +1,16 @@
 class Logger {
-  info(message: string, ...optionalParams: any[]) {
-    console.info(`[INFO] ${message}`, ...optionalParams);
-  }
+    info(_message: string, ..._optionalParams: any[]) {
+        console.info(`[INFO] ${_message}`, ..._optionalParams);
+    }
 
-  warn(message: string, ...optionalParams: any[]) {
-    console.warn(`[WARN] ${message}`, ...optionalParams);
-  }
+    warn(_message: string, ..._optionalParams: any[]) {
+        console.warn(`[WARN] ${_message}`, ..._optionalParams);
+    }
 
-  error(message: string, ...optionalParams: any[]) {
-    console.error(`[ERROR] ${message}`, ...optionalParams);
-  }
+    error(_message: string, ..._optionalParams: any[]) {
+        console.error(`[ERROR] ${_message}`, ..._optionalParams);
+    }
 }
 
-const logger = new Logger();
-export default logger;
+const _logger = new Logger();
+export default _logger;

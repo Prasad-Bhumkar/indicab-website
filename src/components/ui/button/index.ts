@@ -1,4 +1,4 @@
 import React from 'react';
-import { Button } from './Button'; // Corrected casing
+import { _Button } from './Button'; // Corrected casing
 
-export { Button };
+export { _Button };

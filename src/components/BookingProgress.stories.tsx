@@ -1,21 +1,21 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import BookingProgress from './BookingProgress';
+import _BookingProgress from './BookingProgress';
 import { BookingProvider } from '../context/BookingContext';
 
 export default {
-  title: 'Components/BookingProgress',
-  component: BookingProgress,
-  decorators: [
-    (Story) => (
-      <BookingProvider>
-        <Story />
-      </BookingProvider>
-    ),
-  ],
+    title: 'Components/BookingProgress',
+    component: _BookingProgress,
+    decorators: [
+        (_Story): JSX.Element => (
+            <BookingProvider>
+                <_Story />
+            </BookingProvider>
+        ),
+    ],
 } as Meta;
 
-const Template: StoryFn = (args) => <BookingProgress {...args} />;
+const _Template: StoryFn = (args) => <_BookingProgress {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {};
+export const _Default = _Template.bind({});
+_Default.args = {};

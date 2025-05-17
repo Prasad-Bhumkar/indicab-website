@@ -39,14 +39,14 @@ interface MapViewProps {
   onRouteSelect: (routeId: number) => void;
 }
 
-export default function MapView({ routes, onRouteSelect }: MapViewProps) {
+export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.Element {
   // State to track which routes to show
   const [visibleRoutes, setVisibleRoutes] = useState<number[]>(
-    routes.length > 5 ? [] : routes.map(r => r.id)
+    routes.length > 5 ? [] : routes.map(_r => _r.id)
   );
 
   // Calculate center based on all route coordinates
-  const calculateCenter = () => {
+  const _calculateCenter = () => {
     if (routes.length === 0) {
       return [20.5937, 78.9629] as [number, number]; // Center of India
     }
@@ -64,10 +64,10 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
     return [totalLat / count, totalLng / count] as [number, number];
   };
 
-  const center = calculateCenter();
+  const center = _calculateCenter();
 
   // Toggle route visibility
-  const toggleRouteVisibility = (routeId: number) => {
+  const _toggleRouteVisibility = (routeId: number) => {
     if (visibleRoutes.includes(routeId)) {
       setVisibleRoutes(visibleRoutes.filter(id => id !== routeId));
     } else {
@@ -76,24 +76,24 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
   };
 
   // Generate intermediate points for route simulation
-  const generateIntermediatePoints = (from: [number, number], to: [number, number]) => {
+  const _generateIntermediatePoints = (from: [number, number], to: [number, number]) => {
     const points: [number, number][] = [from];
 
     const numPoints = 3; // Number of intermediate points
-    const latDiff = to[0] - from[0];
-    const lngDiff = to[1] - from[1];
+    const _latDiff = to[0] - from[0];
+    const _lngDiff = to[1] - from[1];
 
     for (let i = 1; i <= numPoints; i++) {
       // Add some randomness to make the route look more natural
-      const offsetLat = (Math.random() - 0.5) * 0.05;
-      const offsetLng = (Math.random() - 0.5) * 0.05;
+      const _offsetLat = (Math.random() - 0.5) * 0.05;
+      const _offsetLng = (Math.random() - 0.5) * 0.05;
 
-      const point: [number, number] = [
-        from[0] + (latDiff * (i / (numPoints + 1))) + offsetLat,
-        from[1] + (lngDiff * (i / (numPoints + 1))) + offsetLng
+      const _point: [number, number] = [
+        from[0] + (_latDiff * (i / (numPoints + 1))) + _offsetLat,
+        from[1] + (_lngDiff * (i / (numPoints + 1))) + _offsetLng
       ];
 
-      points.push(point);
+      points.push(_point);
     }
 
     points.push(to);
@@ -114,14 +114,14 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
         />
 
         {routes.map(route => {
-          const isVisible = visibleRoutes.includes(route.id);
-          const routeColor = getRouteColor(route.id);
-          const routePoints = generateIntermediatePoints(route.fromCoordinates, route.toCoordinates);
+          const _isVisible = visibleRoutes.includes(route.id);
+          const _routeColor = getRouteColor(route.id);
+          const _routePoints = _generateIntermediatePoints(route.fromCoordinates, route.toCoordinates);
 
           return (
             <React.Fragment key={route.id}>
               {/* Only render the route if it's visible */}
-              {isVisible && (
+              {_isVisible && (
                 <>
                   <Marker position={route.fromCoordinates} icon={markerIcon}>
                     <Popup>
@@ -161,8 +161,8 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
                   </Marker>
 
                   <Polyline
-                    positions={routePoints}
-                    color={routeColor}
+                    positions={_routePoints}
+                    color={_routeColor}
                     weight={4}
                     opacity={0.7}
                     dashArray={route.popular ? "" : "10,10"}
@@ -183,7 +183,7 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
               type="checkbox"
               id={`route-${route.id}`}
               checked={visibleRoutes.includes(route.id)}
-              onChange={() => toggleRouteVisibility(route.id)}
+              onChange={() => _toggleRouteVisibility(route.id)}
               className="mr-2"
             />
             <label
@@ -205,7 +205,7 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
             variant="outline"
             size="sm"
             className="text-xs"
-            onClick={() => setVisibleRoutes(routes.map(r => r.id))}
+            onClick={() => setVisibleRoutes(routes.map(_r => _r.id))}
           >
             Show All
           </Button>

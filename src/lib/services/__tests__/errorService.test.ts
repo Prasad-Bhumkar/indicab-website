@@ -1,87 +1,87 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { ErrorService, AppError } from '../errorService';
-import { logger } from '../../logger';
+import { _logger } from '../../logger';
 
 // Mock the logger
 vi.mock('../../logger', () => ({
-  logger: {
-    error: vi.fn(),
-    warn: vi.fn(),
-    info: vi.fn()
-  }
+    logger: {
+        error: vi.fn(),
+        warn: vi.fn(),
+        info: vi.fn()
+    }
 }));
 
 describe('ErrorService', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  afterEach(() => {
-    vi.resetAllMocks();
-  });
-
-  describe('handleError', () => {
-    it('should handle AppError correctly', async () => {
-      const appError = new AppError('Test error', 400, 'TEST_ERROR');
-      const result = await ErrorService.handleError(appError, 'test-context');
-
-      expect(result).toBe(appError);
-      expect(logger.error).toHaveBeenCalledWith({
-        message: 'Test error',
-        code: 'TEST_ERROR',
-        statusCode: 400,
-        context: 'test-context',
-        stack: expect.any(String)
-      });
+    beforeEach(() => {
+        vi.clearAllMocks();
     });
 
-    it('should convert Error to AppError', async () => {
-      const error = new Error('Standard error');
-      const result = await ErrorService.handleError(error);
-
-      expect(result).toBeInstanceOf(AppError);
-      expect(result.message).toBe('Standard error');
-      expect(result.statusCode).toBe(500);
-      expect(logger.error).toHaveBeenCalled();
+    afterEach(() => {
+        vi.resetAllMocks();
     });
 
-    it('should handle unknown errors', async () => {
-      const result = await ErrorService.handleError('unexpected error');
+    describe('handleError', () => {
+        it('should handle AppError correctly', async () => {
+            const appError = new AppError('Test error', 400, 'TEST_ERROR');
+            const result = await ErrorService.handleError(appError, 'test-context');
 
-      expect(result).toBeInstanceOf(AppError);
-      expect(result.message).toBe('An unexpected error occurred');
-      expect(result.statusCode).toBe(500);
-      expect(logger.error).toHaveBeenCalled();
+            expect(result).toBe(appError);
+            expect(_logger.error).toHaveBeenCalledWith({
+                message: 'Test error',
+                code: 'TEST_ERROR',
+                statusCode: 400,
+                context: 'test-context',
+                stack: expect.any(String)
+            });
+        });
+
+        it('should convert Error to AppError', async () => {
+            const error = new Error('Standard error');
+            const result = await ErrorService.handleError(error);
+
+            expect(result).toBeInstanceOf(AppError);
+            expect(result.message).toBe('Standard error');
+            expect(result.statusCode).toBe(500);
+            expect(_logger.error).toHaveBeenCalled();
+        });
+
+        it('should handle unknown errors', async () => {
+            const result = await ErrorService.handleError('unexpected error');
+
+            expect(result).toBeInstanceOf(AppError);
+            expect(result.message).toBe('An unexpected error occurred');
+            expect(result.statusCode).toBe(500);
+            expect(_logger.error).toHaveBeenCalled();
+        });
     });
-  });
 
-  describe('logWarning', () => {
-    it('should log warning messages correctly', async () => {
-      const message = 'Warning message';
-      const context = 'test-context';
+    describe('logWarning', () => {
+        it('should log warning messages correctly', async () => {
+            const message = 'Warning message';
+            const context = 'test-context';
 
-      await ErrorService.logWarning(message, context);
+            await ErrorService.logWarning(message, context);
 
-      expect(logger.warn).toHaveBeenCalledWith({
-        message,
-        context,
-        timestamp: expect.any(String)
-      });
+            expect(_logger.warn).toHaveBeenCalledWith({
+                message,
+                context,
+                timestamp: expect.any(String)
+            });
+        });
     });
-  });
 
-  describe('logInfo', () => {
-    it('should log info messages correctly', async () => {
-      const message = 'Info message';
-      const context = 'test-context';
+    describe('logInfo', () => {
+        it('should log info messages correctly', async () => {
+            const message = 'Info message';
+            const context = 'test-context';
 
-      await ErrorService.logInfo(message, context);
+            await ErrorService.logInfo(message, context);
 
-      expect(logger.info).toHaveBeenCalledWith({
-        message,
-        context,
-        timestamp: expect.any(String)
-      });
+            expect(_logger.info).toHaveBeenCalledWith({
+                message,
+                context,
+                timestamp: expect.any(String)
+            });
+        });
     });
-  });
 });

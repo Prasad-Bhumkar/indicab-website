@@ -8,39 +8,39 @@ import { ZodError } from 'zod';
  * @returns A wrapped handler with error handling
  */
 export function withErrorHandling<T extends Record<string, any> = {}>(
-  handler: (req: NextRequest, context?: T) => Promise<Response> | Response
+    handler: (req: NextRequest, context?: T) => Promise<Response> | Response
 ) {
-  return async function(req: NextRequest, context?: T): Promise<Response> {
-    try {
-      return await handler(req, context);
-    } catch (error) {
-      // Create context with request information
-      const errorContext: ErrorContext = {
-        url: req.url,
-        method: req.method,
-        headers: Object.fromEntries(req.headers.entries()),
-        timestamp: new Date(),
-        // Include any additional context passed to the handler
-        ...(context || {})
-      };
+    return async function(req: NextRequest, context?: T): Promise<Response> {
+        try {
+            return await handler(req, context);
+        } catch (error) {
+            // Create context with request information
+            const _errorContext: ErrorContext = {
+                url: req.url,
+                method: req.method,
+                headers: Object.fromEntries(req.headers.entries()),
+                timestamp: new Date(),
+                // Include any additional context passed to the handler
+                ...(context || {})
+            };
 
-      // Handle the error
-      const appError = await ErrorHandler.handleError(error, errorContext);
-      
-      // Return appropriate response
-      return NextResponse.json(
-        { 
-          error: {
-            message: appError.message,
-            code: appError.code,
-            type: appError.type,
-            ...(appError instanceof ValidationError && appError.details ? { details: appError.details } : {})
-          }
-        },
-        { status: appError.statusCode }
-      );
-    }
-  };
+            // Handle the error
+            const appError = await ErrorHandler.handleError(error, _errorContext);
+
+            // Return appropriate response
+            return NextResponse.json(
+                {
+                    error: {
+                        message: appError.message,
+                        code: appError.code,
+                        type: appError.type,
+                        ...(appError instanceof ValidationError && appError.details ? { details: appError.details } : {})
+                    }
+                },
+                { status: appError.statusCode }
+            );
+        }
+    };
 }
 
 /**
@@ -50,18 +50,18 @@ export function withErrorHandling<T extends Record<string, any> = {}>(
  * @returns A ValidationError instance
  */
 export function handleZodError(error: ZodError, context: ErrorContext = {}): ValidationError {
-  const fieldErrors: Record<string, string> = {};
-  
-  error.errors.forEach((err) => {
-    const path = err.path.join('.');
-    fieldErrors[path] = err.message;
-  });
-  
-  return ErrorHandler.createValidationError(
-    'Validation failed',
-    fieldErrors,
-    context
-  );
+    const fieldErrors: Record<string, string> = {};
+
+    error.errors.forEach((err) => {
+        const path = err.path.join('.');
+        fieldErrors[path] = err.message;
+    });
+
+    return ErrorHandler.createValidationError(
+        'Validation failed',
+        fieldErrors,
+        context
+    );
 }
 
 /**

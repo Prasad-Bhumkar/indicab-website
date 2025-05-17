@@ -4,26 +4,26 @@ import DateRangePicker, { DateRangePickerProps } from './DateRangePicker';
 import { useForm } from 'react-hook-form';
 
 export default {
-  title: 'Components/DateRangePicker',
-  component: DateRangePicker,
+    title: 'Components/DateRangePicker',
+    component: DateRangePicker,
 } as Meta;
 
-const Template: StoryFn<DateRangePickerProps> = (args) => <DateRangePicker {...args} />;
+const Template: StoryFn<DateRangePickerProps> = (_args) => <DateRangePicker {..._args} />;
 
-export const Default = () => {
-  const { control, formState: { errors } } = useForm({
-    defaultValues: {
-      startDate: new Date(),
-      endDate: new Date(new Date().setDate(new Date().getDate() + 3)),
-    },
-  });
+export const Default = (): JSX.Element => {
+    const { control, formState: { errors } } = useForm({
+        defaultValues: {
+            startDate: new Date(),
+            endDate: new Date(new Date().setDate(new Date().getDate() + 3)),
+        },
+    });
 
-  return (
-    <DateRangePicker
-      control={control}
-      startName="startDate"
-      endName="endDate"
-      errors={errors}
-    />
-  );
+    return (
+        <DateRangePicker
+            control={control}
+            startName="startDate"
+            endName="endDate"
+            errors={errors}
+        />
+    );
 };

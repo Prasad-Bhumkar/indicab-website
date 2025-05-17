@@ -43,7 +43,25 @@
     "src/**/*.tsx",
     "src/**/*.js",
     "src/**/*.jsx",
-    ".next/types/**/*.ts"
+    "src/**/*.d.ts",
+    ".next/types/**/*.ts",
+    ".next/types/**/*.d.ts",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "lib/**/*.ts",
+    "lib/**/*.tsx",
+    "lib/**/*.d.ts",
+    "scripts/**/*.ts",
+    "scripts/**/*.tsx",
+    "services/**/*.ts",
+    "services/**/*.tsx",
+    "services/**/*.d.ts",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "env.d.ts",
+    "**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

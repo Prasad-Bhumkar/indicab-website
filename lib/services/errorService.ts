@@ -1,5 +1,5 @@
 export enum ErrorType {
-  RUNTIME = 'RUNTIME',
-  NETWORK = 'NETWORK',
-  VALIDATION = 'VALIDATION'
+    RUNTIME = 'RUNTIME',
+    NETWORK = 'NETWORK',
+    VALIDATION = 'VALIDATION'
 }

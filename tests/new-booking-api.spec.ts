@@ -6,61 +6,61 @@ import { BookingState } from '../src/context/BookingContext'
 global.fetch = vi.fn()
 
 describe('Booking API Service', () => {
-  const validBooking: Omit<BookingState, 'id'> = {
-    pickup: 'Location A',
-    destination: 'Location B',
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 86400000),
-    vehicleType: 'sedan',
-    fare: 100,
-    customerId: 'user123',
-    status: 'pending'
-  }
-
-  beforeEach(() => {
-    vi.resetAllMocks()
-  })
-
-  it('should create a booking successfully', async () => {
-    const mockResponse: BookingState = {
-      ...validBooking,
-      id: 'booking123'
+    const validBooking: Omit<BookingState, 'id'> = {
+        pickup: 'Location A',
+        destination: 'Location B',
+        startDate: new Date(),
+        endDate: new Date(Date.now() + 86400000),
+        vehicleType: 'sedan',
+        fare: 100,
+        customerId: 'user123',
+        status: 'pending'
     }
 
-    // @ts-expect-error: Ignoring type error for testing purposes
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve(mockResponse)
+    beforeEach(() => {
+        vi.resetAllMocks()
     })
 
-    const result = await createBooking(validBooking)
-    expect(result).toEqual(mockResponse)
-    expect(fetch).toHaveBeenCalledWith('/api/bookings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer default-token' // Updated to reflect fallback token
-      },
-      body: JSON.stringify(validBooking)
+    it('should create a booking successfully', async () => {
+        const mockResponse: BookingState = {
+            ...validBooking,
+            id: 'booking123'
+        }
+
+        // @ts-expect-error: Ignoring type error for testing purposes
+        fetch.mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve(mockResponse)
+        })
+
+        const _result = await createBooking(validBooking)
+        expect(_result).toEqual(mockResponse)
+        expect(fetch).toHaveBeenCalledWith('/api/bookings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer default-token' // Updated to reflect fallback token
+            },
+            body: JSON.stringify(validBooking)
+        })
     })
-  })
 
-  it('should throw error when API returns failure', async () => {
-    // @ts-expect-error: Ignoring type error for testing purposes
-    fetch.mockResolvedValueOnce({
-      ok: false,
-      json: () => Promise.resolve({ message: 'Invalid data' })
+    it('should throw error when API returns failure', async () => {
+        // @ts-expect-error: Ignoring type error for testing purposes
+        fetch.mockResolvedValueOnce({
+            ok: false,
+            json: () => Promise.resolve({ message: 'Invalid data' })
+        })
+
+        await expect(createBooking(validBooking))
+            .rejects.toThrow('Booking creation failed')
     })
 
-    await expect(createBooking(validBooking))
-      .rejects.toThrow('Booking creation failed')
-  })
+    it('should handle network errors', async () => {
+        // @ts-expect-error: Ignoring type error for testing purposes
+        fetch.mockRejectedValueOnce(new Error('Network error'))
 
-  it('should handle network errors', async () => {
-    // @ts-expect-error: Ignoring type error for testing purposes
-    fetch.mockRejectedValueOnce(new Error('Network error'))
-
-    await expect(createBooking(validBooking))
-      .rejects.toThrow('Booking creation failed')
-  })
+        await expect(createBooking(validBooking))
+            .rejects.toThrow('Booking creation failed')
+    })
 })

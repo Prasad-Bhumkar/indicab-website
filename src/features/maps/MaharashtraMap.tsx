@@ -6,23 +6,23 @@ export interface MaharashtraMapProps {
   markers?: { id: number; lat: number; lng: number; label: string }[];
 }
 
-const MaharashtraMap: React.FC<MaharashtraMapProps> = ({ markers }) => {
+const _MaharashtraMap: React.FC<MaharashtraMapProps> = ({ markers }): JSX.Element => {
   const [vehicleMarkers, setVehicleMarkers] = useState(markers || []);
   const [Leaflet, setLeaflet] = useState<any>(null);
 
   useEffect(() => {
-    import("react-leaflet").then(mod => {
-      setLeaflet(mod);
+    import("react-leaflet").then(_mod => {
+      setLeaflet(_mod);
     });
   }, []);
 
   // Simulate real-time updates by polling every 5 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
+    const _interval = setInterval(() => {
       // Fetch updated vehicle locations from API or WebSocket here
       // For demo, randomly move markers slightly
-      setVehicleMarkers(prevMarkers =>
-        prevMarkers.map(marker => ({
+      setVehicleMarkers(_prevMarkers =>
+        _prevMarkers.map(marker => ({
           ...marker,
           lat: marker.lat + (Math.random() - 0.5) * 0.01,
           lng: marker.lng + (Math.random() - 0.5) * 0.01,
@@ -30,7 +30,7 @@ const MaharashtraMap: React.FC<MaharashtraMapProps> = ({ markers }) => {
       );
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(_interval);
   }, []);
 
   if (!Leaflet) {
@@ -55,4 +55,4 @@ const MaharashtraMap: React.FC<MaharashtraMapProps> = ({ markers }) => {
   );
 };
 
-export default MaharashtraMap;
+export default _MaharashtraMap;

@@ -1,53 +1,53 @@
 [
-  {
-    "id": "hourly-4",
-    "title": "4-Hour Package",
-    "price": "₹1,299",
-    "time": "4 hours",
-    "distance": "40 km",
-    "description": "Perfect for short meetings, shopping trips, or brief city exploration",
-    "features": [
-      "Available in all major cities",
-      "Multiple car options (Sedan/SUV)",
-      "Waiting time included",
-      "Professional chauffeur",
-      "Complimentary water bottles"
-    ],
-    "availableCities": ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune"]
-  },
-  {
-    "id": "hourly-8",
-    "title": "8-Hour Package",
-    "price": "₹2,199",
-    "time": "8 hours",
-    "distance": "80 km",
-    "description": "Ideal for full-day business meetings, family outings, or city exploration",
-    "features": [
-      "Available in all major cities",
-      "Multiple car options (Sedan/SUV)",
-      "Waiting time included",
-      "Professional chauffeur",
-      "Complimentary water bottles",
-      "Free cancellation up to 24 hours"
-    ],
-    "availableCities": ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Kolkata", "Pune", "Ahmedabad"]
-  },
-  {
-    "id": "hourly-12",
-    "title": "12-Hour Package",
-    "price": "₹2,999",
-    "time": "12 hours",
-    "distance": "120 km",
-    "description": "Comprehensive package for full-day activities with extended hours",
-    "features": [
-      "Available in all major cities",
-      "Multiple car options (Sedan/SUV/Premium)",
-      "Waiting time included",
-      "Professional chauffeur",
-      "Complimentary water bottles and snacks",
-      "Free cancellation up to 24 hours",
-      "Multiple stops allowed"
-    ],
-    "availableCities": ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Kolkata", "Pune", "Jaipur"]
-  }
+    {
+        "id": "hourly-4",
+        "title": "4-Hour Package",
+        "price": "₹1,299",
+        "time": "4 hours",
+        "distance": "40 km",
+        "description": "Perfect for short meetings, shopping trips, or brief city exploration",
+        "features": [
+            "Available in all major cities",
+            "Multiple car options (Sedan/SUV)",
+            "Waiting time included",
+            "Professional chauffeur",
+            "Complimentary water bottles"
+        ],
+        "availableCities": ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune"]
+    },
+    {
+        "id": "hourly-8",
+        "title": "8-Hour Package",
+        "price": "₹2,199",
+        "time": "8 hours",
+        "distance": "80 km",
+        "description": "Ideal for full-day business meetings, family outings, or city exploration",
+        "features": [
+            "Available in all major cities",
+            "Multiple car options (Sedan/SUV)",
+            "Waiting time included",
+            "Professional chauffeur",
+            "Complimentary water bottles",
+            "Free cancellation up to 24 hours"
+        ],
+        "availableCities": ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Kolkata", "Pune", "Ahmedabad"]
+    },
+    {
+        "id": "hourly-12",
+        "title": "12-Hour Package",
+        "price": "₹2,999",
+        "time": "12 hours",
+        "distance": "120 km",
+        "description": "Comprehensive package for full-day activities with extended hours",
+        "features": [
+            "Available in all major cities",
+            "Multiple car options (Sedan/SUV/Premium)",
+            "Waiting time included",
+            "Professional chauffeur",
+            "Complimentary water bottles and snacks",
+            "Free cancellation up to 24 hours",
+            "Multiple stops allowed"
+        ],
+        "availableCities": ["All Cities", "Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Kolkata", "Pune", "Jaipur"]
+    }
 ]

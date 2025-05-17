@@ -1,58 +1,59 @@
+import React from "react";
 import type { Meta, StoryObj } from '@storybook/react';
 import { useForm } from 'react-hook-form';
 import VehicleTypeSelector from './VehicleTypeSelector';
 
-const meta: Meta<typeof VehicleTypeSelector> = {
-  title: 'Components/VehicleTypeSelector',
-  component: VehicleTypeSelector,
-  parameters: {
-    layout: 'centered',
-  },
-  tags: ['autodocs'],
+const _meta: Meta<typeof VehicleTypeSelector> = {
+    title: 'Components/VehicleTypeSelector',
+    component: VehicleTypeSelector,
+    parameters: {
+        layout: 'centered',
+    },
+    tags: ['autodocs'],
 };
 
-export default meta;
+export default _meta;
 type Story = StoryObj<typeof VehicleTypeSelector>;
 
-const FormWrapper = (props: any) => {
-  const { control } = useForm({
-    defaultValues: {
-      vehicleType: '',
-    },
-  });
+const FormWrapper = (_props: any): JSX.Element => {
+    const { control } = useForm({
+        defaultValues: {
+            vehicleType: '',
+        },
+    });
 
-  return <VehicleTypeSelector control={control} name="vehicleType" {...props} />;
+    return <VehicleTypeSelector control={control} name="vehicleType" {..._props} />;
 };
 
 export const Default: Story = {
-  render: () => <FormWrapper />,
+    render: () => <FormWrapper />,
 };
 
 export const WithError: Story = {
-  render: () => (
-    <FormWrapper
-      error={{
-        type: 'required',
-        message: 'Please select a vehicle type',
-      }}
-    />
-  ),
+    render: (): JSX.Element => (
+        <FormWrapper
+            error={{
+                type: 'required',
+                message: 'Please select a vehicle type',
+            }}
+        />
+    ),
 };
 
 export const Disabled: Story = {
-  render: () => <FormWrapper disabled />,
+    render: () => <FormWrapper disabled />,
 };
 
-const FormWrapperWithSelectedValue = (props: any) => {
-  const { control } = useForm({
-    defaultValues: {
-      vehicleType: 'premium',
-    },
-  });
+const _FormWrapperWithSelectedValue = (_props: any): JSX.Element => {
+    const { control } = useForm({
+        defaultValues: {
+            vehicleType: 'premium',
+        },
+    });
 
-  return <VehicleTypeSelector control={control} name="vehicleType" {...props} />;
+    return <VehicleTypeSelector control={control} name="vehicleType" {..._props} />;
 };
 
 export const WithSelectedValue: Story = {
-  render: () => <FormWrapperWithSelectedValue />,
+    render: () => <_FormWrapperWithSelectedValue />,
 };

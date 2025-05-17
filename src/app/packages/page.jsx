@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import styles from './packages.module.css';
 import Header from '@/components/layout/header/Header';
-import Footer from '@/components/layout/footer/Footer';
-import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import _Footer from '@/components/layout/footer/Footer';
+import _FloatingActionButton from '@/components/shared/FloatingActionButton';
 import { 
   HourlyPackageCard,
   TourPackageCard,
@@ -12,7 +12,7 @@ import {
 } from '@/components/packages';
 import { Button } from '@/components/ui/Button';
 
-const cities = [
+const _cities = [
   'All Cities',
   'Mumbai',
   'Delhi',
@@ -25,16 +25,16 @@ const cities = [
   'Jaipur'
 ];
 
-export default function Packages() {
+export default function Packages(): JSX.Element {
   const [selectedCity, setSelectedCity] = useState('All Cities');
   const [activeTab, setActiveTab] = useState('hourly');
 
-  const hourlyPackages = require('@/data/hourly-packages.json');
-  const tourPackages = require('@/data/tour-packages.json');
-  const corporatePackages = require('@/data/corporate-packages.json');
+  const _hourlyPackages = require('@/data/hourly-packages.json');
+  const _tourPackages = require('@/data/tour-packages.json');
+  const _corporatePackages = require('@/data/corporate-packages.json');
   const faqs = require('@/data/faqs.json');
 
-  const filteredHourlyPackages = hourlyPackages.filter(
+  const _filteredHourlyPackages = _hourlyPackages.filter(
     pkg => pkg.availableCities.includes(selectedCity)
   );
 
@@ -98,7 +98,7 @@ export default function Packages() {
                 Flexible hourly packages with professional drivers for all your local travel needs.
               </p>
               <div className={styles.cityFilter}>
-                {cities.map(city => (
+                {_cities.map(city => (
                   <button
                     key={city}
                     onClick={() => setSelectedCity(city)}
@@ -114,7 +114,7 @@ export default function Packages() {
               </div>
             </div>
             <div className={styles.packageGrid}>
-              {filteredHourlyPackages.map(pkg => (
+              {_filteredHourlyPackages.map(pkg => (
                 <HourlyPackageCard key={pkg.id} package={pkg} />
               ))}
             </div>
@@ -132,7 +132,7 @@ export default function Packages() {
               </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {tourPackages.map(pkg => (
+              {_tourPackages.map(pkg => (
                 <TourPackageCard key={pkg.id} package={pkg} />
               ))}
             </div>
@@ -150,7 +150,7 @@ export default function Packages() {
               </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {corporatePackages.map(pkg => (
+              {_corporatePackages.map(pkg => (
                 <CorporatePackageCard key={pkg.id} package={pkg} />
               ))}
             </div>
@@ -158,8 +158,8 @@ export default function Packages() {
         </div>
       )}
 
-      <Footer />
-      <FloatingActionButton />
+      <_Footer />
+      <_FloatingActionButton />
     </main>
   );
 }

@@ -228,7 +228,7 @@ export async function generateMetadata({ params }: { params: RouteParams }): Pro
   };
 }
 
-export default function OnewayRoutePage({ params }: { params: RouteParams }) {
+export default function OnewayRoutePage({ params }: { params: RouteParams }): JSX.Element {
   const routeInfo = popularRoutes.find(route => route.id === params.route);
 
   if (!routeInfo) {
@@ -293,15 +293,15 @@ export default function OnewayRoutePage({ params }: { params: RouteParams }) {
 
                 <h3>Why Choose IndiCab for {routeInfo.from} to {routeInfo.to} Travel</h3>
                 <ul>
-                  {routeInfo.highlights.map((highlight, index) => (
-                    <li key={index}>{highlight}</li>
+                  {routeInfo.highlights.map((_highlight, _index): JSX.Element => (
+                    <li key={_index}>{_highlight}</li>
                   ))}
                 </ul>
 
                 <h3>Frequently Asked Questions</h3>
                 <div className="space-y-4 not-prose">
-                  {routeInfo.faqs.map((faq, index) => (
-                    <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                  {routeInfo.faqs.map((faq, _index): JSX.Element => (
+                    <div key={_index} className="bg-gray-50 p-4 rounded-lg">
                       <h4 className="font-medium text-gray-900 mb-2">{faq.question}</h4>
                       <p className="text-gray-600">{faq.answer}</p>
                     </div>

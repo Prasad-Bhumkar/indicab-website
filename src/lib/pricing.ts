@@ -1,11 +1,11 @@
-export function calculateFare(vehicleType: string, startDate: Date, endDate: Date): number {
-  const dailyRates: Record<string, number> = {
-    'economy': 50,
-    'standard': 75,
-    'premium': 100,
-    'luxury': 150
-  }
+export function calculateFare(_vehicleType: string, _startDate: Date, _endDate: Date): number {
+    const _dailyRates: Record<string, number> = {
+        'economy': 50,
+        'standard': 75,
+        'premium': 100,
+        'luxury': 150
+    }
 
-  const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
-  return (dailyRates[vehicleType] || 0) * days
+    const _days = Math.ceil((_endDate.getTime() - _startDate.getTime()) / (1000 * 60 * 60 * 24))
+    return (_dailyRates[_vehicleType] || 0) * _days
 }

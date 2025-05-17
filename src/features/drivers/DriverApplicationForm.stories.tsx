@@ -1,29 +1,29 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import DriverApplicationForm, { DriverApplicationFormProps } from './DriverApplicationForm';
+import _DriverApplicationForm, { DriverApplicationFormProps } from './DriverApplicationForm';
 
 export default {
-  title: 'Features/Drivers/DriverApplicationForm',
-  component: DriverApplicationForm,
-} as Meta<typeof DriverApplicationForm>;
+    title: 'Features/Drivers/DriverApplicationForm',
+    component: _DriverApplicationForm,
+} as Meta<typeof _DriverApplicationForm>;
 
-const Template: StoryFn<DriverApplicationFormProps> = (args: DriverApplicationFormProps) => (
-  <DriverApplicationForm {...args} />
+const Template: StoryFn<DriverApplicationFormProps> = (args: DriverApplicationFormProps): JSX.Element => (
+    <_DriverApplicationForm {...args} />
 );
 
-export const Default = Template.bind({});
-Default.args = {
-  onSubmit: (data: Record<string, string>) => console.log('Form submitted:', data),
+export const _Default = Template.bind({});
+_Default.args = {
+    onSubmit: (_data: Record<string, string>) => console.log('Form submitted:', _data),
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  onSubmit: (data: Record<string, string>) => console.log('Form submitted:', data),
-  loading: true,
+export const _Loading = Template.bind({});
+_Loading.args = {
+    onSubmit: (_data: Record<string, string>) => console.log('Form submitted:', _data),
+    loading: true,
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
-  onSubmit: (data: Record<string, string>) => console.log('Form submitted:', data),
-  error: 'There was an error submitting your application',
+export const _WithError = Template.bind({});
+_WithError.args = {
+    onSubmit: (_data: Record<string, string>) => console.log('Form submitted:', _data),
+    error: 'There was an error submitting your application',
 };

@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '../../components/layout/header/Header';
-import Footer from '../../components/layout/footer/Footer';
+import _Footer from '../../components/layout/footer/Footer';
 import { motion } from 'framer-motion';
 
 interface TourDestination {
@@ -19,8 +19,8 @@ interface TourDestination {
   baseCity: 'Pune' | 'Mumbai';
 }
 
-const MaharashtraTours = () => {
-  const pileVariants = {
+const _MaharashtraTours = (): JSX.Element => {
+  const _pileVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -30,12 +30,12 @@ const MaharashtraTours = () => {
     },
   };
 
-  const itemVariants = {
+  const _itemVariants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
   };
 
-  const destinations: TourDestination[] = [
+  const _destinations: TourDestination[] = [
     {
       id: 'lonavala',
       name: 'Lonavala',
@@ -163,15 +163,15 @@ const MaharashtraTours = () => {
 
             <motion.div
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-              variants={pileVariants}
+              variants={_pileVariants}
               initial="hidden"
               animate="show"
             >
-              {destinations.map(destination => (
+              {_destinations.map(destination => (
                 <motion.div
                   key={destination.id}
                   className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
-                  variants={itemVariants}
+                  variants={_itemVariants}
                 >
                   <div className="relative h-48">
                     <Image
@@ -195,12 +195,12 @@ const MaharashtraTours = () => {
                     <div className="mb-3">
                       <h4 className="font-medium text-gray-700 mb-1">Top Attractions:</h4>
                       <ul className="text-sm text-gray-600">
-                        {destination.attractions.map((attraction, i) => (
-                          <li key={i} className="mb-1 flex items-start">
+                        {destination.attractions.map((_attraction, _i) => (
+                          <li key={_i} className="mb-1 flex items-start">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-500 mr-1 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            {attraction}
+                            {_attraction}
                           </li>
                         ))}
                       </ul>
@@ -238,9 +238,9 @@ const MaharashtraTours = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <_Footer />
     </>
   );
 };
 
-export default MaharashtraTours;
+export default _MaharashtraTours;

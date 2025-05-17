@@ -8,18 +8,18 @@
  * Legacy to Modern Asset Path Mapping
  */
 const legacyToModernPaths = {
-  // Images
-  '/assets/app-store.png': '/assets/images/app-store.png',
-  '/assets/play-store.png': '/assets/images/google-play.png',
-  '/assets/logo.png': '/indicab-logo.svg',
+    // Images
+    '/assets/app-store.png': '/assets/images/app-store.png',
+    '/assets/play-store.png': '/assets/images/google-play.png',
+    '/assets/logo.png': '/indicab-logo.svg',
 
-  // Directories
-  '/assets/images/': '/assets/images/',
-  '/assets/icons/': '/assets/icons/',
-  '/assets/avatars/': '/assets/avatars/',
-  '/assets/drivers/': '/assets/drivers/',
-  '/assets/cities/': '/assets/cities/',
-  '/assets/cars/': '/assets/cars/',
+    // Directories
+    '/assets/images/': '/assets/images/',
+    '/assets/icons/': '/assets/icons/',
+    '/assets/avatars/': '/assets/avatars/',
+    '/assets/drivers/': '/assets/drivers/',
+    '/assets/cities/': '/assets/cities/',
+    '/assets/cars/': '/assets/cars/',
 };
 
 /**
@@ -29,21 +29,21 @@ const legacyToModernPaths = {
  * @returns The correct path for use in Next.js components
  */
 export function getAssetPath(legacyPath: string): string {
-  // Check for direct mappings
-  if (legacyPath in legacyToModernPaths) {
-    return legacyToModernPaths[legacyPath as keyof typeof legacyToModernPaths];
-  }
-
-  // Check if the path starts with any of the directory mappings
-  for (const [legacyDir, modernDir] of Object.entries(legacyToModernPaths)) {
-    if (legacyPath.startsWith(legacyDir)) {
-      return legacyPath.replace(legacyDir, modernDir);
+    // Check for direct mappings
+    if (legacyPath in legacyToModernPaths) {
+        return legacyToModernPaths[legacyPath as keyof typeof legacyToModernPaths];
     }
-  }
 
-  // If no mapping found, return the original path
-  // but ensure it starts with a leading slash
-  return legacyPath.startsWith('/') ? legacyPath : `/${legacyPath}`;
+    // Check if the path starts with any of the directory mappings
+    for (const [legacyDir, modernDir] of Object.entries(legacyToModernPaths)) {
+        if (legacyPath.startsWith(legacyDir)) {
+            return legacyPath.replace(legacyDir, modernDir);
+        }
+    }
+
+    // If no mapping found, return the original path
+    // but ensure it starts with a leading slash
+    return legacyPath.startsWith('/') ? legacyPath : `/${legacyPath}`;
 }
 
 /**
@@ -53,10 +53,10 @@ export function getAssetPath(legacyPath: string): string {
  * @returns True if the asset should use the Next.js Image component
  */
 export function shouldUseNextImage(path: string): boolean {
-  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
-  const lowercasePath = path.toLowerCase();
+    const _imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'];
+    const _lowercasePath = path.toLowerCase();
 
-  return imageExtensions.some(ext => lowercasePath.endsWith(ext));
+    return _imageExtensions.some(_ext => _lowercasePath.endsWith(_ext));
 }
 
 /**

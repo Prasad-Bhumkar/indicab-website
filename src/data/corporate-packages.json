@@ -1,41 +1,41 @@
 [
-  {
-    "id": "corp-daily",
-    "title": "Corporate Daily Commute",
-    "description": "Regular employee transportation services with fixed routes and schedules",
-    "features": [
-      "Dedicated corporate account manager",
-      "Fleet of well-maintained vehicles",
-      "Trained and verified drivers",
-      "Real-time tracking",
-      "Monthly billing with GST invoices",
-      "Special rates for regular bookings"
-    ]
-  },
-  {
-    "id": "corp-events",
-    "title": "Corporate Events & Conferences",
-    "description": "Transportation solutions for corporate events, conferences, and team outings",
-    "features": [
-      "Multiple vehicle types available",
-      "Coordination for large groups",
-      "Branded vehicles option",
-      "Customized pickup and drop schedules",
-      "On-site transportation manager",
-      "Flexible payment options"
-    ]
-  },
-  {
-    "id": "corp-airport",
-    "title": "Airport Corporate Services",
-    "description": "Premium airport transfer services for executives and business clients",
-    "features": [
-      "Flight tracking",
-      "Meet & greet services",
-      "Premium vehicle options",
-      "Professional chauffeurs in formal attire",
-      "Extended waiting time",
-      "Priority booking"
-    ]
-  }
+    {
+        "id": "corp-daily",
+        "title": "Corporate Daily Commute",
+        "description": "Regular employee transportation services with fixed routes and schedules",
+        "features": [
+            "Dedicated corporate account manager",
+            "Fleet of well-maintained vehicles",
+            "Trained and verified drivers",
+            "Real-time tracking",
+            "Monthly billing with GST invoices",
+            "Special rates for regular bookings"
+        ]
+    },
+    {
+        "id": "corp-events",
+        "title": "Corporate Events & Conferences",
+        "description": "Transportation solutions for corporate events, conferences, and team outings",
+        "features": [
+            "Multiple vehicle types available",
+            "Coordination for large groups",
+            "Branded vehicles option",
+            "Customized pickup and drop schedules",
+            "On-site transportation manager",
+            "Flexible payment options"
+        ]
+    },
+    {
+        "id": "corp-airport",
+        "title": "Airport Corporate Services",
+        "description": "Premium airport transfer services for executives and business clients",
+        "features": [
+            "Flight tracking",
+            "Meet & greet services",
+            "Premium vehicle options",
+            "Professional chauffeurs in formal attire",
+            "Extended waiting time",
+            "Priority booking"
+        ]
+    }
 ]

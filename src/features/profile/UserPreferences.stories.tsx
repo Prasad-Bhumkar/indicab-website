@@ -1,34 +1,34 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import UserPreferences, { UserPreferencesProps } from './UserPreferences';
+import _UserPreferences, { UserPreferencesProps } from './UserPreferences';
 
 export default {
-  title: 'Features/Profile/UserPreferences',
-  component: UserPreferences,
-} as Meta<typeof UserPreferences>;
+    title: 'Features/Profile/UserPreferences',
+    component: _UserPreferences,
+} as Meta<typeof _UserPreferences>;
 
-const Template: StoryFn<UserPreferencesProps> = (args: UserPreferencesProps) => (
-  <UserPreferences {...args} />
+const Template: StoryFn<UserPreferencesProps> = (args: UserPreferencesProps): JSX.Element => (
+    <_UserPreferences {...args} />
 );
 
-export const Default = Template.bind({});
-Default.args = {
-  preferences: {
-    theme: 'light',
-    notifications: true,
-    language: 'en',
-  },
-  onPreferenceChange: (key: string, value: any) => 
-    console.log(`Preference changed: ${key}=${value}`),
+export const _Default = Template.bind({});
+_Default.args = {
+    preferences: {
+        theme: 'light',
+        notifications: true,
+        language: 'en',
+    },
+    onPreferenceChange: (_key: string, _value: any) =>
+        console.log(`Preference changed: ${_key}=${_value}`),
 };
 
-export const DarkTheme = Template.bind({});
-DarkTheme.args = {
-  preferences: {
-    theme: 'dark',
-    notifications: false,
-    language: 'en',
-  },
-  onPreferenceChange: (key: string, value: any) => 
-    console.log(`Preference changed: ${key}=${value}`),
+export const _DarkTheme = Template.bind({});
+_DarkTheme.args = {
+    preferences: {
+        theme: 'dark',
+        notifications: false,
+        language: 'en',
+    },
+    onPreferenceChange: (_key: string, _value: any) =>
+        console.log(`Preference changed: ${_key}=${_value}`),
 };

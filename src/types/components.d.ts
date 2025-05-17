@@ -3,17 +3,17 @@ import type { ButtonProps } from '../../components/ui/button/button';
 import { Route } from './routes';
 
 declare module '@components/ui/button' {
-  export const Button: React.ForwardRefExoticComponent<
-    ButtonProps & React.RefAttributes<HTMLButtonElement>
-  >;
+    export const Button: React.ForwardRefExoticComponent<
+        ButtonProps & React.RefAttributes<HTMLButtonElement>
+    >;
 }
 
 declare module '@/components/MapView' {
-  export interface MapViewProps {
-    routes: Route[];
-    onRouteSelect: (routeId: number) => void;
-  }
+    export interface MapViewProps {
+        routes: Route[];
+        onRouteSelect: (routeId: number) => void;
+    }
 
-  const MapView: React.FC<MapViewProps>;
-  export default MapView;
+    const _MapView: React.FC<MapViewProps>;
+    export default _MapView;
 }

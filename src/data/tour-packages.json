@@ -1,66 +1,66 @@
 [
-  {
-    "id": "mumbai-city",
-    "title": "Mumbai City Tour",
-    "price": "₹3,499",
-    "duration": "Full day (10 hours)",
-    "type": "Day Tour",
-    "description": "Explore the highlights of Mumbai with our guided city tour",
-    "attractions": [
-      "Gateway of India",
-      "Marine Drive",
-      "Hanging Gardens",
-      "Dharavi Slum Tour (optional)",
-      "Bollywood Film City (optional)"
-    ],
-    "image": "/assets/cities/mumbai.jpg"
-  },
-  {
-    "id": "delhi-agra",
-    "title": "Delhi-Agra Taj Mahal Tour",
-    "price": "₹6,999",
-    "duration": "2 days, 1 night",
-    "type": "Multi-day",
-    "description": "Visit the magnificent Taj Mahal with an overnight Delhi-Agra tour",
-    "attractions": [
-      "Taj Mahal",
-      "Agra Fort",
-      "Fatehpur Sikri",
-      "Delhi Red Fort",
-      "India Gate"
-    ],
-    "image": "/images/taj-mahal.jpg"
-  },
-  {
-    "id": "jaipur-tour",
-    "title": "Jaipur Pink City Tour",
-    "price": "₹4,299",
-    "duration": "Full day (10 hours)",
-    "type": "Day Tour",
-    "description": "Discover the royal heritage of Jaipur with our comprehensive city tour",
-    "attractions": [
-      "Amber Fort",
-      "Hawa Mahal",
-      "City Palace",
-      "Jantar Mantar",
-      "Albert Hall Museum"
-    ],
-    "image": "/assets/cities/jaipur.jpg"
-  },
-  {
-    "id": "golden-triangle",
-    "title": "Golden Triangle Tour",
-    "price": "₹18,999",
-    "duration": "4 days, 3 nights",
-    "type": "Multi-day",
-    "description": "Experience India's famous Golden Triangle covering Delhi, Agra and Jaipur",
-    "attractions": [
-      "Delhi historical sites",
-      "Taj Mahal & Agra Fort",
-      "Jaipur palaces and forts",
-      "Cultural experiences",
-      "Local cuisine tastings"
-    ],
-    "image": "/assets/cities/taj-mahal.jpg"
-  }
+    {
+        "id": "mumbai-city",
+        "title": "Mumbai City Tour",
+        "price": "₹3,499",
+        "duration": "Full day (10 hours)",
+        "type": "Day Tour",
+        "description": "Explore the highlights of Mumbai with our guided city tour",
+        "attractions": [
+            "Gateway of India",
+            "Marine Drive",
+            "Hanging Gardens",
+            "Dharavi Slum Tour (optional)",
+            "Bollywood Film City (optional)"
+        ],
+        "image": "/assets/cities/mumbai.jpg"
+    },
+    {
+        "id": "delhi-agra",
+        "title": "Delhi-Agra Taj Mahal Tour",
+        "price": "₹6,999",
+        "duration": "2 days, 1 night",
+        "type": "Multi-day",
+        "description": "Visit the magnificent Taj Mahal with an overnight Delhi-Agra tour",
+        "attractions": [
+            "Taj Mahal",
+            "Agra Fort",
+            "Fatehpur Sikri",
+            "Delhi Red Fort",
+            "India Gate"
+        ],
+        "image": "/images/taj-mahal.jpg"
+    },
+    {
+        "id": "jaipur-tour",
+        "title": "Jaipur Pink City Tour",
+        "price": "₹4,299",
+        "duration": "Full day (10 hours)",
+        "type": "Day Tour",
+        "description": "Discover the royal heritage of Jaipur with our comprehensive city tour",
+        "attractions": [
+            "Amber Fort",
+            "Hawa Mahal",
+            "City Palace",
+            "Jantar Mantar",
+            "Albert Hall Museum"
+        ],
+        "image": "/assets/cities/jaipur.jpg"
+    },
+    {
+        "id": "golden-triangle",
+        "title": "Golden Triangle Tour",
+        "price": "₹18,999",
+        "duration": "4 days, 3 nights",
+        "type": "Multi-day",
+        "description": "Experience India's famous Golden Triangle covering Delhi, Agra and Jaipur",
+        "attractions": [
+            "Delhi historical sites",
+            "Taj Mahal & Agra Fort",
+            "Jaipur palaces and forts",
+            "Cultural experiences",
+            "Local cuisine tastings"
+        ],
+        "image": "/assets/cities/taj-mahal.jpg"
+    }
 ]

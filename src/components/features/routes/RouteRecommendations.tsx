@@ -11,7 +11,7 @@ import Link from 'next/link';
 // Number of recommended routes to show
 const RECOMMENDED_COUNT = 3;
 
-export default function RouteRecommendations() {
+export default function RouteRecommendations(): JSX.Element {
   const { favorites, isFavorite, toggleFavorite } = useFavorites();
   const [recommendedRoutes, setRecommendedRoutes] = useState<Route[]>([]);
   const [viewedRoutes, setViewedRoutes] = useState<number[]>([]);
@@ -23,7 +23,7 @@ export default function RouteRecommendations() {
   }, []);
 
   // Record a route as viewed
-  const recordRouteView = (routeId: number) => {
+  const _recordRouteView = (routeId: number) => {
     if (!viewedRoutes.includes(routeId)) {
       setViewedRoutes([routeId, ...viewedRoutes].slice(0, 10)); // Keep only the 10 most recently viewed
     }
@@ -35,32 +35,32 @@ export default function RouteRecommendations() {
 
     // If no favorites or viewed routes, recommend popular routes
     if (favorites.length === 0 && viewedRoutes.length === 0) {
-      const popularRoutes = routes.filter(route => route.popular).slice(0, RECOMMENDED_COUNT);
-      setRecommendedRoutes(popularRoutes);
+      const _popularRoutes = routes.filter(route => route.popular).slice(0, RECOMMENDED_COUNT);
+      setRecommendedRoutes(_popularRoutes);
       return;
     }
 
     // Exclude routes that are already in favorites
-    const candidateRoutes = routes.filter(route => !favorites.includes(route.id));
+    const _candidateRoutes = routes.filter(route => !favorites.includes(route.id));
 
     // Get the routes that match user's viewed or favorited cities
-    const userRoutes = [...favorites, ...viewedRoutes];
-    const userRoutesData = routes.filter(route => userRoutes.includes(route.id));
+    const _userRoutes = [...favorites, ...viewedRoutes];
+    const userRoutesData = routes.filter(route => _userRoutes.includes(route.id));
 
-    const fromCities = userRoutesData.map(route => route.from);
-    const toCities = userRoutesData.map(route => route.to);
+    const _fromCities = userRoutesData.map(route => route.from);
+    const _toCities = userRoutesData.map(route => route.to);
 
     // Score routes based on preference matches
-    const scoredRoutes = candidateRoutes.map(route => {
+    const _scoredRoutes = _candidateRoutes.map(route => {
       let score = 0;
 
       // Score for matching from city
-      if (fromCities.includes(route.from)) {
+      if (_fromCities.includes(route.from)) {
         score += 3;
       }
 
       // Score for matching to city
-      if (toCities.includes(route.to)) {
+      if (_toCities.includes(route.to)) {
         score += 3;
       }
 
@@ -73,23 +73,23 @@ export default function RouteRecommendations() {
     });
 
     // Sort by score and take top recommendations
-    const sortedRoutes = scoredRoutes
-      .sort((a, b) => b.score - a.score)
-      .map(item => item.route)
+    const sortedRoutes = _scoredRoutes
+      .sort((_a, _b) => _b.score - _a.score)
+      .map(_item => _item.route)
       .slice(0, RECOMMENDED_COUNT);
 
     // If we don't have enough recommendations, add popular routes
     if (sortedRoutes.length < RECOMMENDED_COUNT) {
-      const missingCount = RECOMMENDED_COUNT - sortedRoutes.length;
-      const popularRoutes = routes
+      const _missingCount = RECOMMENDED_COUNT - sortedRoutes.length;
+      const _popularRoutes = routes
         .filter(route =>
           route.popular &&
           !favorites.includes(route.id) &&
-          !sortedRoutes.some(r => r.id === route.id)
+          !sortedRoutes.some(_r => _r.id === route.id)
         )
-        .slice(0, missingCount);
+        .slice(0, _missingCount);
 
-      setRecommendedRoutes([...sortedRoutes, ...popularRoutes]);
+      setRecommendedRoutes([...sortedRoutes, ..._popularRoutes]);
     } else {
       setRecommendedRoutes(sortedRoutes);
     }
@@ -101,8 +101,8 @@ export default function RouteRecommendations() {
       <div className="container mx-auto px-4 mt-8">
         <h2 className="text-xl font-bold mb-4">Recommended for You</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[...Array(RECOMMENDED_COUNT)].map((_, i) => (
-            <Card key={i} className="overflow-hidden">
+          {[...Array(RECOMMENDED_COUNT)].map((_, _i): JSX.Element => (
+            <Card key={_i} className="overflow-hidden">
               <div className="h-36 bg-gray-200 animate-pulse"></div>
               <div className="p-3">
                 <div className="h-4 bg-gray-200 w-3/4 mb-2 animate-pulse"></div>
@@ -129,7 +129,7 @@ export default function RouteRecommendations() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {recommendedRoutes.map(route => (
           <Card key={route.id} className="overflow-hidden hover:shadow-md transition-shadow">
-            <Link href={`/routes?highlight=${route.id}`} onClick={() => recordRouteView(route.id)}>
+            <Link href={`/routes?highlight=${route.id}`} onClick={() => _recordRouteView(route.id)}>
               <div className="relative h-36">
                 <Image
                   src={route.image}
