@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Car, Search, MapPin, Filter, ArrowRight, X, Heart, Map, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { _Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import Image from 'next/image';
 import RouteDetails from '@/components/RouteDetails';
@@ -378,26 +378,26 @@ function RoutesContent(): JSX.Element {
         <h1 className="text-2xl font-bold text-gray-800">All Routes</h1>
         <div className="flex space-x-2">
           {compareRoutes.length > 0 && (
-            <Button
+            <_Button
               variant="outline"
               onClick={() => setShowComparison(!showComparison)}
               className="text-sm flex items-center"
             >
               <CheckCircle2 className="h-4 w-4 mr-1" />
               {showComparison ? 'Hide Comparison' : `Compare (${compareRoutes.length})`}
-            </Button>
+            </_Button>
           )}
 
-          <Button
+          <_Button
             variant="outline"
             onClick={() => setShowFilters(!showFilters)}
             className="text-sm flex items-center"
           >
             <Filter className="h-4 w-4 mr-1" />
             {showFilters ? 'Hide Filters' : 'Show Filters'}
-          </Button>
+          </_Button>
 
-          <Button
+          <_Button
             variant="outline"
             onClick={_toggleViewMode}
             className="text-sm flex items-center"
@@ -413,7 +413,7 @@ function RoutesContent(): JSX.Element {
                 Grid View
               </>
             )}
-          </Button>
+          </_Button>
         </div>
       </div>
 
@@ -422,7 +422,7 @@ function RoutesContent(): JSX.Element {
         <Card className="mb-6 p-4 overflow-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Route Comparison</h2>
-            <Button
+            <_Button
               variant="outline"
               size="sm"
               onClick={() => {
@@ -431,7 +431,7 @@ function RoutesContent(): JSX.Element {
               }}
             >
               Clear All
-            </Button>
+            </_Button>
           </div>
 
           <div className="overflow-x-auto">
@@ -681,13 +681,13 @@ function RoutesContent(): JSX.Element {
                 </label>
               </div>
 
-              <Button
+              <_Button
                 variant="outline"
                 className="text-sm text-gray-600"
                 onClick={resetFilters}
               >
                 Reset Filters
-              </Button>
+              </_Button>
             </div>
           </div>
         )}
@@ -727,9 +727,9 @@ function RoutesContent(): JSX.Element {
           </div>
           <h3 className="text-lg font-medium text-gray-700 mb-1">No routes found</h3>
           <p className="text-sm text-gray-500 mb-4">Try adjusting your filters or search term</p>
-          <Button variant="outline" onClick={resetFilters}>
+          <_Button variant="outline" onClick={resetFilters}>
             Reset Filters
-          </Button>
+          </_Button>
         </div>
       )}
 

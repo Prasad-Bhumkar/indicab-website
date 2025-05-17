@@ -124,8 +124,8 @@ export default function VehicleSelection({
                     <div
                         key={vehicle.id}
                         className={`border rounded-lg p-4 cursor-pointer transition-colors ${selectedVehicle === vehicle.id
-                                ? 'border-primary bg-primary/5'
-                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                            ? 'border-primary bg-primary/5'
+                            : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                             }`}
                         onClick={() => _handleVehicleSelect(vehicle.id, vehicle.price)}
                     >

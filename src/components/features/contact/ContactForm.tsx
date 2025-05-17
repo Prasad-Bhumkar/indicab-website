@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Button } from '../../ui/Button';
+import { _Button } from '../../ui/Button';
 
 export default function ContactForm(): JSX.Element {
     const [formData, setFormData] = useState({
@@ -172,7 +172,7 @@ export default function ContactForm(): JSX.Element {
                 </div>
 
                 <div className="flex items-center">
-                    <Button
+                    <_Button
                         type="submit"
                         className="bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-md font-medium"
                         disabled={isSubmitting}
@@ -184,7 +184,7 @@ export default function ContactForm(): JSX.Element {
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                         )}
-                    </Button>
+                    </_Button>
                     <p className="text-sm text-gray-500 ml-4">
                         <span className="text-red-500">*</span> Required fields
                     </p>

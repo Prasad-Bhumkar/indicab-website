@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import FloatingActionButton from '@/components/FloatingActionButton';
 import Link from 'next/link';
 import { MapPin, Search, CalendarDays, Car } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { _Button } from '@/components/ui/button';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 
@@ -121,10 +121,10 @@ export default function MaharashtraTourism(): JSX.Element {
                                 </div>
                             </div>
                             <Link href="/booking" className="sm:w-auto">
-                                <Button className="w-full sm:w-auto bg-primary hover:bg-primary/90 px-6 py-3 flex items-center gap-2">
+                                <_Button className="w-full sm:w-auto bg-primary hover:bg-primary/90 px-6 py-3 flex items-center gap-2">
                                     <Car className="h-4 w-4" />
                                     Book a Cab
-                                </Button>
+                                </_Button>
                             </Link>
                         </div>
                     </div>

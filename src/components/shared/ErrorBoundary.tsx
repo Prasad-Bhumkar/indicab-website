@@ -2,7 +2,7 @@
 
 import React, { Component, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { _Button } from '../ui/Button';
 import { ErrorService, AppError } from '@/services/ErrorService';
 import { ErrorType } from '@/lib/services/errorService';
 
@@ -101,13 +101,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                             We're sorry - an error occurred (ID: {this.state.error?.id}). Our team has been notified.
                         </p>
 
-                        <Button
+                        <_Button
                             onClick={this.resetErrorBoundary}
                             className="inline-flex items-center"
                         >
                             <RefreshCw className="mr-2 h-4 w-4" />
                             Try again
-                        </Button>
+                        </_Button>
                     </div>
                 </div>
             );

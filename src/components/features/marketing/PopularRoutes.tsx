@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Card } from '../../ui/card';
-import { Button } from '../../ui/Button';
+import { _Button } from '../../ui/Button';
 import { MapPin, ChevronRight, Car, ArrowRight } from 'lucide-react';
 
 const _popularRoutes = [
@@ -216,9 +216,9 @@ const _PopularRoutes = (): JSX.Element => {
                                             href={`/booking?from=${route.from}&to=${route.to}`}
                                             prefetch={false}
                                         >
-                                            <Button className="w-full bg-primary hover:bg-primary/90">
+                                            <_Button className="w-full bg-primary hover:bg-primary/90">
                                                 Book Now
-                                            </Button>
+                                            </_Button>
                                         </Link>
                                     </div>
                                 </div>

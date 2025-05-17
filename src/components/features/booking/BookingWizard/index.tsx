@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
-import { Button } from '../../../ui/Button';
+import { _Button } from '../../../ui/Button';
 import * as Sentry from '@sentry/nextjs';
 import RouteSelection from './RouteSelection';
 import VehicleSelection from './VehicleSelection';
@@ -400,12 +400,12 @@ export default function BookingWizard(): JSX.Element {
                             >
                                 <motion.button
                                     className={`w-9 h-9 rounded-full flex items-center justify-center font-medium text-sm mb-2 transition-all ${index < currentStep
-                                            ? 'bg-primary text-white shadow-md'
-                                            : index === currentStep
-                                                ? 'bg-primary/20 text-primary border-2 border-primary shadow-md'
-                                                : index <= highestStepVisited
-                                                    ? 'bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-500'
-                                                    : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed'
+                                        ? 'bg-primary text-white shadow-md'
+                                        : index === currentStep
+                                            ? 'bg-primary/20 text-primary border-2 border-primary shadow-md'
+                                            : index <= highestStepVisited
+                                                ? 'bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-500'
+                                                : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 cursor-not-allowed'
                                         }`}
                                     onClick={() => _goToStep(index)}
                                     disabled={index > highestStepVisited}
@@ -421,10 +421,10 @@ export default function BookingWizard(): JSX.Element {
                                     <span className="sr-only">{step.title}</span>
                                 </motion.button>
                                 <span className={`text-xs font-medium whitespace-nowrap ${index <= currentStep
-                                        ? 'text-primary'
-                                        : index <= highestStepVisited
-                                            ? 'text-gray-600 dark:text-gray-300'
-                                            : 'text-gray-400 dark:text-gray-500'
+                                    ? 'text-primary'
+                                    : index <= highestStepVisited
+                                        ? 'text-gray-600 dark:text-gray-300'
+                                        : 'text-gray-400 dark:text-gray-500'
                                     }`}>
                                     {step.title}
                                 </span>
@@ -470,7 +470,7 @@ export default function BookingWizard(): JSX.Element {
                 {!isComplete && (
                     <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-between">
                         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                            <Button
+                            <_Button
                                 variant="outline"
                                 onClick={_goToPreviousStep}
                                 disabled={currentStep === 0 || isSubmitting}
@@ -478,24 +478,24 @@ export default function BookingWizard(): JSX.Element {
                             >
                                 <ChevronLeft className="h-4 w-4" />
                                 Back
-                            </Button>
+                            </_Button>
                         </motion.div>
 
                         {currentStep < bookingSteps.length - 1 ? (
                             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                                <Button
+                                <_Button
                                     onClick={_goToNextStep}
                                     disabled={!isStepValid || isSubmitting}
                                     className="bg-primary hover:bg-primary/90 text-white flex items-center gap-1 px-6"
                                 >
                                     Continue
                                     <ChevronRight className="h-4 w-4" />
-                                </Button>
+                                </_Button>
                             </motion.div>
                         ) : (
                             !isComplete && (
                                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                                    <Button
+                                    <_Button
                                         onClick={submitBooking}
                                         disabled={!isStepValid || isSubmitting}
                                         className="bg-primary hover:bg-primary/90 text-white px-6"
@@ -508,7 +508,7 @@ export default function BookingWizard(): JSX.Element {
                                         ) : (
                                             <>Complete Booking</>
                                         )}
-                                    </Button>
+                                    </_Button>
                                 </motion.div>
                             )
                         )}

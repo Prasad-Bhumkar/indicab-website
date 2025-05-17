@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../ui/dialog';
-import { Button } from '../../ui/Button';
+import { _Button } from '../../ui/Button';
 import { MapPin, Star, Calendar, Clock, MessageSquare, Heart, Share, Car, X, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -135,8 +135,8 @@ export default function RouteDetails({
                 <div className="flex space-x-2 mb-4 border-b">
                     <button
                         className={`px-4 py-2 text-sm font-medium ${activeTab === 'details'
-                                ? 'border-b-2 border-primary text-primary'
-                                : 'text-gray-600'
+                            ? 'border-b-2 border-primary text-primary'
+                            : 'text-gray-600'
                             }`}
                         onClick={() => setActiveTab('details')}
                     >
@@ -144,8 +144,8 @@ export default function RouteDetails({
                     </button>
                     <button
                         className={`px-4 py-2 text-sm font-medium ${activeTab === 'reviews'
-                                ? 'border-b-2 border-primary text-primary'
-                                : 'text-gray-600'
+                            ? 'border-b-2 border-primary text-primary'
+                            : 'text-gray-600'
                             }`}
                         onClick={() => setActiveTab('reviews')}
                     >
@@ -153,8 +153,8 @@ export default function RouteDetails({
                     </button>
                     <button
                         className={`px-4 py-2 text-sm font-medium ${activeTab === 'map'
-                                ? 'border-b-2 border-primary text-primary'
-                                : 'text-gray-600'
+                            ? 'border-b-2 border-primary text-primary'
+                            : 'text-gray-600'
                             }`}
                         onClick={() => setActiveTab('map')}
                     >
@@ -200,23 +200,23 @@ export default function RouteDetails({
                         </div>
 
                         <div className="flex justify-center space-x-4 border-t border-b py-3 mt-4">
-                            <Button
+                            <_Button
                                 variant="ghost"
                                 className={`flex items-center ${isFavorite ? 'text-red-500' : 'text-gray-600'}`}
                                 onClick={_handleFavoriteClick}
                             >
                                 <Heart className={`h-4 w-4 mr-1 ${isFavorite ? 'fill-red-500' : ''}`} />
                                 {isFavorite ? 'Saved' : 'Save'}
-                            </Button>
-                            <Button
+                            </_Button>
+                            <_Button
                                 variant="ghost"
                                 className="flex items-center text-gray-600"
                                 onClick={_handleCompareClick}
                             >
                                 <CheckCircle2 className="h-4 w-4 mr-1" />
                                 Compare
-                            </Button>
-                            <Button
+                            </_Button>
+                            <_Button
                                 variant="ghost"
                                 className="flex items-center text-gray-600"
                                 onClick={() => {
@@ -232,7 +232,7 @@ export default function RouteDetails({
                             >
                                 <Share className="h-4 w-4 mr-1" />
                                 Share
-                            </Button>
+                            </_Button>
                         </div>
 
                         <div className="bg-gray-50 p-4 rounded-md">
@@ -347,13 +347,13 @@ export default function RouteDetails({
                                         placeholder="Share your experience..."
                                     />
                                 </div>
-                                <Button
+                                <_Button
                                     type="submit"
                                     className="bg-primary text-white"
                                     disabled={newReview.rating === 0 || !newReview.comment.trim()}
                                 >
                                     Submit Review
-                                </Button>
+                                </_Button>
                             </form>
                         </div>
                     </div>

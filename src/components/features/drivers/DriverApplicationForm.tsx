@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
+import { _Button } from '@/components/ui/Button';
 import { ChevronDown, CheckCircle } from 'lucide-react';
 
 const _DriverApplicationForm = (): JSX.Element => {
@@ -183,13 +183,13 @@ const _DriverApplicationForm = (): JSX.Element => {
                         </div>
 
                         <div className="flex justify-end">
-                            <Button
+                            <_Button
                                 type="button"
                                 onClick={nextStep}
                                 className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md font-medium transition-colors"
                             >
                                 Next: Vehicle Information
-                            </Button>
+                            </_Button>
                         </div>
                     </div>
                 );
@@ -288,20 +288,20 @@ const _DriverApplicationForm = (): JSX.Element => {
                         </div>
 
                         <div className="flex justify-between">
-                            <Button
+                            <_Button
                                 type="button"
                                 onClick={prevStep}
                                 className="border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 py-2 px-6 rounded-md font-medium transition-colors"
                             >
                                 Back
-                            </Button>
-                            <Button
+                            </_Button>
+                            <_Button
                                 type="button"
                                 onClick={nextStep}
                                 className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md font-medium transition-colors"
                             >
                                 Next: Experience
-                            </Button>
+                            </_Button>
                         </div>
                     </div>
                 );
@@ -433,19 +433,19 @@ const _DriverApplicationForm = (): JSX.Element => {
                         </div>
 
                         <div className="flex justify-between">
-                            <Button
+                            <_Button
                                 type="button"
                                 onClick={prevStep}
                                 className="border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 py-2 px-6 rounded-md font-medium transition-colors"
                             >
                                 Back
-                            </Button>
-                            <Button
+                            </_Button>
+                            <_Button
                                 type="submit"
                                 className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-md font-medium transition-colors"
                             >
                                 Submit Application
-                            </Button>
+                            </_Button>
                         </div>
                     </div>
                 );
@@ -469,13 +469,13 @@ const _DriverApplicationForm = (): JSX.Element => {
                 <p className="text-gray-600 mb-6">
                     Application Reference: <span className="font-medium">{`INX${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}`}</span>
                 </p>
-                <Button
+                <_Button
                     type="button"
                     onClick={() => window.location.href = '/'}
                     className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-md font-medium transition-colors"
                 >
                     Return to Home
-                </Button>
+                </_Button>
             </div>
         );
     };

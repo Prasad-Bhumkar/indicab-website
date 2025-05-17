@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { User, Lock, Mail, Phone, ArrowRight, Check } from 'lucide-react';
 import Header from '@/components/layout/header/Header';
 import _Footer from '@/components/layout/footer/Footer';
-import { Button } from '@/components/ui/Button';
+import { _Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 
 type FormErrorType = {
@@ -111,8 +111,8 @@ const _AuthPage = (): JSX.Element => {
                         <div className="flex border-b border-gray-200">
                             <button
                                 className={`flex-1 py-3 text-center font-medium text-sm ${activeTab === 'login'
-                                        ? 'text-primary border-b-2 border-primary'
-                                        : 'text-gray-500 hover:text-gray-700'
+                                    ? 'text-primary border-b-2 border-primary'
+                                    : 'text-gray-500 hover:text-gray-700'
                                     }`}
                                 onClick={() => setActiveTab('login')}
                             >
@@ -120,8 +120,8 @@ const _AuthPage = (): JSX.Element => {
                             </button>
                             <button
                                 className={`flex-1 py-3 text-center font-medium text-sm ${activeTab === 'signup'
-                                        ? 'text-primary border-b-2 border-primary'
-                                        : 'text-gray-500 hover:text-gray-700'
+                                    ? 'text-primary border-b-2 border-primary'
+                                    : 'text-gray-500 hover:text-gray-700'
                                     }`}
                                 onClick={() => setActiveTab('signup')}
                             >
@@ -198,13 +198,13 @@ const _AuthPage = (): JSX.Element => {
                                             </Link>
                                         </div>
 
-                                        <Button
+                                        <_Button
                                             type="submit"
                                             className="w-full bg-primary hover:bg-primary/90 text-white py-2"
                                             disabled={loading}
                                         >
                                             {loading ? 'Logging in...' : 'Login'}
-                                        </Button>
+                                        </_Button>
 
                                         <div className="text-center text-sm text-gray-500">
                                             Don&apos;t have an account?{' '}
@@ -318,13 +318,13 @@ const _AuthPage = (): JSX.Element => {
                                             </label>
                                         </div>
 
-                                        <Button
+                                        <_Button
                                             type="submit"
                                             className="w-full bg-primary hover:bg-primary/90 text-white py-2"
                                             disabled={loading}
                                         >
                                             {loading ? 'Creating account...' : 'Create Account'}
-                                        </Button>
+                                        </_Button>
 
                                         <div className="text-center text-sm text-gray-500">
                                             Already have an account?{' '}

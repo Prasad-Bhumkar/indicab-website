@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
 import { Route } from '../../data/routes';
-import { Button } from '../../ui/Button';
+import { _Button } from '../../ui/Button';
 
 // Fix for Leaflet marker issue in Next.js
 const markerIcon = new Icon({
@@ -129,12 +129,12 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.El
                         <strong>{route.from}</strong><br />
                         <span className="text-xs">Starting point</span>
                         <div className="mt-2">
-                          <Button
+                          <_Button
                             className="w-full bg-primary text-white text-xs"
                             onClick={() => onRouteSelect(route.id)}
                           >
                             View Details
-                          </Button>
+                          </_Button>
                         </div>
                       </div>
                     </Popup>
@@ -150,12 +150,12 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.El
                           <span>{route.duration}</span>
                           <span>{route.price}</span>
                         </div>
-                        <Button
+                        <_Button
                           className="w-full bg-primary text-white text-xs"
                           onClick={() => onRouteSelect(route.id)}
                         >
                           View Details
-                        </Button>
+                        </_Button>
                       </div>
                     </Popup>
                   </Marker>
@@ -201,22 +201,22 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.El
 
         {/* Toggle all routes */}
         <div className="border-t mt-2 pt-2 flex justify-between">
-          <Button
+          <_Button
             variant="outline"
             size="sm"
             className="text-xs"
             onClick={() => setVisibleRoutes(routes.map(_r => _r.id))}
           >
             Show All
-          </Button>
-          <Button
+          </_Button>
+          <_Button
             variant="outline"
             size="sm"
             className="text-xs"
             onClick={() => setVisibleRoutes([])}
           >
             Hide All
-          </Button>
+          </_Button>
         </div>
       </div>
     </div>

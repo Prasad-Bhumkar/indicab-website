@@ -10,7 +10,7 @@ import {
   TourPackageCard,
   CorporatePackageCard 
 } from '@/components/packages';
-import { Button } from '@/components/ui/Button';
+import { _Button } from '@/components/ui/Button';
 
 const _cities = [
   'All Cities',

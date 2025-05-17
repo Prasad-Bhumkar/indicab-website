@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "../../ui/Card";
-import { Button } from "../../ui/Button";
+import { _Button } from "../../ui/Button";
 import {
     ChevronLeft,
     ChevronRight,
@@ -162,8 +162,8 @@ const CarShowcase = React.memo((): JSX.Element => {
                         <button
                             key={category}
                             className={`px-4 py-2 rounded-full transition-all ${activeCategory === category
-                                    ? "bg-primary text-white"
-                                    : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                                ? "bg-primary text-white"
+                                : "bg-gray-200 hover:bg-gray-300 text-gray-800"
                                 }`}
                             onClick={() => {
                                 setActiveCategory(category);
@@ -249,9 +249,9 @@ const CarShowcase = React.memo((): JSX.Element => {
                                             {car.price}
                                         </span>
                                         <Link href="/booking">
-                                            <Button className="bg-primary hover:bg-primary/90">
+                                            <_Button className="bg-primary hover:bg-primary/90">
                                                 Book Now
-                                            </Button>
+                                            </_Button>
                                         </Link>
                                     </div>
                                 </div>
@@ -266,8 +266,8 @@ const CarShowcase = React.memo((): JSX.Element => {
                                     key={index}
                                     onClick={() => setCurrentIndex(index)}
                                     className={`h-2.5 w-2.5 rounded-full transition-colors ${currentIndex === index
-                                            ? "bg-primary"
-                                            : "bg-gray-300 hover:bg-gray-400"
+                                        ? "bg-primary"
+                                        : "bg-gray-300 hover:bg-gray-400"
                                         }`}
                                     aria-label={`Go to slide ${index + 1}`}
                                 />

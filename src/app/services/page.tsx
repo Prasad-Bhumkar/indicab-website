@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/layout/header/Header';
 import _Footer from '@/components/layout/footer/Footer';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { _Button } from '@/components/ui/button';
 import Image from 'next/image'; // Importing Image component
 import {
     Car,
@@ -229,9 +229,9 @@ export default function ServicesPage(): JSX.Element {
 
                                         <div className="text-center">
                                             <Link href="/">
-                                                <Button className="bg-primary hover:bg-primary/90 text-white">
+                                                <_Button className="bg-primary hover:bg-primary/90 text-white">
                                                     {service.cta}
-                                                </Button>
+                                                </_Button>
                                             </Link>
                                         </div>
                                     </div>
@@ -285,9 +285,9 @@ export default function ServicesPage(): JSX.Element {
 
                                         <div className="mt-4 text-center">
                                             <Link href="/booking">
-                                                <Button variant="outline" className="text-primary border-primary hover:bg-primary/5">
+                                                <_Button variant="outline" className="text-primary border-primary hover:bg-primary/5">
                                                     Book This Car
-                                                </Button>
+                                                </_Button>
                                             </Link>
                                         </div>
                                     </div>
@@ -349,9 +349,9 @@ export default function ServicesPage(): JSX.Element {
 
                             <div className="text-center mt-8">
                                 <Link href="/help">
-                                    <Button className="bg-primary hover:bg-primary/90 text-white">
+                                    <_Button className="bg-primary hover:bg-primary/90 text-white">
                                         View All FAQs
-                                    </Button>
+                                    </_Button>
                                 </Link>
                             </div>
                         </div>

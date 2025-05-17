@@ -1,6 +1,6 @@
 import React from "react";
 import { VehicleType } from '@/lib/types';
-import { Button } from './Button';
+import { _Button } from './Button';
 import Image from 'next/image';
 
 export const VehicleCard = ({ vehicle }: { vehicle: VehicleType }): JSX.Element => (
@@ -22,8 +22,8 @@ export const VehicleCard = ({ vehicle }: { vehicle: VehicleType }): JSX.Element 
                 </div>
             </div>
         </div>
-        <Button className="w-full">
+        <_Button className="w-full">
             Book {vehicle.name}
-        </Button>
+        </_Button>
     </div>
 );

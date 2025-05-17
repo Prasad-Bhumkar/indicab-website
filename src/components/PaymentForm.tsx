@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/nextjs'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
-import Button from './ui/Button'
+import _Button from './ui/Button'
 
 const _stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -74,13 +74,13 @@ function CheckoutForm({ amount, bookingId }: { amount: number, bookingId: string
         <form onSubmit={_handleSubmit} className="space-y-4">
             <PaymentElement />
             {error && <div className="text-red-500 text-sm">{error}</div>}
-            <Button
+            <_Button
                 type="submit"
                 disabled={!stripe || loading}
                 className="w-full"
             >
                 {loading ? 'Processing...' : `Pay $${amount.toFixed(2)}`}
-            </Button>
+            </_Button>
         </form>
     )
 }

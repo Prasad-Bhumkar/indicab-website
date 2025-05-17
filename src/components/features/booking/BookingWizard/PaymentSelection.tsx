@@ -100,14 +100,14 @@ export default function PaymentSelection({
                             <div
                                 key={method.id}
                                 className={`flex items-center border rounded-lg p-4 cursor-pointer transition-colors ${formData.paymentMethod === method.id
-                                        ? 'border-primary bg-primary/5'
-                                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                                    ? 'border-primary bg-primary/5'
+                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                                     }`}
                                 onClick={() => _handlePaymentMethodChange(method.id as 'card' | 'upi' | 'cash')}
                             >
                                 <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${formData.paymentMethod === method.id
-                                        ? 'bg-primary/10 text-primary'
-                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
                                     }`}>
                                     <_Icon className="h-5 w-5" />
                                 </div>
@@ -117,8 +117,8 @@ export default function PaymentSelection({
                                 </div>
                                 <div className="flex-shrink-0 ml-2">
                                     <div className={`w-5 h-5 rounded-full border ${formData.paymentMethod === method.id
-                                            ? 'border-primary bg-primary'
-                                            : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'
+                                        ? 'border-primary bg-primary'
+                                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800'
                                         }`}>
                                         {formData.paymentMethod === method.id && (
                                             <div className="w-full h-full flex items-center justify-center">

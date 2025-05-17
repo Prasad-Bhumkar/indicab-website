@@ -10,7 +10,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { _Button } from '@/components/ui/button';
 import {
     Calendar,
     User,
@@ -221,14 +221,14 @@ export default function AdminDashboard(): JSX.Element {
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold tracking-tight">Dashboard Overview</h1>
                 <div className="flex items-center space-x-2">
-                    <Button variant="outline" size="sm">
+                    <_Button variant="outline" size="sm">
                         <Calendar className="h-4 w-4 mr-2" />
                         Today
-                    </Button>
-                    <Button className="bg-green-700 hover:bg-green-800 text-white" size="sm">
+                    </_Button>
+                    <_Button className="bg-green-700 hover:bg-green-800 text-white" size="sm">
                         <TrendingUp className="h-4 w-4 mr-2" />
                         Download Report
-                    </Button>
+                    </_Button>
                 </div>
             </div>
 
@@ -272,9 +272,9 @@ export default function AdminDashboard(): JSX.Element {
                                 <CardTitle>Recent Bookings</CardTitle>
                                 <CardDescription>Latest cab bookings across all cities</CardDescription>
                             </div>
-                            <Button variant="ghost" className="text-green-700 hover:text-green-800 hover:bg-green-50">
+                            <_Button variant="ghost" className="text-green-700 hover:text-green-800 hover:bg-green-50">
                                 View All
-                            </Button>
+                            </_Button>
                         </CardHeader>
                         <CardContent>
                             <div className="overflow-x-auto">
@@ -330,10 +330,10 @@ export default function AdminDashboard(): JSX.Element {
                                 <CardTitle>Active Drivers</CardTitle>
                                 <CardDescription>Currently online drivers</CardDescription>
                             </div>
-                            <Button variant="ghost" className="text-green-700 hover:text-green-800 hover:bg-green-50">
+                            <_Button variant="ghost" className="text-green-700 hover:text-green-800 hover:bg-green-50">
                                 <Users className="h-4 w-4 mr-1" />
                                 All Drivers
-                            </Button>
+                            </_Button>
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4">

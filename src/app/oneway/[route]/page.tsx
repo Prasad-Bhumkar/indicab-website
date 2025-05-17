@@ -5,7 +5,7 @@ import FloatingActionButton from '@/components/FloatingActionButton';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, ArrowRight, Calendar, Clock, Car, Check, Phone, Info } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { _Button } from '@/components/ui/button';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -350,9 +350,9 @@ export default function OnewayRoutePage({ params }: { params: RouteParams }): JS
                   href={`/booking?from=${routeInfo.from}&to=${routeInfo.to}`}
                   className="w-full"
                 >
-                  <Button className="w-full bg-primary hover:bg-primary/90 mb-3">
+                  <_Button className="w-full bg-primary hover:bg-primary/90 mb-3">
                     Book Now
-                  </Button>
+                  </_Button>
                 </Link>
 
                 <div className="flex items-center justify-center text-sm text-gray-600 mt-4">

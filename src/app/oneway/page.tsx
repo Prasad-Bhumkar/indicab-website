@@ -5,7 +5,7 @@ import FloatingActionButton from '@/components/FloatingActionButton';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Clock, ArrowRight, Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { _Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -136,10 +136,10 @@ export default function OnewayRoutesPage(): JSX.Element {
 
                                 <div className="sm:self-end">
                                     <Link href="/booking">
-                                        <Button className="w-full bg-primary hover:bg-primary/90 flex items-center gap-2">
+                                        <_Button className="w-full bg-primary hover:bg-primary/90 flex items-center gap-2">
                                             <Search className="h-4 w-4" />
                                             Find Cabs
-                                        </Button>
+                                        </_Button>
                                     </Link>
                                 </div>
                             </div>
@@ -236,9 +236,9 @@ export default function OnewayRoutesPage(): JSX.Element {
                         </div>
 
                         <Link href="/contact">
-                            <Button className="bg-primary hover:bg-primary/90">
+                            <_Button className="bg-primary hover:bg-primary/90">
                                 Contact Us for Assistance
-                            </Button>
+                            </_Button>
                         </Link>
                     </div>
 

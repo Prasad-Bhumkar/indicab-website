@@ -6,7 +6,7 @@ import FloatingActionButton from '@/components/FloatingActionButton';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronLeft, MapPin, Calendar, AlertCircle, Sun, Umbrella, Utensils, LocateIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { _Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
 
 // Define the params type
@@ -245,21 +245,21 @@ export default async function GuidePostPage({ params }: { params: GuideParams })
                                 <p className="text-gray-600 mb-6">Explore {city.name} comfortably with our reliable cab service. Pre-book for hassle-free travel to all attractions.</p>
 
                                 <Link href={`/booking?from=${city.name}&to=Airport`}>
-                                    <Button className="w-full bg-primary hover:bg-primary/90 mb-3">
+                                    <_Button className="w-full bg-primary hover:bg-primary/90 mb-3">
                                         Airport Transfer
-                                    </Button>
+                                    </_Button>
                                 </Link>
 
                                 <Link href={`/booking?from=${city.name}&to=City Tour`}>
-                                    <Button className="w-full bg-primary hover:bg-primary/90 mb-3">
+                                    <_Button className="w-full bg-primary hover:bg-primary/90 mb-3">
                                         City Tour
-                                    </Button>
+                                    </_Button>
                                 </Link>
 
                                 <Link href={`/booking?from=${city.name}`}>
-                                    <Button className="w-full bg-primary hover:bg-primary/90">
+                                    <_Button className="w-full bg-primary hover:bg-primary/90">
                                         Custom Booking
-                                    </Button>
+                                    </_Button>
                                 </Link>
 
                                 <div className="mt-6 pt-6 border-t border-gray-200">

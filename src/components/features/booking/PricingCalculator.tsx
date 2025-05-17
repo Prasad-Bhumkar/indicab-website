@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Button } from '../../ui/Button';
+import { _Button } from '../../ui/Button';
 import {
     Car,
     ChevronDown,
@@ -313,13 +313,13 @@ const _PricingCalculator = (): JSX.Element => {
                         </div>
                     )}
 
-                    <Button
+                    <_Button
                         type="submit"
                         className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-md font-medium transition-colors"
                         disabled={isBooking}
                     >
                         {isBooking ? 'Booking...' : 'Book Now'}
-                    </Button>
+                    </_Button>
                 </form>
             </div>
 

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { User, MapPin, Settings, LogOut, Edit, Clock, Car, CreditCard, Bell, Shield, Calendar, Star, Heart } from 'lucide-react';
 // import { Button } from '../ui/Button';
-import { Button } from '../../ui/Button'; // Update the path if Button is in src/components/ui/Button
+import { _Button } from '../../ui/Button'; // Update the path if Button is in src/components/ui/Button
 import { Card } from '../ui/Card';
 import { useFavorites } from '../../../context/FavoritesContext';
 import { routes } from '../../../data/routes';
@@ -217,7 +217,7 @@ export function ProfileContent(): JSX.Element {
                                     <h3 className="text-lg font-medium mb-1">No rides yet</h3>
                                     <p className="text-gray-500 mb-4">You haven't taken any rides with IndiCab yet.</p>
                                     <Link href="/">
-                                        <Button className="bg-primary text-white">Book Your First Ride</Button>
+                                        <_Button className="bg-primary text-white">Book Your First Ride</_Button>
                                     </Link>
                                 </Card>
                             ) : (
@@ -282,12 +282,12 @@ export function ProfileContent(): JSX.Element {
                                                         </div>
 
                                                         <div className="flex space-x-2">
-                                                            <Button variant="outline" size="sm" className="text-xs">
+                                                            <_Button variant="outline" size="sm" className="text-xs">
                                                                 Receipt
-                                                            </Button>
-                                                            <Button variant="outline" size="sm" className="text-xs">
+                                                            </_Button>
+                                                            <_Button variant="outline" size="sm" className="text-xs">
                                                                 Help
-                                                            </Button>
+                                                            </_Button>
                                                         </div>
                                                     </div>
                                                 ) : (
@@ -295,12 +295,12 @@ export function ProfileContent(): JSX.Element {
                                                         <p className="text-sm text-gray-600">Driver will be assigned soon</p>
 
                                                         <div className="flex space-x-2">
-                                                            <Button variant="outline" size="sm" className="text-xs text-red-500 border-red-200 hover:bg-red-50">
+                                                            <_Button variant="outline" size="sm" className="text-xs text-red-500 border-red-200 hover:bg-red-50">
                                                                 Cancel
-                                                            </Button>
-                                                            <Button variant="outline" size="sm" className="text-xs">
+                                                            </_Button>
+                                                            <_Button variant="outline" size="sm" className="text-xs">
                                                                 View Details
-                                                            </Button>
+                                                            </_Button>
                                                         </div>
                                                     </div>
                                                 )}
@@ -318,10 +318,10 @@ export function ProfileContent(): JSX.Element {
                             <div className="flex justify-between items-center mb-4">
                                 <h1 className="text-xl font-bold">Saved Routes</h1>
                                 <Link href="/routes">
-                                    <Button className="flex items-center" size="sm">
+                                    <_Button className="flex items-center" size="sm">
                                         <MapPin className="h-4 w-4 mr-1" />
                                         Explore All Routes
-                                    </Button>
+                                    </_Button>
                                 </Link>
                             </div>
 
@@ -331,7 +331,7 @@ export function ProfileContent(): JSX.Element {
                                     <h3 className="text-lg font-medium mb-1">No saved routes</h3>
                                     <p className="text-gray-500 mb-4">You haven't saved any routes yet. Browse routes and click the heart icon to save them.</p>
                                     <Link href="/routes">
-                                        <Button className="bg-primary text-white">Explore Routes</Button>
+                                        <_Button className="bg-primary text-white">Explore Routes</_Button>
                                     </Link>
                                 </Card>
                             ) : (
@@ -408,10 +408,10 @@ export function ProfileContent(): JSX.Element {
                         <>
                             <div className="flex justify-between items-center mb-4">
                                 <h1 className="text-xl font-bold">Saved Locations</h1>
-                                <Button className="flex items-center" size="sm">
+                                <_Button className="flex items-center" size="sm">
                                     <MapPin className="h-4 w-4 mr-1" />
                                     Add Location
-                                </Button>
+                                </_Button>
                             </div>
 
                             {savedLocations.length === 0 ? (
@@ -419,7 +419,7 @@ export function ProfileContent(): JSX.Element {
                                     <MapPin className="h-12 w-12 mx-auto text-gray-300 mb-2" />
                                     <h3 className="text-lg font-medium mb-1">No saved locations</h3>
                                     <p className="text-gray-500 mb-4">Save your frequent locations for faster booking.</p>
-                                    <Button className="bg-primary text-white">Add Location</Button>
+                                    <_Button className="bg-primary text-white">Add Location</_Button>
                                 </Card>
                             ) : (
                                 <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
@@ -440,22 +440,22 @@ export function ProfileContent(): JSX.Element {
                                                 </button>
                                             </div>
                                             <div className="mt-4 flex justify-end space-x-2">
-                                                <Button
+                                                <_Button
                                                     variant="outline"
                                                     size="sm"
                                                     className="text-xs"
                                                     onClick={() => router.push(`/?destination=${encodeURIComponent(location.address)}`)}
                                                 >
                                                     Set as Destination
-                                                </Button>
-                                                <Button
+                                                </_Button>
+                                                <_Button
                                                     variant="outline"
                                                     size="sm"
                                                     className="text-xs"
                                                     onClick={() => router.push(`/?pickup=${encodeURIComponent(location.address)}`)}
                                                 >
                                                     Set as Pickup
-                                                </Button>
+                                                </_Button>
                                             </div>
                                         </Card>
                                     ))}
@@ -502,9 +502,9 @@ export function ProfileContent(): JSX.Element {
                                             </div>
                                         </div>
                                         <div className="flex justify-end">
-                                            <Button className="bg-primary text-white">
+                                            <_Button className="bg-primary text-white">
                                                 Save Changes
-                                            </Button>
+                                            </_Button>
                                         </div>
                                     </div>
                                 </div>
@@ -514,7 +514,7 @@ export function ProfileContent(): JSX.Element {
                                 <Card>
                                     <div className="p-4 border-b border-gray-100 flex items-center justify-between">
                                         <h2 className="font-medium">Payment Methods</h2>
-                                        <Button variant="outline" size="sm" className="text-xs">Add New</Button>
+                                        <_Button variant="outline" size="sm" className="text-xs">Add New</_Button>
                                     </div>
                                     <div className="p-4">
                                         <div className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
@@ -567,18 +567,18 @@ export function ProfileContent(): JSX.Element {
                                 </div>
                                 <div className="p-4">
                                     <div className="space-y-4">
-                                        <Button variant="outline" className="w-full justify-start">
+                                        <_Button variant="outline" className="w-full justify-start">
                                             <Shield className="h-5 w-5 mr-2" />
                                             Change Password
-                                        </Button>
-                                        <Button variant="outline" className="w-full justify-start">
+                                        </_Button>
+                                        <_Button variant="outline" className="w-full justify-start">
                                             <Shield className="h-5 w-5 mr-2" />
                                             Two-Factor Authentication
-                                        </Button>
-                                        <Button variant="outline" className="w-full justify-start text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-200">
+                                        </_Button>
+                                        <_Button variant="outline" className="w-full justify-start text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-200">
                                             <Shield className="h-5 w-5 mr-2" />
                                             Delete Account
-                                        </Button>
+                                        </_Button>
                                     </div>
                                 </div>
                             </Card>
@@ -593,19 +593,19 @@ export function ProfileContent(): JSX.Element {
                         <h3 className="text-lg font-bold mb-2">Confirm Logout</h3>
                         <p className="text-gray-600 mb-4">Are you sure you want to log out of your account?</p>
                         <div className="flex space-x-3">
-                            <Button
+                            <_Button
                                 variant="outline"
                                 className="flex-1"
                                 onClick={() => setShowConfirmLogout(false)}
                             >
                                 Cancel
-                            </Button>
-                            <Button
+                            </_Button>
+                            <_Button
                                 className="flex-1 bg-primary text-white"
                                 onClick={_handleLogout}
                             >
                                 Logout
-                            </Button>
+                            </_Button>
                         </div>
                     </Card>
                 </div>

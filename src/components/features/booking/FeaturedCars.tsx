@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Button } from '../../ui/Button';
+import { _Button } from '../../ui/Button';
 import { Users, Briefcase, ShieldCheck, Star } from 'lucide-react';
 
 // Define car data
@@ -155,9 +155,9 @@ const _FeaturedCars = (): JSX.Element => {
                                 <div className="flex justify-between items-center">
                                     <span className="text-primary font-bold">{car.pricePerKm}</span>
                                     <Link href={`/booking?car=${car.slug}`}>
-                                        <Button className="bg-primary hover:bg-primary/90 text-white text-sm">
+                                        <_Button className="bg-primary hover:bg-primary/90 text-white text-sm">
                                             Book Now
-                                        </Button>
+                                        </_Button>
                                     </Link>
                                 </div>
                             </div>
@@ -167,9 +167,9 @@ const _FeaturedCars = (): JSX.Element => {
 
                 <div className="text-center mt-10">
                     <Link href="/services">
-                        <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
+                        <_Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
                             View All Vehicles
-                        </Button>
+                        </_Button>
                     </Link>
                 </div>
             </div>

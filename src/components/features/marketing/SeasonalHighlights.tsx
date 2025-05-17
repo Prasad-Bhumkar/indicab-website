@@ -188,8 +188,8 @@ export function SeasonalHighlights(): JSX.Element {
                             key={season.id}
                             onClick={() => filterHighlights(season.id)}
                             className={`px-4 py-2 rounded-full flex items-center gap-2 transition-colors ${currentSeason === season.id
-                                    ? 'bg-primary text-white shadow-md'
-                                    : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                ? 'bg-primary text-white shadow-md'
+                                : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                                 }`}
                         >
                             {season.icon}

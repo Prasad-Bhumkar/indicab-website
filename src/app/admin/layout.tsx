@@ -71,8 +71,8 @@ export default function AdminLayout({
                                     <Link
                                         href={item.href}
                                         className={`flex items-center px-3 py-2 rounded-md ${_isActive
-                                                ? 'bg-green-700 text-white'
-                                                : 'text-green-100 hover:bg-green-700 hover:text-white'
+                                            ? 'bg-green-700 text-white'
+                                            : 'text-green-100 hover:bg-green-700 hover:text-white'
                                             }`}
                                     >
                                         <span className="flex-shrink-0">{item.icon}</span>

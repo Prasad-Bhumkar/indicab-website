@@ -335,10 +335,10 @@ export default function RouteSelection({
                             <div
                                 key={`${route.from}-${route.to}`}
                                 className={`p-3 border rounded-lg cursor-pointer transition-colors ${selectedPopularRoute &&
-                                        selectedPopularRoute.from === route.from &&
-                                        selectedPopularRoute.to === route.to
-                                        ? 'border-primary bg-primary/5'
-                                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                                    selectedPopularRoute.from === route.from &&
+                                    selectedPopularRoute.to === route.to
+                                    ? 'border-primary bg-primary/5'
+                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                                     }`}
                                 onClick={() => {
                                     updateFormData({

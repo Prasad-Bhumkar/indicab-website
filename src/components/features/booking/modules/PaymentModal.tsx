@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/Dialog';
 import { CreditCard, Smartphone, Wallet } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { _Button } from '@/components/ui/Button';
 
 type PaymentMethod = 'upi' | 'card' | 'wallet';
 
@@ -73,13 +73,13 @@ const _PaymentModal = ({
                                 <span className="text-lg font-bold">{amount}</span>
                             </div>
 
-                            <Button
+                            <_Button
                                 className="w-full"
                                 onClick={_handlePayment}
                                 disabled={isProcessing}
                             >
                                 {isProcessing ? 'Processing...' : 'Pay Now'}
-                            </Button>
+                            </_Button>
                         </div>
                     )}
                 </div>

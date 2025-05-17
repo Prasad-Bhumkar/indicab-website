@@ -3,7 +3,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { ErrorService, AppError } from '../../services/ErrorService';
 import type { ErrorType, ErrorContext } from '../../types/errors';
-import { Button } from '../ui/Button';
+import { _Button } from '../ui/Button';
 import { AlertCircle, RefreshCw, Home } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -123,22 +123,22 @@ function ErrorFallback({ error, onReset }: ErrorFallbackProps): JSX.Element {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                    <Button
+                    <_Button
                         onClick={onReset || (() => window.location.reload())}
                         className="flex items-center gap-2"
                         variant="outline"
                     >
                         <RefreshCw className="h-4 w-4" />
                         Try Again
-                    </Button>
+                    </_Button>
 
-                    <Button
+                    <_Button
                         onClick={() => _router.push('/')}
                         className="flex items-center gap-2"
                     >
                         <Home className="h-4 w-4" />
                         Go to Homepage
-                    </Button>
+                    </_Button>
                 </div>
             </div>
         </div>

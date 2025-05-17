@@ -21,7 +21,7 @@ import {
     DialogFooter,
     _DialogTrigger
 } from '../../ui/dialog/dialog';
-import { Button } from '../../ui/Button';
+import { _Button } from '../../ui/Button';
 import {
     _DropdownMenu,
     DropdownMenuContent,
@@ -100,10 +100,10 @@ export function UserPreferences(): JSX.Element {
         <_Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <_DropdownMenu>
                 <_DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="rounded-full w-9 h-9 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 flex items-center justify-center">
+                    <_Button variant="outline" className="rounded-full w-9 h-9 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 flex items-center justify-center">
                         <Settings className="h-5 w-5 text-gray-600 dark:text-gray-300" />
                         <span className="sr-only">User preferences</span>
-                    </Button>
+                    </_Button>
                 </_DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end">
                     <DropdownMenuLabel>Preferences</DropdownMenuLabel>
@@ -161,8 +161,8 @@ export function UserPreferences(): JSX.Element {
                             <button
                                 key={tab.id}
                                 className={`px-4 py-2 flex items-center gap-2 text-sm font-medium ${activeTab === tab.id
-                                        ? 'text-primary border-b-2 border-primary'
-                                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                                    ? 'text-primary border-b-2 border-primary'
+                                    : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
                                     }`}
                                 onClick={() => setActiveTab(tab.id as any)}
                             >
@@ -190,8 +190,8 @@ export function UserPreferences(): JSX.Element {
                                         <div className="grid grid-cols-2 gap-2">
                                             <button
                                                 className={`p-3 rounded-lg border flex flex-col items-center justify-center gap-2 ${theme === 'light'
-                                                        ? 'border-primary bg-primary/5 text-primary'
-                                                        : 'border-gray-200 dark:border-gray-700'
+                                                    ? 'border-primary bg-primary/5 text-primary'
+                                                    : 'border-gray-200 dark:border-gray-700'
                                                     }`}
                                                 onClick={() => setTheme('light')}
                                             >
@@ -203,8 +203,8 @@ export function UserPreferences(): JSX.Element {
                                             </button>
                                             <button
                                                 className={`p-3 rounded-lg border flex flex-col items-center justify-center gap-2 ${theme === 'dark'
-                                                        ? 'border-primary bg-primary/5 text-primary'
-                                                        : 'border-gray-200 dark:border-gray-700'
+                                                    ? 'border-primary bg-primary/5 text-primary'
+                                                    : 'border-gray-200 dark:border-gray-700'
                                                     }`}
                                                 onClick={() => setTheme('dark')}
                                             >
@@ -227,8 +227,8 @@ export function UserPreferences(): JSX.Element {
                                                 <button
                                                     key={language.code} // Unique key added here
                                                     className={`p-2 rounded-lg border flex items-center gap-3 ${selectedLanguage === language.code
-                                                            ? 'border-primary bg-primary/5 text-primary'
-                                                            : 'border-gray-200 dark:border-gray-700'
+                                                        ? 'border-primary bg-primary/5 text-primary'
+                                                        : 'border-gray-200 dark:border-gray-700'
                                                         }`}
                                                     onClick={() => setSelectedLanguage(language.code)}
                                                 >
@@ -253,8 +253,8 @@ export function UserPreferences(): JSX.Element {
                                                 <button
                                                     key={currency.code} // Unique key added here
                                                     className={`p-2 rounded-lg border flex items-center gap-3 ${selectedCurrency === currency.code
-                                                            ? 'border-primary bg-primary/5 text-primary'
-                                                            : 'border-gray-200 dark:border-gray-700'
+                                                        ? 'border-primary bg-primary/5 text-primary'
+                                                        : 'border-gray-200 dark:border-gray-700'
                                                         }`}
                                                     onClick={() => setSelectedCurrency(currency.code)}
                                                 >
@@ -279,27 +279,27 @@ export function UserPreferences(): JSX.Element {
                 </div>
 
                 <DialogFooter className="sm:justify-between">
-                    <Button
+                    <_Button
                         variant="outline"
                         onClick={_resetPreferences}
                         className="mr-auto"
                     >
                         Reset to Default
-                    </Button>
+                    </_Button>
                     <div className="flex gap-2">
-                        <Button
+                        <_Button
                             variant="outline"
                             onClick={() => setOpenDialog(false)}
                         >
                             Cancel
-                        </Button>
-                        <Button
+                        </_Button>
+                        <_Button
                             variant="primary"
                             onClick={_savePreferences}
                             className="bg-primary hover:bg-primary/90 text-white"
                         >
                             Save Preferences
-                        </Button>
+                        </_Button>
                     </div>
                 </DialogFooter>
             </DialogContent>

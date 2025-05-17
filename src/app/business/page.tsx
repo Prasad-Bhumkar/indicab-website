@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { initSectionTransitions } from '@/lib/animations';
-import { Button } from '@/components/ui/button';
+import { _Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { CheckCircle, CalendarClock, Building2, Users, BadgeCheck, Briefcase, ShieldCheck, CreditCard } from 'lucide-react';
 
@@ -151,14 +151,14 @@ export default function BusinessTravelPage(): JSX.Element {
                         </p>
                         <div className="flex flex-wrap gap-4">
                             <Link href="#premium-cars">
-                                <Button className="bg-primary hover:bg-primary/90 text-white font-medium">
+                                <_Button className="bg-primary hover:bg-primary/90 text-white font-medium">
                                     View Premium Fleet
-                                </Button>
+                                </_Button>
                             </Link>
                             <Link href="#corporate-packages">
-                                <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
+                                <_Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
                                     Corporate Packages
-                                </Button>
+                                </_Button>
                             </Link>
                         </div>
                     </div>
@@ -238,7 +238,7 @@ export default function BusinessTravelPage(): JSX.Element {
                                     <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
                                         <div className="font-bold text-primary">{car.pricePerDay}</div>
                                         <Link href="/booking">
-                                            <Button className="bg-primary hover:bg-primary/90">Book Now</Button>
+                                            <_Button className="bg-primary hover:bg-primary/90">Book Now</_Button>
                                         </Link>
                                     </div>
                                 </div>
@@ -288,7 +288,7 @@ export default function BusinessTravelPage(): JSX.Element {
 
                                 <div className="mt-auto">
                                     <Link href="/contact">
-                                        <Button className="w-full bg-primary hover:bg-primary/90">Enquire Now</Button>
+                                        <_Button className="w-full bg-primary hover:bg-primary/90">Enquire Now</_Button>
                                     </Link>
                                 </div>
                             </Card>
@@ -307,14 +307,14 @@ export default function BusinessTravelPage(): JSX.Element {
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <Link href="/contact">
-                                <Button className="bg-white text-primary hover:bg-gray-100 font-medium">
+                                <_Button className="bg-white text-primary hover:bg-gray-100 font-medium">
                                     Contact Sales Team
-                                </Button>
+                                </_Button>
                             </Link>
                             <Link href="/booking">
-                                <Button variant="outline" className="border-white text-white hover:bg-white/10">
+                                <_Button variant="outline" className="border-white text-white hover:bg-white/10">
                                     Book a Service
-                                </Button>
+                                </_Button>
                             </Link>
                         </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from '@storybook/react'
 import ErrorBoundary from '../components/shared/ErrorBoundary'
-import { Button } from '../components/ui/Button'
+import { _Button } from '../components/ui/Button'
 
 // Component metadata
 const _meta: Meta<typeof ErrorBoundary> = {
@@ -65,13 +65,13 @@ export const WithCustomFallback: Story = {
                 <div className="p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
                     <h3 className="text-lg font-medium text-yellow-800">Custom Error Message</h3>
                     <p className="mt-2 text-yellow-700">A custom fallback component can be provided</p>
-                    <Button
+                    <_Button
                         variant="outline"
                         className="mt-4"
                         onClick={() => window.location.reload()}
                     >
                         Try Again
-                    </Button>
+                    </_Button>
                 </div>
             }
         >

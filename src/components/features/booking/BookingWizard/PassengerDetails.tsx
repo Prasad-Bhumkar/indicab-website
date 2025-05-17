@@ -97,8 +97,8 @@ export default function PassengerDetails({
                             value={formData.name}
                             onChange={handleInputChange}
                             className={`block w-full pl-10 pr-3 py-2 border ${errors.name
-                                    ? 'border-red-500 dark:border-red-500'
-                                    : 'border-gray-300 dark:border-gray-600'
+                                ? 'border-red-500 dark:border-red-500'
+                                : 'border-gray-300 dark:border-gray-600'
                                 } rounded-md shadow-sm focus:ring-primary focus:border-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
                             placeholder="John Doe"
                         />
@@ -127,8 +127,8 @@ export default function PassengerDetails({
                             value={formData.email}
                             onChange={handleInputChange}
                             className={`block w-full pl-10 pr-3 py-2 border ${errors.email
-                                    ? 'border-red-500 dark:border-red-500'
-                                    : 'border-gray-300 dark:border-gray-600'
+                                ? 'border-red-500 dark:border-red-500'
+                                : 'border-gray-300 dark:border-gray-600'
                                 } rounded-md shadow-sm focus:ring-primary focus:border-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
                             placeholder="johndoe@example.com"
                         />
@@ -157,8 +157,8 @@ export default function PassengerDetails({
                             value={formData.phone}
                             onChange={handleInputChange}
                             className={`block w-full pl-10 pr-3 py-2 border ${errors.phone
-                                    ? 'border-red-500 dark:border-red-500'
-                                    : 'border-gray-300 dark:border-gray-600'
+                                ? 'border-red-500 dark:border-red-500'
+                                : 'border-gray-300 dark:border-gray-600'
                                 } rounded-md shadow-sm focus:ring-primary focus:border-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
                             placeholder="1234567890"
                         />

@@ -3,7 +3,7 @@ import React from "react";
 'use client';
 
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { _Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 
@@ -55,9 +55,9 @@ export default function PackageCard({
 
                 <div className="mt-6">
                     <Link href={actionHref} className="block w-full">
-                        <Button className="w-full bg-green-700 hover:bg-green-800">
+                        <_Button className="w-full bg-green-700 hover:bg-green-800">
                             {actionText}
-                        </Button>
+                        </_Button>
                     </Link>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Header from '../../components/layout/header/Header';
 import _Footer from '../../components/layout/footer/Footer';
 import { Card } from '../../components/ui/card';
-import { Button } from '../../components/ui/button';
+import { _Button } from '../../components/ui/button';
 import {
     Phone,
     Mail,
@@ -357,8 +357,8 @@ export default function HelpPage(): JSX.Element {
                                                 <button
                                                     key={category.name}
                                                     className={`w-full flex items-center p-2 rounded-md text-left ${activeCategory === category.name
-                                                            ? 'bg-primary text-white'
-                                                            : 'hover:bg-gray-100'
+                                                        ? 'bg-primary text-white'
+                                                        : 'hover:bg-gray-100'
                                                         }`}
                                                     onClick={() => setActiveCategory(category.name)}
                                                 >

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { _Button } from '@/components/ui/Button';
 import { CarTaxiFront, ArrowRight, RotateCw, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
@@ -189,30 +189,30 @@ const _Hero = (): JSX.Element => {
                     </motion.h1>
 
                     <div className="flex flex-wrap gap-1 mt-2">
-                        <Button
+                        <_Button
                             variant="outline"
                             className={`flex items-center gap-1 rounded-sm py-1 h-8 px-3 text-[10px] sm:text-xs border-none ${activeTab === 'one-way' ? 'bg-orange-500' : 'bg-white/20'}`}
                             onClick={() => setActiveTab('one-way')}
                         >
                             <CarTaxiFront className="h-3 w-3" />
                             <span>ONE WAY</span>
-                        </Button>
-                        <Button
+                        </_Button>
+                        <_Button
                             variant="outline"
                             className={`flex items-center gap-1 rounded-sm py-1 h-8 px-3 text-[10px] sm:text-xs border-none ${activeTab === 'round' ? 'bg-orange-500' : 'bg-white/20'}`}
                             onClick={() => setActiveTab('round')}
                         >
                             <RotateCw className="h-3 w-3" />
                             <span>ROUND TRIP</span>
-                        </Button>
-                        <Button
+                        </_Button>
+                        <_Button
                             variant="outline"
                             className={`flex items-center gap-1 rounded-sm py-1 h-8 px-3 text-[10px] sm:text-xs border-none ${activeTab === 'rental' ? 'bg-orange-500' : 'bg-white/20'}`}
                             onClick={() => setActiveTab('rental')}
                         >
                             <Clock className="h-3 w-3" />
                             <span>RENTAL</span>
-                        </Button>
+                        </_Button>
                     </div>
                 </div>
 
@@ -390,13 +390,13 @@ const _Hero = (): JSX.Element => {
                                 </div>
                             )}
 
-                            <Button
+                            <_Button
                                 type="submit"
                                 className="w-full bg-primary hover:bg-primary/90 text-white py-2 h-10 transition-all rounded-sm text-sm font-medium uppercase flex items-center justify-center gap-2"
                             >
                                 BOOK CAB
                                 <ArrowRight className="h-4 w-4" />
-                            </Button>
+                            </_Button>
                         </form>
                     </Card>
                 </motion.div>

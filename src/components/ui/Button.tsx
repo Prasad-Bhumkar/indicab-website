@@ -15,7 +15,7 @@ const_variantStyless = {
     success: 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500',
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const _Button: React.FC<ButtonProps> = ({
     children,
     variant = 'primary',
     className = '',
@@ -31,4 +31,4 @@ export const Button: React.FC<ButtonProps> = ({
     )
 }
 
-export default Button
+export default _Button

@@ -119,10 +119,10 @@ const _BookingHistory: React.FC<BookingHistoryProps> = ({ bookings, onCancel }):
                                 </div>
                             </div>
                             <span className={`px-2 py-1 rounded text-xs ${booking.status === 'completed'
-                                    ? 'bg-green-100 text-green-800'
-                                    : booking.status === 'cancelled'
-                                        ? 'bg-red-100 text-red-800'
-                                        : 'bg-blue-100 text-blue-800'
+                                ? 'bg-green-100 text-green-800'
+                                : booking.status === 'cancelled'
+                                    ? 'bg-red-100 text-red-800'
+                                    : 'bg-blue-100 text-blue-800'
                                 }`}>
                                 {booking.status}
                             </span>
