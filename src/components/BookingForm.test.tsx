@@ -2,12 +2,62 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import BookingForm from './BookingForm';
+import { BookingContext, BookingState } from '../context/BookingContext';
+import { AuthContext } from '../context/AuthContext';
+
+// Mock useRouter from 'next/navigation'
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn().mockResolvedValue(undefined),
+  }),
+}));
+
+// Mock PaymentStep to avoid Stripe initialization in tests
+vi.mock('./PaymentStep', () => {
+  return {
+    __esModule: true,
+    default: () => <div data-testid="mock-payment-step">Mock Payment Step</div>,
+  };
+});
 
 // Mock the booking API
 const mockCreateBooking = vi.fn();
 vi.mock('../services/booking/api', () => ({
   createBooking: mockCreateBooking,
 }));
+
+// Mock AuthContext value
+const mockAuthContextValue = {
+  user: { id: 'user123', name: 'Test User' },
+  signIn: vi.fn(),
+  signOut: vi.fn(),
+};
+
+// Provide a mock BookingContext state matching BookingState type
+const mockBookingContextValue = {
+  state: {
+    id: '',
+    pickupLocation: '',
+    dropLocation: '',
+    pickupDate: '',
+    returnDate: '',
+    vehicleType: '',
+    fare: 0,
+    customerId: '',
+    status: 'pending',
+  } as BookingState,
+  dispatch: vi.fn(),
+};
+
+const AllProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <AuthContext.Provider value={mockAuthContextValue}>
+    <BookingContext.Provider value={mockBookingContextValue}>
+      {children}
+    </BookingContext.Provider>
+  </AuthContext.Provider>
+);
 
 describe('BookingForm Component', () => {
   const validFormData = {
@@ -24,7 +74,7 @@ describe('BookingForm Component', () => {
   });
 
   test('renders form with required fields', () => {
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
     
     expect(screen.getByLabelText(/pickup location/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/destination/i)).toBeInTheDocument();
@@ -34,14 +84,14 @@ describe('BookingForm Component', () => {
   });
 
   test('contains submit button', () => {
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
     const submitButton = screen.getByRole('button', { name: /continue to payment/i });
     expect(submitButton).toBeInTheDocument();
     expect(submitButton).not.toBeDisabled();
   });
 
   test('shows validation errors on empty submit', async () => {
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
     const submitButton = screen.getByRole('button', { name: /continue to payment/i });
     fireEvent.click(submitButton);
 
@@ -54,7 +104,7 @@ describe('BookingForm Component', () => {
   });
 
   test('validates return date is after pickup date', async () => {
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
     
     // Fill in pickup date after return date
     fireEvent.change(screen.getByLabelText(/pickup date/i), { target: { value: '2024-04-03T10:00' } });
@@ -67,7 +117,7 @@ describe('BookingForm Component', () => {
   });
 
   test('submits form with valid data', async () => {
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
 
     // Fill in all form fields
     Object.entries(validFormData).forEach(([field, value]) => {
@@ -85,7 +135,7 @@ describe('BookingForm Component', () => {
 
   test('handles API errors gracefully', async () => {
     mockCreateBooking.mockRejectedValueOnce(new Error('Network error'));
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
 
     // Fill in all form fields
     Object.entries(validFormData).forEach(([field, value]) => {
@@ -103,7 +153,7 @@ describe('BookingForm Component', () => {
 
   test('disables form submission while submitting', async () => {
     mockCreateBooking.mockImplementationOnce(() => new Promise(resolve => setTimeout(resolve, 100)));
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
 
     // Fill in all form fields
     Object.entries(validFormData).forEach(([field, value]) => {
@@ -125,7 +175,7 @@ describe('BookingForm Component', () => {
   });
 
   test('clears form after successful submission', async () => {
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
 
     // Fill in all form fields
     Object.entries(validFormData).forEach(([field, value]) => {
@@ -146,7 +196,7 @@ describe('BookingForm Component', () => {
   });
 
   test('shows success message after booking creation', async () => {
-    render(<BookingForm />);
+    render(<BookingForm />, { wrapper: AllProviders });
 
     // Fill in all form fields
     Object.entries(validFormData).forEach(([field, value]) => {
@@ -164,7 +214,7 @@ describe('BookingForm Component', () => {
   });
 
   test('matches snapshot', () => {
-    const { container } = render(<BookingForm />);
+    const { container } = render(<BookingForm />, { wrapper: AllProviders });
     expect(container).toMatchSnapshot();
   });
 });

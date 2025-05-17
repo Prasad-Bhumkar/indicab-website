@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/Button';
@@ -124,6 +124,15 @@ export function SeasonalHighlights() {
   const [filteredHighlights, setFilteredHighlights] = useState<Highlight[]>([]);
   const [activeSlide, setActiveSlide] = useState(0);
 
+  const filterHighlights = useCallback((seasonId: string) => {
+    setCurrentSeason(seasonId);
+    const filtered = highlights.filter(highlight =>
+      highlight.season === seasonId || highlight.season === 'all'
+    );
+    setFilteredHighlights(filtered);
+    setActiveSlide(0); // Reset slide when changing filter
+  }, []);
+
   // Determine the current season based on the date
   useEffect(() => {
     const date = new Date();
@@ -138,18 +147,8 @@ export function SeasonalHighlights() {
       seasonId = 'winter';
     }
 
-    setCurrentSeason(seasonId);
     filterHighlights(seasonId);
-  }, []);
-
-  const filterHighlights = (seasonId: string) => {
-    setCurrentSeason(seasonId);
-    const filtered = highlights.filter(highlight =>
-      highlight.season === seasonId || highlight.season === 'all'
-    );
-    setFilteredHighlights(filtered);
-    setActiveSlide(0); // Reset slide when changing filter
-  };
+  }, [filterHighlights]);
 
   const nextSlide = () => {
     if (activeSlide < Math.ceil(filteredHighlights.length / 3) - 1) {

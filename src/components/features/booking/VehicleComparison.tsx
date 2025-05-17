@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Users,
@@ -54,6 +54,14 @@ const allFeatures: VehicleFeature[] = [
   { id: 'rating', name: 'User Rating', icon: Star, description: 'Rating based on user reviews' },
 ];
 
+const calculatePrice = (basePrice: number, distance: number, demand: number = 1) => {
+  const baseRatePerKm = basePrice / 100; // Base rate per km
+  const distanceFactor = distance > 200 ? 0.9 : 1; // Discount for long distances
+  const demandMultiplier = Math.min(Math.max(demand, 0.8), 1.5); // Demand-based pricing
+
+  return Math.round(basePrice * distanceFactor * demandMultiplier);
+};
+
 interface VehicleComparisonProps {
   initialDistance?: number;
   preselectedVehicleIds?: string[];
@@ -63,15 +71,18 @@ export function VehicleComparison({
   initialDistance = 100,
   preselectedVehicleIds = []
 }: VehicleComparisonProps) {
+  const [selectedVehicles, setSelectedVehicles] = useState<string[]>(preselectedVehicleIds);
   const [distance, setDistance] = useState(initialDistance);
-  const [selectedVehicles, setSelectedVehicles] = useState<string[]>(preselectedVehicleIds.length > 0 ? preselectedVehicleIds : vehicles.filter(v => v.recommended).map(v => v.id));
-  const [filterType, setFilterType] = useState<string | null>(null);
+  const [demand, setDemand] = useState(1);
+  const [filterType, setFilterType] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   // Filter vehicles based on type and search query
   const filteredVehicles = vehicles.filter(vehicle => {
     const matchesType = !filterType || vehicle.type === filterType;
-    const matchesSearch = !searchQuery || vehicle.name.toLowerCase().includes(searchQuery.toLowerCase()) || vehicle.type.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = !searchQuery || 
+      vehicle.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      vehicle.type.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesType && matchesSearch;
   });
 
@@ -95,6 +106,22 @@ export function VehicleComparison({
 
   // Get the selected vehicles data
   const selectedVehiclesData = vehicles.filter(vehicle => selectedVehicles.includes(vehicle.id));
+
+  useEffect(() => {
+    // Update prices based on distance and demand
+    const currentHour = new Date().getHours();
+    const peakHours = [9, 10, 11, 17, 18, 19];
+    const newDemand = peakHours.includes(currentHour) ? 1.2 : 1;
+    setDemand(newDemand);
+  }, []);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleFilterChange = (type: string) => {
+    setFilterType(type === filterType ? '' : type);
+  };
 
   return (
     <section className="py-12">

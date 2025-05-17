@@ -3,8 +3,44 @@
 import { useEffect, useState } from 'react';
 
 export type SchemaDataType =
-  | { type: 'organization' }
-  | { type: 'localBusiness' }
+  | { 
+      type: 'organization';
+      data: {
+        name: string;
+        image: string;
+        url: string;
+        phone: string;
+        address: {
+          streetAddress: string;
+          addressLocality: string;
+          postalCode: string;
+          addressCountry: string;
+        };
+        geo: {
+          latitude: number;
+          longitude: number;
+        };
+      };
+    }
+  | { 
+      type: 'localBusiness';
+      data: {
+        name: string;
+        image: string;
+        url: string;
+        phone: string;
+        address: {
+          streetAddress: string;
+          addressLocality: string;
+          postalCode: string;
+          addressCountry: string;
+        };
+        geo: {
+          latitude: number;
+          longitude: number;
+        };
+      };
+    }
   | { type: 'faq'; data: Array<{question: string, answer: string}> }
   | { type: 'service'; data: {
       name: string;
@@ -44,23 +80,53 @@ export default function SchemaData({ schema }: SchemaDataProps) {
     const loadSchemaData = async () => {
       try {
         // Dynamic import to ensure this only runs on the client
-        const module = await import('@/lib/seo/createStructuredData');
+        const schemaModule = await import('@/lib/seo/createStructuredData');
         const schemas = Array.isArray(schema) ? schema : [schema];
 
         const generatedSchemas = schemas.map(item => {
           switch (item.type) {
             case 'organization':
-              return module.createOrganizationData();
+              return schemaModule.createOrganizationStructuredData({
+                name: item.data.name,
+                image: item.data.image,
+                url: item.data.url,
+                phone: item.data.phone,
+                address: {
+                  streetAddress: item.data.address.streetAddress,
+                  addressLocality: item.data.address.addressLocality,
+                  postalCode: item.data.address.postalCode,
+                  addressCountry: item.data.address.addressCountry
+                },
+                geo: {
+                  latitude: item.data.geo.latitude,
+                  longitude: item.data.geo.longitude
+                }
+              });
             case 'localBusiness':
-              return module.createLocalBusinessData();
+              return schemaModule.createLocalBusinessData({
+                name: item.data.name,
+                image: item.data.image,
+                url: item.data.url,
+                phone: item.data.phone,
+                address: {
+                  streetAddress: item.data.address.streetAddress,
+                  addressLocality: item.data.address.addressLocality,
+                  postalCode: item.data.address.postalCode,
+                  addressCountry: item.data.address.addressCountry
+                },
+                geo: {
+                  latitude: item.data.geo.latitude,
+                  longitude: item.data.geo.longitude
+                }
+              });
             case 'faq':
-              return module.createFaqData(item.data);
+              return schemaModule.createFaqData(item.data);
             case 'service':
-              return module.createServiceData(item.data);
+              return schemaModule.createServiceData(item.data);
             case 'article':
-              return module.createArticleData(item.data);
+              return schemaModule.createArticleData(item.data);
             case 'breadcrumb':
-              return module.createBreadcrumbData(item.data);
+              return schemaModule.createBreadcrumbData(item.data);
             case 'custom':
               return item.data;
             default:

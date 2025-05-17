@@ -1,11 +1,17 @@
 "use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Card } from '../../ui/Card';
-import { Button } from '../../ui/button/button';
-import { ChevronLeft, ChevronRight, Users, Briefcase, ShieldCheck } from 'lucide-react';
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Card } from "../../ui/Card";
+import { Button } from "../../ui/Button";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  Briefcase,
+  ShieldCheck,
+} from "lucide-react";
 
 type CarType = {
   id: string;
@@ -16,96 +22,109 @@ type CarType = {
   luggage: number;
   features: string[];
   price: string;
-  category: 'economy' | 'premium' | 'suv' | 'luxury';
+  category: "economy" | "premium" | "suv" | "luxury";
 };
 
 const cars: CarType[] = [
   {
-    id: 'swift-blue',
-    name: 'Maruti Suzuki Swift',
-    image: '/images/cars/swift/swift-blue.jpg',
-    description: 'Compact and fuel-efficient hatchback, perfect for city travel.',
+    id: "swift-blue",
+    name: "Maruti Suzuki Swift",
+    image: "/images/cars/swift/swift-blue.jpg",
+    description: "Compact and fuel-efficient hatchback, perfect for city travel.",
     passengers: 4,
     luggage: 2,
-    features: ['AC', 'Music System', 'Power Windows', 'Fuel Efficient'],
-    price: '₹1,899/day',
-    category: 'economy'
+    features: ["AC", "Music System", "Power Windows", "Fuel Efficient"],
+    price: "₹1,899/day",
+    category: "economy",
   },
   {
-    id: 'swift-red',
-    name: 'Maruti Suzuki Swift ZXi',
-    image: '/images/cars/swift/swift-red.jpg',
-    description: 'Premium variant with enhanced features for comfortable travel.',
+    id: "swift-red",
+    name: "Maruti Suzuki Swift ZXi",
+    image: "/images/cars/swift/swift-red.jpg",
+    description:
+      "Premium variant with enhanced features for comfortable travel.",
     passengers: 4,
     luggage: 2,
-    features: ['AC', 'Touchscreen Infotainment', 'Airbags', 'Alloy Wheels'],
-    price: '₹2,099/day',
-    category: 'economy'
+    features: ["AC", "Touchscreen Infotainment", "Airbags", "Alloy Wheels"],
+    price: "₹2,099/day",
+    category: "economy",
   },
   {
-    id: 'swift-yellow',
-    name: 'Maruti Suzuki Swift Sport',
-    image: '/images/cars/swift/swift-yellow.jpg',
-    description: 'Sporty variant with enhanced performance and stylish design.',
+    id: "swift-yellow",
+    name: "Maruti Suzuki Swift Sport",
+    image: "/images/cars/swift/swift-yellow.jpg",
+    description:
+      "Sporty variant with enhanced performance and stylish design.",
     passengers: 4,
     luggage: 2,
-    features: ['Sport Mode', 'Premium Audio', 'Climate Control', 'Sport Seats'],
-    price: '₹2,299/day',
-    category: 'premium'
+    features: ["Sport Mode", "Premium Audio", "Climate Control", "Sport Seats"],
+    price: "₹2,299/day",
+    category: "premium",
   },
   {
-    id: 'ertiga-white',
-    name: 'Maruti Suzuki Ertiga',
-    image: '/images/cars/ertiga/ertiga-white.jpg',
-    description: 'Spacious MPV perfect for family trips and group travel.',
+    id: "ertiga-white",
+    name: "Maruti Suzuki Ertiga",
+    image: "/images/cars/ertiga/ertiga-white.jpg",
+    description: "Spacious MPV perfect for family trips and group travel.",
     passengers: 7,
     luggage: 3,
-    features: ['AC', '7 Seater', 'Spacious Cabin', 'Foldable Seats'],
-    price: '₹2,699/day',
-    category: 'suv'
+    features: ["AC", "7 Seater", "Spacious Cabin", "Foldable Seats"],
+    price: "₹2,699/day",
+    category: "suv",
   },
   {
-    id: 'innova-white',
-    name: 'Toyota Innova Crysta',
-    image: '/images/cars/toyota/innova-white.jpg',
-    description: 'Premium MPV with superior comfort and reliable performance.',
+    id: "innova-white",
+    name: "Toyota Innova Crysta",
+    image: "/images/cars/toyota/innova-white.jpg",
+    description: "Premium MPV with superior comfort and reliable performance.",
     passengers: 7,
     luggage: 4,
-    features: ['Premium Interiors', 'Captain Seats', 'Climate Control', 'Cruise Control'],
-    price: '₹3,499/day',
-    category: 'suv'
+    features: [
+      "Premium Interiors",
+      "Captain Seats",
+      "Climate Control",
+      "Cruise Control",
+    ],
+    price: "₹3,499/day",
+    category: "suv",
   },
   {
-    id: 'innova-zenix',
-    name: 'Toyota Innova Zenix',
-    image: '/images/cars/toyota/innova-zenix.jpg',
-    description: 'Luxury MPV with top-tier amenities for a premium travel experience.',
+    id: "innova-zenix",
+    name: "Toyota Innova Zenix",
+    image: "/images/cars/toyota/innova-zenix.jpg",
+    description: "Luxury MPV with top-tier amenities for a premium travel experience.",
     passengers: 7,
     luggage: 4,
-    features: ['Leather Seats', 'Advanced Safety', 'Premium Sound System', 'Panoramic View'],
-    price: '₹3,999/day',
-    category: 'luxury'
+    features: [
+      "Leather Seats",
+      "Advanced Safety",
+      "Premium Sound System",
+      "Panoramic View",
+    ],
+    price: "₹3,999/day",
+    category: "luxury",
   },
   {
-    id: 'innova-2021',
-    name: 'Toyota Innova 2021',
-    image: '/images/cars/toyota/innova-2021.jpg',
-    description: 'Updated model with enhanced features and luxury amenities.',
+    id: "innova-2021",
+    name: "Toyota Innova 2021",
+    image: "/images/cars/toyota/innova-2021.jpg",
+    description: "Updated model with enhanced features and luxury amenities.",
     passengers: 7,
     luggage: 4,
-    features: ['Modern Design', 'Enhanced Safety', 'Premium Comfort', 'Fuel Efficient'],
-    price: '₹3,799/day',
-    category: 'luxury'
-  }
+    features: ["Modern Design", "Enhanced Safety", "Premium Comfort", "Fuel Efficient"],
+    price: "₹3,799/day",
+    category: "luxury",
+  },
 ];
 
 const CarShowcase = React.memo((): JSX.Element => {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [activeCategory, setActiveCategory] = useState<string>("all");
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const filteredCars = activeCategory === 'all'
-    ? cars
-    : cars.filter(car => car.category === activeCategory);
+  const filteredCars =
+    activeCategory === "all"
+      ? cars
+      : cars.filter((car) => car.category === activeCategory);
 
   const carsToShow = 3;
   const totalSlides = Math.ceil(filteredCars.length / carsToShow);
@@ -139,13 +158,13 @@ const CarShowcase = React.memo((): JSX.Element => {
         </div>
 
         <div className="flex justify-center mb-6 space-x-2">
-          {['all', 'economy', 'premium', 'suv', 'luxury'].map((category) => (
+          {["all", "economy", "premium", "suv", "luxury"].map((category) => (
             <button
               key={category}
               className={`px-4 py-2 rounded-full transition-all ${
                 activeCategory === category
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+                  ? "bg-primary text-white"
+                  : "bg-gray-200 hover:bg-gray-300 text-gray-800"
               }`}
               onClick={() => {
                 setActiveCategory(category);
@@ -177,7 +196,10 @@ const CarShowcase = React.memo((): JSX.Element => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
             {visibleCars.map((car) => (
-              <Card key={car.id} className="overflow-hidden group hover:shadow-lg transition-shadow">
+              <Card
+                key={car.id}
+                className="overflow-hidden group hover:shadow-lg transition-shadow"
+              >
                 <div className="relative h-64 w-full overflow-hidden">
                   <Image
                     src={car.image}
@@ -212,7 +234,10 @@ const CarShowcase = React.memo((): JSX.Element => {
                     <h4 className="font-medium text-sm mb-2">Key Features:</h4>
                     <ul className="grid grid-cols-2 gap-x-2 gap-y-1">
                       {car.features.map((feature, index) => (
-                        <li key={index} className="flex items-center text-sm text-gray-600">
+                        <li
+                          key={index}
+                          className="flex items-center text-sm text-gray-600"
+                        >
                           <ShieldCheck className="h-3 w-3 text-primary mr-1" />
                           {feature}
                         </li>
@@ -221,9 +246,13 @@ const CarShowcase = React.memo((): JSX.Element => {
                   </div>
 
                   <div className="flex justify-between items-center mt-6">
-                    <span className="text-lg font-bold text-primary">{car.price}</span>
+                    <span className="text-lg font-bold text-primary">
+                      {car.price}
+                    </span>
                     <Link href="/booking">
-                      <Button className="bg-primary hover:bg-primary/90">Book Now</Button>
+                      <Button className="bg-primary hover:bg-primary/90">
+                        Book Now
+                      </Button>
                     </Link>
                   </div>
                 </div>
@@ -238,7 +267,9 @@ const CarShowcase = React.memo((): JSX.Element => {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                    currentIndex === index ? 'bg-primary' : 'bg-gray-300 hover:bg-gray-400'
+                    currentIndex === index
+                      ? "bg-primary"
+                      : "bg-gray-300 hover:bg-gray-400"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -250,5 +281,7 @@ const CarShowcase = React.memo((): JSX.Element => {
     </div>
   );
 });
+
+CarShowcase.displayName = "CarShowcase";
 
 export default CarShowcase;

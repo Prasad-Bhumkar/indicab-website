@@ -5,17 +5,28 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Car, Search, MapPin, Filter, ArrowRight, X, Heart, Map, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 import Image from 'next/image';
 import RouteDetails from '@/components/RouteDetails';
 import { useFavorites } from '@/context/FavoritesContext';
-import { routes, VehicleType, Amenity } from '@/data/routes';
+import { routes } from '@/data/routes';
+import type { Route as DataRoute } from '@/data/routes';
+import { Review, VehicleType, Amenity } from '@/types/routes';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 
+// Update type references to use DataRoute instead of Route
+type Route = DataRoute;
+
+// Add MapViewProps interface at the top of the file
+interface MapViewProps {
+  routes: Route[];
+  onRouteSelect: (routeId: number) => void;
+}
+
 // Dynamic import for MapView to avoid SSR issues
-const MapView = dynamic(() => import('@/components/MapView'), {
+const MapView = dynamic<MapViewProps>(() => import('@/components/MapView'), {
   ssr: false,
   loading: () => <div className="h-[400px] w-full bg-gray-100 animate-pulse rounded-md flex items-center justify-center">Loading map...</div>
 });
@@ -79,9 +90,8 @@ function RoutesContent() {
     const compareParam = searchParams.get('compare');
     if (compareParam) {
       const routeId = parseInt(compareParam);
-      if (!isNaN(routeId) && routes.some(route => route.id === routeId)) {
+      if (!isNaN(routeId) && routes.some((route: Route) => route.id === routeId)) {
         setCompareRoutes([routeId]);
-        // Don't immediately show comparison, wait for user to select another route
       }
     }
 
@@ -89,7 +99,7 @@ function RoutesContent() {
     const highlightParam = searchParams.get('highlight');
     if (highlightParam) {
       const routeId = parseInt(highlightParam);
-      if (!isNaN(routeId) && routes.some(route => route.id === routeId)) {
+      if (!isNaN(routeId) && routes.some((route: Route) => route.id === routeId)) {
         setSelectedRoute(routeId);
       }
     }
@@ -104,110 +114,105 @@ function RoutesContent() {
   // City list for filter dropdown
   const cities = useMemo(() => {
     return Array.from(new Set([
-      ...routes.map(route => route.from),
-      ...routes.map(route => route.to)
+      ...routes.map((route: Route) => route.from),
+      ...routes.map((route: Route) => route.to)
     ])).sort();
   }, []);
 
   // Calculate average rating for each route
   const getAverageRating = (routeId: number) => {
-    const route = routes.find(r => r.id === routeId);
+    const route = routes.find((r: Route) => r.id === routeId);
     if (!route || route.reviews.length === 0) return 0;
 
-    return route.reviews.reduce((sum, review) => sum + review.rating, 0) / route.reviews.length;
+    return route.reviews.reduce((sum: number, review: Review) => sum + review.rating, 0) / route.reviews.length;
   };
 
   // Toggle vehicle type selection
   const toggleVehicleType = (vehicleType: VehicleType) => {
-    setSelectedVehicleTypes(prev =>
+    setSelectedVehicleTypes((prev: VehicleType[]) =>
       prev.includes(vehicleType)
-        ? prev.filter(type => type !== vehicleType)
+        ? prev.filter((type: VehicleType) => type !== vehicleType)
         : [...prev, vehicleType]
     );
   };
 
   // Toggle amenity selection
   const toggleAmenity = (amenity: Amenity) => {
-    setSelectedAmenities(prev =>
+    setSelectedAmenities((prev: Amenity[]) =>
       prev.includes(amenity)
-        ? prev.filter(a => a !== amenity)
+        ? prev.filter((type: Amenity) => type !== amenity)
         : [...prev, amenity]
     );
   };
 
-  // Toggle route for comparison
+  // Toggle route comparison
   const toggleRouteComparison = (routeId: number) => {
-    setCompareRoutes(prev => {
-      if (prev.includes(routeId)) {
-        return prev.filter(id => id !== routeId);
-      } else {
-        // Limit to 3 routes for comparison
-        const newCompareRoutes = [...prev, routeId].slice(0, 3);
-        return newCompareRoutes;
-      }
-    });
+    setCompareRoutes((prev: number[]) =>
+      prev.includes(routeId)
+        ? prev.filter((id: number) => id !== routeId)
+        : [...prev, routeId]
+    );
   };
 
-  // Filtered routes
+  // Filter and sort routes
   const filteredRoutes = useMemo(() => {
-    return routes.filter(route => {
-      const fromMatch = fromCity ? route.from === fromCity : true;
-      const toMatch = toCity ? route.to === toCity : true;
+    return routes
+      .filter((route: Route) => {
+        // Search term filter
+        const searchMatch = searchTerm.toLowerCase() === '' ||
+          route.from.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          route.to.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const searchMatch = searchTerm
-        ? `${route.from} to ${route.to} ${route.description}`.toLowerCase().includes(searchTerm.toLowerCase())
-        : true;
+        // City filters
+        const fromCityMatch = !fromCity || route.from === fromCity;
+        const toCityMatch = !toCity || route.to === toCity;
 
-      const price = parseInt(route.price.replace('₹', '').replace(',', ''));
-      const priceMatch = price >= priceRange[0] && price <= priceRange[1];
+        // Price range filter
+        const priceMatch = parseFloat(route.price) >= priceRange[0] && parseFloat(route.price) <= priceRange[1];
 
-      const favoriteMatch = showFavoritesOnly ? isFavorite(route.id) : true;
+        // Vehicle type filter
+        const vehicleTypeMatch = selectedVehicleTypes.length === 0 ||
+          selectedVehicleTypes.some(type => route.vehicleTypes.includes(type));
 
-      // Vehicle type filtering
-      const vehicleTypeMatch = selectedVehicleTypes.length === 0 ?
-        true :
-        selectedVehicleTypes.some(type => route.vehicleTypes.includes(type));
+        // Amenities filter
+        const amenitiesMatch = selectedAmenities.length === 0 ||
+          selectedAmenities.every(amenity => route.amenities.includes(amenity));
 
-      // Amenities filtering
-      const amenitiesMatch = selectedAmenities.length === 0 ?
-        true :
-        selectedAmenities.every(amenity => route.amenities.includes(amenity));
+        // Favorites filter
+        const favoritesMatch = !showFavoritesOnly || isFavorite(route.id);
 
-      return fromMatch && toMatch && searchMatch && priceMatch && favoriteMatch && vehicleTypeMatch && amenitiesMatch;
-    }).sort((a, b) => {
-      // Extract numeric values for sorting
-      const priceA = parseInt(a.price.replace('₹', '').replace(',', ''));
-      const priceB = parseInt(b.price.replace('₹', '').replace(',', ''));
-
-      const distanceA = parseInt(a.distance.split(' ')[0]);
-      const distanceB = parseInt(b.distance.split(' ')[0]);
-
-      const durationA = a.duration.includes('h') ?
-        parseInt(a.duration.split('h')[0]) * 60 + (a.duration.includes('m') ? parseInt(a.duration.split('h')[1].split('m')[0]) : 0) :
-        parseInt(a.duration.split('m')[0]);
-      const durationB = b.duration.includes('h') ?
-        parseInt(b.duration.split('h')[0]) * 60 + (b.duration.includes('m') ? parseInt(b.duration.split('h')[1].split('m')[0]) : 0) :
-        parseInt(b.duration.split('m')[0]);
-
-      const ratingA = getAverageRating(a.id);
-      const ratingB = getAverageRating(b.id);
-
-      switch (sortBy) {
-        case 'price-asc':
-          return priceA - priceB;
-        case 'price-desc':
-          return priceB - priceA;
-        case 'distance':
-          return distanceA - distanceB;
-        case 'duration':
-          return durationA - durationB;
-        case 'rating':
-          return ratingB - ratingA; // Higher ratings first
-        default:
-          return 0;
-      }
-    });
-  }, [fromCity, toCity, searchTerm, priceRange, sortBy, showFavoritesOnly, isFavorite, selectedVehicleTypes, selectedAmenities]);
+        return searchMatch && fromCityMatch && toCityMatch && priceMatch &&
+          vehicleTypeMatch && amenitiesMatch && favoritesMatch;
+      })
+      .sort((a: Route, b: Route) => {
+        switch (sortBy) {
+          case 'price-asc':
+            return parseFloat(a.price) - parseFloat(b.price);
+          case 'price-desc':
+            return parseFloat(b.price) - parseFloat(a.price);
+          case 'distance':
+            return parseFloat(a.distance) - parseFloat(b.distance);
+          case 'duration':
+            return a.duration.localeCompare(b.duration);
+          case 'rating':
+            return getAverageRating(b.id) - getAverageRating(a.id);
+          default:
+            return 0;
+        }
+      });
+  }, [
+    routes,
+    searchTerm,
+    fromCity,
+    toCity,
+    priceRange,
+    selectedVehicleTypes,
+    selectedAmenities,
+    showFavoritesOnly,
+    sortBy,
+    isFavorite,
+    getAverageRating
+  ]);
 
   // Reset filters
   const resetFilters = () => {
@@ -263,7 +268,7 @@ function RoutesContent() {
             <Button
               variant="outline"
               onClick={() => setShowComparison(!showComparison)}
-              className="flex items-center text-sm"
+              className="text-sm flex items-center"
             >
               <CheckCircle2 className="h-4 w-4 mr-1" />
               {showComparison ? 'Hide Comparison' : `Compare (${compareRoutes.length})`}
@@ -273,7 +278,7 @@ function RoutesContent() {
           <Button
             variant="outline"
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center text-sm"
+            className="text-sm flex items-center"
           >
             <Filter className="h-4 w-4 mr-1" />
             {showFilters ? 'Hide Filters' : 'Show Filters'}
@@ -282,7 +287,7 @@ function RoutesContent() {
           <Button
             variant="outline"
             onClick={toggleViewMode}
-            className="flex items-center text-sm"
+            className="text-sm flex items-center"
           >
             {viewMode === 'grid' ? (
               <>
@@ -321,7 +326,7 @@ function RoutesContent() {
               <thead>
                 <tr className="bg-gray-50">
                   <th className="text-left p-2 border-b font-medium">Feature</th>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <th key={`header-${route.id}`} className="text-left p-2 border-b font-medium">
                       {route.from} to {route.to}
                     </th>
@@ -331,7 +336,7 @@ function RoutesContent() {
               <tbody>
                 <tr>
                   <td className="p-2 border-b">Price</td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`price-${route.id}`} className="p-2 border-b font-semibold text-primary">
                       {route.price}
                     </td>
@@ -339,7 +344,7 @@ function RoutesContent() {
                 </tr>
                 <tr>
                   <td className="p-2 border-b">Distance</td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`distance-${route.id}`} className="p-2 border-b">
                       {route.distance}
                     </td>
@@ -347,7 +352,7 @@ function RoutesContent() {
                 </tr>
                 <tr>
                   <td className="p-2 border-b">Duration</td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`duration-${route.id}`} className="p-2 border-b">
                       {route.duration}
                     </td>
@@ -355,23 +360,36 @@ function RoutesContent() {
                 </tr>
                 <tr>
                   <td className="p-2 border-b">Vehicle Types</td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`vehicle-${route.id}`} className="p-2 border-b">
-                      {route.vehicleTypes.join(', ')}
+                      {route.vehicleTypes.map((type: VehicleType) => (
+                        <span key={`${route.id}-${type}`} className="text-xs bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded">
+                          {type}
+                        </span>
+                      ))}
                     </td>
                   ))}
                 </tr>
                 <tr>
                   <td className="p-2 border-b">Amenities</td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`amenities-${route.id}`} className="p-2 border-b">
-                      {route.amenities.join(', ')}
+                      {route.amenities.slice(0, 3).map((amenity: Amenity) => (
+                        <span key={`${route.id}-${amenity}`} className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">
+                          {amenity}
+                        </span>
+                      ))}
+                      {route.amenities.length > 3 && (
+                        <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">
+                          +{route.amenities.length - 3}
+                        </span>
+                      )}
                     </td>
                   ))}
                 </tr>
                 <tr>
                   <td className="p-2 border-b">Rating</td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`rating-${route.id}`} className="p-2 border-b">
                       {getAverageRating(route.id).toFixed(1)} / 5
                     </td>
@@ -379,7 +397,7 @@ function RoutesContent() {
                 </tr>
                 <tr>
                   <td className="p-2">Reviews</td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`reviews-${route.id}`} className="p-2">
                       {route.reviews.length} reviews
                     </td>
@@ -387,7 +405,7 @@ function RoutesContent() {
                 </tr>
                 <tr>
                   <td className="p-2"></td>
-                  {comparisonRoutesData.map(route => (
+                  {comparisonRoutesData.map((route: Route) => (
                     <td key={`actions-${route.id}`} className="p-2">
                       <Link
                         href={`/booking?from=${route.from}&to=${route.to}`}
@@ -570,7 +588,7 @@ function RoutesContent() {
       {/* Routes view (grid or map) */}
       {viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {filteredRoutes.map((route) => (
+          {filteredRoutes.map((route: Route) => (
             <Card key={route.id} className="overflow-hidden hover:shadow-md transition-shadow">
               <div
                 className="relative h-40 cursor-pointer"
@@ -613,7 +631,7 @@ function RoutesContent() {
 
                 {/* Vehicle types and amenities */}
                 <div className="flex flex-wrap gap-1 mb-2">
-                  {route.vehicleTypes.map(type => (
+                  {route.vehicleTypes.map((type: VehicleType) => (
                     <span key={`${route.id}-${type}`} className="text-xs bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded">
                       {type}
                     </span>
@@ -621,7 +639,7 @@ function RoutesContent() {
                 </div>
 
                 <div className="flex flex-wrap gap-1 mb-3">
-                  {route.amenities.slice(0, 3).map(amenity => (
+                  {route.amenities.slice(0, 3).map((amenity: Amenity) => (
                     <span key={`${route.id}-${amenity}`} className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">
                       {amenity}
                     </span>

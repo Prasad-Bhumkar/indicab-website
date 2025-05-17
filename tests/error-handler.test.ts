@@ -1,14 +1,15 @@
+import { vi } from 'vitest';
 import { ErrorHandler, AppError, ValidationError, ErrorSeverity, ErrorType } from '../src/lib/errors/errorHandler';
 
 // Mock Sentry
 const mockSentry = {
-  captureException: jest.fn(),
-  captureMessage: jest.fn(),
-  withScope: jest.fn((callback: (scope: any) => void) => {
+  captureException: vi.fn(),
+  captureMessage: vi.fn(),
+  withScope: vi.fn((callback: (scope: any) => void) => {
     const scope = {
-      setLevel: jest.fn(),
-      setTag: jest.fn(),
-      setContext: jest.fn()
+      setLevel: vi.fn(),
+      setTag: vi.fn(),
+      setContext: vi.fn()
     };
     callback(scope);
     return scope;
@@ -21,23 +22,23 @@ const mockSentry = {
   }
 };
 
-jest.mock('@sentry/nextjs', () => mockSentry);
+vi.mock('@sentry/nextjs', () => mockSentry);
 
 // Mock logger
 const mockLogger = {
-  error: jest.fn(),
-  warn: jest.fn(),
-  info: jest.fn(),
-  debug: jest.fn()
+  error: vi.fn(),
+  warn: vi.fn(),
+  info: vi.fn(),
+  debug: vi.fn()
 };
 
-jest.mock('../src/lib/logger', () => ({
+vi.mock('../src/lib/logger', () => ({
   logger: mockLogger
 }));
 
 describe('ErrorHandler', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('handleError should handle AppError correctly', async () => {

@@ -11,11 +11,11 @@ interface CachedConnection {
 }
 
 declare global {
-  var indicabMongooseCache: CachedConnection; // Use 'var' to ensure it's recognized globally
+  // Using let instead of var for better scoping
+  let indicabMongooseCache: CachedConnection;
 }
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
-
 
 if (!MONGODB_URI) {
   const error = new Error('MONGODB_URI environment variable is not defined');
@@ -59,8 +59,8 @@ export async function connectDB(): Promise<typeof mongoose> {
       await conn.connection.db.admin().ping();
       return conn;
 
-    } catch (err) {
-      logger.warn('MongoDB connection stale, reconnecting...');
+    } catch (error) {
+      logger.warn('MongoDB connection stale, reconnecting...', { error });
       global.indicabMongooseCache.conn = null;
     }
   }
@@ -75,7 +75,6 @@ export async function connectDB(): Promise<typeof mongoose> {
     
     logger.info('Establishing new MongoDB connection...');
     global.indicabMongooseCache.promise = mongoose.connect(MONGODB_URI as string, opts)
-
       .then(conn => {
         logger.info('MongoDB connected successfully');
         global.indicabMongooseCache.lastConnected = new Date();
@@ -86,11 +85,10 @@ export async function connectDB(): Promise<typeof mongoose> {
   try {
     global.indicabMongooseCache.conn = await global.indicabMongooseCache.promise;
     logger.debug('Using existing MongoDB connection');
-  } catch (err) {
-    const error = new Error(`MongoDB connection failed: ${err instanceof Error ? err.message : String(err)}`);
-    logger.error(error.message);
+  } catch (error) {
+    logger.error('MongoDB connection failed:', { error });
     global.indicabMongooseCache.promise = null;
-    throw error;
+    throw new Error(`MongoDB connection failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 
   const conn = global.indicabMongooseCache.conn;

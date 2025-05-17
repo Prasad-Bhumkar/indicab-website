@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { User, MapPin, Settings, LogOut, Edit, Clock, Car, CreditCard, Bell, Shield, Calendar, Star, Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button/Button';
-import { Card } from '@/components/ui/Card';
-import { useFavorites } from '@/context/FavoritesContext';
-import { routes } from '@/data/routes';
+// import { Button } from '../ui/Button';
+import { Button } from '../../ui/Button'; // Update the path if Button is in src/components/ui/Button
+import { Card } from '../ui/Card';
+import { useFavorites } from '../../../context/FavoritesContext';
+import { routes } from '../../../data/routes';
 import Image from 'next/image';
 
 // Mock user data

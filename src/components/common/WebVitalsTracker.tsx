@@ -1,8 +1,6 @@
 'use client'
-
 import { useReportWebVitals } from 'next/web-vitals'
-// @ts-ignore - Temporary until Sentry types are fully resolved
-const Sentry = require('@sentry/nextjs')
+import * as Sentry from '@sentry/nextjs'
 
 export function WebVitalsTracker() {
   useReportWebVitals((metric) => {
@@ -12,7 +10,7 @@ export function WebVitalsTracker() {
       case 'CLS':
       case 'FID':
       case 'TTFB':
-        Sentry.metrics.distribution(metric.name, metric.value)
+        Sentry.captureMessage(`Web Vital: ${metric.name} - ${metric.value}`)
         console.debug(metric.name, metric.value)
         break
       default:

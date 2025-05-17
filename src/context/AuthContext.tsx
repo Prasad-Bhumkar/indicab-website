@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { createContext, useContext, useState, useEffect } from 'react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 type AuthContextType = {
   user: {
@@ -13,10 +13,11 @@ type AuthContextType = {
   signOut: () => Promise<void>
 }
 
-const AuthContext = createContext<AuthContextType>({
+export const AuthContext = createContext<AuthContextType>({
   user: null,
-  login: () => {},
-  logout: () => {}
+  status: 'unauthenticated',
+  signIn: async () => {},
+  signOut: async () => {}
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

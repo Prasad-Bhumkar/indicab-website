@@ -43,13 +43,16 @@ export const Disabled: Story = {
   render: () => <FormWrapper disabled />,
 };
 
+const FormWrapperWithSelectedValue = (props: any) => {
+  const { control } = useForm({
+    defaultValues: {
+      vehicleType: 'premium',
+    },
+  });
+
+  return <VehicleTypeSelector control={control} name="vehicleType" {...props} />;
+};
+
 export const WithSelectedValue: Story = {
-  render: () => {
-    const { control } = useForm({
-      defaultValues: {
-        vehicleType: 'premium',
-      },
-    });
-    return <VehicleTypeSelector control={control} name="vehicleType" />;
-  },
-}; 
+  render: () => <FormWrapperWithSelectedValue />,
+};

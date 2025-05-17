@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card } from '../ui/card';
 import { Button } from '../ui/Button';
-import { CarTaxiFront, Calendar, MapPin, ArrowRight, RotateCw, Clock } from 'lucide-react';
+import { CarTaxiFront, ArrowRight, RotateCw, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Search } from 'lucide-react';
 
 const Hero = () => {
   const router = useRouter();

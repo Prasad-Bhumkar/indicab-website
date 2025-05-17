@@ -1,4 +1,4 @@
-import { Schema, model, models } from '@/lib/database';
+import { Schema, model, models } from 'mongoose';
 
 const UserSchema = new Schema({
   email: { 
@@ -44,7 +44,7 @@ const UserSchema = new Schema({
   }
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function(this: any, next: () => void) {
   this.updatedAt = new Date();
   next();
 });

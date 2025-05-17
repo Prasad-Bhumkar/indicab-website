@@ -6,7 +6,7 @@ interface CachedConnection {
 }
 
 // Import mongoose and types
-import mongoose, { ConnectOptions, Schema, model, models } from 'mongoose';
+// Removed duplicate import
 
 const MONGODB_URI = process.env.MONGODB_URI!;
 
@@ -17,18 +17,18 @@ if (!MONGODB_URI) {
 // Global variable to cache the connection and mongoose instance
 declare global {
   // eslint-disable-next-line no-var
-  var mongoose: {
+  var mongooseCache: {
     conn: typeof mongoose | null;
     promise: Promise<typeof mongoose> | null;
   };
 }
 
 // Initialize cache if it doesn't exist
-if (!global.mongoose) {
-  global.mongoose = { conn: null, promise: null };
+if (!global.mongooseCache) {
+  global.mongooseCache = { conn: null, promise: null };
 }
 
-const cached = global.mongoose;
+const cached = global.mongooseCache;
 
 /**
  * Establishes a connection to MongoDB

@@ -50,8 +50,10 @@ export default function DateTimeSelection({
 
   // Initialize validation on component mount
   useEffect(() => {
-    validateForm(formData.date, formData.time);
-  }, []);
+    if (formData.date && formData.time) {
+      validateForm();
+    }
+  }, [formData.date, formData.time, validateForm]);
 
   return (
     <div className="space-y-6">

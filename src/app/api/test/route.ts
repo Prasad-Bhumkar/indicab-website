@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server'
-import { createBooking } from '/services/booking/api'
+import { createBooking } from '../../../services/booking/api'
 
 export async function GET() {
   try {
     const testData = {
-      pickup: 'Test Location',
-      destination: 'Test Destination',
-      startDate: new Date(),
-      endDate: new Date(Date.now() + 86400000),
+      pickupLocation: 'Test Location',
+      dropLocation: 'Test Destination',
+      pickupDate: new Date().toISOString(),
+      returnDate: new Date(Date.now() + 86400000).toISOString(),
       vehicleType: 'sedan',
       fare: 100,
       customerId: 'test-user',

@@ -11,13 +11,13 @@ export class AppError extends Error {
 }
 
 export class ErrorService {
-  static handleError(error: Error, type: ErrorType, context: any) {
+  static handleError<T>(error: Error, type: ErrorType, context: T) {
     // Log the error to the console or a logging service
     console.error('Error handled:', { error, type, context });
     return new AppError(error.message, type);
   }
 
-  static logInfo(message: string, context: any) {
+  static logInfo<T>(message: string, context: T) {
     // Log informational messages
     console.info('Info:', { message, context });
   }

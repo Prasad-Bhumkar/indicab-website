@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 interface BookingFormData {
   pickup: string;
@@ -27,56 +27,54 @@ export default function PersonalizedRecommendations({ formData, onSelect }: Pers
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // In a real implementation, this would fetch from an API
-    // For now, we'll generate some mock recommendations based on the form data
-    const fetchRecommendations = async () => {
-      setLoading(true);
-      try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Generate recommendations based on form data
-        const mockRecommendations: Recommendation[] = [
-          {
-            id: 'rec_1',
-            title: 'Economy Option',
-            description: 'Best value for your journey',
-            vehicleType: 'Sedan',
-            price: 599,
-            estimatedTime: '45 mins',
-          },
-          {
-            id: 'rec_2',
-            title: 'Premium Experience',
-            description: 'Travel in comfort and style',
-            vehicleType: 'SUV',
-            price: 899,
-            estimatedTime: '40 mins',
-          },
-          {
-            id: 'rec_3',
-            title: 'Quick Arrival',
-            description: 'Get there faster with priority routing',
-            vehicleType: 'Sedan',
-            price: 749,
-            estimatedTime: '35 mins',
-            discount: 10,
-          },
-        ];
-        
-        setRecommendations(mockRecommendations);
-      } catch (error) {
-        console.error('Error fetching recommendations:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchRecommendations = useCallback(async () => {
+    setLoading(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Generate recommendations based on form data
+      const mockRecommendations: Recommendation[] = [
+        {
+          id: 'rec_1',
+          title: 'Economy Option',
+          description: 'Best value for your journey',
+          vehicleType: 'Sedan',
+          price: 599,
+          estimatedTime: '45 mins',
+        },
+        {
+          id: 'rec_2',
+          title: 'Premium Experience',
+          description: 'Travel in comfort and style',
+          vehicleType: 'SUV',
+          price: 899,
+          estimatedTime: '40 mins',
+        },
+        {
+          id: 'rec_3',
+          title: 'Quick Arrival',
+          description: 'Get there faster with priority routing',
+          vehicleType: 'Sedan',
+          price: 749,
+          estimatedTime: '35 mins',
+          discount: 10,
+        },
+      ];
+      
+      setRecommendations(mockRecommendations);
+    } catch (error) {
+      console.error('Error fetching recommendations:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
     if (formData.pickup && formData.dropoff) {
       fetchRecommendations();
     }
-  }, [formData.pickup, formData.dropoff]);
+  }, [formData.pickup, formData.dropoff, fetchRecommendations]);
 
   if (loading) {
     return (

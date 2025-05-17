@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface FloatingActionButtonProps {
+export interface FloatingActionButtonProps {
   icon: string;
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   tooltip?: string;

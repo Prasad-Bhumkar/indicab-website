@@ -2,26 +2,26 @@
 
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import ErrorBoundary from '@components/common/ErrorBoundary';
-import LoadingSpinner from '@components/ui/LoadingSpinner';
+import ErrorBoundary from '../components/common/ErrorBoundary';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 const HeroSection = dynamic(
-  () => import('@components/features/marketing/hero/HeroSection'),
+  () => import('../components/features/marketing/hero/HeroSection'),
   { loading: () => <LoadingSpinner className="h-[600px]" /> }
 );
 
 const FeaturedCars = dynamic(
-  () => import('@components/features/booking/FeaturedCars'),
+  () => import('../components/features/booking/FeaturedCars'),
   { loading: () => <LoadingSpinner className="h-[500px]" /> }
 );
 
 const PopularRoutes = dynamic(
-  () => import('@components/features/marketing/PopularRoutes'),
+  () => import('../components/features/marketing/PopularRoutes'),
   { loading: () => <LoadingSpinner className="h-[400px]" /> }
 );
 
 const HowItWorks = dynamic(
-  () => import('@components/features/marketing/HowItWorks'),
+  () => import('../components/features/marketing/HowItWorks'),
   { loading: () => <LoadingSpinner className="h-[300px]" /> }
 );
 

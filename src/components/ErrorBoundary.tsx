@@ -1,3 +1,5 @@
+'use client';
+
 import React, { Component, ReactNode } from 'react';
 import { Button } from './ui/button/Button';
 import { useTheme } from 'next-themes';

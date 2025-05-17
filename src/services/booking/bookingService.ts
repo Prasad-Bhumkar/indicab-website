@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const API_URL = process.env.NODE_ENV === 'test' 
   ? 'http://localhost:8000/mock-api/bookings' 
@@ -42,7 +42,7 @@ export interface Booking {
 
 export const fetchBookings = async (userId: string): Promise<Booking[]> => {
   try {
-    const response: AxiosResponse<Booking[]> = await axios.get(`${API_URL}?userId=${userId}`);
+    const response = await axios.get<Booking[]>(`${API_URL}?userId=${userId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching bookings:', error);
@@ -65,7 +65,7 @@ export const modifyBooking = async (
   changes: Partial<Booking>
 ): Promise<Booking> => {
   try {
-    const response: AxiosResponse<Booking> = await axios.patch(`${API_URL}/${bookingId}`, changes);
+    const response = await axios.patch<Booking>(`${API_URL}/${bookingId}`, changes);
     return response.data;
   } catch (error) {
     console.error('Error modifying booking:', error);

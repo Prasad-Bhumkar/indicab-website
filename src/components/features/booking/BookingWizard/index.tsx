@@ -3,14 +3,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
-import { Button } from '../../../ui/button/button';
+import { Button } from '../../../ui/button/Button';
 import * as Sentry from '@sentry/nextjs';
 import RouteSelection from './RouteSelection';
 import VehicleSelection from './VehicleSelection';
 import DateTimeSelection from './DateTimeSelection';
 import PassengerDetails from './PassengerDetails';
 import PaymentSelection from './PaymentSelection';
-import BookingConfirmation from './BookingConfirmation';
+import { BookingConfirmation } from './BookingConfirmation';
 
 // Step interface
 export interface BookingStep {
@@ -115,6 +115,51 @@ const defaultFormData: BookingFormData = {
   totalPrice: 0,
 };
 
+const validateStep = (step: number, data: BookingFormData): string | null => {
+  switch (step) {
+    case 0: // Route selection
+      if (!data.pickup || !data.dropoff) {
+        return 'Please select both pickup and drop-off locations';
+      }
+      if (data.pickup === data.dropoff) {
+        return 'Pickup and drop-off locations cannot be the same';
+      }
+      break;
+    case 1: // Vehicle selection
+      if (!data.vehicleType) {
+        return 'Please select a vehicle type';
+      }
+      break;
+    case 2: // Date & Time
+      const selectedDate = new Date(data.date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (!data.date || !data.time) {
+        return 'Please select both date and time';
+      }
+      if (selectedDate < today) {
+        return 'Please select a future date';
+      }
+      break;
+    case 3: // Passenger details
+      if (!data.name || !data.phone || !data.email) {
+        return 'Please fill in all passenger details';
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[0-9]{10}$/;
+      
+      if (!emailRegex.test(data.email)) {
+        return 'Please enter a valid email address';
+      }
+      if (!phoneRegex.test(data.phone)) {
+        return 'Please enter a valid 10-digit phone number';
+      }
+      break;
+  }
+  return null;
+};
+
 export default function BookingWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<BookingFormData>(defaultFormData);
@@ -135,6 +180,12 @@ export default function BookingWizard() {
 
   // Go to next step
   const goToNextStep = () => {
+    const validationError = validateStep(currentStep, formData);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     if (currentStep < bookingSteps.length - 1) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setCurrentStep(currentStep + 1);
@@ -220,6 +271,27 @@ export default function BookingWizard() {
     setError(error instanceof Error ? error.message : 'An unexpected error occurred');
   };
 
+  // Share booking handler
+  const shareBooking = () => {
+    // Implement sharing logic here, e.g., copy booking link to clipboard or share via Web Share API
+    if (bookingId) {
+      const shareUrl = `${window.location.origin}/booking/${bookingId}`;
+      if (navigator.share) {
+        navigator.share({
+          title: 'My Booking',
+          text: 'Check out my cab booking details!',
+          url: shareUrl,
+        }).catch((err) => {
+          // Handle share error (user cancelled, etc.)
+          console.error('Share failed:', err);
+        });
+      } else {
+        navigator.clipboard.writeText(shareUrl);
+        alert('Booking link copied to clipboard!');
+      }
+    }
+  };
+
   // Render current step content
   const renderStepContent = () => {
     switch (bookingSteps[currentStep].id) {
@@ -272,6 +344,7 @@ export default function BookingWizard() {
             isSubmitting={isSubmitting}
             submitBooking={submitBooking}
             resetBooking={resetBooking}
+            shareBooking={shareBooking}
           />
         );
       default:

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 // Ensure the correct path to the database connection file
 import dbConnect from '../../../../lib/database';
-import Booking from '@/models/Booking';
+
+import Booking from '../../../../models/Booking';
 
 export async function POST(request: NextRequest) {
   try {

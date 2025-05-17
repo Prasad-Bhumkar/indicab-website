@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Button } from '@components/ui/button/index';
-import { Card } from '@components/ui/card/index';
+
 import { Lock, Mail, AlertCircle } from 'lucide-react';
 
 export default function AdminLogin() {
@@ -54,7 +53,7 @@ export default function AdminLogin() {
           </p>
         </div>
 
-        <Card className="p-6">
+        <div className="p-6 bg-white rounded-lg shadow">
           {error && (
             <div className="mb-4 bg-red-50 text-red-700 p-3 rounded-md flex items-start">
               <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
@@ -135,13 +134,13 @@ export default function AdminLogin() {
               </div>
 
               <div>
-                <Button
+                <button
                   type="submit"
                   disabled={loading}
                   className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   {loading ? 'Signing in...' : 'Sign in'}
-                </Button>
+                </button>
               </div>
             </div>
           </form>
@@ -151,7 +150,7 @@ export default function AdminLogin() {
             <p className="font-medium">Email: admin@indicab.com</p>
             <p className="font-medium">Password: admin123</p>
           </div>
-        </Card>
+        </div>
 
         <div className="text-center mt-6">
           <Link href="/" className="text-sm text-green-600 hover:text-green-500">

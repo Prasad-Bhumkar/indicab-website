@@ -1,5 +1,7 @@
+'use client';
+
 import Link from 'next/link';
-import { Button } from '@/components/ui/button/Button';
+// import { Button } from '@components/ui/Button';
 import { Car } from 'lucide-react';
 
 export default function NotFound() {
@@ -13,9 +15,9 @@ export default function NotFound() {
         <h2 className="text-xl font-semibold text-gray-700 mb-4">Page Not Found</h2>
         <p className="text-gray-600 mb-8">Sorry, we couldn't find the page you're looking for.</p>
         <Link href="/" passHref>
-          <Button className="bg-primary hover:bg-primary/90 text-white">
+          <a className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded inline-block">
             Go back home
-          </Button>
+          </a>
         </Link>
       </div>
     </div>

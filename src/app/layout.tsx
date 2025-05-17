@@ -1,9 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import ErrorBoundary from '../components/ErrorBoundary';
-
-import { ThemeProvider } from 'next-themes';
+import ClientWrapper from '../components/ClientWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -77,11 +75,9 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class">
-          <ErrorBoundary>
-            <main className="min-h-screen">{children}</main>
-          </ErrorBoundary>
-        </ThemeProvider>
+        <ClientWrapper>
+          <main className="min-h-screen">{children}</main>
+        </ClientWrapper>
       </body>
     </html>
   );

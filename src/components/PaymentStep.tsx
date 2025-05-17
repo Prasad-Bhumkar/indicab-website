@@ -3,14 +3,48 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { PaymentForm } from './PaymentForm'
 import { useBookingContext } from '../context/BookingContext'
+import { useEffect, useState } from 'react'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+// Mock Stripe for testing
+const mockStripe = {
+  elements: () => ({
+    create: () => {},
+    update: () => {},
+    mount: () => {},
+    unmount: () => {},
+    destroy: () => {},
+  }),
+}
+
+const stripePromise = process.env.NODE_ENV === 'test' 
+  ? Promise.resolve(mockStripe)
+  : loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
 export default function PaymentStep({ booking, onBack }: { 
   booking: any
   onBack: () => void 
 }) {
   const { state } = useBookingContext()
+  const [clientSecret, setClientSecret] = useState('')
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'test') {
+      setClientSecret('mock_client_secret')
+      return
+    }
+
+    // Fetch the client secret from your server
+    fetch('/api/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: state.fare }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((err) => console.error('Error fetching client secret:', err))
+  }, [state.fare])
+
+  if (!clientSecret) return null
 
   return (
     <div className="space-y-6">
@@ -32,7 +66,7 @@ export default function PaymentStep({ booking, onBack }: {
         </div>
       </div>
 
-      <Elements stripe={stripePromise}>
+      <Elements stripe={stripePromise} options={{ clientSecret }}>
         <PaymentForm 
           amount={state.fare} 
           bookingId={booking.id}

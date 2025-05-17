@@ -16,7 +16,7 @@ interface BookingConfirmationProps {
   shareBooking: () => void;
 }
 
-const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
+export const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
   formData,
   bookingId,
   isComplete,
@@ -267,3 +267,4 @@ const BookingConfirmation: React.FC<BookingConfirmationProps> = ({
     </div>
   );
 }
+

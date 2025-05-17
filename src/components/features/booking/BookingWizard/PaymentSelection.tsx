@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { BookingFormData } from './';
 import { CreditCard, Smartphone, Banknote, Tag, ChevronDown } from 'lucide-react';
 
@@ -38,7 +38,7 @@ export default function PaymentSelection({
   ];
 
   // Calculate fare breakdown
-  const calculateFareBreakdown = () => {
+  const calculateFareBreakdown = useCallback(() => {
     const basePrice = formData.basePrice || 0;
     const tax = formData.tax || Math.round(basePrice * 0.05);
     const discount = formData.discount || 0;
@@ -51,7 +51,7 @@ export default function PaymentSelection({
     });
 
     return { basePrice, tax, discount, totalPrice };
-  };
+  }, [formData.basePrice, formData.tax, formData.discount, formData.totalPrice, updateFormData]);
 
   // Handle payment method selection
   const handlePaymentMethodChange = (method: 'card' | 'upi' | 'cash') => {
@@ -77,8 +77,8 @@ export default function PaymentSelection({
   // Initialize form validation
   useEffect(() => {
     calculateFareBreakdown();
-    setIsValid(!!formData.paymentMethod);
-  }, [formData.basePrice, formData.paymentMethod]);
+    setIsValid(true);
+  }, [calculateFareBreakdown, setIsValid]);
 
   const fareBreakdown = calculateFareBreakdown();
 

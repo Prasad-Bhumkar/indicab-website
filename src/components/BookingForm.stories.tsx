@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BookingProvider } from '../context/BookingContext';
+import { AuthProvider } from '../context/AuthContext';
 import BookingForm from './BookingForm';
+import { NextRouterMockProvider } from '../tests/NextRouterMockProvider';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe('pk_test_12345'); // Replace with your test/public key
 
 const meta: Meta<typeof BookingForm> = {
   title: 'Components/BookingForm',
@@ -10,13 +16,20 @@ const meta: Meta<typeof BookingForm> = {
   },
   decorators: [
     (Story) => (
-      <BookingProvider>
-        <Story />
-      </BookingProvider>
+      <NextRouterMockProvider>
+        <AuthProvider>
+          <BookingProvider>
+            <Elements stripe={stripePromise}>
+              <Story />
+            </Elements>
+          </BookingProvider>
+        </AuthProvider>
+      </NextRouterMockProvider>
     ),
   ],
   tags: ['autodocs'],
 };
+
 
 export default meta;
 type Story = StoryObj<typeof BookingForm>;

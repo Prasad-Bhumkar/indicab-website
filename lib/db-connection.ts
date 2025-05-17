@@ -5,13 +5,11 @@ interface CachedConnection {
   promise: Promise<typeof mongoose> | null;
 }
 
-declare global {
-  namespace NodeJS {
-    interface Global {
-      mongooseCache: CachedConnection;
-    }
-  }
+interface GlobalWithMongooseCache {
+  mongooseCache?: CachedConnection;
 }
+
+const globalWithMongooseCache = globalThis as unknown as GlobalWithMongooseCache;
 
 const MONGODB_URI = process.env.MONGODB_URI || '';
 
@@ -19,13 +17,10 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable');
 }
 
-let cached: CachedConnection = (global as unknown as { mongooseCache?: CachedConnection }).mongooseCache || { conn: null, promise: null };
-
-
-
+let cached: CachedConnection = globalWithMongooseCache.mongooseCache || { conn: null, promise: null };
 
 if (!cached) {
-  cached = (global as any).mongooseCache = { conn: null, promise: null };
+  cached = globalWithMongooseCache.mongooseCache = { conn: null, promise: null };
 }
 
 async function dbConnect(): Promise<typeof mongoose> {

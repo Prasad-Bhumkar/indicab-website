@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import FloatingActionButton, { FloatingActionButtonProps } from './FloatingActionButton';
+import FloatingActionButton from './FloatingActionButton';
+import type { FloatingActionButtonProps } from './FloatingActionButton';
 
 export default {
   title: 'Shared/FloatingActionButton',

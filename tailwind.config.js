@@ -47,12 +47,7 @@ module.exports = {
     {
       pattern: /^border-/,
     },
-    {
-      pattern: /^hover:bg-/,
-    },
-    {
-      pattern: /^hover:text-/,
-    },
+    // Removed hover:bg- and hover:text- patterns as they do not match any Tailwind CSS classes to avoid warnings
     'dark',
     {
       pattern: /^dark:/,

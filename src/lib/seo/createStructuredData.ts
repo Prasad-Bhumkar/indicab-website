@@ -281,3 +281,11 @@ export function createBreadcrumbData(breadcrumbs: Array<{name: string, url: stri
     }))
   };
 }
+
+export function createOrganizationStructuredData(data: any): any {
+  throw new Error('Function not implemented.');
+}
+
+export function createOrganizationStructuredData(data: any): any {
+  throw new Error('Function not implemented.');
+}
