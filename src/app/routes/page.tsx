@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Car, Search, MapPin, Filter, ArrowRight, X, Heart, Map, CheckCircle2 } from 'lucide-react';
-import { _Button } from '@/components/ui/Button';
+import { _Button as Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import Image from 'next/image';
 import RouteDetails from '@/components/RouteDetails';
@@ -26,7 +26,7 @@ interface MapViewProps {
 }
 
 // Dynamic import for MapView to avoid SSR issues
-const _MapView = dynamic<MapViewProps>(() => import('@/components/MapView'), {
+const MapView = dynamic<MapViewProps>(() => import('@/components/MapView'), {
   ssr: false,
   loading: () => <div className="h-[400px] w-full bg-gray-100 animate-pulse rounded-md flex items-center justify-center">Loading map...</div>
 });
@@ -378,26 +378,26 @@ function RoutesContent(): JSX.Element {
         <h1 className="text-2xl font-bold text-gray-800">All Routes</h1>
         <div className="flex space-x-2">
           {compareRoutes.length > 0 && (
-            <_Button
+            <Button
               variant="outline"
               onClick={() => setShowComparison(!showComparison)}
               className="text-sm flex items-center"
             >
               <CheckCircle2 className="h-4 w-4 mr-1" />
               {showComparison ? 'Hide Comparison' : `Compare (${compareRoutes.length})`}
-            </_Button>
+            </Button>
           )}
 
-          <_Button
+          <Button
             variant="outline"
             onClick={() => setShowFilters(!showFilters)}
             className="text-sm flex items-center"
           >
             <Filter className="h-4 w-4 mr-1" />
             {showFilters ? 'Hide Filters' : 'Show Filters'}
-          </_Button>
+          </Button>
 
-          <_Button
+          <Button
             variant="outline"
             onClick={_toggleViewMode}
             className="text-sm flex items-center"
@@ -413,7 +413,7 @@ function RoutesContent(): JSX.Element {
                 Grid View
               </>
             )}
-          </_Button>
+          </Button>
         </div>
       </div>
 
@@ -422,7 +422,7 @@ function RoutesContent(): JSX.Element {
         <Card className="mb-6 p-4 overflow-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Route Comparison</h2>
-            <_Button
+            <Button
               variant="outline"
               size="sm"
               onClick={() => {
@@ -431,7 +431,7 @@ function RoutesContent(): JSX.Element {
               }}
             >
               Clear All
-            </_Button>
+            </Button>
           </div>
 
           <div className="overflow-x-auto">
@@ -681,13 +681,6 @@ function RoutesContent(): JSX.Element {
                 </label>
               </div>
 
-              <_Button
-                variant="outline"
-                className="text-sm text-gray-600"
-                onClick={resetFilters}
-              >
-                Reset Filters
-              </_Button>
             </div>
           </div>
         )}
@@ -715,7 +708,7 @@ function RoutesContent(): JSX.Element {
         </div>
       ) : (
         <div className="h-[600px] mb-8 rounded-lg overflow-hidden border">
-          <_MapView routes={filteredRoutes} onRouteSelect={openRouteDetails} />
+          <MapView routes={filteredRoutes} onRouteSelect={openRouteDetails} />
         </div>
       )}
 
@@ -727,9 +720,9 @@ function RoutesContent(): JSX.Element {
           </div>
           <h3 className="text-lg font-medium text-gray-700 mb-1">No routes found</h3>
           <p className="text-sm text-gray-500 mb-4">Try adjusting your filters or search term</p>
-          <_Button variant="outline" onClick={resetFilters}>
+          <Button variant="outline" onClick={resetFilters}>
             Reset Filters
-          </_Button>
+          </Button>
         </div>
       )}
 

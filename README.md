@@ -1,4 +1,118 @@
-# Comprehensive Documentation for IndiCab Project
+# IndiCab - Modern Intercity Cab Booking Platform
+
+IndiCab is a comprehensive cab booking platform that enables users to book intercity rides across India. Built with Next.js, TypeScript, and modern web technologies.
+
+## 🚀 Features
+
+- **User-Friendly Booking**: Simple and intuitive booking process
+- **Route Management**: Extensive route coverage across major Indian cities
+- **Multiple Vehicle Types**: Choose from Hatchback, Sedan, SUV, Luxury, and Electric vehicles
+- **Real-Time Tracking**: Live tracking of your ride
+- **Secure Payments**: Integrated payment gateway for secure transactions
+- **Responsive Design**: Works seamlessly across all devices
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Components**: Shadcn/UI
+- **State Management**: React Context
+- **Maps**: Leaflet
+- **Testing**: Vitest, Playwright
+- **Documentation**: Storybook
+- **Deployment**: Vercel (Production), Netlify (Staging)
+
+## 📁 Project Structure
+
+```
+indicab-Website/
+├── src/                    # Source code
+│   ├── app/               # Next.js app router pages
+│   ├── components/        # React components
+│   │   ├── ui/           # Reusable UI components
+│   │   └── [feature]/    # Feature-specific components
+│   ├── context/          # React context providers
+│   ├── data/             # Static data and mock data
+│   ├── features/         # Feature-specific modules
+│   ├── hooks/            # Custom React hooks
+│   ├── lib/              # Core libraries and utilities
+│   ├── models/           # Data models and types
+│   ├── services/         # API and external services
+│   ├── styles/           # Global styles
+│   ├── tests/            # Test files
+│   ├── types/            # TypeScript type definitions
+│   └── utils/            # Utility functions
+├── public/               # Static assets
+├── docs/                 # Documentation
+├── scripts/             # Build and utility scripts
+├── .storybook/          # Storybook configuration
+├── config/              # Application configuration
+└── [config files]       # Root configuration files
+```
+
+## 🚦 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/prasad-bhumkar/indicab-Website.git
+   cd indicab-Website
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your values
+   ```
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+## 📝 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Create production build
+- `npm run start` - Start production server
+- `npm run test` - Run unit tests
+- `npm run test:e2e` - Run end-to-end tests
+- `npm run storybook` - Start Storybook development
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+
+## 🧪 Testing
+
+We use a comprehensive testing strategy:
+
+- **Unit Tests**: Vitest for component and utility testing
+- **E2E Tests**: Playwright for end-to-end testing
+- **Component Tests**: Storybook for component testing
+- **Accessibility**: Lighthouse CI for accessibility testing
+
+Run tests:
+```bash
+# Unit tests
+npm run test
+
+# E2E tests
+npm run test:e2e
+
+# Component tests
+npm run test:storybook
+```
+
+## 📚 Documentation
+
+- [Component Documentation](docs/components.md)
+- [API Documentation](docs/api.md)
+- [Contributing Guide](CONTRIBUTING.md)
+- [Deployment Guide](docs/deployment.md)
 
 ## Backend Documentation
 

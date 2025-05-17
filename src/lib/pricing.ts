@@ -1,11 +1,8 @@
-export function calculateFare(_vehicleType: string, _startDate: Date, _endDate: Date): number {
-    const _dailyRates: Record<string, number> = {
-        'economy': 50,
-        'standard': 75,
-        'premium': 100,
-        'luxury': 150
-    }
+export const calculateFare = (vehicleType: string, _startDate: Date, _endDate: Date): number => {
+    // Placeholder implementation for fare calculation
+    const _baseFare = 100; // Base fare
+    const _farePerHour = 20; // Fare per hour
+    const _durationInHours = (_endDate.getTime() - _startDate.getTime()) / (1000 * 60 * 60);
 
-    const _days = Math.ceil((_endDate.getTime() - _startDate.getTime()) / (1000 * 60 * 60 * 24))
-    return (_dailyRates[_vehicleType] || 0) * _days
-}
+    return _baseFare + (_farePerHour * _durationInHours);
+};

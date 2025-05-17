@@ -1,22 +1,92 @@
-[
+{
+  "categories": [
     {
-        "question": "How do I book a package?",
-        "answer": "You can book any package through our website or mobile app. Simply select the package you're interested in, choose your preferred date, time, and vehicle type, and proceed to checkout."
+      "id": "booking",
+      "title": "Booking Process",
+      "faqs": [
+        {
+          "question": "How do I book a vehicle?",
+          "answer": "You can book a vehicle through our website by selecting your preferred package (hourly/tour), choosing the vehicle type, and filling out the booking form. You'll need to provide your travel details, contact information, and make the payment to confirm your booking."
+        },
+        {
+          "question": "What payment methods do you accept?",
+          "answer": "We accept all major credit/debit cards, UPI payments, net banking, and digital wallets. For tour packages, you can also pay a 25% advance and the rest before the journey starts."
+        },
+        {
+          "question": "Can I modify or cancel my booking?",
+          "answer": "Yes, you can modify or cancel your booking up to 24 hours before the scheduled time. Cancellation charges may apply based on how early you cancel. Please refer to our cancellation policy for details."
+        },
+        {
+          "question": "Do I need to pay in advance?",
+          "answer": "For hourly rentals, full payment is required at the time of booking. For tour packages, you can pay 25% advance to confirm the booking and the remaining amount before the tour starts."
+        }
+      ]
     },
     {
-        "question": "What happens if I exceed the package time or distance limit?",
-        "answer": "Additional charges apply for extra hours or kilometers beyond the package limit. The extra hour rate is approximately 15% of the base package hourly rate, and extra kilometers are charged at ₹12-15 per km depending on the vehicle type."
+      "id": "vehicles",
+      "title": "Vehicles and Services",
+      "faqs": [
+        {
+          "question": "What types of vehicles do you offer?",
+          "answer": "We offer a wide range of vehicles including Sedans (Swift Dzire, Honda City), SUVs (Innova, XUV500), Luxury cars (Mercedes, BMW), and Tempo Travellers for group travel."
+        },
+        {
+          "question": "Are your vehicles air-conditioned?",
+          "answer": "Yes, all our vehicles are air-conditioned and well-maintained for your comfort."
+        },
+        {
+          "question": "What happens if the vehicle breaks down?",
+          "answer": "In the rare event of a breakdown, we provide immediate replacement vehicle service. Our 24/7 customer support will ensure minimal disruption to your journey."
+        },
+        {
+          "question": "Are your drivers professional and verified?",
+          "answer": "Yes, all our drivers are professionally trained, verified, and have extensive experience. They undergo regular background checks and training programs."
+        }
+      ]
     },
     {
-        "question": "Can I customize a tour package?",
-        "answer": "Yes, we offer customization options for all our tour packages. You can add or remove attractions, extend the duration, or upgrade your vehicle. Contact our customer service to create a personalized itinerary."
+      "id": "pricing",
+      "title": "Pricing and Charges",
+      "faqs": [
+        {
+          "question": "What's included in the package price?",
+          "answer": "The package price includes vehicle rent, fuel charges, driver allowance, and basic insurance. Toll taxes, parking fees, and interstate permits (if applicable) are charged extra."
+        },
+        {
+          "question": "Are there any hidden charges?",
+          "answer": "No, we maintain complete transparency in our pricing. All applicable charges are clearly mentioned during the booking process. GST will be charged as per government regulations."
+        },
+        {
+          "question": "How are extra hours/kilometers charged?",
+          "answer": "Extra hours and kilometers beyond the package limit are charged as per the rates mentioned in the package details. These charges will be calculated and collected at the end of the journey."
+        },
+        {
+          "question": "What are night charges?",
+          "answer": "Night charges are applicable for journeys between 10 PM to 6 AM. The exact amount varies by vehicle type and is mentioned in the package details."
+        }
+      ]
     },
     {
-        "question": "Do you provide guides for the tour packages?",
-        "answer": "Our tour packages include a knowledgeable driver who can provide basic information about the destinations. Professional guides can be arranged at an additional cost upon request."
-    },
-    {
-        "question": "How can businesses sign up for corporate packages?",
-        "answer": "Businesses can contact our corporate sales team through the website or by calling our corporate helpline. We'll assign a dedicated account manager who will understand your requirements and propose suitable packages."
+      "id": "safety",
+      "title": "Safety and Insurance",
+      "faqs": [
+        {
+          "question": "What safety measures do you follow?",
+          "answer": "We follow strict safety protocols including regular vehicle sanitization, driver health checks, and vehicle maintenance. All vehicles are equipped with first-aid kits and tracking systems."
+        },
+        {
+          "question": "Is insurance included?",
+          "answer": "Yes, basic insurance coverage is included in all bookings. This covers accidents and third-party liability. Additional coverage options are available for purchase."
+        },
+        {
+          "question": "How do you ensure passenger safety during COVID-19?",
+          "answer": "We follow all COVID-19 safety guidelines including regular vehicle sanitization, temperature checks for drivers, and providing hand sanitizers. Masks are mandatory for both drivers and passengers."
+        },
+        {
+          "question": "What should I do in case of an emergency?",
+          "answer": "In case of any emergency, you can contact our 24/7 helpline. We have support teams across major cities to provide immediate assistance."
+        }
+      ]
     }
-]
+  ]
+}

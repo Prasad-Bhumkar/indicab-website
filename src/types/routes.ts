@@ -2,14 +2,16 @@ export interface Route {
     id: number;
     from: string;
     to: string;
-    price: number;
+    price: string;
     distance: string;
     duration: string;
     vehicleTypes: VehicleType[];
     amenities: Amenity[];
     image: string;
     description: string;
-    popular?: boolean;
+    popular: boolean;
+    fromCoordinates: [number, number];
+    toCoordinates: [number, number];
     reviews: Review[];
 }
 

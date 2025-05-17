@@ -1,66 +1,183 @@
-[
+{
+  "tourPackages": [
     {
-        "id": "mumbai-city",
-        "title": "Mumbai City Tour",
-        "price": "₹3,499",
-        "duration": "Full day (10 hours)",
-        "type": "Day Tour",
-        "description": "Explore the highlights of Mumbai with our guided city tour",
-        "attractions": [
-            "Gateway of India",
-            "Marine Drive",
-            "Hanging Gardens",
-            "Dharavi Slum Tour (optional)",
-            "Bollywood Film City (optional)"
-        ],
-        "image": "/assets/cities/mumbai.jpg"
+      "id": "golden-triangle",
+      "name": "Golden Triangle Tour",
+      "description": "Experience the rich cultural heritage of India's Golden Triangle - Delhi, Agra, and Jaipur.",
+      "duration": "6 days",
+      "price": {
+        "amount": 25000,
+        "currency": "INR",
+        "perPerson": true
+      },
+      "highlights": [
+        "Visit the iconic Taj Mahal in Agra",
+        "Explore Amber Fort in Jaipur",
+        "Experience Delhi's historical monuments",
+        "Luxury accommodation in all cities",
+        "Professional tour guide included"
+      ],
+      "inclusions": [
+        "Hotel accommodation (5 nights)",
+        "All transfers in AC vehicle",
+        "Professional guide services",
+        "Monument entrance fees",
+        "Breakfast and dinner"
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Delhi Arrival",
+          "activities": [
+            "Airport pickup",
+            "Check-in to hotel",
+            "Evening visit to Qutub Minar"
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Delhi Sightseeing",
+          "activities": [
+            "Red Fort tour",
+            "Jama Masjid visit",
+            "Chandni Chowk exploration"
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Agra Tour",
+          "activities": [
+            "Drive to Agra",
+            "Taj Mahal visit",
+            "Agra Fort exploration"
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Jaipur Transfer",
+          "activities": [
+            "Drive to Jaipur",
+            "Fatehpur Sikri visit en route",
+            "Evening at local market"
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Jaipur Sightseeing",
+          "activities": [
+            "Amber Fort tour",
+            "City Palace visit",
+            "Hawa Mahal photography"
+          ]
+        },
+        {
+          "day": 6,
+          "title": "Departure",
+          "activities": [
+            "Morning leisure time",
+            "Transfer to airport/railway station"
+          ]
+        }
+      ],
+      "vehicleOptions": [
+        {
+          "type": "Sedan",
+          "price": 22000
+        },
+        {
+          "type": "SUV",
+          "price": 25000
+        },
+        {
+          "type": "Luxury",
+          "price": 35000
+        }
+      ]
     },
     {
-        "id": "delhi-agra",
-        "title": "Delhi-Agra Taj Mahal Tour",
-        "price": "₹6,999",
-        "duration": "2 days, 1 night",
-        "type": "Multi-day",
-        "description": "Visit the magnificent Taj Mahal with an overnight Delhi-Agra tour",
-        "attractions": [
-            "Taj Mahal",
-            "Agra Fort",
-            "Fatehpur Sikri",
-            "Delhi Red Fort",
-            "India Gate"
-        ],
-        "image": "/images/taj-mahal.jpg"
-    },
-    {
-        "id": "jaipur-tour",
-        "title": "Jaipur Pink City Tour",
-        "price": "₹4,299",
-        "duration": "Full day (10 hours)",
-        "type": "Day Tour",
-        "description": "Discover the royal heritage of Jaipur with our comprehensive city tour",
-        "attractions": [
-            "Amber Fort",
-            "Hawa Mahal",
-            "City Palace",
-            "Jantar Mantar",
-            "Albert Hall Museum"
-        ],
-        "image": "/assets/cities/jaipur.jpg"
-    },
-    {
-        "id": "golden-triangle",
-        "title": "Golden Triangle Tour",
-        "price": "₹18,999",
-        "duration": "4 days, 3 nights",
-        "type": "Multi-day",
-        "description": "Experience India's famous Golden Triangle covering Delhi, Agra and Jaipur",
-        "attractions": [
-            "Delhi historical sites",
-            "Taj Mahal & Agra Fort",
-            "Jaipur palaces and forts",
-            "Cultural experiences",
-            "Local cuisine tastings"
-        ],
-        "image": "/assets/cities/taj-mahal.jpg"
+      "id": "kerala-backwaters",
+      "name": "Kerala Backwaters Tour",
+      "description": "Discover the serene backwaters, pristine beaches, and lush landscapes of God's Own Country.",
+      "duration": "5 days",
+      "price": {
+        "amount": 20000,
+        "currency": "INR",
+        "perPerson": true
+      },
+      "highlights": [
+        "Houseboat stay in Alleppey",
+        "Beaches of Kovalam",
+        "Tea gardens of Munnar",
+        "Traditional Ayurvedic spa",
+        "Kerala cuisine experience"
+      ],
+      "inclusions": [
+        "4 nights accommodation",
+        "AC vehicle transfers",
+        "Houseboat cruise",
+        "Daily breakfast",
+        "Local guide services"
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Kochi Arrival",
+          "activities": [
+            "Airport pickup",
+            "Fort Kochi sightseeing",
+            "Cultural show in evening"
+          ]
+        },
+        {
+          "day": 2,
+          "title": "Munnar Visit",
+          "activities": [
+            "Drive to Munnar",
+            "Tea plantation visit",
+            "Spice garden tour"
+          ]
+        },
+        {
+          "day": 3,
+          "title": "Alleppey Experience",
+          "activities": [
+            "Transfer to Alleppey",
+            "Houseboat check-in",
+            "Backwater cruise"
+          ]
+        },
+        {
+          "day": 4,
+          "title": "Kovalam Beach",
+          "activities": [
+            "Drive to Kovalam",
+            "Beach leisure",
+            "Ayurvedic spa treatment"
+          ]
+        },
+        {
+          "day": 5,
+          "title": "Departure",
+          "activities": [
+            "Morning at leisure",
+            "Transfer to airport"
+          ]
+        }
+      ],
+      "vehicleOptions": [
+        {
+          "type": "Sedan",
+          "price": 18000
+        },
+        {
+          "type": "SUV",
+          "price": 22000
+        },
+        {
+          "type": "Luxury",
+          "price": 30000
+        }
+      ]
     }
-]
+  ]
+}

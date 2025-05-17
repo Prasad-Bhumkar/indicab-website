@@ -1,41 +1,186 @@
-[
+{
+  "corporatePackages": [
     {
-        "id": "corp-daily",
-        "title": "Corporate Daily Commute",
-        "description": "Regular employee transportation services with fixed routes and schedules",
-        "features": [
-            "Dedicated corporate account manager",
-            "Fleet of well-maintained vehicles",
-            "Trained and verified drivers",
-            "Real-time tracking",
-            "Monthly billing with GST invoices",
-            "Special rates for regular bookings"
-        ]
+      "id": "employee-transport",
+      "name": "Employee Transportation Solution",
+      "description": "Reliable and comfortable transportation service for your employees with flexible scheduling and tracking.",
+      "features": [
+        "Dedicated fleet management",
+        "Real-time tracking system",
+        "Flexible scheduling",
+        "Monthly billing option",
+        "24/7 support desk",
+        "Backup vehicle guarantee",
+        "Employee attendance reports"
+      ],
+      "vehicleOptions": [
+        {
+          "type": "Sedan",
+          "capacity": "4 passengers",
+          "monthlyRate": {
+            "amount": 45000,
+            "currency": "INR",
+            "includes": [
+              "Driver salary",
+              "Fuel",
+              "Maintenance",
+              "GPS tracking",
+              "Basic insurance"
+            ]
+          }
+        },
+        {
+          "type": "SUV",
+          "capacity": "6-7 passengers",
+          "monthlyRate": {
+            "amount": 55000,
+            "currency": "INR",
+            "includes": [
+              "Driver salary",
+              "Fuel",
+              "Maintenance",
+              "GPS tracking",
+              "Basic insurance"
+            ]
+          }
+        },
+        {
+          "type": "Tempo Traveller",
+          "capacity": "12-15 passengers",
+          "monthlyRate": {
+            "amount": 75000,
+            "currency": "INR",
+            "includes": [
+              "Driver salary",
+              "Fuel",
+              "Maintenance",
+              "GPS tracking",
+              "Basic insurance"
+            ]
+          }
+        }
+      ]
     },
     {
-        "id": "corp-events",
-        "title": "Corporate Events & Conferences",
-        "description": "Transportation solutions for corporate events, conferences, and team outings",
-        "features": [
-            "Multiple vehicle types available",
-            "Coordination for large groups",
-            "Branded vehicles option",
-            "Customized pickup and drop schedules",
-            "On-site transportation manager",
-            "Flexible payment options"
-        ]
+      "id": "business-travel",
+      "name": "Business Travel Package",
+      "description": "Premium transportation service for business executives and corporate events with professional chauffeurs.",
+      "features": [
+        "Professional chauffeurs",
+        "Premium vehicles",
+        "Airport transfers",
+        "Corporate event transport",
+        "Priority booking",
+        "Centralized billing",
+        "Dedicated account manager"
+      ],
+      "vehicleOptions": [
+        {
+          "type": "Premium Sedan",
+          "models": ["Honda City", "Hyundai Verna"],
+          "rates": {
+            "airport": {
+              "amount": 2000,
+              "currency": "INR",
+              "description": "One-way airport transfer"
+            },
+            "hourly": {
+              "amount": 800,
+              "currency": "INR",
+              "description": "Minimum 4 hours"
+            },
+            "daily": {
+              "amount": 5000,
+              "currency": "INR",
+              "description": "8 hours, 80 km"
+            }
+          }
+        },
+        {
+          "type": "Luxury Sedan",
+          "models": ["Mercedes E-Class", "BMW 5 Series"],
+          "rates": {
+            "airport": {
+              "amount": 4000,
+              "currency": "INR",
+              "description": "One-way airport transfer"
+            },
+            "hourly": {
+              "amount": 1500,
+              "currency": "INR",
+              "description": "Minimum 4 hours"
+            },
+            "daily": {
+              "amount": 9000,
+              "currency": "INR",
+              "description": "8 hours, 80 km"
+            }
+          }
+        }
+      ]
     },
     {
-        "id": "corp-airport",
-        "title": "Airport Corporate Services",
-        "description": "Premium airport transfer services for executives and business clients",
-        "features": [
-            "Flight tracking",
-            "Meet & greet services",
-            "Premium vehicle options",
-            "Professional chauffeurs in formal attire",
-            "Extended waiting time",
-            "Priority booking"
-        ]
+      "id": "event-transport",
+      "name": "Corporate Event Transportation",
+      "description": "Comprehensive transportation solution for corporate events, conferences, and team outings.",
+      "features": [
+        "Event-specific fleet planning",
+        "Multiple pickup/drop points",
+        "On-site coordinator",
+        "Backup vehicles",
+        "Custom branding options",
+        "Real-time tracking",
+        "Post-event reports"
+      ],
+      "services": [
+        {
+          "type": "Conference Shuttle",
+          "description": "Regular shuttle service between venue and designated points",
+          "pricing": {
+            "amount": 15000,
+            "currency": "INR",
+            "unit": "per vehicle per day",
+            "includes": [
+              "12 hours operation",
+              "Fuel",
+              "Driver",
+              "Coordinator"
+            ]
+          }
+        },
+        {
+          "type": "Team Outing Transport",
+          "description": "Transportation for team building events and outings",
+          "pricing": {
+            "amount": 12000,
+            "currency": "INR",
+            "unit": "per vehicle per day",
+            "includes": [
+              "10 hours operation",
+              "Fuel",
+              "Driver",
+              "Basic refreshments"
+            ]
+          }
+        }
+      ]
     }
-]
+  ],
+  "terms": [
+    "Minimum contract period of 3 months for employee transportation",
+    "GST will be charged as applicable",
+    "Fuel surcharge may apply based on market rates",
+    "Interstate permits charged extra",
+    "Service available in major cities only",
+    "Customization available for large contracts"
+  ],
+  "benefits": [
+    "Reduced transportation costs",
+    "Enhanced employee satisfaction",
+    "Improved punctuality",
+    "Reduced carbon footprint",
+    "Simplified billing and accounting",
+    "24/7 support and assistance",
+    "Comprehensive insurance coverage"
+  ]
+}
