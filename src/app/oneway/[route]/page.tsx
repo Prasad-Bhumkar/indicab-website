@@ -1,12 +1,11 @@
-import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import FloatingActionButton from '@/components/FloatingActionButton';
-import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin, ArrowRight, Calendar, Clock, Car, Check, Phone, Info } from 'lucide-react';
-import { _Button } from '@/components/ui/button';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { _Button } from '@/components/ui/Button';
+import { ArrowRight, Car, Check, Clock, Info, MapPin, Phone } from 'lucide-react';
 import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 // Define route parameters type

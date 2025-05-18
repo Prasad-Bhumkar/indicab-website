@@ -1,27 +1,24 @@
 "use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Header from '../../components/layout/header/Header';
-import _Footer from '../../components/layout/footer/Footer';
-import { Card } from '../../components/ui/card';
-import { _Button } from '../../components/ui/button';
 import {
-    Phone,
-    Mail,
-    MessageCircle,
-    Search,
-    ChevronDown,
-    ChevronUp,
-    HelpCircle,
-    Car,
-    Calendar,
-    CreditCard,
-    AlertTriangle,
-    MapPin,
-    Shield,
-    UserCheck
+  AlertTriangle,
+  Calendar,
+  Car,
+  ChevronDown,
+  ChevronUp,
+  CreditCard,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Search,
+  Shield
 } from 'lucide-react';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import _Footer from '../../components/layout/footer/Footer';
+import Header from '../../components/layout/header/Header';
+import { Card } from '../../components/ui/card';
 
 // FAQ categories and questions
 const faqCategories = [

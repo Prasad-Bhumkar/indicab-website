@@ -1,112 +1,58 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 // Define the context interface
 interface FavoritesContextType {
     favorites: number[];
-    addFavorite: (routeId: number) => void;
-    removeFavorite: (routeId: number) => void;
-    toggleFavorite: (routeId: number) => void;
-    isFavorite: (routeId: number) => boolean;
-    clearAllFavorites: () => void;
-    isInitialized: boolean;
+    toggleFavorite: (id: number) => void;
+    isFavorite: (id: number) => boolean;
 }
 
 // Create the context with default values
 const FavoritesContext = createContext<FavoritesContextType>({
     favorites: [],
-    addFavorite: () => { },
-    removeFavorite: () => { },
     toggleFavorite: () => { },
     isFavorite: () => false,
-    clearAllFavorites: () => { },
-    isInitialized: false,
 });
 
 // Custom hook to use the favorites context
-export const useFavorites = () => useContext(FavoritesContext);
-
-interface FavoritesProviderProps {
-    children: ReactNode;
+export function useFavorites() {
+    const context = useContext(FavoritesContext);
+    if (!context) {
+        throw new Error('useFavorites must be used within a FavoritesProvider');
+    }
+    return context;
 }
 
-export const FavoritesProvider = ({ children }: FavoritesProviderProps): JSX.Element => {
-    // Initialize state with empty array
+export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     const [favorites, setFavorites] = useState<number[]>([]);
-    const [isInitialized, setIsInitialized] = useState(false);
 
-    // Load favorites from localStorage on mount
     useEffect(() => {
-        // Skip effect during SSR
-        if (typeof window === 'undefined') return;
-
-        try {
-            const storedFavorites = localStorage.getItem('indicab-favorites');
-            if (storedFavorites) {
-                setFavorites(JSON.parse(storedFavorites));
-            }
-        } catch (error) {
-            console.error('Error loading favorites from localStorage:', error);
-        } finally {
-            setIsInitialized(true);
+        // Load favorites from localStorage on mount
+        const storedFavorites = localStorage.getItem('favorites');
+        if (storedFavorites) {
+            setFavorites(JSON.parse(storedFavorites));
         }
     }, []);
 
-    // Save favorites to localStorage when they change
-    useEffect(() => {
-        // Skip effect during SSR and initial load
-        if (typeof window === 'undefined' || !isInitialized) return;
-
-        try {
-            localStorage.setItem('indicab-favorites', JSON.stringify(favorites));
-        } catch (error) {
-            console.error('Error saving favorites to localStorage:', error);
-        }
-    }, [favorites, isInitialized]);
-
-    // Add a route to favorites
-    const addFavorite = (routeId: number) => {
-        if (!favorites.includes(routeId)) {
-            setFavorites(_prevFavorites => [..._prevFavorites, routeId]);
-        }
+    const toggleFavorite = (id: number) => {
+        setFavorites((prev) => {
+            const newFavorites = prev.includes(id)
+                ? prev.filter((favId) => favId !== id)
+                : [...prev, id];
+            localStorage.setItem('favorites', JSON.stringify(newFavorites));
+            return newFavorites;
+        });
     };
 
-    // Remove a route from favorites
-    const removeFavorite = (routeId: number) => {
-        setFavorites(_prevFavorites => _prevFavorites.filter(_id => _id !== routeId));
-    };
-
-    // Toggle a route's favorite status
-    const toggleFavorite = (routeId: number) => {
-        if (favorites.includes(routeId)) {
-            removeFavorite(routeId);
-        } else {
-            addFavorite(routeId);
-        }
-    };
-
-    // Check if a route is in favorites
-    const isFavorite = (routeId: number) => {
-        return favorites.includes(routeId);
-    };
-
-    // Clear all favorites
-    const clearAllFavorites = () => {
-        setFavorites([]);
-    };
+    const isFavorite = (id: number) => favorites.includes(id);
 
     return (
-        <FavoritesContext.Provider value={{
-            favorites,
-            addFavorite,
-            removeFavorite,
-            toggleFavorite,
-            isFavorite,
-            clearAllFavorites,
-            isInitialized
-        }}>
+        <FavoritesContext.Provider
+            value={{ favorites, toggleFavorite, isFavorite }}
+        >
             {children}
         </FavoritesContext.Provider>
     );
-};
+}

@@ -1,29 +1,27 @@
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { _Button } from '@/components/ui/Button';
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
-import { _Button } from '@/components/ui/button';
 import {
-    Calendar,
-    User,
-    Car,
-    TrendingUp,
-    BadgeIndianRupee,
-    MapPin,
-    Clock,
-    CheckCircle,
-    XCircle,
-    AlertCircle,
-    Users
+  AlertCircle,
+  BadgeIndianRupee,
+  Calendar,
+  Car,
+  CheckCircle,
+  Clock,
+  MapPin,
+  TrendingUp,
+  User,
+  Users,
+  XCircle
 } from 'lucide-react';
+import Image from 'next/image';
 
 // Sample data
 const _stats = [

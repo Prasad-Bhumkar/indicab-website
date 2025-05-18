@@ -657,3 +657,90 @@ Below is a detailed structure of the project, including all files and directorie
 ```
 
 Each file and directory is annotated with its purpose to provide a clear understanding of the project structure.
+
+## Project Structure
+
+### Configuration Files
+
+All configuration files are centralized in the `config/` directory:
+
+```
+config/
+├── next.config.mjs      # Next.js configuration
+├── tailwind.config.js   # Tailwind CSS configuration
+├── postcss.config.mjs   # PostCSS configuration
+├── tsconfig.json        # TypeScript configuration
+├── eslint.config.mjs    # ESLint configuration
+├── vitest.config.ts     # Vitest configuration
+├── playwright.config.ts # Playwright configuration
+├── lighthouserc.js     # Lighthouse CI configuration
+├── storybook/          # Storybook configuration
+│   ├── main.ts
+│   ├── preview.ts
+│   └── vitest.setup.ts
+└── vscode/             # VS Code configuration
+    └── settings.json
+```
+
+Files that must remain in the root directory:
+- `env.d.ts` and `next-env.d.ts` (Next.js type definitions)
+- `netlify.toml` (Netlify deployment configuration)
+- `components.json` (shadcn/ui configuration)
+- `.gitattributes` (Git configuration)
+- `LICENSE` (Project license)
+
+## IDE Support
+
+### VS Code Configuration
+
+The project includes comprehensive VS Code configuration for optimal development experience:
+
+```
+.vscode/
+├── settings.json        # Editor settings and preferences
+├── extensions.json     # Recommended extensions
+└── launch.json        # Debug configurations
+```
+
+#### Recommended Extensions
+
+Essential extensions for development:
+- Biome (`biomejs.biome`) - Code formatting and linting
+- ESLint (`dbaeumer.vscode-eslint`) - JavaScript/TypeScript linting
+- Tailwind CSS (`bradlc.vscode-tailwindcss`) - CSS tooling
+- Path Intellisense (`christian-kohler.path-intellisense`) - Import path completion
+- Vitest (`ZixuanChen.vitest-explorer`) - Test runner integration
+- Playwright (`ms-playwright.playwright`) - E2E testing support
+
+Install recommended extensions:
+1. Open VS Code
+2. Press `Ctrl/Cmd + Shift + X`
+3. Type `@recommended` in the extensions search box
+4. Install all workspace recommended extensions
+
+#### Debugging
+
+Pre-configured debug configurations:
+- Next.js server-side debugging
+- Next.js client-side debugging
+- Full-stack debugging
+- Vitest test debugging
+
+To start debugging:
+1. Press `F5` or click the Debug icon
+2. Select the appropriate debug configuration
+3. Set breakpoints and debug as needed
+
+#### Path Aliases
+
+The project uses path aliases for cleaner imports:
+- `@/*` → `src/*`
+- `@components/*` → `src/components/*`
+- `@features/*` → `src/features/*`
+- etc.
+
+Example usage:
+```typescript
+import { Button } from '@components/ui/Button';
+import { useAuth } from '@hooks/useAuth';
+```

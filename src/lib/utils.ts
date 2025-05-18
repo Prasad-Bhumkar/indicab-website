@@ -1,5 +1,8 @@
-function cn(..._classes: (string | undefined | null)[]) {
-    return _classes.filter((cls): cls is string => cls !== null && cls !== undefined).join(' ');
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
 
 function formatDate(_date: Date): string {
@@ -13,5 +16,3 @@ function formatDate(_date: Date): string {
 function generateUniqueId(_prefix: string = 'id'): string {
     return `${_prefix}_${Math.random().toString(36).substr(2, 9)}`;
 }
-
-export { cn };

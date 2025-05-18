@@ -1,48 +1,84 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import type { Route } from '@/data/routes';
-import { _Button as Button } from '@/components/ui/Button';
-import Link from 'next/link';
+'use client';
 
-export interface MapViewProps {
+import { Route } from '@/types/routes';
+import L, { LatLngTuple } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useMemo } from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+
+// Fix for default marker icons in Leaflet with Next.js
+const icon = L.icon({
+  iconUrl: '/images/marker-icon.png',
+  iconRetinaUrl: '/images/marker-icon-2x.png',
+  shadowUrl: '/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+interface MapViewProps {
   routes: Route[];
   onRouteSelect: (routeId: number) => void;
 }
 
-export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.Element {
+export default function MapView({ routes, onRouteSelect }: MapViewProps) {
+  // Calculate map bounds based on route coordinates
+  const bounds = useMemo(() => {
+    const coordinates: LatLngTuple[] = routes.flatMap(route => [
+      [route.coordinates.from.lat, route.coordinates.from.lng],
+      [route.coordinates.to.lat, route.coordinates.to.lng]
+    ]);
+    return L.latLngBounds(coordinates);
+  }, [routes]);
+
   return (
     <MapContainer
-      center={[20.5937, 78.9629]} // Center of India
-      zoom={5}
-      className="h-[400px] w-full rounded-md"
+      bounds={bounds}
+      style={{ height: '100%', width: '100%' }}
+      scrollWheelZoom={false}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {routes.map((route) => (
-        <Marker
-          key={route.id}
-          position={route.fromCoordinates}
-        >
-          <Popup>
-            <div className="p-2">
-              <h3 className="font-medium mb-1">{route.from} to {route.to}</h3>
-              <p className="text-sm text-gray-600 mb-2">{route.description}</p>
-              <div className="flex justify-between items-center">
-                <span className="font-bold text-primary">{route.price}</span>
-                <Button
-                  variant="outline"
-                  size="sm"
+        <div key={route.id}>
+          <Marker
+            position={[route.coordinates.from.lat, route.coordinates.from.lng] as LatLngTuple}
+            icon={icon}
+          >
+            <Popup>
+              <div className="text-sm">
+                <strong>{route.from}</strong>
+                <p className="mt-1">{route.description}</p>
+                <button
                   onClick={() => onRouteSelect(route.id)}
+                  className="mt-2 text-primary hover:underline"
                 >
                   View Details
-                </Button>
+                </button>
               </div>
-            </div>
-          </Popup>
-        </Marker>
+            </Popup>
+          </Marker>
+          <Marker
+            position={[route.coordinates.to.lat, route.coordinates.to.lng] as LatLngTuple}
+            icon={icon}
+          >
+            <Popup>
+              <div className="text-sm">
+                <strong>{route.to}</strong>
+                <p className="mt-1">{route.description}</p>
+                <button
+                  onClick={() => onRouteSelect(route.id)}
+                  className="mt-2 text-primary hover:underline"
+                >
+                  View Details
+                </button>
+              </div>
+            </Popup>
+          </Marker>
+        </div>
       ))}
     </MapContainer>
   );

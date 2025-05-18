@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import { _Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/card';
+import { initSectionTransitions } from '@/lib/animations';
+import { BadgeCheck, Briefcase, Building2, CalendarClock, CheckCircle, CreditCard, ShieldCheck, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { initSectionTransitions } from '@/lib/animations';
-import { _Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { CheckCircle, CalendarClock, Building2, Users, BadgeCheck, Briefcase, ShieldCheck, CreditCard } from 'lucide-react';
+import { useEffect } from 'react';
 
 // Premium car options for business travel
 const _premiumCars = [

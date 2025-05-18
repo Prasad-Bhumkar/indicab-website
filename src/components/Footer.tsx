@@ -1,120 +1,79 @@
-import React from 'react';
+'use client';
+
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
-export default function Footer(): JSX.Element {
+const navigation = {
+  main: [
+    { name: 'Home', href: '/' },
+    { name: 'Routes', href: '/routes' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Terms', href: '/terms' },
+    { name: 'Privacy', href: '/privacy' },
+  ],
+  social: [
+    {
+      name: 'Facebook',
+      href: 'https://facebook.com',
+      icon: Facebook,
+    },
+    {
+      name: 'Instagram',
+      href: 'https://instagram.com',
+      icon: Instagram,
+    },
+    {
+      name: 'Twitter',
+      href: 'https://twitter.com',
+      icon: Twitter,
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://linkedin.com',
+      icon: Linkedin,
+    },
+  ],
+};
+
+export default function Footer() {
   return (
-    <footer className="bg-gray-50 border-t">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="font-semibold text-lg mb-4">About IndiCab</h3>
-            <p className="text-sm text-gray-600 mb-4">
-              IndiCab is your trusted partner for intercity travel in India. We provide comfortable and reliable cab services across major cities.
-            </p>
-            <div className="flex space-x-4">
-              <Link href="https://facebook.com" className="text-gray-600 hover:text-primary">
-                <Facebook className="h-5 w-5" />
-              </Link>
-              <Link href="https://twitter.com" className="text-gray-600 hover:text-primary">
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link href="https://instagram.com" className="text-gray-600 hover:text-primary">
-                <Instagram className="h-5 w-5" />
-              </Link>
-              <Link href="https://youtube.com" className="text-gray-600 hover:text-primary">
-                <Youtube className="h-5 w-5" />
+    <footer className="bg-white">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-16 lg:px-8">
+        <nav
+          className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
+          aria-label="Footer"
+        >
+          {navigation.main.map((item) => (
+            <div key={item.name} className="pb-6">
+              <Link
+                href={item.href}
+                className="text-sm leading-6 text-gray-600 hover:text-primary"
+              >
+                {item.name}
               </Link>
             </div>
-          </div>
+          ))}
+        </nav>
 
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/routes" className="text-sm text-gray-600 hover:text-primary">
-                  Routes
-                </Link>
-              </li>
-              <li>
-                <Link href="/vehicles" className="text-sm text-gray-600 hover:text-primary">
-                  Vehicles
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-sm text-gray-600 hover:text-primary">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-sm text-gray-600 hover:text-primary">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Popular Routes</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/routes?from=Mumbai&to=Pune" className="text-sm text-gray-600 hover:text-primary">
-                  Mumbai to Pune
-                </Link>
-              </li>
-              <li>
-                <Link href="/routes?from=Delhi&to=Agra" className="text-sm text-gray-600 hover:text-primary">
-                  Delhi to Agra
-                </Link>
-              </li>
-              <li>
-                <Link href="/routes?from=Bangalore&to=Mysore" className="text-sm text-gray-600 hover:text-primary">
-                  Bangalore to Mysore
-                </Link>
-              </li>
-              <li>
-                <Link href="/routes?from=Chennai&to=Pondicherry" className="text-sm text-gray-600 hover:text-primary">
-                  Chennai to Pondicherry
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4">Contact Info</h3>
-            <ul className="space-y-2">
-              <li className="text-sm text-gray-600">
-                Email: support@indicab.com
-              </li>
-              <li className="text-sm text-gray-600">
-                Phone: 1800-123-4567
-              </li>
-              <li className="text-sm text-gray-600">
-                Address: 123 Transport Hub,<br />
-                Mumbai, Maharashtra 400001
-              </li>
-            </ul>
-          </div>
+        <div className="mt-10 flex justify-center space-x-10">
+          {navigation.social.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="text-gray-400 hover:text-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="sr-only">{item.name}</span>
+              <item.icon className="h-6 w-6" aria-hidden="true" />
+            </Link>
+          ))}
         </div>
 
-        <div className="border-t mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} IndiCab. All rights reserved.
-            </p>
-            <div className="flex space-x-4 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-sm text-gray-600 hover:text-primary">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-sm text-gray-600 hover:text-primary">
-                Terms of Service
-              </Link>
-              <Link href="/faq" className="text-sm text-gray-600 hover:text-primary">
-                FAQ
-              </Link>
-            </div>
-          </div>
-        </div>
+        <p className="mt-10 text-center text-xs leading-5 text-gray-500">
+          &copy; {new Date().getFullYear()} IndiCab. All rights reserved.
+        </p>
       </div>
     </footer>
   );

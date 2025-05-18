@@ -1,13 +1,11 @@
-import React from 'react';
-import { notFound } from 'next/navigation';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import FloatingActionButton from '@/components/FloatingActionButton';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ChevronLeft, MapPin, Calendar, AlertCircle, Sun, Umbrella, Utensils, LocateIcon } from 'lucide-react';
-import { _Button } from '@/components/ui/button';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { _Button } from '@/components/ui/Button';
+import { AlertCircle, Calendar, ChevronLeft, LocateIcon, MapPin, Sun, Utensils } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
 // Define the params type
 type GuideParams = {

@@ -1,3 +1,93 @@
 {
-    "CodeGPT.apiKey": "CodeGPT Plus Beta"
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    "json.schemas": [
+        {
+            "fileMatch": ["settings.json"],
+            "url": "../config/vscode/settings.json"
+        }
+    ],
+    // Editor Settings
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "@biomejs/biome",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "editor.rulers": [100],
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    "editor.tabSize": 2,
+    
+    // TypeScript Settings
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    
+    // File Associations
+    "files.associations": {
+        "*.css": "tailwindcss",
+        "*.mdx": "markdown",
+        "*.config.mjs": "javascript"
+    },
+    
+    // Language-specific Settings
+    "[javascript]": {
+        "editor.defaultFormatter": "@biomejs/biome"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "@biomejs/biome"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "@biomejs/biome"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "@biomejs/biome"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    
+    // Path Intelligence
+    "path-intellisense.mappings": {
+        "@": "${workspaceRoot}/src",
+        "@components": "${workspaceRoot}/src/components",
+        "@features": "${workspaceRoot}/src/features",
+        "@shared": "${workspaceRoot}/src/shared",
+        "@utils": "${workspaceRoot}/src/utils",
+        "@hooks": "${workspaceRoot}/src/hooks",
+        "@context": "${workspaceRoot}/src/context",
+        "@types": "${workspaceRoot}/src/types",
+        "@services": "${workspaceRoot}/src/services",
+        "@lib": "${workspaceRoot}/src/lib",
+        "@data": "${workspaceRoot}/src/data"
+    },
+    
+    // Testing
+    "vitest.commandLine": "npm run test --",
+    "vitest.disableWorkspaceTrust": true,
+    
+    // Search Settings
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/.next": true,
+        "**/coverage": true,
+        "**/storybook-static": true
+    },
+    
+    // Git Settings
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    
+    // Tailwind CSS
+    "tailwindCSS.experimental.classRegex": [
+        ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+        ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+    ],
+    "tailwindCSS.includeLanguages": {
+        "typescript": "javascript",
+        "typescriptreact": "javascript"
+    }
 }

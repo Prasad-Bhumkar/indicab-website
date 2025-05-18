@@ -19,3 +19,5 @@ const _config: StorybookConfig = {
     ]
 };
 export default _config;
+
+export { default } from '../config/storybook/main';

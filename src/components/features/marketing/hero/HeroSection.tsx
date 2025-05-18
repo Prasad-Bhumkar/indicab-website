@@ -1,11 +1,8 @@
-import React from "react";
-
 'use client';
-
+import React from "react";
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { _Button } from '../../../ui/button/Button';
-import LoadingSpinner from '../../../ui/LoadingSpinner';
+
+import { _Button } from "@/components/ui/button/index";
 
 export default function HeroSection(): JSX.Element {
     return (

@@ -1,12 +1,11 @@
-import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import FloatingActionButton from '@/components/FloatingActionButton';
-import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin, Clock, ArrowRight, Search } from 'lucide-react';
-import { _Button } from '@/components/ui/button';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { _Button } from '@/components/ui/Button';
+import { ArrowRight, Clock, MapPin, Search } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Intercity Cab Services | One-Way Routes | IndiCab',

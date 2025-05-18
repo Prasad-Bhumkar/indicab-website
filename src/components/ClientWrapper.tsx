@@ -1,7 +1,6 @@
 'use client';
 
-import React, { ReactNode } from 'react';
-import { ThemeProvider } from 'next-themes';
+import { ReactNode } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 
 interface ClientWrapperProps {
@@ -10,10 +9,8 @@ interface ClientWrapperProps {
 
 export default function ClientWrapper({ children }: ClientWrapperProps): JSX.Element {
     return (
-        <ThemeProvider attribute="class">
-            <ErrorBoundary>
-                {children}
-            </ErrorBoundary>
-        </ThemeProvider>
+        <ErrorBoundary>
+            {children}
+        </ErrorBoundary>
     );
 }

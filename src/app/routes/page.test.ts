@@ -1,4 +1,4 @@
-import { expect, test, describe } from 'bun:test';
+import { expect, test, describe } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 

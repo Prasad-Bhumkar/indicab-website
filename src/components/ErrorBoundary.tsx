@@ -1,77 +1,68 @@
 'use client';
 
+import { Button } from '@/components/ui/Button';
 import React, { Component, ReactNode } from 'react';
-import { _Button } from './ui/button/Button';
-import { useTheme } from 'next-themes';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
-    fallback?: ReactNode;
-    theme?: string;
 }
 
 interface ErrorBoundaryState {
     hasError: boolean;
     error: Error | null;
-    errorInfo: React.ErrorInfo | null;
 }
 
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     constructor(props: ErrorBoundaryProps) {
         super(props);
-        this.state = { hasError: false, error: null, errorInfo: null };
-    }
-
-    static getDerivedStateFromError(error: Error) {
-        return { hasError: true, error };
-    }
-
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-        this.setState({ error, errorInfo });
-        console.error('Error caught by boundary:', error, errorInfo);
-    }
-
-    handleCopyError = async () => {
-        const { error, errorInfo } = this.state;
-        if (!error) return;
-
-        try {
-            const _errorDetails = `Error: ${error.message}\nStack: ${error.stack}\nComponent Stack: ${errorInfo?.componentStack}`;
-            await navigator.clipboard.writeText(_errorDetails);
-            alert('Error details copied to clipboard');
-        } catch (_copyError) {
-            console.error('Failed to copy error:', _copyError);
-            alert('Failed to copy error details');
-        }
-    };
-
-    handleReset = () => {
-        this.setState({ hasError: false, error: null, errorInfo: null });
-    };
-
-    render() {
-        const { theme = 'light' } = this.props;
-        const errorStyles = {
-            light: 'bg-white text-gray-900',
-            dark: 'bg-gray-800 text-white'
+        this.state = {
+            hasError: false,
+            error: null,
         };
+    }
 
+    static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+        return {
+            hasError: true,
+            error,
+        };
+    }
+
+    componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+        // You can log the error to an error reporting service here
+        console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    }
+
+    render(): ReactNode {
         if (this.state.hasError) {
-            return this.props.fallback || (
-                <div className={`error-boundary min-h-screen p-8 ${errorStyles[theme as keyof typeof errorStyles]}`}>
-                    <h2 className="text-2xl font-bold mb-4">Something went wrong</h2>
-                    <div className="flex gap-4 mb-6">
-                        <_Button onClick={this.handleCopyError}>Copy Error Details</_Button>
-                        <_Button onClick={this.handleReset}>Try Again</_Button>
+            return (
+                <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background text-foreground">
+                    <div className="max-w-md w-full space-y-4 text-center">
+                        <h1 className="text-4xl font-bold text-primary">Oops!</h1>
+                        <p className="text-lg text-muted-foreground">
+                            Something went wrong. We're sorry for the inconvenience.
+                        </p>
+                        <div className="text-sm text-muted-foreground bg-muted p-4 rounded-md overflow-auto">
+                            <pre>{this.state.error?.message}</pre>
+                        </div>
+                        <div className="flex justify-center gap-4">
+                            <Button
+                                variant="outline"
+                                onClick={() => {
+                                    window.location.reload();
+                                }}
+                            >
+                                Refresh Page
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    window.location.href = '/';
+                                }}
+                            >
+                                Go Home
+                            </Button>
+                        </div>
                     </div>
-                    <details className="bg-gray-100 dark:bg-gray-700 p-4 rounded">
-                        <summary className="cursor-pointer mb-2">Error details</summary>
-                        <pre className="whitespace-pre-wrap break-words">
-                            {this.state.error?.toString()}
-                            <br />
-                            {this.state.errorInfo?.componentStack}
-                        </pre>
-                    </details>
                 </div>
             );
         }
@@ -82,8 +73,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
 // Theme-aware wrapper component
 export function ThemedErrorBoundary(props: ErrorBoundaryProps): JSX.Element {
-    const { theme } = useTheme();
-    return <ErrorBoundary {...props} theme={theme} />;
+    // Removed passing 'theme' prop as ErrorBoundary does not accept it
+    return <ErrorBoundary {...props} />;
 }
-
-export default ErrorBoundary;

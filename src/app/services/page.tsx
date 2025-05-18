@@ -1,26 +1,23 @@
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Header from '@/components/layout/header/Header';
 import _Footer from '@/components/layout/footer/Footer';
+import Header from '@/components/layout/header/Header';
+import { _Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/card';
-import { _Button } from '@/components/ui/button';
-import Image from 'next/image'; // Importing Image component
 import {
-    Car,
-    Clock,
-    MapPin,
-    Calendar,
-    Users,
-    Briefcase,
-    Building2,
-    Plane,
-    Gift,
-    Crown,
-    ShieldCheck,
-    Settings
+  Briefcase,
+  Building2,
+  Car,
+  Clock,
+  Crown,
+  Gift,
+  Plane,
+  Settings,
+  ShieldCheck,
+  Users
 } from 'lucide-react';
+import Image from 'next/image'; // Importing Image component
+import Link from 'next/link';
 
 // Service types data
 const _serviceTypes = [

@@ -1,20 +1,17 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, Suspense } from 'react';
-import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Car, Search, MapPin, Filter, ArrowRight, X, Heart, Map, CheckCircle2 } from 'lucide-react';
-import { _Button as Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import Image from 'next/image';
-import RouteDetails from '@/components/RouteDetails';
+import { Footer, Header, RouteDetails } from '@/components';
+import { Button, Card } from '@/components/ui';
 import { useFavorites } from '@/context/FavoritesContext';
-import { routes } from '@/data/routes';
 import type { Route as DataRoute } from '@/data/routes';
-import { Review, VehicleType, Amenity } from '@/types/routes';
+import { routes } from '@/data/routes';
+import { Amenity, Review, VehicleType } from '@/types/routes';
+import { ArrowRight, Car, CheckCircle2, Filter, Heart, Map, MapPin, Search, X } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import React, { Suspense, useEffect, useMemo, useState } from 'react';
 
 // Update type references to use DataRoute instead of Route
 type Route = DataRoute;
@@ -26,7 +23,7 @@ interface MapViewProps {
 }
 
 // Dynamic import for MapView to avoid SSR issues
-const MapView = dynamic<MapViewProps>(() => import('@/components/MapView'), {
+const DynamicMapView = dynamic<MapViewProps>(() => import('@/components/MapView'), {
   ssr: false,
   loading: () => <div className="h-[400px] w-full bg-gray-100 animate-pulse rounded-md flex items-center justify-center">Loading map...</div>
 });
@@ -708,7 +705,7 @@ function RoutesContent(): JSX.Element {
         </div>
       ) : (
         <div className="h-[600px] mb-8 rounded-lg overflow-hidden border">
-          <MapView routes={filteredRoutes} onRouteSelect={openRouteDetails} />
+          <DynamicMapView routes={filteredRoutes} onRouteSelect={openRouteDetails} />
         </div>
       )}
 
@@ -730,10 +727,9 @@ function RoutesContent(): JSX.Element {
       {selectedRouteData && (
         <RouteDetails
           route={selectedRouteData}
-          isOpen={selectedRoute !== null}
+          open={selectedRoute !== null}
           onClose={_closeRouteDetails}
-          onFavoriteToggle={toggleFavorite}
-          isFavorite={isFavorite(selectedRouteData.id)}
+          favorite={isFavorite(selectedRouteData.id)}
         />
       )}
     </div>
