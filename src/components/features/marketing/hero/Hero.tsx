@@ -1,11 +1,14 @@
 "use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/Card';
+import React, { useEffect, useState } from 'react';
+
 import { motion } from 'framer-motion';
 import { ArrowRight, CarTaxiFront, Clock, RotateCw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+
 
 const Hero = (): JSX.Element => {
     const _router = useRouter();
@@ -141,31 +144,31 @@ const Hero = (): JSX.Element => {
             <section className="bg-primary relative pt-2 pb-16 md:pt-4 md:pb-20">
                 <div className="container mx-auto px-4">
                     <div className="text-white mb-4 md:mb-6">
-                        <div className="h-6 w-32 bg-white/20 animate-pulse rounded mb-2"></div>
+                        <div className="h-6 w-32 bg-white/20 animate-pulse rounded mb-2" />
                         <div className="flex flex-wrap gap-1 mt-2">
                             {[1, 2, 3].map((i): JSX.Element => (
-                                <div key={i} className="h-8 w-24 bg-white/20 animate-pulse rounded"></div>
+                                <div key={i} className="h-8 w-24 bg-white/20 animate-pulse rounded" />
                             ))}
                         </div>
                     </div>
 
                     <div className="max-w-md mx-auto">
                         <div className="bg-white p-4 md:p-6 rounded-sm shadow-lg">
-                            <div className="h-5 w-56 bg-gray-200 animate-pulse rounded mb-4"></div>
+                            <div className="h-5 w-56 bg-gray-200 animate-pulse rounded mb-4" />
                             <div className="space-y-3">
-                                <div className="h-10 bg-gray-200 animate-pulse rounded"></div>
-                                <div className="h-10 bg-gray-200 animate-pulse rounded"></div>
+                                <div className="h-10 bg-gray-200 animate-pulse rounded" />
+                                <div className="h-10 bg-gray-200 animate-pulse rounded" />
                                 <div className="grid grid-cols-2 gap-3">
-                                    <div className="h-10 bg-gray-200 animate-pulse rounded"></div>
-                                    <div className="h-10 bg-gray-200 animate-pulse rounded"></div>
+                                    <div className="h-10 bg-gray-200 animate-pulse rounded" />
+                                    <div className="h-10 bg-gray-200 animate-pulse rounded" />
                                 </div>
-                                <div className="h-10 bg-primary/20 animate-pulse rounded"></div>
+                                <div className="h-10 bg-primary/20 animate-pulse rounded" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 h-10 bg-gray-100/20"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-10 bg-gray-100/20" />
             </section>
         );
     }
@@ -401,8 +404,7 @@ const Hero = (): JSX.Element => {
                 </motion.div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-10 bg-[url('/images/grass-bg.png')] bg-repeat-x bg-bottom">
-            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-10 bg-[url('/images/grass-bg.png')] bg-repeat-x bg-bottom" />
         </section>
     );
 };

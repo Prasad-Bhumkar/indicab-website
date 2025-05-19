@@ -7,22 +7,26 @@ This guide covers our testing strategy, tools, and best practices for the IndiCa
 ## Testing Levels
 
 ### 1. Unit Testing
+
 - **Tools**: Vitest
 - **Location**: `src/**/*.test.ts(x)`
 - **Coverage**: 80% minimum
 - **Focus**: Individual components, hooks, and utilities
 
 ### 2. Integration Testing
+
 - **Tools**: Vitest + Testing Library
 - **Location**: `src/**/*.integration.test.ts(x)`
 - **Focus**: Component interactions and data flow
 
 ### 3. E2E Testing
+
 - **Tools**: Playwright
 - **Location**: `e2e/**/*.spec.ts`
 - **Focus**: User flows and critical paths
 
 ### 4. Performance Testing
+
 - **Tools**: Custom performance utilities
 - **Location**: `src/**/*.perf.test.ts(x)`
 - **Focus**: Load times, render performance, API response times
@@ -30,12 +34,14 @@ This guide covers our testing strategy, tools, and best practices for the IndiCa
 ## Test Utilities
 
 ### Setup
+
 ```typescript
 import { render, screen } from '@/tests/setup';
 import { generateMockUser } from '@/tests/utils';
 ```
 
 ### Performance Testing
+
 ```typescript
 import { measurePerformance, expectPerformance } from '@/tests/performance-utils';
 
@@ -43,21 +49,22 @@ test('component renders within performance budget', async () => {
   const { averageRenderTime } = await measureRenderPerformance(async () => {
     render(<MyComponent />);
   });
-  
+
   expectPerformance.toBeFasterThan(averageRenderTime, 100); // 100ms budget
 });
 ```
 
 ### API Testing
+
 ```typescript
 import { createMockRequest, expectApiSuccess } from '@/tests/api-utils';
 
 test('API endpoint returns success', async () => {
   const request = createMockRequest({
     method: 'GET',
-    headers: { 'Authorization': 'Bearer token' }
+    headers: { Authorization: 'Bearer token' },
   });
-  
+
   const response = await handler(request);
   await expectApiSuccess(response, userSchema);
 });
@@ -66,17 +73,20 @@ test('API endpoint returns success', async () => {
 ## Best Practices
 
 1. **Test Organization**
+
    - Group related tests using `describe` blocks
    - Use clear, descriptive test names
    - Follow the Arrange-Act-Assert pattern
 
 2. **Component Testing**
+
    - Test user interactions
    - Verify accessibility
    - Check error states
    - Test loading states
 
 3. **API Testing**
+
    - Test success and error cases
    - Verify response schemas
    - Check authentication
@@ -116,6 +126,7 @@ npm run test:perf
 ## CI/CD Integration
 
 Tests run automatically on:
+
 - Pull requests
 - Push to main/develop
 - Manual triggers
@@ -125,11 +136,13 @@ Tests run automatically on:
 ### Common Issues
 
 1. **Test Timeouts**
+
    - Increase timeout in `vitest.config.ts`
    - Check for infinite loops
    - Verify async operations
 
 2. **Memory Leaks**
+
    - Use `measureMemoryUsage()`
    - Check cleanup in `afterEach`
    - Monitor heap usage
@@ -144,4 +157,4 @@ Tests run automatically on:
 - [Vitest Documentation](https://vitest.dev/)
 - [Testing Library](https://testing-library.com/)
 - [Playwright](https://playwright.dev/)
-- [Jest DOM](https://github.com/testing-library/jest-dom) 
+- [Jest DOM](https://github.com/testing-library/jest-dom)

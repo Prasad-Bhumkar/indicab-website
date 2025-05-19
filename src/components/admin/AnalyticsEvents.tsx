@@ -1,5 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
+import { format } from 'date-fns';
+
 import { Button } from '@/components/ui/button';
 import { DatePicker } from '@/components/ui/date-picker';
 import { Input } from '@/components/ui/input';
@@ -11,8 +15,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
 
 interface AnalyticsEvent {
     _id: string;

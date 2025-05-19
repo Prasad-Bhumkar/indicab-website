@@ -1,10 +1,13 @@
 "use client";
 
-import { Button } from '@/components/ui/button';
+import { useCallback, useEffect, useState } from 'react';
+
 import { ChevronLeft, ChevronRight, Cloud, Droplets, Sun, Wind } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+
 
 interface Season {
     id: string;

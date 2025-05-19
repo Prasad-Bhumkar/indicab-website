@@ -1,5 +1,6 @@
-import { VehicleType } from '@/lib/types';
 import Image from 'next/image';
+
+import type { VehicleType } from '@/lib/types';
 
 export const VehicleCard = ({ vehicle }: { vehicle: VehicleType }): JSX.Element => (
     <div className="bg-white rounded-lg shadow-md p-6 mb-4">

@@ -1,7 +1,10 @@
-import { render, RenderOptions } from '@testing-library/react';
+import type { ReactElement } from 'react';
+
+import type { RenderOptions } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ReactElement } from 'react';
 import { vi } from 'vitest';
+
 import { TestProviders } from '../setup';
 
 // Mock window.matchMedia

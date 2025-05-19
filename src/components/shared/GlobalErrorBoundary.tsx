@@ -5,12 +5,12 @@ import * as Sentry from "@sentry/nextjs";
 // import EfuseEffecteact";
 import { useRouter } from "next/navigation";
 
-type SentryErrorBoundaryProps = {
+interface SentryErrorBoundaryProps {
 	error: unknown;
 	componentStack: string;
 	eventId: string;
 	resetError(): void;
-};
+}
 
 export function GlobalErrorBoundary({
 	children,

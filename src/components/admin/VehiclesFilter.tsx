@@ -1,9 +1,10 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function VehiclesFilter() {
     const router = useRouter();

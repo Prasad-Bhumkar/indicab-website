@@ -1,8 +1,9 @@
+import type { Metadata } from 'next';
+
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import PricingCalculator from '@/components/features/booking/PricingCalculator';
 import FloatingActionButton from '@/components/shared/FloatingActionButton';
-import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'IndiCab - Fare Calculator | Estimate Your Cab Fare',
@@ -27,7 +28,7 @@ export default function Pricing(): JSX.Element {
                     <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-6">
                         Get transparent fare estimates for your intercity travel with our pricing calculator
                     </p>
-                    <div className="w-20 h-1 bg-orange-500 rounded-full mx-auto"></div>
+                    <div className="w-20 h-1 bg-orange-500 rounded-full mx-auto" />
                 </div>
             </div>
 

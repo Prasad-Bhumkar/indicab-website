@@ -1,11 +1,15 @@
 "use client";
 
 import { Button } from '@/components/ui/button';
+
 import { Icon } from 'leaflet';
+
 import 'leaflet/dist/leaflet.css';
 import React, { useState } from 'react';
+
 import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
-import { Route } from '../../data/routes';
+
+import type { Route } from '../../data/routes';
 
 // Fix for Leaflet marker issue in Next.js
 const markerIcon = new Icon({

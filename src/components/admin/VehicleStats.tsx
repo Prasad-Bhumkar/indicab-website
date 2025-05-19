@@ -1,8 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { connectDB } from '@/lib/db';
 import Vehicle from '@/models/Vehicle';
-import { useEffect, useState } from 'react';
 
 export function VehicleStats() {
     const [stats, setStats] = useState({

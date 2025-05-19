@@ -2,6 +2,7 @@
 'use client';
 
 import { Briefcase, CheckCircle } from 'lucide-react';
+
 import PackageCard from './PackageCard';
 
 interface CorporatePackage {

@@ -1,12 +1,16 @@
 "use client";
 
-import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
+
 import { Car, CheckCircle2, Clock, Heart, MapPin, MessageSquare, Share, Star } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
-import { Amenity, VehicleType } from '../../data/routes';
+
+import { Button } from '@/components/ui/button';
+
+
+import type { Amenity, VehicleType } from '../../data/routes';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../../ui/dialog';
 
 // Dynamic import for the map component to avoid SSR issues

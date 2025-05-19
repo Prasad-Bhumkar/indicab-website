@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
+
 import { performanceMonitor } from './performance';
 
 interface LazyLoadResult {

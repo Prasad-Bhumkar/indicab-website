@@ -1,10 +1,11 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import FloatingActionButton from '@/components/shared/FloatingActionButton';
 import { ChevronRight, MapPin } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
 
 export const metadata: Metadata = {
     title: 'IndiCab City Guides | Travel Information for Major Indian Cities',
@@ -97,7 +98,7 @@ export default function CityGuides(): JSX.Element {
                     <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-6">
                         Explore detailed information about popular destinations across India
                     </p>
-                    <div className="w-20 h-1 bg-orange-500 rounded-full mx-auto"></div>
+                    <div className="w-20 h-1 bg-orange-500 rounded-full mx-auto" />
                 </div>
             </div>
 
@@ -128,7 +129,7 @@ export default function CityGuides(): JSX.Element {
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                                     />
-                                    <div className="absolute inset-0 bg-black bg-opacity-25"></div>
+                                    <div className="absolute inset-0 bg-black bg-opacity-25" />
                                     <div className="absolute bottom-0 left-0 p-4">
                                         <h3 className="text-xl font-bold text-white mb-1">{city.name}</h3>
                                     </div>

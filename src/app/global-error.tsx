@@ -1,9 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import * as Sentry from '@sentry/nextjs';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { useEffect } from 'react';
 
 export default function GlobalError({
   error,

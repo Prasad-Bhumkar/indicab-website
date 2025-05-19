@@ -1,6 +1,8 @@
 import posthog from 'posthog-js';
-import { connectDB } from '../lib/db';
+
 import { AnalyticsEvent } from '../models/AnalyticsEvent';
+
+import { connectDB } from "./db";
 
 // Initialize PostHog
 if (typeof window !== 'undefined') {

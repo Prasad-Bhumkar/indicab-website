@@ -1,9 +1,10 @@
+import { Suspense } from 'react';
+
 import VehiclesFilter from '@/components/admin/VehiclesFilter';
 import VehiclesTable from '@/components/admin/VehiclesTable';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { connectDB } from '@/lib/db';
 import Vehicle from '@/models/Vehicle';
-import { Suspense } from 'react';
 
 interface VehiclesPageProps {
     searchParams: {

@@ -52,6 +52,7 @@ npm run dev
 ## 🛠 Tech Stack
 
 ### Frontend
+
 - **Framework**: [Next.js 14](https://nextjs.org/) with App Router
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
@@ -60,6 +61,7 @@ npm run dev
 - **Maps**: [Leaflet](https://leafletjs.com/)
 
 ### Testing & Quality
+
 - **Unit Testing**: [Vitest](https://vitest.dev/)
 - **E2E Testing**: [Playwright](https://playwright.dev/)
 - **Component Testing**: [Storybook](https://storybook.js.org/)
@@ -67,6 +69,7 @@ npm run dev
 - **Formatting**: Prettier
 
 ### Deployment
+
 - **Production**: [Vercel](https://vercel.com)
 - **Staging**: [Netlify](https://netlify.com)
 
@@ -99,6 +102,7 @@ indicab-Website/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18.x or later
 - npm 9.x or later
 - Git
@@ -106,17 +110,20 @@ indicab-Website/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/prasad-bhumkar/indicab-Website.git
    cd indicab-Website
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    # Edit .env.local with your values
@@ -171,16 +178,16 @@ The project uses several configuration files:
 
 ## 📝 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Create production build |
-| `npm run start` | Start production server |
-| `npm run test` | Run unit tests |
-| `npm run test:e2e` | Run end-to-end tests |
+| Command             | Description                 |
+| ------------------- | --------------------------- |
+| `npm run dev`       | Start development server    |
+| `npm run build`     | Create production build     |
+| `npm run start`     | Start production server     |
+| `npm run test`      | Run unit tests              |
+| `npm run test:e2e`  | Run end-to-end tests        |
 | `npm run storybook` | Start Storybook development |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format code with Prettier |
+| `npm run lint`      | Run ESLint                  |
+| `npm run format`    | Format code with Prettier   |
 
 ## 🧪 Testing
 
@@ -192,6 +199,7 @@ We use a comprehensive testing strategy:
 - **Accessibility**: Lighthouse CI for accessibility testing
 
 Run tests:
+
 ```bash
 # Unit tests
 npm run test
@@ -206,18 +214,21 @@ npm run test:storybook
 ## 📚 Documentation
 
 ### Core Documentation
+
 - [Component Documentation](docs/components.md) - Detailed documentation of all UI components
 - [API Documentation](docs/api.md) - API endpoints and usage guidelines
 - [Contributing Guide](CONTRIBUTING.md) - Guidelines for contributing to the project
 - [Deployment Guide](docs/deployment.md) - Instructions for deploying the application
 
 ### Additional Resources
+
 - [Architecture Overview](docs/architecture.md) - System architecture and design decisions
 - [Testing Guide](docs/testing.md) - Comprehensive testing documentation
 - [Security Guidelines](docs/security.md) - Security best practices and guidelines
 - [Performance Optimization](docs/performance.md) - Tips for optimizing application performance
 
 ### API Reference
+
 - [Authentication API](docs/api/auth.md) - Authentication endpoints and usage
 - [Booking API](docs/api/booking.md) - Booking management endpoints
 - [Payment API](docs/api/payment.md) - Payment processing endpoints
@@ -233,7 +244,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Prasad Bhumkar** - *Initial work* - [GitHub](https://github.com/prasad-bhumkar)
+- **Prasad Bhumkar** - _Initial work_ - [GitHub](https://github.com/prasad-bhumkar)
 
 ## 🙏 Acknowledgments
 
@@ -244,6 +255,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 For support, please:
+
 - Open an issue in the GitHub repository
 - Contact the maintainers
 - Check our [documentation](docs/) for detailed guides

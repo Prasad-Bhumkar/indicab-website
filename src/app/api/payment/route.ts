@@ -1,7 +1,8 @@
-import { connectDB } from '@/lib/db';
-import Booking from '@/models/Booking';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+
+import { connectDB } from '@/lib/db';
+import Booking from '@/models/Booking';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
     apiVersion: '2023-10-16'

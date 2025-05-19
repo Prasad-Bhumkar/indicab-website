@@ -1,17 +1,18 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import FloatingActionButton from '@/components/shared/FloatingActionButton';
-import { Button } from '@/components/ui/button';
 import { ArrowRight, Car, Check, Clock, Info, MapPin, Phone } from 'lucide-react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import { Button } from '@/components/ui/button';
+
 // Define route parameters type
-type RouteParams = {
+interface RouteParams {
   route: string;
-};
+}
 
 // Popular routes data
 const popularRoutes = [

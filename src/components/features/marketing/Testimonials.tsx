@@ -1,9 +1,11 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from 'react';
+
 import { motion } from 'framer-motion';
 import { Quote, Star } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+
 import { Card } from '../../ui/Card';
 
 const testimonials = [

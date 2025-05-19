@@ -1,10 +1,13 @@
 'use client';
 
-import { trackPageView } from '@/lib/analytics';
+import { useEffect } from 'react';
+
 import { usePathname, useSearchParams } from 'next/navigation';
 import posthog from 'posthog-js';
 import { PostHogProvider as Provider } from 'posthog-js/react';
-import { useEffect } from 'react';
+
+import { trackPageView } from '@/lib/analytics';
+
 
 interface PostHogProviderProps {
     children: React.ReactNode;

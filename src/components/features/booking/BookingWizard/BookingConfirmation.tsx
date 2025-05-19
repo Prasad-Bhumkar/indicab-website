@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import type React from "react";
+
 import { motion } from "framer-motion";
 import {
     Calendar,
@@ -17,8 +18,11 @@ import {
     Share2,
     User,
 } from "lucide-react";
-import type React from "react";
-import type { BookingFormData } from "./";
+
+import { Button } from "@/components/ui/button";
+
+
+import type { BookingFormData } from ".";
 
 interface BookingConfirmationProps {
 	formData: BookingFormData;

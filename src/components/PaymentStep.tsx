@@ -1,12 +1,16 @@
 'use client'
+import { useCallback, useEffect, useState } from 'react'
+
 import * as Sentry from '@sentry/nextjs'
 import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe, Stripe } from '@stripe/stripe-js'
+import type { Stripe } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js'
 import { useTranslation } from 'next-i18next'
-import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
+
 import { useBookingContext } from '../context/BookingContext'
 import { formatCurrency } from '../utils/format'
+
 import { PaymentForm } from './PaymentForm'
 
 // Mock Stripe for testing
@@ -96,7 +100,7 @@ export default function PaymentStep({ onBack }: PaymentStepProps): JSX.Element {
     if (loading) {
         return (
             <div className="flex items-center justify-center p-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
                 <span className="ml-3 text-gray-600">{t('Initializing payment...')}</span>
             </div>
         )

@@ -1,11 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Route } from '@/types/routes';
 import { Car, Heart, MapPin, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import type { Route } from '@/types/routes';
 
 interface RouteDetailsProps {
   route: Route;

@@ -1,7 +1,9 @@
+import React, { useEffect, useState } from 'react';
+
+import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+
 import { Card } from '@/components/ui/card';
 import { performanceMonitor } from '@/utils/performance';
-import React, { useEffect, useState } from 'react';
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface MetricData {
   name: string;

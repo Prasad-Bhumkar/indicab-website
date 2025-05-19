@@ -1,8 +1,11 @@
 'use client';
 
-import { trackEvent } from '@/utils/analytics';
-import { AlertTriangle, Bell, Check, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { AlertTriangle, Bell, Check, X } from 'lucide-react';
+
+import { trackEvent } from '@/utils/analytics';
+
 import wsService from '../../utils/websocket';
 
 interface Notification {

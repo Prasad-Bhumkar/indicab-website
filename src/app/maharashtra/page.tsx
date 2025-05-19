@@ -1,11 +1,12 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import FloatingActionButton from '@/components/shared/FloatingActionButton';
-import { Button } from '@/components/ui/button';
 import { CalendarDays, Car, MapPin } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
     title: 'Tourist Places in Maharashtra | IndiCab',
@@ -143,7 +144,7 @@ export default function MaharashtraTourism(): JSX.Element {
                                         fill
                                         className="object-cover transition-transform group-hover:scale-105 duration-300"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
                                     <div className="absolute bottom-3 left-3 z-20">
                                         <h3 className="text-lg font-semibold text-white">{place.name}</h3>
                                     </div>

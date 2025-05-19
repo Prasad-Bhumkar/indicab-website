@@ -1,5 +1,6 @@
-import { Analytics } from '@vercel/analytics/react';
 import type { ReactNode } from 'react';
+
+import { Analytics } from '@vercel/analytics/react';
 
 interface AnalyticsEvent {
     category: string;

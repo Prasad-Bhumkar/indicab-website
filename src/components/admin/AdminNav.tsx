@@ -1,6 +1,7 @@
 'use client';
 
-import { trackEvent } from '@/utils/analytics';
+import { useState } from 'react';
+
 import {
     Activity,
     BarChart3,
@@ -16,7 +17,9 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+
+import { trackEvent } from '@/utils/analytics';
+
 
 export default function AdminNav() {
     const [sidebarOpen, setSidebarOpen] = useState(true);

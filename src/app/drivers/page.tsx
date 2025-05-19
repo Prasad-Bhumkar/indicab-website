@@ -1,10 +1,11 @@
+import { CheckCircle, Clock, CreditCard, Shield, Star } from 'lucide-react';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+
 import DriverApplicationForm from '@/components/DriverApplicationForm';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import FloatingActionButton from '@/components/shared/FloatingActionButton';
-import { CheckCircle, Clock, CreditCard, Shield, Star } from 'lucide-react';
-import type { Metadata } from 'next';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'Join IndiCab as a Driver Partner | Driver Application',
@@ -29,7 +30,7 @@ export default function Drivers(): JSX.Element {
                         <div>
                             <h1 className="text-4xl md:text-5xl font-bold mb-4">Drive with IndiCab</h1>
                             <p className="text-xl mb-6">Join India's most trusted intercity cab service network and boost your income</p>
-                            <div className="w-20 h-1 bg-orange-500 rounded-full mb-6"></div>
+                            <div className="w-20 h-1 bg-orange-500 rounded-full mb-6" />
                             <div className="space-y-4">
                                 <div className="flex items-start">
                                     <CheckCircle className="text-orange-400 mr-3 mt-1 flex-shrink-0" />

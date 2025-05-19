@@ -1,13 +1,14 @@
-import ClientWrapper from '@/components/ClientWrapper';
-import { I18nProvider } from '@/components/I18nProvider';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
-import { ThemeProvider } from '@/components/shared/ThemeProvider';
-import { initAnalytics } from '@/lib/analytics';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
+
+import ClientWrapper from '@/components/ClientWrapper';
+import { I18nProvider } from '@/components/I18nProvider';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { ThemeProvider } from '@/components/shared/ThemeProvider';
+import { initAnalytics } from '@/lib/analytics';
 import '../utils/i18n/config';
 import './globals.css';
 

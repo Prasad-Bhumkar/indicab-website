@@ -1,9 +1,5 @@
 "use client";
 
-import _Footer from '@/components/layout/footer/Footer';
-import Header from '@/components/layout/header/Header';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import {
     Briefcase,
     Building2,
@@ -18,6 +14,11 @@ import {
 } from 'lucide-react';
 import Image from 'next/image'; // Importing Image component
 import Link from 'next/link';
+
+import _Footer from '@/components/layout/footer/Footer';
+import Header from '@/components/layout/header/Header';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
 // Service types data
 const _serviceTypes = [
@@ -191,8 +192,8 @@ export default function ServicesPage(): JSX.Element {
                             </Link>
                         </div>
                     </div>
-                    <div className="absolute inset-0 bg-black opacity-20"></div>
-                    <div className="absolute bottom-0 left-0 right-0 h-10 bg-[url('/images/cloud-bg.png')] bg-repeat-x bg-bottom"></div>
+                    <div className="absolute inset-0 bg-black opacity-20" />
+                    <div className="absolute bottom-0 left-0 right-0 h-10 bg-[url('/images/cloud-bg.png')] bg-repeat-x bg-bottom" />
                 </section>
 
                 {/* Main Services Section */}

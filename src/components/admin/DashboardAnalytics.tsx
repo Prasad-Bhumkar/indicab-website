@@ -1,8 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { trackEvent } from '@/utils/analytics';
 import { usePerformanceMonitor } from '@/utils/performance';
-import { useEffect, useState } from 'react';
 
 interface MetricCard {
     title: string;

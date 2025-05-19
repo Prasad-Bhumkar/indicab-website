@@ -1,8 +1,9 @@
 "use client";
 
+import React, { useEffect, useState } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
 
 const _popularDestinations = [
     {
@@ -103,7 +104,7 @@ const PopularRides: React.FC<PopularRidesProps> = (props) => {
             <section className="py-2 bg-white">
                 <div className="container mx-auto px-4">
                     <div className="mb-3">
-                        <div className="h-5 w-40 bg-gray-200 animate-pulse rounded"></div>
+                        <div className="h-5 w-40 bg-gray-200 animate-pulse rounded" />
                     </div>
                     <div className="space-y-4">
                         {[...Array(3)].map((_, _i): JSX.Element => (
@@ -111,21 +112,21 @@ const PopularRides: React.FC<PopularRidesProps> = (props) => {
                                 <div>
                                     <div className="flex justify-between items-start mb-1">
                                         <div>
-                                            <div className="h-4 w-32 bg-gray-200 animate-pulse rounded mb-2"></div>
-                                            <div className="h-3 w-40 bg-gray-200 animate-pulse rounded"></div>
+                                            <div className="h-4 w-32 bg-gray-200 animate-pulse rounded mb-2" />
+                                            <div className="h-3 w-40 bg-gray-200 animate-pulse rounded" />
                                         </div>
                                     </div>
-                                    <div className="my-2 h-[120px] w-full bg-gray-200 animate-pulse rounded-sm"></div>
+                                    <div className="my-2 h-[120px] w-full bg-gray-200 animate-pulse rounded-sm" />
                                     <div className="flex justify-between items-center">
-                                        <div className="h-4 w-16 bg-gray-200 animate-pulse rounded"></div>
-                                        <div className="h-6 w-20 bg-gray-200 animate-pulse rounded"></div>
+                                        <div className="h-4 w-16 bg-gray-200 animate-pulse rounded" />
+                                        <div className="h-6 w-20 bg-gray-200 animate-pulse rounded" />
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div className="text-center my-3">
-                        <div className="h-4 w-28 bg-gray-200 animate-pulse rounded mx-auto"></div>
+                        <div className="h-4 w-28 bg-gray-200 animate-pulse rounded mx-auto" />
                     </div>
                 </div>
             </section>

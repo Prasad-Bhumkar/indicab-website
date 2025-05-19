@@ -1,16 +1,17 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import FloatingActionButton from '@/components/shared/FloatingActionButton';
-import { Button } from '@/components/ui/button';
 import { AlertCircle, Calendar, ChevronLeft, LocateIcon, MapPin, Sun, Utensils } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import { Button } from '@/components/ui/button';
+
 // Define the params type
-type GuideParams = {
+interface GuideParams {
     slug: string;
-};
+}
 
 // City guide data (would typically come from a database or API)
 const cityGuides = [

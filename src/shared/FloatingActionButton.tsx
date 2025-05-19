@@ -11,7 +11,7 @@ const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ icon, posit
         <div className={`fab ${position}`}>
             {tooltip && <span className="tooltip">{tooltip}</span>}
             <button className="fab-button" aria-label={tooltip || `Floating action button with ${icon} icon`}>
-                <i className={`icon-${icon}`}></i>
+                <i className={`icon-${icon}`} />
             </button>
         </div>
     );

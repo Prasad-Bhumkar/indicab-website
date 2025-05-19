@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
+
 import {
     Briefcase,
     ChevronLeft,
@@ -10,10 +11,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+
 import { Card } from "../../ui/Card";
 
-type CarType = {
+interface CarType {
     id: string;
     name: string;
     image: string;
@@ -23,7 +27,7 @@ type CarType = {
     features: string[];
     price: string;
     category: "economy" | "premium" | "suv" | "luxury";
-};
+}
 
 const cars: CarType[] = [
     {

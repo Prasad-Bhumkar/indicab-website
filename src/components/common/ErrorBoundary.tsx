@@ -1,12 +1,15 @@
 "use client";
 
+import type React from "react";
+import { Component, type ReactNode } from "react";
+
+import { AlertCircle, Home, RefreshCw } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import { ErrorService } from "@/services/ErrorService";
 import type { ErrorContext } from "@/types/errors";
-import { AlertCircle, Home, RefreshCw } from "lucide-react";
-import { useRouter } from "next/navigation";
-import type React from "react";
-import { Component, type ReactNode } from "react";
+
 
 interface ErrorBoundaryProps {
 	children: ReactNode;

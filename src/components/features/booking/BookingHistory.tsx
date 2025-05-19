@@ -1,16 +1,20 @@
 ﻿"use client";
 
-import { Button } from '@/components/ui/button';
-import type { BookingStatus, BookingType } from '@/lib/types/booking';
-import { cancelBooking, fetchBookings, modifyBooking } from '@/services/booking/bookingService';
-import { Calendar, Car, CheckCircle, MapPin, XCircle } from 'lucide-react';
 import { type ReactElement, useCallback, useMemo, useState } from 'react';
+
+import { Calendar, Car, CheckCircle, MapPin, XCircle } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
-type BookingHistoryProps = {
+import { Button } from '@/components/ui/button';
+import { cancelBooking, fetchBookings, modifyBooking } from '@/services/booking/bookingService';
+
+import type { BookingStatus, BookingType } from '@/lib/types/booking';
+
+
+interface BookingHistoryProps {
 	bookings: BookingType[];
 	onCancel?: (bookingId: string) => void;
-};
+}
 
 const BookingHistory = ({ bookings, onCancel }: BookingHistoryProps): ReactElement => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);

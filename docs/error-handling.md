@@ -22,31 +22,34 @@ function App() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | Required | The components to be wrapped by the error boundary |
-| `fallback` | `React.ReactNode` | `undefined` | Custom fallback UI to display when an error occurs |
-| `onError` | `(error: Error, errorInfo: React.ErrorInfo) => void` | `undefined` | Callback function called when an error occurs |
-| `onReset` | `() => void` | `undefined` | Callback function called when retrying |
-| `locale` | `string` | `'en'` | Locale for error messages |
-| `component` | `string` | `undefined` | Component name for error tracking |
-| `maxRetries` | `number` | `3` | Maximum number of retry attempts |
+| Prop         | Type                                                 | Default     | Description                                        |
+| ------------ | ---------------------------------------------------- | ----------- | -------------------------------------------------- |
+| `children`   | `React.ReactNode`                                    | Required    | The components to be wrapped by the error boundary |
+| `fallback`   | `React.ReactNode`                                    | `undefined` | Custom fallback UI to display when an error occurs |
+| `onError`    | `(error: Error, errorInfo: React.ErrorInfo) => void` | `undefined` | Callback function called when an error occurs      |
+| `onReset`    | `() => void`                                         | `undefined` | Callback function called when retrying             |
+| `locale`     | `string`                                             | `'en'`      | Locale for error messages                          |
+| `component`  | `string`                                             | `undefined` | Component name for error tracking                  |
+| `maxRetries` | `number`                                             | `3`         | Maximum number of retry attempts                   |
 
 ### Features
 
 1. **Error Catching**
+
    - Catches JavaScript errors in child components
    - Prevents app crashes
    - Provides fallback UI
    - Supports custom fallback components
 
 2. **Error Reporting**
+
    - Integrates with Sentry for error tracking
    - Custom error reporting dialog
    - Detailed error information in development
    - Enhanced error context with component info
 
 3. **Retry Mechanism**
+
    - Automatic retry functionality
    - Configurable retry count
    - Retry attempt tracking
@@ -54,12 +57,14 @@ function App() {
    - Custom retry handlers
 
 4. **Performance Monitoring**
+
    - Tracks error handling performance
    - Measures retry attempts
    - Integrates with performance dashboard
    - Detailed error metrics
 
 5. **Accessibility**
+
    - ARIA roles and labels
    - Keyboard navigation
    - Screen reader support
@@ -82,7 +87,7 @@ const WrappedComponent = withErrorBoundary(YourComponent, {
   onError: (error, errorInfo) => {
     // Handle error
   },
-  maxRetries: 3
+  maxRetries: 3,
 });
 ```
 
@@ -128,8 +133,8 @@ performanceMonitor.addMetric({
   metadata: {
     error: 'Error message',
     component: 'ComponentName',
-    retryCount: 0
-  }
+    retryCount: 0,
+  },
 });
 
 // Track retry
@@ -139,14 +144,15 @@ performanceMonitor.addMetric({
   timestamp: Date.now(),
   metadata: {
     success: true,
-    component: 'ComponentName'
-  }
+    component: 'ComponentName',
+  },
 });
 ```
 
 ### Features
 
 1. **Metric Tracking**
+
    - Component render times
    - API call durations
    - Error handling performance
@@ -154,6 +160,7 @@ performanceMonitor.addMetric({
    - Custom metrics
 
 2. **Performance Analysis**
+
    - Average metrics
    - Percentile calculations
    - Trend analysis
@@ -168,24 +175,28 @@ performanceMonitor.addMetric({
 ## Best Practices
 
 1. **Error Boundary Placement**
+
    - Place error boundaries strategically
    - Wrap critical components
    - Consider component hierarchy
    - Use multiple boundaries
 
 2. **Error Handling**
+
    - Provide meaningful error messages
    - Include recovery options
    - Log detailed error information
    - Track error patterns
 
 3. **Performance Monitoring**
+
    - Track key metrics
    - Set performance budgets
    - Monitor trends
    - Set up alerts
 
 4. **Accessibility**
+
    - Use semantic HTML
    - Include ARIA attributes
    - Support keyboard navigation
@@ -238,8 +249,8 @@ test('meets performance requirements', async ({ page }) => {
   expect(metrics).toContainEqual(
     expect.objectContaining({
       name: 'page-load',
-      duration: expect.any(Number)
+      duration: expect.any(Number),
     })
   );
 });
-``` 
+```

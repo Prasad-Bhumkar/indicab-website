@@ -1,7 +1,8 @@
 'use client'
 
-import NextImage from 'next/image'
 import { useState } from 'react'
+
+import NextImage from 'next/image'
 
 interface ImageProps {
     src: string

@@ -1,4 +1,5 @@
 import mongoose, { type ConnectOptions, Schema, model, models } from "mongoose";
+
 import { _logger } from './logger';
 
 /**
@@ -77,7 +78,7 @@ export async function connectDB(): Promise<typeof mongoose> {
 
 		logger.info("Establishing new MongoDB connection...");
 		global.indicabMongooseCache.promise = mongoose
-			.connect(MONGODB_URI as string, _opts)
+			.connect(MONGODB_URI, _opts)
 			.then((conn) => {
 				logger.info("MongoDB connected successfully");
 				global.indicabMongooseCache.lastConnected = new Date();

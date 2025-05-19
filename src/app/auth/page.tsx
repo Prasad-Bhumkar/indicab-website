@@ -1,21 +1,24 @@
 "use client";
 
-import _Footer from '@/components/layout/footer/Footer';
-import Header from '@/components/layout/header/Header';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/Card';
+import React, { useState } from 'react';
+
 import { Check, Lock, Mail, Phone, User } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
 
-type FormErrorType = {
+import _Footer from '@/components/layout/footer/Footer';
+import Header from '@/components/layout/header/Header';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+
+
+interface FormErrorType {
     name?: string;
     email?: string;
     phone?: string;
     password?: string;
     general?: string;
-};
+}
 
 const _AuthPage = (): JSX.Element => {
     const _router = useRouter();

@@ -1,6 +1,8 @@
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+
 import { createBooking, deleteBooking, getBooking, updateBooking } from '@/lib/api';
 import { createServer } from '@/lib/test-server';
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+
 import { mockBooking } from '../helpers/test-utils';
 
 describe('Booking API Integration', () => {

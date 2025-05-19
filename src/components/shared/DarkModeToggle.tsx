@@ -1,7 +1,8 @@
 "use client";
 
-import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { Moon, Sun } from 'lucide-react';
 
 const DarkModeToggle = (): JSX.Element => {
     // We can't access localStorage during SSR, so we need to initialize with 'light'
@@ -41,7 +42,7 @@ const DarkModeToggle = (): JSX.Element => {
     if (!mounted) {
         return (
             <div className="w-9 h-9 flex items-center justify-center rounded-full bg-transparent">
-                <div className="animate-pulse h-5 w-5 bg-gray-300 rounded-full"></div>
+                <div className="animate-pulse h-5 w-5 bg-gray-300 rounded-full" />
             </div>
         );
     }

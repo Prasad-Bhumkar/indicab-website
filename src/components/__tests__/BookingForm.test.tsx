@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { useAuthContext } from '../../context/AuthContext';
 import { BookingContext } from '../../context/BookingContext';
 import BookingForm from '../BookingForm';

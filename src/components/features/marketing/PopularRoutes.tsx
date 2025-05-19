@@ -1,9 +1,10 @@
 "use client";
 
-import { Card } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { ArrowRight, Car, ChevronRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
+
+import { Card } from '@/components/ui/card';
 
 const _popularRoutes = [
     {

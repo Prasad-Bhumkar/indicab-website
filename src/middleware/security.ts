@@ -1,6 +1,7 @@
-import { apiRateLimiter } from '@/utils/rate-limiter';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+
+import { apiRateLimiter } from '@/utils/rate-limiter';
 
 // Security headers configuration
 const securityHeaders = {

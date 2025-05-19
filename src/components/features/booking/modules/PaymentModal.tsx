@@ -1,9 +1,12 @@
 "use client";
 
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/Dialog';
-import { CreditCard, Smartphone, Wallet } from 'lucide-react';
 import { useState } from 'react';
+
+import { CreditCard, Smartphone, Wallet } from 'lucide-react';
+
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/Dialog';
+import { Button } from '@/components/ui/button';
+
 
 type PaymentMethod = 'upi' | 'card' | 'wallet';
 

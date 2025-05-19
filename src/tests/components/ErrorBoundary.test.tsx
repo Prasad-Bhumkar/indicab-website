@@ -1,8 +1,11 @@
-import { ErrorBoundary, useErrorBoundary, withErrorBoundary } from '@/components/common/ErrorBoundary';
-import { performanceMonitor } from '@/utils/performance';
+import React from 'react';
+
 import * as Sentry from '@sentry/nextjs';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import React from 'react';
+
+import { ErrorBoundary, useErrorBoundary, withErrorBoundary } from '@/components/common/ErrorBoundary';
+import { performanceMonitor } from '@/utils/performance';
+
 
 // Mock Sentry
 jest.mock('@sentry/nextjs', () => ({

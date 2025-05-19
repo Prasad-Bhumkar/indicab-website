@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from 'react';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import {
     Check,
@@ -11,7 +13,7 @@ import {
     Sun
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+
 import {
     _Dialog,
     _DialogTrigger,

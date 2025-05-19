@@ -1,5 +1,6 @@
-import AnalyticsEvents from "@/components/admin/AnalyticsEvents";
 import type { Metadata } from "next";
+
+import AnalyticsEvents from "@/components/admin/AnalyticsEvents";
 
 export const metadata: Metadata = {
 	title: "Analytics Events | Admin Dashboard",

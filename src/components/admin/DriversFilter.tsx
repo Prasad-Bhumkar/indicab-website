@@ -1,10 +1,12 @@
 'use client';
 
+import { useCallback, useState } from 'react';
+
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { trackFilterChange, trackSearch } from '@/lib/analytics';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
 
 export default function DriversFilter() {
     const router = useRouter();

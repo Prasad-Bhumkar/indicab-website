@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { z } from 'zod';
+import type { z } from 'zod';
 
 // API test helper types
 export interface ApiTestConfig {

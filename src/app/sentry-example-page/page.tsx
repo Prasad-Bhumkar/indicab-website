@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+
+import * as Sentry from '@sentry/nextjs';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import * as Sentry from '@sentry/nextjs';
-import { useState } from 'react';
 
 export default function SentryExamplePage() {
     const [error, setError] = useState<string | null>(null);

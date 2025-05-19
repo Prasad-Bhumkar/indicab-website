@@ -1,8 +1,9 @@
+import { type NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+
 import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { AnalyticsEvent } from "@/models/AnalyticsEvent";
-import { getServerSession } from "next-auth";
-import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 	try {

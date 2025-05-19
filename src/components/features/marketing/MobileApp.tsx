@@ -1,7 +1,8 @@
 "use client";
 
-import { Check } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+
+import { Check } from 'lucide-react';
 
 // Simple mobile app card component that doesn't use any images
 const MobileApp: React.FC<MobileAppProps> = (props): JSX.Element => {
@@ -28,25 +29,25 @@ const MobileApp: React.FC<MobileAppProps> = (props): JSX.Element => {
                     <div className="flex flex-col md:flex-row items-center">
                         <div className="md:w-1/2 mb-6 md:mb-0">
                             <div className="text-white">
-                                <div className="h-8 w-48 bg-white/20 animate-pulse rounded mb-2"></div>
-                                <div className="h-4 w-64 bg-white/20 animate-pulse rounded mb-4"></div>
+                                <div className="h-8 w-48 bg-white/20 animate-pulse rounded mb-2" />
+                                <div className="h-4 w-64 bg-white/20 animate-pulse rounded mb-4" />
                                 <div className="flex justify-start space-x-6 mb-6">
                                     {[1, 2, 3].map((_i): JSX.Element => (
                                         <div key={_i} className="flex flex-col items-center">
-                                            <div className="w-10 h-10 rounded-full bg-white/20 mb-2"></div>
-                                            <div className="h-4 w-16 bg-white/20 animate-pulse rounded"></div>
+                                            <div className="w-10 h-10 rounded-full bg-white/20 mb-2" />
+                                            <div className="h-4 w-16 bg-white/20 animate-pulse rounded" />
                                         </div>
                                     ))}
                                 </div>
                                 <div className="space-y-2 mb-4">
                                     {[1, 2, 3, 4].map((_i): JSX.Element => (
-                                        <div key={_i} className="h-4 w-48 bg-white/20 animate-pulse rounded"></div>
+                                        <div key={_i} className="h-4 w-48 bg-white/20 animate-pulse rounded" />
                                     ))}
                                 </div>
                             </div>
                         </div>
                         <div className="md:w-1/2 flex justify-center">
-                            <div className="w-64 h-96 bg-white/20 animate-pulse rounded-lg"></div>
+                            <div className="w-64 h-96 bg-white/20 animate-pulse rounded-lg" />
                         </div>
                     </div>
                 </div>
@@ -122,15 +123,15 @@ const MobileApp: React.FC<MobileAppProps> = (props): JSX.Element => {
                     <div className="md:w-1/2 flex justify-center">
                         <div className="relative w-64 h-[420px] bg-white/10 rounded-xl overflow-hidden border-4 border-white/20">
                             <div className="absolute top-0 left-0 right-0 h-12 bg-white/10 flex items-center justify-center">
-                                <div className="w-24 h-4 bg-white/40 rounded-full"></div>
+                                <div className="w-24 h-4 bg-white/40 rounded-full" />
                             </div>
                             <div className="pt-16 px-4 flex flex-col items-center">
                                 <div className="w-full h-12 bg-orange-500/20 rounded-lg mb-4 flex items-center justify-center">
                                     <span className="text-white text-xs">Book Your Ride</span>
                                 </div>
-                                <div className="w-full h-20 bg-white/10 rounded-lg mb-3"></div>
-                                <div className="w-full h-16 bg-white/10 rounded-lg mb-3"></div>
-                                <div className="w-full h-16 bg-white/10 rounded-lg mb-3"></div>
+                                <div className="w-full h-20 bg-white/10 rounded-lg mb-3" />
+                                <div className="w-full h-16 bg-white/10 rounded-lg mb-3" />
+                                <div className="w-full h-16 bg-white/10 rounded-lg mb-3" />
                                 <div className="w-full h-12 bg-orange-500 rounded-lg mb-3 flex items-center justify-center">
                                     <span className="text-white text-xs font-medium">BOOK NOW</span>
                                 </div>

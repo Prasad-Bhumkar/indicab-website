@@ -1,23 +1,27 @@
 "use client";
+import { useContext, useEffect, useState, useCallback, useMemo } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Sentry from "@sentry/nextjs";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState, useCallback, useMemo } from "react";
+import { useTranslation } from 'next-i18next';
 import { useForm } from "react-hook-form";
+import { toast } from 'react-hot-toast';
 import * as z from "zod";
+
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+
 import { useAuthContext } from "../context/AuthContext";
 import type { BookingState } from "../context/BookingContext";
 import { BookingContext } from "../context/BookingContext";
 import { calculateFare } from "../lib/pricing";
 import { createBooking } from "../services/booking/api";
+
+import _BookingProgress from "./BookingProgress";
 import DateRangePicker from "./DateRangePicker";
 import PaymentStep from "./PaymentStep";
 import VehicleTypeSelector from "./VehicleTypeSelector";
 import LocationSearch from "./booking/LocationSearch";
-import ErrorBoundary from '@/components/common/ErrorBoundary';
-import _BookingProgress from "./BookingProgress";
-import { toast } from 'react-hot-toast';
-import { useTranslation } from 'next-i18next';
 
 // Enhanced validation schema
 const bookingSchema = z.object({

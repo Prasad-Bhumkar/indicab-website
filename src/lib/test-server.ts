@@ -1,7 +1,9 @@
 import { createServer } from 'http';
+import { parse } from 'url';
+
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { parse } from 'url';
+
 import { createBooking, deleteBooking, getBooking, updateBooking } from './api';
 
 export async function createServer() {

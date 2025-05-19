@@ -1,8 +1,9 @@
+import * as Sentry from '@sentry/nextjs';
+import { Car, Clock, Phone, Star } from 'lucide-react';
+
 import BookingWizardWrapper from '@/components/features/booking/BookingWizardWrapper';
 import _Footer from '@/components/layout/footer/Footer';
 import Header from '@/components/layout/header/Header';
-import * as Sentry from '@sentry/nextjs';
-import { Car, Clock, Phone, Star } from 'lucide-react';
 
 export default function BookingWizardPage(): JSX.Element {
     Sentry.addBreadcrumb({

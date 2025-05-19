@@ -1,12 +1,14 @@
 "use client";
 
+import { useCallback, useEffect } from "react";
+
 import {
     Banknote,
     CreditCard,
     Smartphone,
     Tag,
 } from "lucide-react";
-import { useCallback, useEffect } from "react";
+
 import type { BookingFormData } from "./types";
 
 interface PaymentSelectionProps {

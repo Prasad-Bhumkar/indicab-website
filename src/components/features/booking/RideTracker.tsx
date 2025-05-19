@@ -1,8 +1,10 @@
 "use client";
 
+import React, { useEffect, useState } from 'react';
+
 import { motion } from 'framer-motion';
 import { Car, CircleDot, Clock, MapPin } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+
 import {
     Dialog,
     DialogContent,
@@ -10,10 +12,10 @@ import {
     DialogTitle
 } from '../../ui/dialog';
 
-type Coordinate = {
+interface Coordinate {
     x: number;
     y: number;
-};
+}
 
 const _generatePath = (): Coordinate[] => {
     // Generate a curved path with about 40 points
@@ -93,7 +95,7 @@ const RideTracker: React.FC<RideTrackerProps> = ({
                             <MapPin className="h-4 w-4 text-primary mr-1" />
                             <span>{origin}</span>
                         </div>
-                        <div className="border-t-2 border-dashed flex-1 mx-2 mt-2"></div>
+                        <div className="border-t-2 border-dashed flex-1 mx-2 mt-2" />
                         <div className="flex items-center">
                             <MapPin className="h-4 w-4 text-red-500 mr-1" />
                             <span>{destination}</span>
@@ -103,7 +105,7 @@ const RideTracker: React.FC<RideTrackerProps> = ({
                     <div className="bg-gray-100 h-40 relative mb-3 rounded-lg overflow-hidden">
                         {isLoading ? (
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                                <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                             </div>
                         ) : (
                             <>
@@ -158,7 +160,7 @@ const RideTracker: React.FC<RideTrackerProps> = ({
                             <div
                                 className="bg-primary rounded-full h-2"
                                 style={{ width: `${progress}%` }}
-                            ></div>
+                             />
                         </div>
                     </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+
 import {
     Calendar,
     Car,
@@ -10,7 +11,9 @@ import {
     Route,
     Users
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+
 import { useBookingContext } from '../../../context/BookingContext';
 import { createBooking } from '../../../services/booking/api';
 

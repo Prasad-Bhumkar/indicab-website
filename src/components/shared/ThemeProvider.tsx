@@ -4,16 +4,16 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 
-type ThemeProviderProps = {
+interface ThemeProviderProps {
     children: React.ReactNode;
     defaultTheme?: Theme;
     storageKey?: string;
-};
+}
 
-type ThemeProviderState = {
+interface ThemeProviderState {
     theme: Theme;
     setTheme: (theme: Theme) => void;
-};
+}
 
 const _initialState: ThemeProviderState = {
     theme: 'system',
@@ -33,7 +33,7 @@ export function ThemeProvider({
         const savedTheme = localStorage.getItem(storageKey) as Theme | null;
 
         if (savedTheme) {
-            setTheme(savedTheme as Theme);
+            setTheme(savedTheme);
         } else if (defaultTheme === 'system') {
             const _systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
                 ? 'dark'

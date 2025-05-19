@@ -2,6 +2,7 @@
 
 
 import { CheckCircle, Clock, MapPin } from 'lucide-react';
+
 import PackageCard from './PackageCard';
 
 interface Package {

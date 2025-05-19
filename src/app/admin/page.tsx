@@ -1,3 +1,7 @@
+import { Suspense } from 'react';
+
+import { Calendar, Car, CheckCircle, Users } from 'lucide-react';
+
 import { DriverStats } from '@/components/admin/DriverStats';
 import { RecentBookings } from '@/components/admin/RecentBookings';
 import { VehicleStats } from '@/components/admin/VehicleStats';
@@ -5,8 +9,6 @@ import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { Card, CardContent } from '@/components/ui/card';
 import { connectDB } from '@/lib/db';
 import Vehicle from '@/models/Vehicle';
-import { Calendar, Car, CheckCircle, Users } from 'lucide-react';
-import { Suspense } from 'react';
 
 async function getStats() {
     try {

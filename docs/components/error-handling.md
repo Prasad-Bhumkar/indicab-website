@@ -22,15 +22,15 @@ function App() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | Required | The components to be wrapped by the error boundary |
-| `fallback` | `React.ReactNode` | `undefined` | Custom fallback UI to display when an error occurs |
-| `onError` | `(error: Error, errorInfo: React.ErrorInfo) => void` | `undefined` | Callback function called when an error occurs |
-| `showDetails` | `boolean` | `process.env.NODE_ENV === 'development'` | Whether to show error details in the UI |
-| `retryCount` | `number` | `3` | Maximum number of retry attempts |
-| `onRetry` | `() => Promise<void>` | `undefined` | Callback function called when retrying |
-| `locale` | `string` | `i18n.language` | Locale for error messages |
+| Prop          | Type                                                 | Default                                  | Description                                        |
+| ------------- | ---------------------------------------------------- | ---------------------------------------- | -------------------------------------------------- |
+| `children`    | `React.ReactNode`                                    | Required                                 | The components to be wrapped by the error boundary |
+| `fallback`    | `React.ReactNode`                                    | `undefined`                              | Custom fallback UI to display when an error occurs |
+| `onError`     | `(error: Error, errorInfo: React.ErrorInfo) => void` | `undefined`                              | Callback function called when an error occurs      |
+| `showDetails` | `boolean`                                            | `process.env.NODE_ENV === 'development'` | Whether to show error details in the UI            |
+| `retryCount`  | `number`                                             | `3`                                      | Maximum number of retry attempts                   |
+| `onRetry`     | `() => Promise<void>`                                | `undefined`                              | Callback function called when retrying             |
+| `locale`      | `string`                                             | `i18n.language`                          | Locale for error messages                          |
 
 ### Features
 
@@ -98,13 +98,13 @@ function YourComponent() {
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isLoading` | `boolean` | Required | Whether to show the loading state |
-| `text` | `string` | `'Loading...'` | Text to display next to the spinner |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size of the loading spinner |
-| `variant` | `'default' \| 'primary' \| 'secondary'` | `'default'` | Visual variant of the loading state |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop        | Type                                    | Default        | Description                         |
+| ----------- | --------------------------------------- | -------------- | ----------------------------------- |
+| `isLoading` | `boolean`                               | Required       | Whether to show the loading state   |
+| `text`      | `string`                                | `'Loading...'` | Text to display next to the spinner |
+| `size`      | `'sm' \| 'md' \| 'lg'`                  | `'md'`         | Size of the loading spinner         |
+| `variant`   | `'default' \| 'primary' \| 'secondary'` | `'default'`    | Visual variant of the loading state |
+| `className` | `string`                                | `undefined`    | Additional CSS classes              |
 
 ### LoadingOverlay
 
@@ -124,15 +124,15 @@ function YourComponent() {
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isLoading` | `boolean` | Required | Whether to show the loading overlay |
-| `text` | `string` | `'Loading...'` | Text to display next to the spinner |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size of the loading spinner |
-| `variant` | `'default' \| 'primary' \| 'secondary'` | `'default'` | Visual variant of the loading state |
-| `overlayClassName` | `string` | `undefined` | Additional CSS classes for the overlay |
-| `contentClassName` | `string` | `undefined` | Additional CSS classes for the content |
-| `blur` | `boolean` | `true` | Whether to apply a blur effect to the background |
+| Prop               | Type                                    | Default        | Description                                      |
+| ------------------ | --------------------------------------- | -------------- | ------------------------------------------------ |
+| `isLoading`        | `boolean`                               | Required       | Whether to show the loading overlay              |
+| `text`             | `string`                                | `'Loading...'` | Text to display next to the spinner              |
+| `size`             | `'sm' \| 'md' \| 'lg'`                  | `'md'`         | Size of the loading spinner                      |
+| `variant`          | `'default' \| 'primary' \| 'secondary'` | `'default'`    | Visual variant of the loading state              |
+| `overlayClassName` | `string`                                | `undefined`    | Additional CSS classes for the overlay           |
+| `contentClassName` | `string`                                | `undefined`    | Additional CSS classes for the content           |
+| `blur`             | `boolean`                               | `true`         | Whether to apply a blur effect to the background |
 
 ### LoadingButton
 
@@ -151,11 +151,7 @@ function YourComponent() {
   };
 
   return (
-    <LoadingButton
-      isLoading={isLoading}
-      onClick={handleClick}
-      variant="primary"
-    >
+    <LoadingButton isLoading={isLoading} onClick={handleClick} variant="primary">
       Submit
     </LoadingButton>
   );
@@ -164,31 +160,34 @@ function YourComponent() {
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isLoading` | `boolean` | Required | Whether to show the loading state |
-| `text` | `string` | `'Loading...'` | Text to display when loading |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size of the loading spinner |
-| `variant` | `'default' \| 'primary' \| 'secondary'` | `'default'` | Visual variant of the button |
-| `onClick` | `() => void` | `undefined` | Click handler |
-| `disabled` | `boolean` | `false` | Whether the button is disabled |
-| `className` | `string` | `undefined` | Additional CSS classes |
+| Prop        | Type                                    | Default        | Description                       |
+| ----------- | --------------------------------------- | -------------- | --------------------------------- |
+| `isLoading` | `boolean`                               | Required       | Whether to show the loading state |
+| `text`      | `string`                                | `'Loading...'` | Text to display when loading      |
+| `size`      | `'sm' \| 'md' \| 'lg'`                  | `'md'`         | Size of the loading spinner       |
+| `variant`   | `'default' \| 'primary' \| 'secondary'` | `'default'`    | Visual variant of the button      |
+| `onClick`   | `() => void`                            | `undefined`    | Click handler                     |
+| `disabled`  | `boolean`                               | `false`        | Whether the button is disabled    |
+| `className` | `string`                                | `undefined`    | Additional CSS classes            |
 
 ## Best Practices
 
 1. **Error Boundaries**
+
    - Place error boundaries at strategic points in your component tree
    - Use different error boundaries for different features
    - Provide meaningful error messages and recovery options
    - Log errors to your error tracking service
 
 2. **Loading States**
+
    - Show loading states for all asynchronous operations
    - Use appropriate loading indicators for different contexts
    - Provide feedback for long-running operations
    - Disable interactive elements during loading
 
 3. **Error Messages**
+
    - Use clear and concise error messages
    - Provide actionable recovery steps
    - Support internationalization
@@ -229,11 +228,7 @@ function YourComponent() {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <LoadingOverlay
-      isLoading={isLoading}
-      text="Processing..."
-      variant="primary"
-    >
+    <LoadingOverlay isLoading={isLoading} text="Processing..." variant="primary">
       <YourContent />
     </LoadingOverlay>
   );
@@ -259,13 +254,9 @@ function YourComponent() {
   };
 
   return (
-    <LoadingButton
-      isLoading={isLoading}
-      onClick={handleSubmit}
-      variant="primary"
-    >
+    <LoadingButton isLoading={isLoading} onClick={handleSubmit} variant="primary">
       Submit
     </LoadingButton>
   );
 }
-``` 
+```

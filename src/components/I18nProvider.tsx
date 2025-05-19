@@ -1,8 +1,10 @@
 'use client';
 
-import i18n from '@/utils/i18n/config';
 import { Suspense } from 'react';
+
 import { I18nextProvider } from 'react-i18next';
+
+import i18n from '@/utils/i18n/config';
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   return (

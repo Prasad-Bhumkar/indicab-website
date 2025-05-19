@@ -1,8 +1,11 @@
+import type { ReactNode } from 'react';
+
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import AdminNav from '@/components/admin/AdminNav';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import type { ReactNode } from 'react';
+
 
 interface AdminLayoutProps {
   children: ReactNode;

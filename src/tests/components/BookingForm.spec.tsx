@@ -1,5 +1,7 @@
-import { BookingForm } from '@/components/BookingForm';
 import { describe, expect, it, vi } from 'vitest';
+
+import { BookingForm } from '@/components/BookingForm';
+
 import { fireEvent, render, screen, waitFor } from '../helpers/test-utils';
 
 // Mock the API call

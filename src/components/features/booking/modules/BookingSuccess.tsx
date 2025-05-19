@@ -1,5 +1,7 @@
 "use client";
 
+import React, { useEffect, useState } from 'react';
+
 import {
     Dialog,
     DialogContent,
@@ -8,7 +10,6 @@ import {
 } from 'components/ui/dialog';
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Car, CheckCircle, MapPin } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
 import ReactConfetti from 'react-confetti';
 
 interface BookingSuccessProps {

@@ -1,6 +1,8 @@
-import Driver from '@/models/Driver';
-import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+
+import { notFound } from 'next/navigation';
+
+import Driver from '@/models/Driver';
 
 interface DriverDetailsPageProps {
 	params: {

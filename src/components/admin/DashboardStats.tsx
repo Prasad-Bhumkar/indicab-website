@@ -1,5 +1,6 @@
-import { Card, CardContent } from '@/components/ui/card';
 import { Calendar } from 'lucide-react';
+
+import { Card, CardContent } from '@/components/ui/card';
 
 interface DashboardStatsProps {
     totalBookings: number;

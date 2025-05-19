@@ -1,6 +1,7 @@
-import { ErrorBoundary, useErrorBoundary, withErrorBoundary } from '@/components/common/ErrorBoundary';
 import * as Sentry from '@sentry/nextjs';
 import { fireEvent, render, screen } from '@testing-library/react';
+
+import { ErrorBoundary, useErrorBoundary, withErrorBoundary } from '@/components/common/ErrorBoundary';
 
 // Mock Sentry
 vi.mock('@sentry/nextjs', () => ({

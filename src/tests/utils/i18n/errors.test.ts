@@ -1,4 +1,5 @@
-import { ErrorCode, formatErrorDetails, getErrorMessage, getLocalizedError } from '@/utils/i18n/errors';
+import type { ErrorCode} from '@/utils/i18n/errors';
+import { formatErrorDetails, getErrorMessage, getLocalizedError } from '@/utils/i18n/errors';
 
 // Mock next-i18next
 jest.mock('next-i18next', () => ({

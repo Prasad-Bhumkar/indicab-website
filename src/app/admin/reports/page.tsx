@@ -1,9 +1,10 @@
+import { Suspense } from 'react';
+
 import BookingStats from '@/components/admin/BookingStats';
 import DriverPerformance from '@/components/admin/DriverPerformance';
 import RevenueChart from '@/components/admin/RevenueChart';
 import VehicleUtilization from '@/components/admin/VehicleUtilization';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { Suspense } from 'react';
 
 export default function ReportsPage() {
     return (

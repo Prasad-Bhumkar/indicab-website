@@ -1,10 +1,11 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import FloatingActionButton from '@/components/shared/FloatingActionButton';
 import { ArrowRight, Calendar, Eye } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
 
 export const metadata: Metadata = {
     title: 'IndiCab Blog - Travel Tips, Guides & Destination Stories',
@@ -84,7 +85,7 @@ export default function Blog(): JSX.Element {
                 <div className="container mx-auto px-4">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">IndiCab Travel Blog</h1>
                     <p className="text-xl md:text-2xl mb-6">Discover travel tips, destination guides, and stories from across India</p>
-                    <div className="w-20 h-1 bg-orange-500 rounded-full"></div>
+                    <div className="w-20 h-1 bg-orange-500 rounded-full" />
                 </div>
             </div>
 

@@ -1,6 +1,11 @@
-import { ImageProps, getPlaceholderImage } from '@/utils/imageUtils';
-import Image from 'next/image';
 import { useState } from 'react';
+
+import Image from 'next/image';
+
+import type { ImageProps} from '@/utils/imageUtils';
+import { getPlaceholderImage } from '@/utils/imageUtils';
+
+
 
 export const OptimizedImage = ({
   src,

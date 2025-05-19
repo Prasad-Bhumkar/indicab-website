@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function BookingsFilter() {
     const router = useRouter();

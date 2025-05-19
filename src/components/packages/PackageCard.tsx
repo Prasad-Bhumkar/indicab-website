@@ -2,9 +2,10 @@
 
 import type React from "react";
 
-import { Button } from '@/components/ui/button';
-import { Card } from "@/components/ui/Card";
 import Link from "next/link";
+
+import { Card } from "@/components/ui/Card";
+import { Button } from '@/components/ui/button';
 
 interface Package {
 	id: string;

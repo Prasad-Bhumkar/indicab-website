@@ -1,7 +1,8 @@
 "use client";
 
-import { CheckCircle, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+
+import { CheckCircle, ChevronDown } from 'lucide-react';
 
 const _DriverApplicationForm = (): JSX.Element => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -145,7 +146,7 @@ const _DriverApplicationForm = (): JSX.Element => {
                                 rows={3}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                                 required
-                            ></textarea>
+                             />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -492,7 +493,7 @@ const _DriverApplicationForm = (): JSX.Element => {
                             <span className="text-xs text-gray-500">Personal Info</span>
                         </div>
                         <div className="flex-1 flex items-center px-2">
-                            <div className={`h-1 w-full ${currentStep >= 2 ? 'bg-green-600' : 'bg-gray-200'}`}></div>
+                            <div className={`h-1 w-full ${currentStep >= 2 ? 'bg-green-600' : 'bg-gray-200'}`} />
                         </div>
                         <div className="text-center">
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-1 ${currentStep >= 2 ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
@@ -501,7 +502,7 @@ const _DriverApplicationForm = (): JSX.Element => {
                             <span className="text-xs text-gray-500">Vehicle</span>
                         </div>
                         <div className="flex-1 flex items-center px-2">
-                            <div className={`h-1 w-full ${currentStep >= 3 ? 'bg-green-600' : 'bg-gray-200'}`}></div>
+                            <div className={`h-1 w-full ${currentStep >= 3 ? 'bg-green-600' : 'bg-gray-200'}`} />
                         </div>
                         <div className="text-center">
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto mb-1 ${currentStep >= 3 ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-500'}`}>

@@ -98,8 +98,8 @@ const _RouteSearch = ({ className = "" }: RouteSearchProps): JSX.Element => {
 		return (
 			<div className={`relative ${className}`}>
 				<div className="relative">
-					<div className="w-full h-9 bg-white dark:bg-gray-700 rounded-md border border-gray-200 dark:border-gray-600"></div>
-					<div className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 bg-gray-400 dark:bg-gray-500 rounded-full"></div>
+					<div className="w-full h-9 bg-white dark:bg-gray-700 rounded-md border border-gray-200 dark:border-gray-600" />
+					<div className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 bg-gray-400 dark:bg-gray-500 rounded-full" />
 				</div>
 			</div>
 		);

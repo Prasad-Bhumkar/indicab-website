@@ -1,5 +1,6 @@
-import { LoadingButton, LoadingOverlay, LoadingState } from '@/components/LoadingState';
 import { render, screen } from '@testing-library/react';
+
+import { LoadingButton, LoadingOverlay, LoadingState } from '@/components/LoadingState';
 
 describe('LoadingState', () => {
   it('renders nothing when not loading', () => {

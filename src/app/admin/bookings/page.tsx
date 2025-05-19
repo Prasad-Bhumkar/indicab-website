@@ -1,8 +1,9 @@
+import { Suspense } from 'react';
+
 import BookingsTable from '@/components/admin/BookingsTable';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { connectDB } from '@/lib/db';
 import Booking from '@/models/Booking';
-import { Suspense } from 'react';
 
 interface BookingsPageProps {
     searchParams: {

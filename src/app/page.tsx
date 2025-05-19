@@ -1,9 +1,12 @@
 'use client';
 
+import { Suspense } from 'react';
+
+import dynamic from 'next/dynamic';
+
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import HeroSection from '@/components/features/marketing/hero/HeroSection';
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 const _HeroSection = dynamic(

@@ -1,12 +1,15 @@
 "use client";
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { initSectionTransitions } from '@/lib/animations';
+import { useEffect } from 'react';
+
 import { BadgeCheck, Briefcase, Building2, CalendarClock, CheckCircle, CreditCard, ShieldCheck, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { initSectionTransitions } from '@/lib/animations';
+
 
 // Premium car options for business travel
 const _premiumCars = [
@@ -138,7 +141,7 @@ export default function BusinessTravelPage(): JSX.Element {
                         priority
                         style={{ objectFit: 'cover' }}
                     />
-                    <div className="absolute inset-0 bg-black/60"></div>
+                    <div className="absolute inset-0 bg-black/60" />
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center">

@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+
 import { motion } from 'framer-motion';
 import { Search, Car, Map, Calendar } from 'lucide-react';
 import Image from 'next/image';
@@ -40,8 +41,8 @@ const _HowItWorks = (): JSX.Element => {
     return (
         <section className="py-16 bg-gray-50 relative overflow-hidden">
             {/* Background decorative elements */}
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-orange-500/5 rounded-full"></div>
-            <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/5 rounded-full"></div>
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-orange-500/5 rounded-full" />
+            <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/5 rounded-full" />
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-12">

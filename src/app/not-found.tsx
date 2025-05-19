@@ -2,8 +2,8 @@
 
 // import { Button } from '@components/ui/Button';
 import { Car } from 'lucide-react';
-import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 export default function NotFound(): JSX.Element {
     const { t } = useTranslation('common');

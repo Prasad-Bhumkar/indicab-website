@@ -1,5 +1,6 @@
-import { PerformanceObserver, performance } from 'perf_hooks';
 import { useEffect, useRef } from 'react';
+
+import { PerformanceObserver, performance } from 'perf_hooks';
 
 interface PerformanceMetric {
   name: string;

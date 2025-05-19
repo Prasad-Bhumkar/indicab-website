@@ -1,9 +1,10 @@
+import { Suspense } from 'react';
+
 import DriversFilter from '@/components/admin/DriversFilter';
 import DriversTable from '@/components/admin/DriversTable';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { connectDB } from '@/lib/db';
 import Driver from '@/models/Driver';
-import { Suspense } from 'react';
 
 interface DriversPageProps {
     searchParams: {

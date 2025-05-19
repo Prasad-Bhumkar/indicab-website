@@ -2,9 +2,9 @@
 import { Button } from '@/components/ui/button';
 import './header.css';
 
-type User = {
+interface User {
     name: string;
-};
+}
 
 export interface HeaderProps {
     user?: User;

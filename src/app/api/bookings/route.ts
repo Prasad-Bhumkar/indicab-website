@@ -1,6 +1,7 @@
+import { type NextRequest, NextResponse } from "next/server";
+
 import { connectDB } from "@/lib/db";
 import Booking from "@/models/Booking";
-import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(_request: NextRequest) {
 	try {

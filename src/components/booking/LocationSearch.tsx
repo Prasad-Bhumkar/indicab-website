@@ -1,13 +1,16 @@
 "use client";
 
-import { useDebounce } from "@/hooks/useDebounce";
-import { usePlacesAutocomplete } from "@/hooks/usePlacesAutocomplete";
+import { useCallback, useEffect, useRef, useState } from "react";
+
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import * as Sentry from "@sentry/nextjs";
 import { useTranslation } from "next-i18next";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Control, FieldError, useController } from "react-hook-form";
+import type { Control, FieldError} from "react-hook-form";
+import { useController } from "react-hook-form";
+
+import { useDebounce } from "@/hooks/useDebounce";
+import { usePlacesAutocomplete } from "@/hooks/usePlacesAutocomplete";
 
 export interface LocationSearchProps {
 	name: string;
@@ -114,7 +117,7 @@ export default function LocationSearch({
 					</Combobox.Button>
 					{loading && (
 						<div className="absolute inset-y-0 right-8 flex items-center px-2">
-							<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+							<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary" />
 						</div>
 					)}
 				</div>

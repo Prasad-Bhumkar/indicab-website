@@ -1,9 +1,11 @@
+import { Suspense } from 'react';
+
+import { notFound } from 'next/navigation';
+
 import VehicleDetails from '@/components/admin/VehicleDetails';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { connectDB } from '@/lib/db';
 import Vehicle from '@/models/Vehicle';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
 interface VehicleDetailsPageProps {
     params: {

@@ -1,7 +1,8 @@
+import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { cacheManager } from '@/utils/performance';
-import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
 
 interface AnalyticsEvent {
     category: string;

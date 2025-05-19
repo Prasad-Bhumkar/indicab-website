@@ -1,8 +1,11 @@
+import fs from 'fs';
+import path from 'path';
+
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import fs from 'fs';
-import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
+import type { NextRequest} from 'next/server';
+import { NextResponse } from 'next/server';
+
 
 // Create a new ratelimiter that allows 10 requests per 10 seconds
 const ratelimit = new Ratelimit({

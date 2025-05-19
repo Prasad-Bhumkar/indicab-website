@@ -1,8 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { connectDB } from '@/lib/db';
 import Driver from '@/models/Driver';
-import { useEffect, useState } from 'react';
 
 export function DriverStats() {
     const [stats, setStats] = useState({

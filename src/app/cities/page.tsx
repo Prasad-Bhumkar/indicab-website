@@ -1,10 +1,11 @@
+import { MapPin, Search } from 'lucide-react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import FloatingActionButton from '@/components/shared/FloatingActionButton';
 import { Button } from '@/components/ui/button';
-import { MapPin, Search } from 'lucide-react';
-import type { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Service Cities | IndiCab',

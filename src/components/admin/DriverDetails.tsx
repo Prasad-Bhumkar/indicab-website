@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
+
+import { Calendar, Car, Clock, DollarSign, MapPin, Star, User } from 'lucide-react';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { trackDriverStatus, trackUserAction } from '@/lib/analytics';
-import { Calendar, Car, Clock, DollarSign, MapPin, Star, User } from 'lucide-react';
-import { useState } from 'react';
 
 interface Trip {
     _id: string;
