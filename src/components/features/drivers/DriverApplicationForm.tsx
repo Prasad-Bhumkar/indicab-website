@@ -1,8 +1,7 @@
 "use client";
 
+import { CheckCircle, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import { _Button } from '@/components/ui/Button';
-import { ChevronDown, CheckCircle } from 'lucide-react';
 
 const _DriverApplicationForm = (): JSX.Element => {
     const [currentStep, setCurrentStep] = useState(1);

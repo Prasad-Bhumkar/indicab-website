@@ -1,7 +1,5 @@
-import React from "react";
-import type { Meta, StoryObj } from '@storybook/react'
-import ErrorBoundary from '../components/shared/ErrorBoundary'
-import { _Button } from '../components/ui/Button'
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { Button } from '@/components/ui/button';
 
 // Component metadata
 const _meta: Meta<typeof ErrorBoundary> = {
@@ -65,13 +63,13 @@ export const WithCustomFallback: Story = {
                 <div className="p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
                     <h3 className="text-lg font-medium text-yellow-800">Custom Error Message</h3>
                     <p className="mt-2 text-yellow-700">A custom fallback component can be provided</p>
-                    <_Button
+                    <Button
                         variant="outline"
                         className="mt-4"
                         onClick={() => window.location.reload()}
                     >
                         Try Again
-                    </_Button>
+                    </Button>
                 </div>
             }
         >
@@ -92,7 +90,7 @@ export const NestedBoundaries: Story = {
     render: (_args): JSX.Element => (
         <ErrorBoundary {..._args}>
             <div className="space-y-4">
-                <p>This component won't error</p>
+                <p>This component won&apos;t error</p>
                 <ErrorBoundary fallback={<div className="p-3 bg-red-50 text-red-600">Inner component failed</div>}>
                     <ErrorThrower shouldThrow={true} />
                 </ErrorBoundary>

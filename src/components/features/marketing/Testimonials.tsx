@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Quote, Star } from 'lucide-react';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card } from '../../ui/Card';
-import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
     {
@@ -59,7 +59,7 @@ const testimonials = [
     }
 ];
 
-const _Testimonials = (): JSX.Element => {
+const Testimonials: React.FC<TestimonialsProps> = (props) => {
     const [current, setCurrent] = useState(0);
     const [autoplay, setAutoplay] = useState(true);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -229,4 +229,4 @@ const _Testimonials = (): JSX.Element => {
     );
 };
 
-export default _Testimonials;
+export default Testimonials;

@@ -1,6 +1,6 @@
 "use client";
 
-import { _Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { initSectionTransitions } from '@/lib/animations';
 import { BadgeCheck, Briefcase, Building2, CalendarClock, CheckCircle, CreditCard, ShieldCheck, Users } from 'lucide-react';
@@ -151,14 +151,14 @@ export default function BusinessTravelPage(): JSX.Element {
                         </p>
                         <div className="flex flex-wrap gap-4">
                             <Link href="#premium-cars">
-                                <_Button className="bg-primary hover:bg-primary/90 text-white font-medium">
+                                <Button className="bg-primary hover:bg-primary/90 text-white font-medium">
                                     View Premium Fleet
-                                </_Button>
+                                </Button>
                             </Link>
                             <Link href="#corporate-packages">
-                                <_Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
+                                <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
                                     Corporate Packages
-                                </_Button>
+                                </Button>
                             </Link>
                         </div>
                     </div>
@@ -238,7 +238,7 @@ export default function BusinessTravelPage(): JSX.Element {
                                     <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
                                         <div className="font-bold text-primary">{car.pricePerDay}</div>
                                         <Link href="/booking">
-                                            <_Button className="bg-primary hover:bg-primary/90">Book Now</_Button>
+                                            <Button className="bg-primary hover:bg-primary/90">Book Now</Button>
                                         </Link>
                                     </div>
                                 </div>
@@ -288,7 +288,7 @@ export default function BusinessTravelPage(): JSX.Element {
 
                                 <div className="mt-auto">
                                     <Link href="/contact">
-                                        <_Button className="w-full bg-primary hover:bg-primary/90">Enquire Now</_Button>
+                                        <Button className="w-full bg-primary hover:bg-primary/90">Enquire Now</Button>
                                     </Link>
                                 </div>
                             </Card>
@@ -307,14 +307,14 @@ export default function BusinessTravelPage(): JSX.Element {
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <Link href="/contact">
-                                <_Button className="bg-white text-primary hover:bg-gray-100 font-medium">
+                                <Button className="bg-white text-primary hover:bg-gray-100 font-medium">
                                     Contact Sales Team
-                                </_Button>
+                                </Button>
                             </Link>
                             <Link href="/booking">
-                                <_Button variant="outline" className="border-white text-white hover:bg-white/10">
+                                <Button variant="outline" className="border-white text-white hover:bg-white/10">
                                     Book a Service
-                                </_Button>
+                                </Button>
                             </Link>
                         </div>
 

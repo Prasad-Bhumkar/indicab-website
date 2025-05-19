@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
+import { Car, Clock, MapPin } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+
 interface BookingFormData {
     pickup: string;
     dropoff: string;
 }
-import { _Button } from '@/components/ui/Button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Clock, MapPin, Car } from 'lucide-react';
 
 interface Recommendation {
     id: string;
@@ -132,13 +133,13 @@ export default function PersonalizedRecommendations({ formData, onSelect }: Pers
                             </CardContent>
                             <CardFooter className="flex justify-between items-center">
                                 <div className="font-bold text-lg">₹{rec.price}</div>
-                                <_Button
+                                <Button
                                     onClick={() => onSelect(rec)}
                                     variant="default"
                                     size="sm"
                                 >
                                     Select
-                                </_Button>
+                                </Button>
                             </CardFooter>
                         </Card>
                     </motion.div>

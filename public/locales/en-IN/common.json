@@ -1,0 +1,43 @@
+{
+  "common": {
+    "error": {
+      "general": "कुछ गलत हो गया",
+      "notFound": "पृष्ठ नहीं मिला",
+      "unauthorized": "Unauthorized access",
+      "forbidden": "Access forbidden"
+    },
+    "backToHome": "होम पर वापस जाएं",
+    "welcome": "Welcome to IndiCab",
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "destinations": "Destinations",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "viewAll": "View All",
+    "featuredVehicles": "Featured Vehicles",
+    "whyChooseUs": "Why Choose Our Fleet?",
+    "passengers": "Passengers",
+    "luggage": "Luggage",
+    "pricePerKm": "Price per km",
+    "features": "Features",
+    "economy": "Economy",
+    "sedan": "Sedan",
+    "mpv": "MPV",
+    "premium": "Premium",
+    "loading": "लोड हो रहा है...",
+    "retry": "पुनः प्रयास करें",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "search": "खोजें",
+    "filter": "फ़िल्टर",
+    "sort": "क्रमबद्ध करें",
+    "view": "देखें",
+    "more": "और",
+    "less": "कम"
+  }
+} 

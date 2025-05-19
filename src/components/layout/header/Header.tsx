@@ -1,6 +1,5 @@
-import React from "react";
-
 "use client";
+
 
 import Link from 'next/link';
 

@@ -1,35 +1,34 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
-    Settings,
-    Moon,
-    Sun,
-    Globe,
-    DollarSign,
+    Check,
     ChevronDown,
-    Check
+    DollarSign,
+    Globe,
+    Moon,
+    Settings,
+    Sun
 } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import {
     _Dialog,
+    _DialogTrigger,
     DialogContent,
-    DialogTitle,
     DialogDescription,
-    DialogHeader,
     DialogFooter,
-    _DialogTrigger
+    DialogHeader,
+    DialogTitle
 } from '../../ui/dialog/dialog';
-import { _Button } from '../../ui/Button';
 import {
     _DropdownMenu,
-    DropdownMenuContent,
     _DropdownMenuGroup,
+    _DropdownMenuTrigger,
+    DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    _DropdownMenuTrigger,
 } from '../../ui/dropdown-menu/dropdown-menu';
 
 // Language and currency options

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { Button } from '@/components/ui/button';
 import { Icon } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import React, { useState } from 'react';
+import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
 import { Route } from '../../data/routes';
-import { _Button } from '../../ui/Button';
 
 // Fix for Leaflet marker issue in Next.js
 const markerIcon = new Icon({
@@ -129,12 +129,12 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.El
                         <strong>{route.from}</strong><br />
                         <span className="text-xs">Starting point</span>
                         <div className="mt-2">
-                          <_Button
+                          <Button
                             className="w-full bg-primary text-white text-xs"
                             onClick={() => onRouteSelect(route.id)}
                           >
                             View Details
-                          </_Button>
+                          </Button>
                         </div>
                       </div>
                     </Popup>
@@ -150,12 +150,12 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.El
                           <span>{route.duration}</span>
                           <span>{route.price}</span>
                         </div>
-                        <_Button
+                        <Button
                           className="w-full bg-primary text-white text-xs"
                           onClick={() => onRouteSelect(route.id)}
                         >
                           View Details
-                        </_Button>
+                        </Button>
                       </div>
                     </Popup>
                   </Marker>
@@ -201,22 +201,22 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps): JSX.El
 
         {/* Toggle all routes */}
         <div className="border-t mt-2 pt-2 flex justify-between">
-          <_Button
+          <Button
             variant="outline"
             size="sm"
             className="text-xs"
             onClick={() => setVisibleRoutes(routes.map(_r => _r.id))}
           >
             Show All
-          </_Button>
-          <_Button
+          </Button>
+          <Button
             variant="outline"
             size="sm"
             className="text-xs"
             onClick={() => setVisibleRoutes([])}
           >
             Hide All
-          </_Button>
+          </Button>
         </div>
       </div>
     </div>

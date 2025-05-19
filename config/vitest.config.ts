@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['../src/tests/setup.ts'],
+    setupFiles: ['D:/GITHUB_REPOSITORIES/indicab-Website/src/tests/setup.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary', 'html'],

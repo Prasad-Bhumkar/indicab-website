@@ -1,11 +1,10 @@
-import React from "react";
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import FloatingActionButton from '@/components/FloatingActionButton';
-import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin, ChevronRight } from 'lucide-react';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import { ChevronRight, MapPin } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'IndiCab City Guides | Travel Information for Major Indian Cities',

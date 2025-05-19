@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Card } from "../../ui/Card";
-import { _Button } from "../../ui/Button";
+import { Button } from "@/components/ui/button";
 import {
+    Briefcase,
     ChevronLeft,
     ChevronRight,
-    Users,
-    Briefcase,
     ShieldCheck,
+    Users,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+import { Card } from "../../ui/Card";
 
 type CarType = {
     id: string;
@@ -249,9 +249,9 @@ const CarShowcase = React.memo((): JSX.Element => {
                                             {car.price}
                                         </span>
                                         <Link href="/booking">
-                                            <_Button className="bg-primary hover:bg-primary/90">
+                                            <Button className="bg-primary hover:bg-primary/90">
                                                 Book Now
-                                            </_Button>
+                                            </Button>
                                         </Link>
                                     </div>
                                 </div>

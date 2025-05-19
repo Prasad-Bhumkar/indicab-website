@@ -1,287 +1,305 @@
-'use client'
-import * as Sentry from '@sentry/nextjs'
-import { useState, useContext, useEffect } from 'react'
-import { BookingState } from '../context/BookingContext' // Import BookingState type
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { BookingContext } from '../context/BookingContext'
-import { useAuthContext } from '../context/AuthContext'
-import LocationSearch from './booking/LocationSearch'
-import DateRangePicker from './DateRangePicker'
-import VehicleTypeSelector from './VehicleTypeSelector'
-import { calculateFare } from '../lib/pricing' // Updated import statement
-import { createBooking } from '../services/booking/api' // Updated import statement
-import PaymentStep from './PaymentStep'
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as Sentry from "@sentry/nextjs";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState, useCallback, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { useAuthContext } from "../context/AuthContext";
+import type { BookingState } from "../context/BookingContext";
+import { BookingContext } from "../context/BookingContext";
+import { calculateFare } from "../lib/pricing";
+import { createBooking } from "../services/booking/api";
+import DateRangePicker from "./DateRangePicker";
+import PaymentStep from "./PaymentStep";
+import VehicleTypeSelector from "./VehicleTypeSelector";
+import LocationSearch from "./booking/LocationSearch";
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import _BookingProgress from "./BookingProgress";
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'next-i18next';
 
-type BookingFormData = z.infer<typeof bookingSchema>
-
+// Enhanced validation schema
 const bookingSchema = z.object({
-    pickup: z.string().min(1, 'Pickup location is required'),
-    destination: z.string().min(1, 'Destination is required'),
-    startDate: z.date(),
-    endDate: z.date(),
-    vehicleType: z.string().min(1, 'Vehicle type is required')
-})
+	pickup: z.string().min(1, "Pickup location is required"),
+	destination: z.string().min(1, "Destination is required"),
+	startDate: z.date().min(new Date(), "Start date must be in the future"),
+	endDate: z.date(),
+	vehicleType: z.string().min(1, "Vehicle type is required"),
+}).refine((data) => data.startDate < data.endDate, {
+	message: "End date must be after start date",
+	path: ["endDate"],
+}).refine((data) => data.pickup.toLowerCase() !== data.destination.toLowerCase(), {
+	message: "Pickup and destination cannot be the same",
+	path: ["destination"],
+});
 
-import ErrorBoundary from './common/ErrorBoundary'
-import _BookingProgress from './BookingProgress'
+type BookingFormData = z.infer<typeof bookingSchema>;
 
 export default function BookingForm(): JSX.Element {
-    const _router = useRouter()
-    const { user } = useAuthContext()
-    const { dispatch } = useContext(BookingContext)
-    const [step, setStep] = useState(1)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState<string>('') // Explicit type definition
+	const router = useRouter();
+	const { user } = useAuthContext();
+	const { dispatch } = useContext(BookingContext);
+	const [step, setStep] = useState(1);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string>("");
+	const { t } = useTranslation();
 
-    const _handleError = (error: unknown) => { // Improved error handling
-        console.error('BookingForm error:', error)
-        setError(error instanceof Error ? error.message : 'An unknown error occurred')
-    }
+	// Memoized error handler
+	const handleError = useCallback((error: unknown) => {
+		console.error("BookingForm error:", error);
+		const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+		setError(errorMessage);
+		Sentry.captureException(error, {
+			tags: { component: "BookingForm" },
+			extra: { step, loading },
+		});
+		toast.error(errorMessage);
+	}, [step, loading]);
 
-    const [defaultValues, setDefaultValues] = useState<Partial<BookingFormData>>({
-        pickup: '',
-        destination: '',
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 86400000),
-        vehicleType: ''
-    })
+	// Memoized default values
+	const defaultValues = useMemo(() => ({
+		pickup: "",
+		destination: "",
+		startDate: new Date(),
+		endDate: new Date(Date.now() + 86400000),
+		vehicleType: "",
+	}), []);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setDefaultValues({
-                pickup: localStorage.getItem('booking_pickup') || '',
-                destination: localStorage.getItem('booking_destination') || '',
-                startDate: new Date(localStorage.getItem('booking_startDate') || Date.now()),
-                endDate: new Date(localStorage.getItem('booking_endDate') || Date.now() + 86400000),
-                vehicleType: localStorage.getItem('booking_vehicleType') || ''
-            })
-        }
-    }, [])
+	// Load saved form data
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			try {
+				const savedData = {
+					pickup: localStorage.getItem("booking_pickup") || "",
+					destination: localStorage.getItem("booking_destination") || "",
+					startDate: new Date(localStorage.getItem("booking_startDate") || Date.now()),
+					endDate: new Date(localStorage.getItem("booking_endDate") || Date.now() + 86400000),
+					vehicleType: localStorage.getItem("booking_vehicleType") || "",
+				};
+				Object.entries(savedData).forEach(([key, value]) => {
+					setValue(key as keyof BookingFormData, value);
+				});
+			} catch (err) {
+				handleError(err);
+			}
+		}
+	}, [setValue, handleError]);
 
-    const {
-        register,
-        handleSubmit,
-        control,
-        watch,
-        formState: { errors },
-        setValue
-    } = useForm<BookingFormData>({
-        resolver: zodResolver(bookingSchema),
-        defaultValues
-    })
+	const {
+		register,
+		handleSubmit,
+		control,
+		watch,
+		formState: { errors, isSubmitting },
+		setValue,
+		trigger,
+	} = useForm<BookingFormData>({
+		resolver: zodResolver(bookingSchema),
+		defaultValues,
+		mode: "onChange",
+	});
 
-    const _persistFormData = (data: Partial<BookingFormData>) => {
-        Object.entries(data).forEach(([key, value]) => {
-            if (value instanceof Date) {
-                localStorage.setItem(`booking_${key}`, value.toISOString())
-            } else if (typeof value === 'string') {
-                localStorage.setItem(`booking_${key}`, value)
-            }
-        })
-    }
+	// Memoized form data persistence
+	const persistFormData = useCallback((data: Partial<BookingFormData>) => {
+		try {
+			Object.entries(data).forEach(([key, value]) => {
+				if (value instanceof Date) {
+					localStorage.setItem(`booking_${key}`, value.toISOString());
+				} else if (typeof value === "string") {
+					localStorage.setItem(`booking_${key}`, value);
+				}
+			});
+		} catch (err) {
+			handleError(err);
+		}
+	}, [handleError]);
 
-    const onSubmit = async (data: BookingFormData) => {
-        if (!user) {
-            setError('Please login to continue booking')
-            _router.push('/auth/login')
-            return
-        }
+	// Memoized form submission
+	const onSubmit = useCallback(async (data: BookingFormData) => {
+		if (!user) {
+			toast.error(t("Please login to continue booking"));
+			router.push("/auth/login");
+			return;
+		}
 
-        Sentry.addBreadcrumb({
-            category: 'booking',
-            message: 'Booking submission started',
-            level: 'info',
-        })
+		Sentry.addBreadcrumb({
+			category: "booking",
+			message: "Booking submission started",
+			level: "info",
+		});
 
-        setLoading(true)
-        try {
-            // Validate date range
-            if (data.startDate >= data.endDate) {
-                throw new Error('End date must be after start date')
-            }
+		setLoading(true);
+		try {
+			const fare = calculateFare(data.vehicleType, data.startDate, data.endDate);
+			const bookingData = {
+				pickupLocation: data.pickup,
+				dropLocation: data.destination,
+				pickupDate: data.startDate.toISOString(),
+				returnDate: data.endDate.toISOString(),
+				vehicleType: data.vehicleType,
+				customerId: user.id,
+				fare,
+				status: "pending" as const,
+			};
 
-            // Validate pickup and destination are different
-            if (data.pickup.toLowerCase() === data.destination.toLowerCase()) {
-                throw new Error('Pickup and destination cannot be the same')
-            }
+			const bookingResponse = await createBooking(bookingData);
+			persistFormData(data);
 
-            const fare = calculateFare(data.vehicleType, data.startDate, data.endDate)
-            const _bookingData = {
-                pickupLocation: data.pickup,
-                dropLocation: data.destination,
-                pickupDate: data.startDate.toISOString(),
-                returnDate: data.endDate.toISOString(),
-                vehicleType: data.vehicleType,
-                customerId: user.id,
-                fare,
-                status: 'pending' as const
-            }
-            const bookingResponse = await createBooking(_bookingData)
-            _persistFormData(data)
+			Sentry.captureMessage("Booking created successfully", "info");
+			toast.success(t("Booking created successfully"));
 
-            Sentry.captureMessage('Booking created successfully', 'info')
+			const bookingState: BookingState = {
+				id: bookingResponse.id || "",
+				pickupLocation: data.pickup,
+				dropLocation: data.destination,
+				pickupDate: data.startDate.toISOString(),
+				returnDate: data.endDate.toISOString(),
+				vehicleType: data.vehicleType,
+				fare: bookingResponse.fare || 0,
+				customerId: user.id,
+				status: "pending",
+			};
 
-            const _bookingState: BookingState = {
-                id: bookingResponse.id || '',
-                pickupLocation: data.pickup,
-                dropLocation: data.destination,
-                pickupDate: data.startDate.toISOString(),
-                returnDate: data.endDate.toISOString(),
-                vehicleType: data.vehicleType,
-                fare: bookingResponse.fare || 0,
-                customerId: user.id,
-                status: 'pending'
-            }
+			dispatch({
+				type: "SET_BOOKING",
+				payload: bookingState,
+			});
+			setStep(2);
+		} catch (err: unknown) {
+			handleError(err);
+		} finally {
+			setLoading(false);
+		}
+	}, [user, router, dispatch, persistFormData, handleError, t]);
 
-            dispatch({
-                type: 'SET_BOOKING',
-                payload: _bookingState
-            })
-            setStep(2)
-        } catch (err: unknown) {
-            Sentry.captureException(err)
-            setError(err instanceof Error ? err.message : 'Booking failed')
-        } finally {
-            setLoading(false)
-        }
-    }
+	// Memoized form fields
+	const formFields = useMemo(() => (
+		<div className="space-y-4">
+			<LocationSearch
+				name="pickup"
+				control={control}
+				label={t("Pickup Location")}
+				placeholder={t("Enter pickup location")}
+				error={errors.pickup}
+				disabled={loading}
+				aria-required="true"
+				aria-invalid={errors.pickup ? "true" : "false"}
+				aria-describedby={errors.pickup ? "pickup-error" : undefined}
+			/>
 
-    return (
-        <ErrorBoundary
-            onError={_handleError}
-            fallback={
-                <div className="bg-white rounded-lg shadow-md p-6">
-                    <h3 className="text-lg font-medium text-red-800 mb-4">Booking Error</h3>
-                    <p className="text-red-700 mb-4">
-                        We encountered an issue loading the booking form. Please try refreshing the page.
-                    </p>
-                    <button
-                        onClick={() => window.location.reload()}
-                        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                    >
-                        Refresh Page
-                    </button>
-                </div>
-            }
-        >
-            <div className="bg-white rounded-lg shadow-md p-6">
-                <_BookingProgress />
-                <div className="flex mb-6">
-                    {[1, 2].map((i): JSX.Element => (
-                        <div key={i} className="flex-1">
-                            <div className={`h-2 rounded-full ${step >= i ? 'bg-blue-600' : 'bg-gray-200'}`}></div>
-                            <p className={`text-sm mt-2 ${step >= i ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>
-                                {i === 1 ? 'Trip Details' : 'Payment'}
-                            </p>
-                        </div>
-                    ))}
-                </div>
+			{errors.pickup && (
+				<span
+					id="pickup-error"
+					role="alert"
+					className="text-red-600 text-sm mt-1"
+				>
+					{errors.pickup.message}
+				</span>
+			)}
 
-                {error && (
-                    <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-sm">
-                        {error}
-                    </div>
-                )}
+			<LocationSearch
+				name="destination"
+				control={control}
+				label={t("Destination")}
+				placeholder={t("Enter destination")}
+				error={errors.destination}
+				disabled={loading}
+				aria-required="true"
+				aria-invalid={errors.destination ? "true" : "false"}
+				aria-describedby={errors.destination ? "destination-error" : undefined}
+			/>
 
-                {step === 1 ? (
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="space-y-4">
-                            <LocationSearch
-                                name="pickup"
-                                control={control}
-                                label="Pickup Location"
-                                placeholder="Enter pickup location"
-                                error={errors.pickup}
-                                disabled={loading}
-                                aria-required="true"
-                                aria-invalid={errors.pickup ? "true" : "false"}
-                                aria-describedby={errors.pickup ? "pickup-error" : undefined}
-                            />
+			{errors.destination && (
+				<span
+					id="destination-error"
+					role="alert"
+					className="text-red-600 text-sm mt-1"
+				>
+					{errors.destination.message}
+				</span>
+			)}
 
-                            {errors.pickup && (
-                                <span id="pickup-error" role="alert" className="text-red-600 text-sm mt-1">
-                                    {errors.pickup.message}
-                                </span>
-                            )}
+			<DateRangePicker
+				control={control}
+				startDateName="startDate"
+				endDateName="endDate"
+				errors={errors}
+				disabled={loading}
+			/>
 
-                            <LocationSearch
-                                name="destination"
-                                control={control}
-                                label="Destination"
-                                placeholder="Enter destination"
-                                error={errors.destination}
-                                disabled={loading}
-                                aria-required="true"
-                                aria-invalid={errors.destination ? "true" : "false"}
-                                aria-describedby={errors.destination ? "destination-error" : undefined}
-                            />
+			<VehicleTypeSelector
+				control={control}
+				name="vehicleType"
+				error={errors.vehicleType}
+				disabled={loading}
+			/>
+		</div>
+	), [control, errors, loading, t]);
 
-                            {errors.destination && (
-                                <span id="destination-error" role="alert" className="text-red-600 text-sm mt-1">
-                                    {errors.destination.message}
-                                </span>
-                            )}
+	return (
+		<ErrorBoundary
+			onError={handleError}
+			fallback={
+				<div className="bg-white rounded-lg shadow-md p-6">
+					<h3 className="text-lg font-medium text-red-800 mb-4">
+						{t("Booking Error")}
+					</h3>
+					<p className="text-red-700 mb-4">
+						{t("We encountered an issue loading the booking form. Please try refreshing the page.")}
+					</p>
+					<button
+						onClick={() => window.location.reload()}
+						className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200"
+					>
+						{t("Refresh Page")}
+					</button>
+				</div>
+			}
+		>
+			<div className="bg-white rounded-lg shadow-md p-6">
+				<_BookingProgress currentStep={step} />
+				<div className="flex mb-6">
+					{[1, 2].map((i) => (
+						<div key={i} className="flex-1">
+							<div
+								className={`h-2 rounded-full transition-colors duration-200 ${
+									step >= i ? "bg-blue-600" : "bg-gray-200"
+								}`}
+							/>
+							<p
+								className={`text-sm mt-2 transition-colors duration-200 ${
+									step >= i ? "text-blue-600 font-medium" : "text-gray-500"
+								}`}
+							>
+								{i === 1 ? t("Trip Details") : t("Payment")}
+							</p>
+						</div>
+					))}
+				</div>
 
-                            <DateRangePicker
-                                control={control}
-                                startName="startDate"
-                                endName="endDate"
-                                errors={errors}
-                                aria-label="Select start and end dates"
-                            />
+				{error && (
+					<div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-sm" role="alert">
+						{error}
+					</div>
+				)}
 
-                            <VehicleTypeSelector
-                                name="vehicleType"
-                                control={control}
-                                error={errors.vehicleType}
-                                disabled={loading}
-                                aria-required="true"
-                                aria-invalid={errors.vehicleType ? "true" : "false"}
-                                aria-describedby={errors.vehicleType ? "vehicleType-error" : undefined}
-                            />
-
-                            {errors.vehicleType && (
-                                <span id="vehicleType-error" role="alert" className="text-red-600 text-sm mt-1">
-                                    {errors.vehicleType.message}
-                                </span>
-                            )}
-
-
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                aria-disabled={loading}
-                            >
-                                {loading ? (
-                                    <span className="flex items-center justify-center">
-                                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        Processing...
-                                    </span>
-                                ) : 'Continue to Payment'}
-                            </button>
-
-                        </div>
-                    </form>
-                ) : (
-                    <PaymentStep
-                        booking={{
-                            ...watch(),
-                            id: '',
-                            fare: 0,
-                            customerId: user?.id || '',
-                            status: 'pending'
-                        }}
-                        onBack={() => setStep(1)}
-                    />
-                )}
-            </div>
-        </ErrorBoundary>
-    )
+				{step === 1 ? (
+					<form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+						{formFields}
+						<button
+							type="submit"
+							disabled={loading || isSubmitting}
+							className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+							aria-busy={loading || isSubmitting}
+						>
+							{loading || isSubmitting ? t("Processing...") : t("Continue to Payment")}
+						</button>
+					</form>
+				) : (
+					<PaymentStep onBack={() => setStep(1)} />
+				)}
+			</div>
+		</ErrorBoundary>
+	);
 }

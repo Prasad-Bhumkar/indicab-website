@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 const _popularDestinations = [
     {
@@ -90,7 +90,7 @@ const ImageWithLoading = ({ src, alt, priority }: { src: string; alt: string; pr
     );
 };
 
-const _PopularRides = (): JSX.Element => {
+const PopularRides: React.FC<PopularRidesProps> = (props) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -207,4 +207,4 @@ const _PopularRides = (): JSX.Element => {
     );
 };
 
-export default _PopularRides;
+export default PopularRides;

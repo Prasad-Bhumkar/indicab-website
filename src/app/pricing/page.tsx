@@ -1,8 +1,7 @@
-import React from "react";
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import FloatingActionButton from '@/components/FloatingActionButton';
-import PricingCalculator from '@/components/PricingCalculator';
+import Header from '@/components/Header';
+import PricingCalculator from '@/components/features/booking/PricingCalculator';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

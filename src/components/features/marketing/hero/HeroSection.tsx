@@ -1,22 +1,9 @@
 'use client';
-import React from "react";
-import Image from 'next/image';
-
-import { _Button } from "@/components/ui/button/index";
+import { Button } from '@/components/ui/button';
 
 export default function HeroSection(): JSX.Element {
     return (
-        <section className="relative h-screen">
-            <div className="absolute inset-0">
-                <Image
-                    src="/images/hero-bg.jpg"
-                    alt="Hero background"
-                    layout="fill"
-                    objectFit="cover"
-                    priority
-                    className="w-full h-full"
-                />
-            </div>
+        <section className="relative h-screen bg-gradient-to-br from-primary to-secondary">
             {/* Content */}
             <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
                 <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl">
@@ -26,27 +13,27 @@ export default function HeroSection(): JSX.Element {
                     Discover hassle-free intercity and local travel with our professional drivers and well-maintained vehicles.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-4">
-                    <_Button
+                    <Button
                         className="px-8 py-3 text-lg font-semibold"
                         variant="default"
                         size="lg"
                     >
                         Book Now
-                    </_Button>
-                    <_Button
+                    </Button>
+                    <Button
                         className="px-8 py-3 text-lg font-semibold bg-primary text-white hover:bg-primary-dark"
                         variant="outline"
                         size="lg"
                     >
                         Get a Quick Quote
-                    </_Button>
-                    <_Button
+                    </Button>
+                    <Button
                         className="px-8 py-3 text-lg font-semibold bg-secondary text-white hover:bg-secondary-dark"
                         variant="outline"
                         size="lg"
                     >
                         Explore Our Services
-                    </_Button>
+                    </Button>
                 </div>
             </div>
         </section>

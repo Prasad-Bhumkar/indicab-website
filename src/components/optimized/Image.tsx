@@ -1,35 +1,41 @@
 'use client'
 
-import NextImage, { ImageProps } from 'next/image'
+import NextImage from 'next/image'
 import { useState } from 'react'
 
-interface OptimizedImageProps extends Omit<ImageProps, 'src'> {
+interface ImageProps {
     src: string
-    fallback?: string
+    alt: string
+    width?: number
+    height?: number
+    className?: string
+    priority?: boolean
 }
 
-export default function Image({
+export const Image: React.FC<ImageProps> = ({
     src,
     alt,
     width,
     height,
     className = '',
-    fallback = '/images/placeholder.jpg',
-    ...props
-}: OptimizedImageProps): JSX.Element {
-    const [imgSrc, setImgSrc] = useState(src)
+    priority = false,
+}) => {
+    const [isLoading, setIsLoading] = useState(true)
 
     return (
-        <NextImage
-            {...props}
-            src={imgSrc}
-            alt={alt}
-            width={width}
-            height={height}
-            className={`transition-opacity duration-200 ${className}`}
-            onError={() => setImgSrc(fallback)}
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-        />
+        <div className={`relative overflow-hidden ${className}`}>
+            <NextImage
+                src={src}
+                alt={alt}
+                width={width}
+                height={height}
+                priority={priority}
+                className={`
+                    duration-700 ease-in-out
+                    ${isLoading ? 'scale-110 blur-2xl grayscale' : 'scale-100 blur-0 grayscale-0'}
+                `}
+                onLoadingComplete={() => setIsLoading(false)}
+            />
+        </div>
     )
 }

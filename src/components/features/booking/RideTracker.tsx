@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Car, MapPin, CircleDot, Clock, X } from 'lucide-react';
+import { Car, CircleDot, Clock, MapPin } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import {
     Dialog,
     DialogContent,
-    DialogTitle,
-    DialogHeader
+    DialogHeader,
+    DialogTitle
 } from '../../ui/dialog';
 
 type Coordinate = {
@@ -31,7 +31,7 @@ const _generatePath = (): Coordinate[] => {
     return path;
 };
 
-const _RideTracker = ({
+const RideTracker: React.FC<RideTrackerProps> = ({
     origin = "Delhi",
     destination = "Agra",
     driverName = "Raj Kumar",
@@ -193,4 +193,4 @@ const _RideTracker = ({
     );
 };
 
-export default _RideTracker;
+export default RideTracker;

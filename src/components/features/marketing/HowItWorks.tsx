@@ -30,7 +30,7 @@ const _steps = [
     {
         id: 4,
         title: 'Enjoy Your Trip',
-        description: 'Relax and enjoy your journey with our experienced drivers who know Pune’s routes and landmarks.',
+        description: 'Relax and enjoy your journey with our experienced drivers who know Pune\'s routes and landmarks.',
         icon: <Map className="h-8 w-8 text-orange-500" />,
         delay: 0.3
     }
@@ -93,7 +93,7 @@ const _HowItWorks = (): JSX.Element => {
                                         </div>
                                         <div>
                                             <h4 className="font-semibold text-base">Local Expertise</h4>
-                                            <p className="text-gray-600 text-sm">Our drivers are familiar with Pune’s routes, ensuring a smooth and efficient journey.</p>
+                                            <p className="text-gray-600 text-sm">Our drivers are familiar with Pune's routes, ensuring a smooth and efficient journey.</p>
                                         </div>
                                     </li>
 
@@ -142,7 +142,7 @@ const _HowItWorks = (): JSX.Element => {
 
                         <div className="relative h-96 md:h-auto">
                             <Image
-                                src="/images/cars/toyota/innova-zenix.jpg"
+                                src="/assets/images/cars/toyota/innova-zenix.jpg"
                                 alt="IndiCab service"
                                 fill
                                 style={{ objectFit: "cover" }} // Ensuring the image has a default absolute position

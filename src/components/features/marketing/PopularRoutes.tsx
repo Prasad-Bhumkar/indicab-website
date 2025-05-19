@@ -1,20 +1,16 @@
 "use client";
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Card } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { Card } from '../../ui/card';
-import { _Button } from '../../ui/Button';
-import { MapPin, ChevronRight, Car, ArrowRight } from 'lucide-react';
+import { ArrowRight, Car, ChevronRight, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 const _popularRoutes = [
     {
         id: 1,
         from: 'Pune',
         to: 'Mumbai',
-        image: '/images/mumbai.jpg',
-        carImage: '/images/cars/swift/swift-blue.jpg',
+        color: 'bg-blue-600',
         distance: '150 km',
         time: '2.5 hrs',
         price: '₹1,999',
@@ -25,8 +21,7 @@ const _popularRoutes = [
         id: 2,
         from: 'Pune',
         to: 'Lonavala',
-        image: '/images/lonavala.jpg',
-        carImage: '/images/cars/ertiga/ertiga-white.jpg',
+        color: 'bg-green-600',
         distance: '65 km',
         time: '1.5 hrs',
         price: '₹999',
@@ -37,8 +32,7 @@ const _popularRoutes = [
         id: 3,
         from: 'Delhi',
         to: 'Agra',
-        image: '/images/taj-mahal.jpg',
-        carImage: '/images/cars/swift/swift-blue.jpg',
+        color: 'bg-yellow-600',
         distance: '233 km',
         time: '3.5 hrs',
         price: '₹2,499',
@@ -49,8 +43,7 @@ const _popularRoutes = [
         id: 4,
         from: 'Mumbai',
         to: 'Pune',
-        image: '/images/pune.jpg',
-        carImage: '/images/cars/swift/swift-red.jpg',
+        color: 'bg-purple-600',
         distance: '150 km',
         time: '2.5 hrs',
         price: '₹1,999',
@@ -61,8 +54,7 @@ const _popularRoutes = [
         id: 5,
         from: 'Bangalore',
         to: 'Mysore',
-        image: '/images/mysore-palace.jpg',
-        carImage: '/images/cars/ertiga/ertiga-white.jpg',
+        color: 'bg-red-600',
         distance: '145 km',
         time: '3 hrs',
         price: '₹1,899',
@@ -73,8 +65,7 @@ const _popularRoutes = [
         id: 6,
         from: 'Delhi',
         to: 'Jaipur',
-        image: '/images/jaipur.jpg',
-        carImage: '/images/cars/toyota/innova-white.jpg',
+        color: 'bg-pink-600',
         distance: '281 km',
         time: '4.5 hrs',
         price: '₹2,899',
@@ -85,8 +76,7 @@ const _popularRoutes = [
         id: 7,
         from: 'Chennai',
         to: 'Pondicherry',
-        image: '/images/pondicherry.jpg',
-        carImage: '/images/cars/toyota/innova-zenix.jpg',
+        color: 'bg-indigo-600',
         distance: '170 km',
         time: '3 hrs',
         price: '₹2,299',
@@ -97,8 +87,7 @@ const _popularRoutes = [
         id: 8,
         from: 'Kolkata',
         to: 'Digha',
-        image: '/images/digha.jpg',
-        carImage: '/images/cars/toyota/innova-2021.jpg',
+        color: 'bg-teal-600',
         distance: '185 km',
         time: '3.5 hrs',
         price: '₹2,199',
@@ -161,14 +150,9 @@ const _PopularRoutes = (): JSX.Element => {
                         >
                             <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow duration-300">
                                 <div className="relative h-48 overflow-hidden" style={{ position: 'relative' }}>
-                                    <Image
-                                        src={route.image}
-                                        alt={`${route.from} to ${route.to}`}
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        style={{ objectFit: "cover" }}
-                                        className="group-hover:scale-105 transition-transform duration-500"
-                                    />
+                                    <div className={`w-full h-full ${route.color} group-hover:scale-105 transition-transform duration-500 flex items-center justify-center`}>
+                                        <span className="text-white text-lg font-semibold">{route.from} to {route.to}</span>
+                                    </div>
                                     {route.popular && (
                                         <div className="absolute top-0 right-0 bg-orange-500 text-white text-xs py-1 px-3 font-medium">
                                             Popular
@@ -200,26 +184,6 @@ const _PopularRoutes = (): JSX.Element => {
                                             <span className="mx-2">•</span>
                                             <span>{route.time}</span>
                                         </div>
-                                        <div className="relative h-8 w-12 rounded overflow-hidden">
-                                            <Image
-                                                src={route.carImage}
-                                                alt="Car"
-                                                fill
-                                                sizes="48px"
-                                                style={{ objectFit: "cover" }}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <Link
-                                            href={`/booking?from=${route.from}&to=${route.to}`}
-                                            prefetch={false}
-                                        >
-                                            <_Button className="w-full bg-primary hover:bg-primary/90">
-                                                Book Now
-                                            </_Button>
-                                        </Link>
                                     </div>
                                 </div>
                             </Card>

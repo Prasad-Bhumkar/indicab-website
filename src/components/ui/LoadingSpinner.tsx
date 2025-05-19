@@ -1,5 +1,3 @@
-import React from "react";
-
 "use client";
 
 interface LoadingSpinnerProps {
@@ -8,8 +6,8 @@ interface LoadingSpinnerProps {
 
 export default function LoadingSpinner({ className = '' }: LoadingSpinnerProps): JSX.Element {
     return (
-        <div className={`flex justify-center items-center py-20 ${className}`}>
-            <div className="h-10 w-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="flex items-center justify-center p-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600" />
         </div>
     );
 }

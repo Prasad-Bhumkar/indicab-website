@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight, Cloud, Droplets, Sun, Wind } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '../ui/Button';
-import { Cloud, Sun, Droplets, Wind, ChevronRight, ChevronLeft } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface Season {
     id: string;
@@ -61,7 +61,7 @@ const _highlights: Highlight[] = [
         id: '1',
         title: 'Mahabaleshwar',
         description: 'Famous hill station with panoramic views and strawberry farms.',
-        image: '/images/mahabaleshwar.jpg',
+        image: '/assets/images/cities/mahabaleshwar.jpg',
         type: 'HILL_STATION',
         bestTime: 'October to June',
         slug: 'mahabaleshwar',
@@ -71,7 +71,7 @@ const _highlights: Highlight[] = [
         id: '2',
         title: 'Lonavala',
         description: 'Popular hill station with scenic views, waterfalls, and caves.',
-        image: '/images/lonavala-new.jpg',
+        image: '/assets/images/cities/lonavala.jpg',
         type: 'HILL_STATION',
         bestTime: 'October to May',
         slug: 'lonavala',
@@ -81,7 +81,7 @@ const _highlights: Highlight[] = [
         id: '3',
         title: 'Raigad Fort',
         description: 'Historic fortress and capital of the Maratha Empire with stunning views.',
-        image: '/images/raigad.jpg',
+        image: '/assets/images/cities/raigad.jpg',
         type: 'FORT',
         bestTime: 'November to March',
         slug: 'raigad-fort',
@@ -91,7 +91,7 @@ const _highlights: Highlight[] = [
         id: '4',
         title: 'Shirdi',
         description: 'Home to the famous Sai Baba Temple, a major pilgrimage site.',
-        image: '/images/shirdi.jpg',
+        image: '/assets/images/cities/shirdi.jpg',
         type: 'TEMPLE',
         bestTime: 'All year',
         slug: 'shirdi',
@@ -101,7 +101,7 @@ const _highlights: Highlight[] = [
         id: '5',
         title: 'Lavasa',
         description: 'Planned city with Mediterranean-style architecture and lakeside views.',
-        image: '/images/lavasa.jpg',
+        image: '/assets/images/cities/lavasa.jpg',
         type: 'HILL_STATION',
         bestTime: 'July to March',
         slug: 'lavasa',
@@ -111,7 +111,7 @@ const _highlights: Highlight[] = [
         id: '6',
         title: 'Khadakwasla Dam',
         description: 'Scenic dam with boating facilities and surrounding greenery.',
-        image: '/images/khadakwasla.jpg',
+        image: '/assets/images/cities/khadakwasla.jpg',
         type: 'WATERFALL',
         bestTime: 'July to September',
         slug: 'khadakwasla',
@@ -243,7 +243,7 @@ export function SeasonalHighlights(): JSX.Element {
                                         <span className="text-xs text-gray-500 dark:text-gray-400">
                                             Best time: <span className="font-medium">{highlight.bestTime}</span>
                                         </span>
-                                        <Link ref={`/maharashtra-tours/${highlight.slug}`} href={'/'}>
+                                        <Link href={`/maharashtra-tours/${highlight.slug}`}>
                                             <Button variant="outline" size="sm" className="text-primary hover:text-primary-foreground hover:bg-primary">
                                                 Explore
                                             </Button>

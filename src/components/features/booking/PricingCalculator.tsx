@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { _Button } from '../../ui/Button';
+import { Button } from '@/components/ui/button';
 import {
-    Car,
-    ChevronDown,
     Calendar,
+    Car,
+    CheckCircle2,
+    ChevronDown,
     Clock,
     Route,
-    Users,
-    CheckCircle2
+    Users
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useBookingContext } from '../../../context/BookingContext';
 import { createBooking } from '../../../services/booking/api';
 
@@ -62,7 +62,7 @@ const formatCurrency = (_amount: number): string => {
     return `₹${_amount.toLocaleString('en-IN')}`;
 };
 
-const _PricingCalculator = (): JSX.Element => {
+const PricingCalculator: React.FC<PricingCalculatorProps> = (props) => {
     const { dispatch } = useBookingContext();
 
     // Form state
@@ -313,13 +313,13 @@ const _PricingCalculator = (): JSX.Element => {
                         </div>
                     )}
 
-                    <_Button
+                    <Button
                         type="submit"
                         className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-md font-medium transition-colors"
                         disabled={isBooking}
                     >
                         {isBooking ? 'Booking...' : 'Book Now'}
-                    </_Button>
+                    </Button>
                 </form>
             </div>
 
@@ -409,4 +409,4 @@ const _PricingCalculator = (): JSX.Element => {
     );
 };
 
-export default _PricingCalculator;
+export default PricingCalculator;

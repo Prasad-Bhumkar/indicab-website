@@ -1,17 +1,26 @@
-import React from "react";
+import ClientWrapper from '@/components/ClientWrapper';
+import { I18nProvider } from '@/components/I18nProvider';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { ThemeProvider } from '@/components/shared/ThemeProvider';
+import { initAnalytics } from '@/lib/analytics';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
+import '../utils/i18n/config';
 import './globals.css';
-import ClientWrapper from '../components/ClientWrapper';
 
-const _inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] });
+
+// Initialize analytics
+if (typeof window !== 'undefined') {
+    initAnalytics();
+}
 
 export const metadata: Metadata = {
-    title: {
-        default: 'IndiCab - Trusted Indian Cab Booking Service',
-        template: '%s | IndiCab'
-    },
-    description: 'Book reliable cab services across major Indian cities',
+    title: 'Indicab',
+    description: 'Your AI-powered development platform',
     keywords: ['cab', 'taxi', 'booking', 'India', 'transport'],
     authors: [{ name: 'IndiCab Team' }],
     openGraph: {
@@ -54,18 +63,18 @@ export default function RootLayout({
     children: React.ReactNode;
 }): JSX.Element {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <head>
                 <link
                     rel="preload"
-                    href="/assets/indicab-logo.png"
+                    href="/assets/images/indicab-logo.png"
                     as="image"
                     type="image/png"
                     crossOrigin="anonymous"
                 />
                 <link
                     rel="preload"
-                    href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
                     as="style"
                 />
                 <link
@@ -75,10 +84,24 @@ export default function RootLayout({
                     type="image/x-icon"
                 />
             </head>
-            <body className={_inter.className}>
-                <ClientWrapper>
-                    <main className="min-h-screen">{children}</main>
-                </ClientWrapper>
+            <body className={inter.className}>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <ErrorBoundary>
+                        <ClientWrapper>
+                            <I18nProvider>
+                                <main className="min-h-screen">{children}</main>
+                            </I18nProvider>
+                        </ClientWrapper>
+                    </ErrorBoundary>
+                    <Toaster />
+                </ThemeProvider>
+                <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-const _DarkModeToggle = (): JSX.Element => {
+const DarkModeToggle = (): JSX.Element => {
     // We can't access localStorage during SSR, so we need to initialize with 'light'
     // and then update it on the client side
     const [theme, setTheme] = useState<'dark' | 'light'>('light');
@@ -61,4 +61,4 @@ const _DarkModeToggle = (): JSX.Element => {
     );
 };
 
-export default _DarkModeToggle;
+export default DarkModeToggle;

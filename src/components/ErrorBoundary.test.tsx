@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 import '@testing-library/jest-dom';
-import ErrorBoundary, { ThemedErrorBoundary } from './ErrorBoundary';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { ThemedErrorBoundary } from './ErrorBoundary';
 
 // Mock the clipboard API
 const mockClipboard = {

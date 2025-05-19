@@ -1,7 +1,7 @@
-import FloatingActionButton from '@/components/FloatingActionButton';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { _Button } from '@/components/ui/Button';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import { Button } from '@/components/ui/button';
 import { ArrowRight, Clock, MapPin, Search } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -135,10 +135,10 @@ export default function OnewayRoutesPage(): JSX.Element {
 
                                 <div className="sm:self-end">
                                     <Link href="/booking">
-                                        <_Button className="w-full bg-primary hover:bg-primary/90 flex items-center gap-2">
+                                        <Button className="w-full bg-primary hover:bg-primary/90 flex items-center gap-2">
                                             <Search className="h-4 w-4" />
                                             Find Cabs
-                                        </_Button>
+                                        </Button>
                                     </Link>
                                 </div>
                             </div>
@@ -235,9 +235,9 @@ export default function OnewayRoutesPage(): JSX.Element {
                         </div>
 
                         <Link href="/contact">
-                            <_Button className="bg-primary hover:bg-primary/90">
+                            <Button className="bg-primary hover:bg-primary/90">
                                 Contact Us for Assistance
-                            </_Button>
+                            </Button>
                         </Link>
                     </div>
 

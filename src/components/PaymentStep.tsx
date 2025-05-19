@@ -1,12 +1,16 @@
 'use client'
+import * as Sentry from '@sentry/nextjs'
 import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-import { PaymentForm } from './PaymentForm'
+import { loadStripe, Stripe } from '@stripe/stripe-js'
+import { useTranslation } from 'next-i18next'
+import { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { useBookingContext } from '../context/BookingContext'
-import { useEffect, useState } from 'react'
+import { formatCurrency } from '../utils/format'
+import { PaymentForm } from './PaymentForm'
 
 // Mock Stripe for testing
-const _mockStripe = {
+const mockStripe = {
     elements: () => ({
         create: () => { },
         update: () => { },
@@ -16,68 +20,170 @@ const _mockStripe = {
     }),
 }
 
-const _stripePromise = process.env.NODE_ENV === 'test'
-    ? Promise.resolve(_mockStripe)
+const stripePromise = process.env.NODE_ENV === 'test'
+    ? Promise.resolve(mockStripe as unknown as Stripe)
     : loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
-export default function PaymentStep({ booking, onBack }: {
-    booking: any
+interface PaymentStepProps {
     onBack: () => void
-}): JSX.Element {
-    const { state } = useBookingContext()
-    const [clientSecret, setClientSecret] = useState('')
+}
 
-    useEffect(() => {
+export default function PaymentStep({ onBack }: PaymentStepProps): JSX.Element {
+    const { t } = useTranslation()
+    const { state } = useBookingContext()
+    const [clientSecret, setClientSecret] = useState<string>('')
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string>('')
+
+    const fetchPaymentIntent = useCallback(async () => {
         if (process.env.NODE_ENV === 'test') {
             setClientSecret('mock_client_secret')
+            setLoading(false)
             return
         }
 
-        // Fetch the client secret from your server
-        fetch('/api/create-payment-intent', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: state.fare }),
-        })
-            .then((_res) => _res.json())
-            .then((_data) => setClientSecret(_data.clientSecret))
-            .catch((_err) => console.error('Error fetching client secret:', _err))
-    }, [state.fare])
+        try {
+            setLoading(true)
+            setError('')
 
-    if (!clientSecret) return null
+            const response = await fetch('/api/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    amount: state.fare,
+                    currency: 'inr',
+                    metadata: {
+                        bookingId: state.id,
+                        vehicleType: state.vehicleType,
+                    }
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to create payment intent')
+            }
+
+            const data = await response.json()
+            setClientSecret(data.clientSecret)
+
+            Sentry.addBreadcrumb({
+                category: 'payment',
+                message: 'Payment intent created',
+                level: 'info',
+                data: {
+                    bookingId: state.id,
+                    amount: state.fare,
+                },
+            })
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to initialize payment'
+            setError(errorMessage)
+            toast.error(t(errorMessage))
+            
+            Sentry.captureException(err, {
+                tags: { component: 'PaymentStep' },
+                extra: { bookingId: state.id },
+            })
+        } finally {
+            setLoading(false)
+        }
+    }, [state.fare, state.id, state.vehicleType, t])
+
+    useEffect(() => {
+        fetchPaymentIntent()
+    }, [fetchPaymentIntent])
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center p-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <span className="ml-3 text-gray-600">{t('Initializing payment...')}</span>
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="bg-red-50 p-4 rounded-md">
+                <h3 className="text-red-800 font-medium mb-2">{t('Payment Error')}</h3>
+                <p className="text-red-600 mb-4">{error}</p>
+                <button
+                    onClick={fetchPaymentIntent}
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-200"
+                >
+                    {t('Try Again')}
+                </button>
+            </div>
+        )
+    }
+
+    if (!clientSecret) {
+        return null
+    }
 
     return (
         <div className="space-y-6">
             <div className="bg-gray-50 p-4 rounded-md">
-                <h3 className="font-medium text-lg mb-2">Booking Summary</h3>
+                <h3 className="font-medium text-lg mb-2">{t('Booking Summary')}</h3>
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="text-gray-500">Vehicle:</div>
+                    <div className="text-gray-500">{t('Vehicle')}:</div>
                     <div>{state.vehicleType}</div>
-                    <div className="text-gray-500">Pickup:</div>
-                    <div>{state.pickup}</div>
-                    <div className="text-gray-500">Destination:</div>
-                    <div>{state.destination}</div>
-                    <div className="text-gray-500">Dates:</div>
+                    <div className="text-gray-500">{t('Pickup')}:</div>
+                    <div>{state.pickupLocation}</div>
+                    <div className="text-gray-500">{t('Destination')}:</div>
+                    <div>{state.dropLocation}</div>
+                    <div className="text-gray-500">{t('Dates')}:</div>
                     <div>
-                        {state.startDate?.toLocaleDateString()} - {state.endDate?.toLocaleDateString()}
+                        {new Date(state.pickupDate).toLocaleDateString()} - {new Date(state.returnDate).toLocaleDateString()}
                     </div>
-                    <div className="text-gray-500">Total:</div>
-                    <div className="font-medium">${state.fare}</div>
+                    <div className="text-gray-500">{t('Total')}:</div>
+                    <div className="font-medium">{formatCurrency(state.fare)}</div>
                 </div>
             </div>
 
-            <Elements stripe={_stripePromise} options={{ clientSecret }}>
+            <Elements 
+                stripe={stripePromise} 
+                options={{ 
+                    clientSecret,
+                    appearance: {
+                        theme: 'stripe',
+                        variables: {
+                            colorPrimary: '#3B82F6',
+                            colorBackground: '#ffffff',
+                            colorText: '#1F2937',
+                            colorDanger: '#EF4444',
+                            fontFamily: 'system-ui, sans-serif',
+                            spacingUnit: '4px',
+                            borderRadius: '4px',
+                        },
+                    },
+                }}
+            >
                 <PaymentForm
                     amount={state.fare}
-                    bookingId={booking.id}
+                    bookingId={state.id}
+                    onSuccess={() => {
+                        toast.success(t('Payment successful!'))
+                        Sentry.captureMessage('Payment completed successfully', {
+                            level: 'info',
+                            tags: { bookingId: state.id },
+                        })
+                    }}
+                    onError={(error) => {
+                        toast.error(t('Payment failed'))
+                        Sentry.captureException(error, {
+                            tags: { component: 'PaymentForm' },
+                            extra: { bookingId: state.id },
+                        })
+                    }}
                 />
             </Elements>
 
             <button
                 onClick={onBack}
-                className="w-full mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                className="w-full mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors duration-200"
             >
-                ← Back to booking details
+                ← {t('Back to booking details')}
             </button>
         </div>
     )

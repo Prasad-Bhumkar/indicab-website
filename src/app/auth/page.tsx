@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from 'react';
+import _Footer from '@/components/layout/footer/Footer';
+import Header from '@/components/layout/header/Header';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/Card';
+import { Check, Lock, Mail, Phone, User } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { User, Lock, Mail, Phone, ArrowRight, Check } from 'lucide-react';
-import Header from '@/components/layout/header/Header';
-import _Footer from '@/components/layout/footer/Footer';
-import { _Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import React, { useState } from 'react';
 
 type FormErrorType = {
     name?: string;
@@ -198,13 +198,13 @@ const _AuthPage = (): JSX.Element => {
                                             </Link>
                                         </div>
 
-                                        <_Button
+                                        <Button
                                             type="submit"
                                             className="w-full bg-primary hover:bg-primary/90 text-white py-2"
                                             disabled={loading}
                                         >
                                             {loading ? 'Logging in...' : 'Login'}
-                                        </_Button>
+                                        </Button>
 
                                         <div className="text-center text-sm text-gray-500">
                                             Don&apos;t have an account?{' '}
@@ -318,13 +318,13 @@ const _AuthPage = (): JSX.Element => {
                                             </label>
                                         </div>
 
-                                        <_Button
+                                        <Button
                                             type="submit"
                                             className="w-full bg-primary hover:bg-primary/90 text-white py-2"
                                             disabled={loading}
                                         >
                                             {loading ? 'Creating account...' : 'Create Account'}
-                                        </_Button>
+                                        </Button>
 
                                         <div className="text-center text-sm text-gray-500">
                                             Already have an account?{' '}

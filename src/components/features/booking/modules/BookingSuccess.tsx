@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import PaymentModal from '../PaymentModal';
-import ReactConfetti from 'react-confetti';
-import { motion } from 'framer-motion';
-import { CheckCircle, Calendar, MapPin, Car, X, ArrowRight } from 'lucide-react';
 import {
     Dialog,
     DialogContent,
-    DialogTitle,
-    DialogHeader
+    DialogHeader,
+    DialogTitle
 } from 'components/ui/dialog';
+import { motion } from 'framer-motion';
+import { ArrowRight, Calendar, Car, CheckCircle, MapPin } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import ReactConfetti from 'react-confetti';
 
 interface BookingSuccessProps {
     bookingId?: string;
@@ -30,7 +29,7 @@ interface BookingSuccessProps {
     vehiclePlate?: string;
 }
 
-const _BookingSuccess = ({
+const BookingSuccess: React.FC<BookingSuccessProps> = ({
     bookingId = "12345",
     origin = "Delhi",
     destination = "Agra",
@@ -191,4 +190,4 @@ const _BookingSuccess = ({
     );
 };
 
-export default _BookingSuccess;
+export default BookingSuccess;

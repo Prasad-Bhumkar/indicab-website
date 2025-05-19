@@ -1,8 +1,9 @@
 'use client';
 
-import { Suspense } from 'react';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import HeroSection from '@/components/features/marketing/hero/HeroSection';
 import dynamic from 'next/dynamic';
-import ErrorBoundary from '../components/common/ErrorBoundary';
+import { Suspense } from 'react';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 const _HeroSection = dynamic(
@@ -25,12 +26,12 @@ const _HowItWorks = dynamic(
     { loading: () => <LoadingSpinner className="h-[300px]" /> }
 );
 
-export default function HomePage(): JSX.Element {
+export default function Home() {
     return (
         <main className="space-y-20 pb-20" role="main">
             <ErrorBoundary fallback={<div className="h-[600px] flex items-center justify-center">Failed to load hero section</div>}>
                 <Suspense fallback={<LoadingSpinner className="h-[600px]" />}>
-                    <_HeroSection />
+                    <HeroSection />
                 </Suspense>
             </ErrorBoundary>
 

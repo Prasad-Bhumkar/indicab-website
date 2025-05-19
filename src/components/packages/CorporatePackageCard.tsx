@@ -1,9 +1,8 @@
-import React from "react";
 
 'use client';
 
-import PackageCard from './PackageCard';
 import { Briefcase, CheckCircle } from 'lucide-react';
+import PackageCard from './PackageCard';
 
 interface CorporatePackage {
     id: string;

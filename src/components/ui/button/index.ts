@@ -1,4 +1,2 @@
-import { _Button } from './Button'; // Corrected casing
-
-export { _Button };
+export { Button, buttonVariants, type ButtonProps } from './Button';
 

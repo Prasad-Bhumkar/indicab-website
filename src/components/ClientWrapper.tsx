@@ -1,16 +1,12 @@
 'use client';
 
-import { ReactNode } from 'react';
-import ErrorBoundary from './ErrorBoundary';
+import { I18nProvider } from '@/components/I18nProvider';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 
-interface ClientWrapperProps {
-    children: ReactNode;
-}
-
-export default function ClientWrapper({ children }: ClientWrapperProps): JSX.Element {
+export default function ClientWrapper({ children }: { children: React.ReactNode }) {
     return (
         <ErrorBoundary>
-            {children}
+            <I18nProvider>{children}</I18nProvider>
         </ErrorBoundary>
     );
 }

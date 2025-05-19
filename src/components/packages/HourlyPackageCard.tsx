@@ -1,9 +1,8 @@
-import React from "react";
-
 'use client';
 
+
+import { CheckCircle, Clock, MapPin } from 'lucide-react';
 import PackageCard from './PackageCard';
-import { Clock, MapPin, CheckCircle } from 'lucide-react';
 
 interface Package {
     id: string;

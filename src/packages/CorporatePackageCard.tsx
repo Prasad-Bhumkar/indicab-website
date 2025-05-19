@@ -7,7 +7,7 @@ export interface CorporatePackageCardProps {
     discount?: string;
 }
 
-export const _CorporatePackageCard: React.FC<CorporatePackageCardProps> = ({ title, description, price, discount }): JSX.Element => {
+export const CorporatePackageCard: React.FC<CorporatePackageCardProps> = ({ title, description, price, discount }): JSX.Element => {
 
     return (
         <div className="border p-4 rounded shadow">
@@ -19,4 +19,4 @@ export const _CorporatePackageCard: React.FC<CorporatePackageCardProps> = ({ tit
     );
 };
 
-export default _CorporatePackageCard;
+export default CorporatePackageCard;

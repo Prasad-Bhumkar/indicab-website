@@ -1,16 +1,15 @@
 'use client';
 
+import _Footer from '@/components/layout/footer/Footer';
+import Header from '@/components/layout/header/Header';
+import {
+    CorporatePackageCard,
+    HourlyPackageCard,
+    TourPackageCard
+} from '@/components/packages';
+import _FloatingActionButton from '@/components/shared/FloatingActionButton';
 import { useState } from 'react';
 import styles from './packages.module.css';
-import Header from '@/components/layout/header/Header';
-import _Footer from '@/components/layout/footer/Footer';
-import _FloatingActionButton from '@/components/shared/FloatingActionButton';
-import { 
-  HourlyPackageCard,
-  TourPackageCard,
-  CorporatePackageCard 
-} from '@/components/packages';
-import { _Button } from '@/components/ui/Button';
 
 const _cities = [
   'All Cities',
@@ -25,7 +24,7 @@ const _cities = [
   'Jaipur'
 ];
 
-export default function Packages(): JSX.Element {
+export default function Packages() {
   const [selectedCity, setSelectedCity] = useState('All Cities');
   const [activeTab, setActiveTab] = useState('hourly');
 
@@ -48,7 +47,7 @@ export default function Packages(): JSX.Element {
           <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-6">
             Choose from our range of flexible packages designed for every travel need
           </p>
-          <div className="w-20 h-1 bg-orange-500 rounded-full mx-auto"></div>
+          <div className="w-20 h-1 bg-orange-500 rounded-full mx-auto" />
         </div>
       </div>
 
@@ -56,6 +55,7 @@ export default function Packages(): JSX.Element {
         <div className="container mx-auto px-4">
           <div className="flex overflow-x-auto py-2 space-x-4">
             <button
+              type="button"
               onClick={() => setActiveTab('hourly')}
               className={`px-4 py-2 font-medium whitespace-nowrap ${
                 activeTab === 'hourly'
@@ -66,6 +66,7 @@ export default function Packages(): JSX.Element {
               Hourly Packages
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('tour')}
               className={`px-4 py-2 font-medium whitespace-nowrap ${
                 activeTab === 'tour'
@@ -76,6 +77,7 @@ export default function Packages(): JSX.Element {
               Tour Packages
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab('corporate')}
               className={`px-4 py-2 font-medium whitespace-nowrap ${
                 activeTab === 'corporate'
@@ -100,6 +102,7 @@ export default function Packages(): JSX.Element {
               <div className={styles.cityFilter}>
                 {_cities.map(city => (
                   <button
+                    type="button"
                     key={city}
                     onClick={() => setSelectedCity(city)}
                     className={`px-4 py-1 rounded-full text-sm ${

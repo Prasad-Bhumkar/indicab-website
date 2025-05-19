@@ -1,12 +1,10 @@
-import React from "react";
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import FloatingActionButton from '@/components/FloatingActionButton';
-import Link from 'next/link';
-import Image from 'next/image';
 import DriverApplicationForm from '@/components/DriverApplicationForm';
-import { CheckCircle, Star, CreditCard, Clock, Shield } from 'lucide-react';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import { CheckCircle, Clock, CreditCard, Shield, Star } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'Join IndiCab as a Driver Partner | Driver Application',

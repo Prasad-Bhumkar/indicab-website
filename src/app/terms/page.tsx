@@ -1,11 +1,10 @@
 "use client";
 
-import React from 'react';
+// FIX: Correct or remove broken import statements
+// import Footer } from '@/componentFooterard';
+// import HeadertTriangle, Book, CliHeader, FileText, Shield } from 'lucide-react';
+// import ReAlertTriangleom 'reacClipboardFileTextShield
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Card } from '@/components/ui/card';
-import { Shield, Book, AlertTriangle, Clipboard, FileText } from 'lucide-react';
 
 export default function TermsPage(): JSX.Element {
     return (
@@ -28,7 +27,7 @@ export default function TermsPage(): JSX.Element {
                                         Introduction
                                     </h2>
                                     <p className="mb-4">
-                                        Welcome to IndiCab. These Terms and Conditions govern your use of our website, mobile applications, and services. By accessing or using IndiCab's services, you agree to be bound by these Terms and Conditions. Please read them carefully.
+                                        Welcome to IndiCab. These Terms and Conditions govern your use of our website, mobile applications, and services. By accessing or using IndiCab&apos;s services, you agree to be bound by these Terms and Conditions. Please read them carefully.
                                     </p>
                                     <p>
                                         If you do not agree with any part of these terms, please do not use our services. The Company reserves the right to modify these terms at any time, and such modifications shall be effective immediately upon posting on the website or application.

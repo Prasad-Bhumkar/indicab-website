@@ -2,19 +2,19 @@
 
 import _Footer from '@/components/layout/footer/Footer';
 import Header from '@/components/layout/header/Header';
-import { _Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
-  Briefcase,
-  Building2,
-  Car,
-  Clock,
-  Crown,
-  Gift,
-  Plane,
-  Settings,
-  ShieldCheck,
-  Users
+    Briefcase,
+    Building2,
+    Car,
+    Clock,
+    Crown,
+    Gift,
+    Plane,
+    Settings,
+    ShieldCheck,
+    Users
 } from 'lucide-react';
 import Image from 'next/image'; // Importing Image component
 import Link from 'next/link';
@@ -161,7 +161,7 @@ const _faqs = [
     },
     {
         question: 'Can I book a cab for someone else?',
-        answer: 'Yes, you can book a cab for someone else. During the booking process, you can provide the passenger\'s contact details in the notes section.'
+        answer: 'Yes, you can book a cab for someone else. During the booking process, you can provide the passenger&apos;s contact details in the notes section.'
     },
     {
         question: 'What is your cancellation policy?',
@@ -201,7 +201,7 @@ export default function ServicesPage(): JSX.Element {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold mb-4">Transportation Services</h2>
                             <p className="text-gray-600 max-w-3xl mx-auto">
-                                IndiCab offers a range of transportation services designed to meet your various travel needs. From city-to-city travel to specialized corporate services, we've got you covered.
+                                IndiCab offers a range of transportation services designed to meet your various travel needs. From city-to-city travel to specialized corporate services, we&apos;ve got you covered.
                             </p>
                         </div>
 
@@ -226,9 +226,9 @@ export default function ServicesPage(): JSX.Element {
 
                                         <div className="text-center">
                                             <Link href="/">
-                                                <_Button className="bg-primary hover:bg-primary/90 text-white">
+                                                <Button className="bg-primary hover:bg-primary/90 text-white">
                                                     {service.cta}
-                                                </_Button>
+                                                </Button>
                                             </Link>
                                         </div>
                                     </div>
@@ -282,9 +282,9 @@ export default function ServicesPage(): JSX.Element {
 
                                         <div className="mt-4 text-center">
                                             <Link href="/booking">
-                                                <_Button variant="outline" className="text-primary border-primary hover:bg-primary/5">
+                                                <Button variant="outline" className="text-primary border-primary hover:bg-primary/5">
                                                     Book This Car
-                                                </_Button>
+                                                </Button>
                                             </Link>
                                         </div>
                                     </div>
@@ -346,9 +346,9 @@ export default function ServicesPage(): JSX.Element {
 
                             <div className="text-center mt-8">
                                 <Link href="/help">
-                                    <_Button className="bg-primary hover:bg-primary/90 text-white">
+                                    <Button className="bg-primary hover:bg-primary/90 text-white">
                                         View All FAQs
-                                    </_Button>
+                                    </Button>
                                 </Link>
                             </div>
                         </div>

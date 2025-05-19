@@ -1,7 +1,7 @@
-import FloatingActionButton from '@/components/FloatingActionButton';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { _Button } from '@/components/ui/Button';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import { Button } from '@/components/ui/button';
 import { AlertCircle, Calendar, ChevronLeft, LocateIcon, MapPin, Sun, Utensils } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -243,21 +243,21 @@ export default async function GuidePostPage({ params }: { params: GuideParams })
                                 <p className="text-gray-600 mb-6">Explore {city.name} comfortably with our reliable cab service. Pre-book for hassle-free travel to all attractions.</p>
 
                                 <Link href={`/booking?from=${city.name}&to=Airport`}>
-                                    <_Button className="w-full bg-primary hover:bg-primary/90 mb-3">
+                                    <Button className="w-full bg-primary hover:bg-primary/90 mb-3">
                                         Airport Transfer
-                                    </_Button>
+                                    </Button>
                                 </Link>
 
                                 <Link href={`/booking?from=${city.name}&to=City Tour`}>
-                                    <_Button className="w-full bg-primary hover:bg-primary/90 mb-3">
+                                    <Button className="w-full bg-primary hover:bg-primary/90 mb-3">
                                         City Tour
-                                    </_Button>
+                                    </Button>
                                 </Link>
 
                                 <Link href={`/booking?from=${city.name}`}>
-                                    <_Button className="w-full bg-primary hover:bg-primary/90">
+                                    <Button className="w-full bg-primary hover:bg-primary/90">
                                         Custom Booking
-                                    </_Button>
+                                    </Button>
                                 </Link>
 
                                 <div className="mt-6 pt-6 border-t border-gray-200">

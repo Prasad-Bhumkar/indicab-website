@@ -1,29 +1,78 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { connectDB } from '@/lib/db';
+import Booking from '@/models/Booking';
+import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import _logger from '../../../lib/logger';
 
-const _stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2025-02-24.acacia',
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+    apiVersion: '2023-10-16'
 });
 
-export async function POST(_request: NextRequest) {
+export async function POST(request: Request) {
     try {
-        const { amount, bookingId } = await _request.json();
+        const { bookingId, paymentMethodId } = await request.json();
 
-        if (!amount || !bookingId) {
-            return NextResponse.json({ error: 'Missing amount or bookingId' }, { status: 400 });
+        await connectDB();
+        const booking = await Booking.findById(bookingId);
+        
+        if (!booking) {
+            return NextResponse.json(
+                { error: 'Booking not found' },
+                { status: 404 }
+            );
         }
 
-        const _paymentIntent = await _stripe.paymentIntents.create({
-            amount: Math.round(amount * 100), // amount in cents
-            currency: 'usd',
-            metadata: { bookingId },
-            automatic_payment_methods: { enabled: true },
+        // Create payment intent
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: Math.round(booking.totalAmount * 100), // Convert to cents
+            currency: 'inr',
+            payment_method: paymentMethodId,
+            confirm: true,
+            return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/bookings/${bookingId}/confirmation`
         });
 
-        return NextResponse.json({ clientSecret: _paymentIntent.client_secret });
+        // Update booking with payment information
+        booking.paymentStatus = 'completed';
+        booking.paymentIntentId = paymentIntent.id;
+        await booking.save();
+
+        return NextResponse.json({
+            success: true,
+            paymentIntentId: paymentIntent.id,
+            clientSecret: paymentIntent.client_secret
+        });
     } catch (error) {
-        _logger.error('Stripe payment error:', error);
-        return NextResponse.json({ error: 'Payment creation failed' }, { status: 500 });
+        console.error('Payment processing error:', error);
+        return NextResponse.json(
+            { error: 'Payment processing failed' },
+            { status: 500 }
+        );
+    }
+}
+
+export async function GET(request: Request) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const paymentIntentId = searchParams.get('payment_intent');
+
+        if (!paymentIntentId) {
+            return NextResponse.json(
+                { error: 'Payment intent ID is required' },
+                { status: 400 }
+            );
+        }
+
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+        return NextResponse.json({
+            status: paymentIntent.status,
+            amount: paymentIntent.amount / 100, // Convert from cents
+            currency: paymentIntent.currency
+        });
+    } catch (error) {
+        console.error('Payment status check error:', error);
+        return NextResponse.json(
+            { error: 'Failed to check payment status' },
+            { status: 500 }
+        );
     }
 }

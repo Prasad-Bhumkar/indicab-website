@@ -7,7 +7,7 @@ export interface TourPackageCardProps {
     discount?: string;
 }
 
-const _TourPackageCard: React.FC<TourPackageCardProps> = ({ title, description, price, discount }): JSX.Element => {
+const TourPackageCard: React.FC<TourPackageCardProps> = ({ title, description, price, discount }): JSX.Element => {
     return (
         <div className="border p-4 rounded shadow">
             <h2 className="text-xl font-bold">{title}</h2>
@@ -18,4 +18,4 @@ const _TourPackageCard: React.FC<TourPackageCardProps> = ({ title, description, 
     );
 };
 
-export default _TourPackageCard;
+export default TourPackageCard;

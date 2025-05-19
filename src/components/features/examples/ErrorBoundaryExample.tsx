@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ErrorBoundary from '../../ErrorBoundary';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { useState } from 'react';
 
 export function ErrorBoundaryExample(): JSX.Element {
     const [shouldError, setShouldError] = useState(false);

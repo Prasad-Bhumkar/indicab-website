@@ -1,26 +1,8 @@
-import React from "react";
-import { Car, Star, Clock, Phone } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import Header from '@/components/layout/header/Header';
+import BookingWizardWrapper from '@/components/features/booking/BookingWizardWrapper';
 import _Footer from '@/components/layout/footer/Footer';
+import Header from '@/components/layout/header/Header';
 import * as Sentry from '@sentry/nextjs';
-
-const _BookingWizard = dynamic(
-    () => import('@/components/features/booking/BookingWizard'),
-    {
-        ssr: false,
-        loading: (): JSX.Element => (
-            <div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 max-w-4xl mx-auto p-8 flex justify-center">
-                <div className="animate-pulse">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-32 mb-4"></div>
-                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-48 mb-2.5"></div>
-                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-40 mb-2.5"></div>
-                    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-full mt-6"></div>
-                </div>
-            </div>
-        )
-    }
-);
+import { Car, Clock, Phone, Star } from 'lucide-react';
 
 export default function BookingWizardPage(): JSX.Element {
     Sentry.addBreadcrumb({
@@ -44,7 +26,7 @@ export default function BookingWizardPage(): JSX.Element {
                         </p>
                     </div>
 
-                    <_BookingWizard />
+                    <BookingWizardWrapper />
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16 max-w-5xl mx-auto">
                         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-center">

@@ -1,0 +1,53 @@
+{
+  "errors": {
+    "NETWORK_ERROR": "Network error occurred",
+    "VALIDATION_ERROR": "Validation error",
+    "INTERNAL_SERVER_ERROR": "Internal server error",
+    "UNAUTHORIZED": "Unauthorized access",
+    "NOT_FOUND": "Resource not found"
+  },
+  "common": {
+    "error": {
+      "general": "Something went wrong",
+      "notFound": "Page not found",
+      "unauthorized": "Unauthorized access",
+      "forbidden": "Access forbidden"
+    },
+    "backToHome": "Back to Home",
+    "loading": "Loading...",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "bookNow": "Book Now",
+    "viewAll": "View All",
+    "featuredVehicles": "Featured Vehicles",
+    "whyChooseUs": "Why Choose Our Fleet?",
+    "passengers": "Passengers",
+    "luggage": "Luggage",
+    "pricePerKm": "Price per km",
+    "features": "Features",
+    "economy": "Economy",
+    "sedan": "Sedan",
+    "mpv": "MPV",
+    "premium": "Premium",
+    "welcome": "Welcome to IndiCab",
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "destinations": "Destinations",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "view": "View",
+    "more": "More",
+    "less": "Less"
+  }
+} 

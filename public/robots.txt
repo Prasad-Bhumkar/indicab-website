@@ -1,4 +1,11 @@
+# Allow all crawlers
 User-agent: *
 Allow: /
 
-Sitemap: https://indicab.same-app.com/sitemap.xml
+# Disallow admin and API routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /auth/
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml

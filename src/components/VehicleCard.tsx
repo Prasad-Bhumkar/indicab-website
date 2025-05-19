@@ -1,6 +1,5 @@
-import React from "react";
-import Link from 'next/link'
-import Image from '../optimized/Image'
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface Vehicle {
     _id: string
@@ -17,14 +16,13 @@ interface Vehicle {
 export default function VehicleCard({ vehicle }: { vehicle: Vehicle }): JSX.Element {
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1">
-            <div className="relative h-48 w-full">
+            <div className="relative w-full h-48">
                 <Image
                     src={vehicle.imageUrl}
                     alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
                     width={400}
-                    height={300}
-                    className="w-full h-full object-cover"
-                    fallback="/assets/cars/default-car.jpg"
+                    height={192}
+                    className="object-cover w-full h-48 rounded-t-lg"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
             </div>
@@ -71,7 +69,7 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }): JSX.Elem
                     </div>
                     <Link
                         href={`/vehicles/${vehicle._id}`}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center gap-1"
+                        className="inline-flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

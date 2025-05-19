@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LoadingSpinner Component > matches snapshot 1`] = `
+<div>
+  <div
+    class="flex justify-center items-center p-4"
+  >
+    <div
+      class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"
+    />
+  </div>
+</div>
+`;

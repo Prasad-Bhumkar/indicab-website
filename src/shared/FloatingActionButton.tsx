@@ -6,7 +6,7 @@ export interface FloatingActionButtonProps {
     tooltip?: string;
 }
 
-const _FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ icon, position, tooltip }): JSX.Element => {
+const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ icon, position, tooltip }): JSX.Element => {
     return (
         <div className={`fab ${position}`}>
             {tooltip && <span className="tooltip">{tooltip}</span>}
@@ -17,4 +17,4 @@ const _FloatingActionButton: React.FC<FloatingActionButtonProps> = ({ icon, posi
     );
 };
 
-export default _FloatingActionButton;
+export default FloatingActionButton;

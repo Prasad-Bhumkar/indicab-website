@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../ui/dialog';
-import { _Button } from '../../ui/Button';
-import { MapPin, Star, Calendar, Clock, MessageSquare, Heart, Share, Car, X, CheckCircle2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Car, CheckCircle2, Clock, Heart, MapPin, MessageSquare, Share, Star } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { Route, VehicleType, Amenity } from '../../data/routes';
+import React, { useState } from 'react';
+import { Amenity, VehicleType } from '../../data/routes';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../../ui/dialog';
 
 // Dynamic import for the map component to avoid SSR issues
 const _RouteMapView = dynamic(() => import('./RouteMapView'), {
@@ -200,23 +200,23 @@ export default function RouteDetails({
                         </div>
 
                         <div className="flex justify-center space-x-4 border-t border-b py-3 mt-4">
-                            <_Button
+                            <Button
                                 variant="ghost"
                                 className={`flex items-center ${isFavorite ? 'text-red-500' : 'text-gray-600'}`}
                                 onClick={_handleFavoriteClick}
                             >
                                 <Heart className={`h-4 w-4 mr-1 ${isFavorite ? 'fill-red-500' : ''}`} />
                                 {isFavorite ? 'Saved' : 'Save'}
-                            </_Button>
-                            <_Button
+                            </Button>
+                            <Button
                                 variant="ghost"
                                 className="flex items-center text-gray-600"
                                 onClick={_handleCompareClick}
                             >
                                 <CheckCircle2 className="h-4 w-4 mr-1" />
                                 Compare
-                            </_Button>
-                            <_Button
+                            </Button>
+                            <Button
                                 variant="ghost"
                                 className="flex items-center text-gray-600"
                                 onClick={() => {
@@ -232,7 +232,7 @@ export default function RouteDetails({
                             >
                                 <Share className="h-4 w-4 mr-1" />
                                 Share
-                            </_Button>
+                            </Button>
                         </div>
 
                         <div className="bg-gray-50 p-4 rounded-md">
@@ -347,13 +347,13 @@ export default function RouteDetails({
                                         placeholder="Share your experience..."
                                     />
                                 </div>
-                                <_Button
+                                <Button
                                     type="submit"
                                     className="bg-primary text-white"
                                     disabled={newReview.rating === 0 || !newReview.comment.trim()}
                                 >
                                     Submit Review
-                                </_Button>
+                                </Button>
                             </form>
                         </div>
                     </div>

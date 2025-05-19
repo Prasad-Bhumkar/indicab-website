@@ -1,10 +1,9 @@
-import React from "react";
-import type { Metadata, Viewport } from 'next';
 import ContactForm from '@/components/ContactForm';
 import ContactMap from '@/components/ContactMap';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import FloatingActionButton from '@/components/FloatingActionButton';
+import Header from '@/components/Header';
+import FloatingActionButton from '@/components/shared/FloatingActionButton';
+import type { Metadata, Viewport } from 'next';
 
 export const viewport: Viewport = {
     themeColor: '#0c9242',

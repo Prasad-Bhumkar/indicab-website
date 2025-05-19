@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
 import { Check } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 // Simple mobile app card component that doesn't use any images
-const _MobileApp = (): JSX.Element => {
+const MobileApp: React.FC<MobileAppProps> = (props): JSX.Element => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -143,4 +143,4 @@ const _MobileApp = (): JSX.Element => {
     );
 };
 
-export default _MobileApp;
+export default MobileApp;
