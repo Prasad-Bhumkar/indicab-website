@@ -44,10 +44,6 @@ if [ ! -f .env.local ]; then
   fi
 fi
 
-# Set up husky
-echo "🐶 Setting up Husky hooks..."
-bash .husky/install.sh
-
 # Create missing documentation templates if needed
 echo "📚 Setting up documentation templates..."
 mkdir -p docs/api

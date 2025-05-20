@@ -35,11 +35,6 @@ if (-not (Test-Path .env.local)) {
     }
 }
 
-# Set up husky
-Write-Host "🐶 Setting up Husky hooks..." -ForegroundColor Cyan
-npm install husky --save-dev
-npx husky install
-
 # Create missing documentation directories
 Write-Host "📚 Setting up documentation directories..." -ForegroundColor Cyan
 $dirs = @("docs/api", "docs/architecture", "docs/components")
