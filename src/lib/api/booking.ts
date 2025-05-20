@@ -1,14 +1,12 @@
-import { connectDB } from '../db';
 import { BookingFormData } from '@/types/booking';
+import { Booking, BookingDocument } from '../models/booking';
+import { logger } from '../utils/logger';
 import { validateBookingData } from './validators/booking';
 
 export async function createBooking(bookingData: BookingFormData): Promise<{ bookingId: string }> {
     try {
         // Validate input data
         await validateBookingData(bookingData);
-
-        const _db = await connectDB();
-        const _bookingsCollection = _db.getCollection('bookings');
 
         // Generate a unique booking ID with IND prefix and 6 random digits
         const bookingId = `IND${Math.floor(100000 + Math.random() * 900000)}`;
@@ -23,45 +21,39 @@ export async function createBooking(bookingData: BookingFormData): Promise<{ boo
             version: 1
         };
 
-        const _result = await _bookingsCollection.insertOne(_bookingRecord);
-
-        if (!_result.acknowledged) {
-            throw new Error('Booking creation not acknowledged by database');
-        }
+        // Create a new booking using the Mongoose model
+        const newBooking = new Booking(_bookingRecord);
+        await newBooking.save();
 
         return { bookingId };
     } catch (error) {
         if (error instanceof Error) {
-            console.error('Booking creation failed:', error.message);
+            logger.error('Booking creation failed:', { error: error.message });
             throw error; // Re-throw validation errors
         }
-        console.error('Unexpected error creating booking:', error);
+        logger.error('Unexpected error creating booking:', { error });
         throw new Error('Failed to create booking due to server error');
     }
 }
 
-export async function getBookingById(bookingId: string) {
-    if (!bookingId || !bookingId.startsWith('IND') || bookingId.length !== 9) {
-        throw new Error('Invalid booking ID format');
-    }
-
+export async function getBookings(): Promise<BookingDocument[]> {
     try {
-        const _db = await connectDB();
-        const _bookingsCollection = _db.getCollection('bookings');
+        // Use the model directly without getCollection
+        const bookings = await Booking.find().exec();
+        return bookings;
+    } catch (error) {
+        logger.error('Error fetching bookings', { error });
+        throw new Error('Failed to fetch bookings');
+    }
+}
 
-        const booking = await _bookingsCollection.findOne({ bookingId });
-
-        if (!booking) {
-            throw new Error('Booking not found');
-        }
-
+export async function getBookingById(bookingId: string): Promise<BookingDocument | null> {
+    try {
+        // Use the model directly without getCollection
+        const booking = await Booking.findById(bookingId).exec();
         return booking;
     } catch (error) {
-        if (error instanceof Error) {
-            console.error('Booking retrieval failed:', error.message);
-            throw error;
-        }
-        console.error('Unexpected error fetching booking:', error);
-        throw new Error('Failed to fetch booking details due to server error');
+        logger.error(`Error fetching booking id ${bookingId}`, { error });
+        throw new Error('Failed to fetch booking');
     }
 }

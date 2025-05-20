@@ -1,20 +1,23 @@
-import { vi, describe, it, expect, beforeEach } from 'vitest'
-import { createBooking } from '../src/services/booking/api'
-import { BookingState } from '../src/context/BookingContext'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import type { BookingState } from '@/context/BookingContext'
+import { createBooking } from '@/services/booking/api'
 
 // Mock global fetch
 global.fetch = vi.fn()
 
 describe('Booking API Service', () => {
     const validBooking: Omit<BookingState, 'id'> = {
-        pickup: 'Location A',
-        destination: 'Location B',
-        startDate: new Date(),
-        endDate: new Date(Date.now() + 86400000),
-        vehicleType: 'sedan',
-        fare: 100,
-        customerId: 'user123',
-        status: 'pending'
+        pickupLocation: 'Mumbai',
+        dropLocation: 'Pune',
+        pickupDate: '2024-06-01',
+        returnDate: '2024-06-02',
+        vehicleType: 'Sedan',
+        contactName: 'Test User',
+        contactEmail: 'test@example.com',
+        contactPhone: '9876543210',
+        status: 'pending',
+        fare: 0
     }
 
     beforeEach(() => {

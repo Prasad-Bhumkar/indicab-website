@@ -1,13 +1,12 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
+import * as React from "react";
 
 import '@testing-library/jest-dom';
 import * as matchers from '@testing-library/jest-dom/matchers';
 import { cleanup, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SessionProvider } from 'next-auth/react';
-
-import React from 'react';
 
 import { afterEach, expect, vi } from 'vitest';
 
@@ -126,31 +125,12 @@ afterEach(() => {
     mockFetch.mockClear();
 });
 
-// Test provider component
-export const TestProviders = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <SessionProvider
-            session={{
-                user: { 
-                    name: 'Test User', 
-                    email: 'test@example.com',
-                    id: 'test-user-id',
-                    role: 'user',
-                },
-                expires: '2025-01-01',
-            }}
-        >
-            {children}
-        </SessionProvider>
-    );
-};
-
 // Custom render function with providers
 export const renderWithProviders = (ui: React.ReactElement) => {
     const user = userEvent.setup();
     return {
         user,
-        ...render(ui, { wrapper: TestProviders }),
+        ...render(ui),
     };
 };
 

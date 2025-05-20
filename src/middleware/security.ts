@@ -22,7 +22,7 @@ const securityHeaders = {
 };
 
 // Sanitize request data
-const sanitizeData = (data: any): any => {
+function sanitizeData(data: unknown): unknown {
   if (typeof data !== 'object' || data === null) {
     return data;
   }
@@ -31,8 +31,8 @@ const sanitizeData = (data: any): any => {
     return data.map(sanitizeData);
   }
 
-  const sanitized: Record<string, any> = {};
-  for (const [key, value] of Object.entries(data)) {
+  const sanitized: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
     // Sanitize keys
     const sanitizedKey = key.replace(/[<>]/g, '');
     
@@ -43,7 +43,7 @@ const sanitizeData = (data: any): any => {
         .replace(/[<>]/g, '')
         .replace(/javascript:/gi, '')
         .replace(/data:/gi, '');
-    } else if (typeof value === 'object') {
+    } else if (typeof value === 'object' && value !== null) {
       sanitizedValue = sanitizeData(value);
     }
 
@@ -51,7 +51,7 @@ const sanitizeData = (data: any): any => {
   }
 
   return sanitized;
-};
+}
 
 export async function middleware(request: NextRequest) {
   // Apply security headers to all responses
@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
 
   // Rate limiting for API routes
   if (request.nextUrl.pathname.startsWith('/api/')) {
-    const ip = request.ip || 'unknown';
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
     if (apiRateLimiter.isRateLimited(ip)) {
       return new NextResponse(
         JSON.stringify({

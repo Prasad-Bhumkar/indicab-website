@@ -1,11 +1,10 @@
 "use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Card } from '@/components/ui/card';
-import { Shield, Lock, FileText, Eye, Database, Server, AlertTriangle } from 'lucide-react';
+import Header from '@/components/Header';
+import { Card } from '@/components/ui';
+import { AlertTriangle, Database, Eye, FileText, Lock, Server, Shield } from 'lucide-react';
+import Link from 'next/link';
 
 export default function PrivacyPolicyPage(): JSX.Element {
     return (

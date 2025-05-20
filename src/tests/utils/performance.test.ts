@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { measureApiCall, measureComponentRender, performanceMonitor, usePerformanceMeasure } from '@/utils/performance';
 
@@ -98,8 +99,8 @@ describe('usePerformanceMeasure Hook', () => {
 
 describe('Web Vitals', () => {
   it('initializes web vitals observers', () => {
-    const mockObserver = jest.fn();
-    global.PerformanceObserver = jest.fn().mockImplementation(mockObserver);
+    const mockObserver = vi.fn();
+    global.PerformanceObserver = vi.fn().mockImplementation(mockObserver);
 
     // Call the function that initializes web vitals
     require('@/utils/performance').measureWebVitals();

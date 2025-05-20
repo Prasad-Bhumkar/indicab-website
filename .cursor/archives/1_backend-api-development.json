@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "created_at": "2025-05-19T17:45:08.093Z",
+  "updated_at": "2025-05-19T17:45:08.122Z",
+  "status": "completed",
+  "priority": "high",
+  "dependencies": [],
+  "tags": [
+    "backend",
+    "api",
+    "development"
+  ],
+  "title": "Backend API Development",
+  "description": "Implement the REST API for the booking system with proper validation and error handling.",
+  "archived_at": "2025-05-19T17:45:08.129Z",
+  "archived": true
+}

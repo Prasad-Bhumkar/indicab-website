@@ -36,7 +36,6 @@ export const VehicleTypeSelector: React.FC<VehicleTypeSelectorProps> = ({
 					>
 						<input
 							type="radio"
-							name="vehicleType"
 							value={type.id}
 							className="sr-only"
 							{...control.register("vehicleType", {

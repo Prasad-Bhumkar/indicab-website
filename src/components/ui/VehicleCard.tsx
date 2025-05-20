@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui';
 import Image from 'next/image';
 
 import type { VehicleType } from '@/lib/types';
@@ -21,8 +22,8 @@ export const VehicleCard = ({ vehicle }: { vehicle: VehicleType }): JSX.Element 
                 </div>
             </div>
         </div>
-        <_Button className="w-full">
+        <Button className="w-full">
             Book {vehicle.name}
-        </_Button>
+        </Button>
     </div>
 );

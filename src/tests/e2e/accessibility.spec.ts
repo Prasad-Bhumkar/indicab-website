@@ -1,10 +1,10 @@
-import AxeBuilder from '@axe-core/playwright';
+import type AxeBuilderType from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 test.describe('Accessibility Tests', () => {
   test('homepage should be accessible', async ({ page }) => {
     await page.goto('/');
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await (new (AxeBuilder as typeof AxeBuilderType)({ page })).analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 

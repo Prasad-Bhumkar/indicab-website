@@ -10,6 +10,25 @@ import User from '@/models/User';
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
 
+/**
+ * @openapi
+ * /api/auth:
+ *   post:
+ *     summary: Authenticate user and return JWT
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/AuthRequest'
+ *     responses:
+ *       200:
+ *         description: Authenticated
+ *       401:
+ *         description: Invalid credentials
+ *       500:
+ *         description: Internal server error
+ */
 export async function POST(_request: Request) {
 	try {
 		await connectDB();

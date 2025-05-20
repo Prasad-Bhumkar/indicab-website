@@ -28,8 +28,8 @@ export const Image: React.FC<ImageProps> = ({
             <NextImage
                 src={src}
                 alt={alt}
-                width={width}
-                height={height}
+                width={width ?? 0}
+                height={height ?? 0}
                 priority={priority}
                 className={`
                     duration-700 ease-in-out

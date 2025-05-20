@@ -45,7 +45,7 @@ class MonitoringService {
     const now = Date.now();
     const metrics = performanceMonitor.getMetrics();
 
-    for (const [id, alert] of this.alerts) {
+    for (const [_id, alert] of this.alerts) {
       const metricData = metrics.filter(m => m.name === alert.config.metric);
       if (metricData.length === 0) continue;
 

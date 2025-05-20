@@ -1,12 +1,15 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-import BookingTest from './BookingTest';
-import { BookingContext } from '../context/BookingContext';
-import { AuthContext } from '../context/AuthContext';
-import { vi } from 'vitest';
-import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
+import type { Meta, StoryFn } from '@storybook/react';
 import { Elements } from '@stripe/react-stripe-js';
-import { Stripe } from '@stripe/stripe-js';
+import type { Stripe } from '@stripe/stripe-js';
+import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { vi } from 'vitest';
+
+import { AuthContext } from '../context/AuthContext';
+import { BookingContext } from '../context/BookingContext';
+
+import BookingTest from './BookingTest';
 
 // Mock Stripe
 const _mockStripe = {

@@ -1,10 +1,10 @@
 "use client";
 
-import type React from "react";
+import React from 'react';
 
 import Link from "next/link";
 
-import { Card } from "@/components/ui/Card";
+import { Card } from '@/components/ui';
 import { Button } from '@/components/ui/button';
 
 interface Package {

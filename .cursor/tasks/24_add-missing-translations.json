@@ -1,0 +1,11 @@
+{
+  "id": 24,
+  "created_at": "2025-05-19T18:10:01.000Z",
+  "updated_at": "2025-05-19T18:10:01.000Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [14],
+  "tags": ["i18n", "localization", "translation"],
+  "title": "Add/Verify Missing Translation Files",
+  "description": "Ensure all required translation files exist for supported languages and add missing translations. Automate translation checks in CI."
+} 

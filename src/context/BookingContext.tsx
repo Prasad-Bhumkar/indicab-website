@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer } from 'react'
+import { BookingStatus } from '@/types/booking'
+import React, { createContext, useContext, useReducer } from 'react'
 
 export interface BookingState {
     id: string
@@ -7,9 +8,14 @@ export interface BookingState {
     pickupDate: string
     returnDate?: string
     vehicleType: string
+    passengers?: number
+    contactName: string
+    contactEmail: string
+    contactPhone: string
+    specialRequests?: string
+    totalAmount?: number
     fare: number
-    customerId: string
-    status: 'pending' | 'confirmed' | 'cancelled'
+    status: BookingStatus
 }
 
 type BookingAction =
@@ -21,10 +27,15 @@ const initialState: BookingState = {
     pickupLocation: '',
     dropLocation: '',
     pickupDate: '',
-    returnDate: undefined,
+    returnDate: '',
     vehicleType: '',
+    passengers: 1,
+    contactName: '',
+    contactEmail: '',
+    contactPhone: '',
+    specialRequests: '',
+    totalAmount: 0,
     fare: 0,
-    customerId: '',
     status: 'pending'
 }
 

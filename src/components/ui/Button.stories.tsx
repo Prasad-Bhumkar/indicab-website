@@ -1,31 +1,28 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
 import { Button } from './button';
 
-export default {
+const meta: Meta<typeof Button> = {
     title: 'UI/Button',
     component: Button,
-} as Meta<typeof Button>;
+};
+export default meta;
 
-const Template: StoryObj<typeof Button> = (args: any) => <Button {...args} />;
+const Template: StoryFn<typeof Button> = (args) => <Button {...args} />;
 
 export const _Default = Template.bind({});
 _Default.args = {
-    children: 'Click Me',
-    variant: 'primary',
-    disabled: false,
+    children: 'Default Button',
 };
 
 export const _Disabled = Template.bind({});
 _Disabled.args = {
-    children: 'Disabled',
-    variant: 'primary',
+    children: 'Disabled Button',
     disabled: true,
 };
 
 export const _Secondary = Template.bind({});
 _Secondary.args = {
-    children: 'Secondary',
+    children: 'Secondary Button',
     variant: 'secondary',
-    disabled: false,
 };

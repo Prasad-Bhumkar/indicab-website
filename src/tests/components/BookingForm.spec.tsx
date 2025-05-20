@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { BookingForm } from '@/components/BookingForm';
+import BookingForm from '@/components/BookingForm';
 
-import { fireEvent, render, screen, waitFor } from '../helpers/test-utils';
+import { fireEvent, render, screen, waitFor } from '@/tests/helpers/test-utils';
 
 // Mock the API call
 vi.mock('@/lib/api', () => ({

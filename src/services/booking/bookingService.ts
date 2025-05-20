@@ -4,25 +4,6 @@ const API_URL = process.env.NODE_ENV === 'test'
     ? 'http://localhost:8000/mock-api/bookings'
     : 'https://api.example.com/bookings';
 
-// Mock data for development/testing
-const mockBookings: Booking[] = [
-    {
-        id: "BK-2023-001",
-        date: "15 Oct 2023",
-        time: "10:00 AM",
-        origin: "Delhi",
-        destination: "Agra",
-        carType: "Premium Sedan",
-        fare: "₹2,499",
-        status: "completed",
-        driver: {
-            name: "Raj Kumar",
-            contact: "123-456-7890"
-        }
-    },
-    // Add more mock bookings as needed
-];
-
 export type BookingStatus = 'upcoming' | 'completed' | 'cancelled';
 
 export interface Booking {

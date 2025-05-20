@@ -1,0 +1,16 @@
+{
+  "id": 58,
+  "created_at": "2025-05-19T18:38:29.688Z",
+  "updated_at": "2025-05-19T18:38:29.741Z",
+  "status": "pending",
+  "priority": "low",
+  "dependencies": [
+    56
+  ],
+  "tags": [
+    "email",
+    "notification"
+  ],
+  "title": "Booking Confirmation Emails",
+  "description": "Set up email templates and service for sending booking confirmation emails to users."
+}

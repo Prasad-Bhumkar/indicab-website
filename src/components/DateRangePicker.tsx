@@ -1,8 +1,11 @@
-import { Controller, Control, FieldErrors } from 'react-hook-form'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import React from 'react'
-import { DateRange } from '@/lib/types'
+import DatePicker from 'react-datepicker';
+import type { Control, FieldErrors } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+
+import React from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
+
+import type { DateRange } from '@/lib/types';
 
 const DatePickerComponent = DatePicker as unknown as React.ComponentType<any>
 
@@ -18,10 +21,10 @@ export interface DateRangePickerProps {
     maxDate?: Date
 }
 
-function renderErrorMessage(error: string | { message?: string } | undefined): JSX.Element {
-    if (!error) return null
-    const message = typeof error === 'string' ? error : error.message
-    return <p className="mt-1 text-sm text-red-600">{message}</p>
+function renderErrorMessage(error: string | { message?: string } | undefined): JSX.Element | null {
+    if (!error) return null;
+    const message = typeof error === 'string' ? error : error.message;
+    return <p className="mt-1 text-sm text-red-600">{message}</p>;
 }
 
 export const DateRangePicker: React.FC<DateRangePickerProps> = ({

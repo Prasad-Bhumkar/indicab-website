@@ -1,9 +1,9 @@
+import * as bcrypt from 'bcryptjs';
 import { connectDB } from '../../src/lib/db';
+import Booking from '../../src/models/Booking';
 import User from '../../src/models/User';
 import Vehicle from '../../src/models/Vehicle';
-import Booking from '../../src/models/Booking';
 import { createBooking } from '../../src/services/booking/api';
-import bcrypt from 'bcryptjs';
 
 /**
  * Types for test data
@@ -28,14 +28,14 @@ interface TestVehicle {
 }
 
 interface TestBooking {
-  pickup: string;
-  destination: string;
+  pickupLocation: string;
+  dropLocation: string;
   startDate: Date;
   endDate: Date;
   vehicleType: string;
   fare: number;
   customerId: string;
-  status: string;
+  status: 'pending' | 'confirmed' | 'cancelled';
 }
 
 /**
@@ -61,8 +61,8 @@ const defaultTestVehicle: TestVehicle = {
 };
 
 const defaultTestBooking: TestBooking = {
-  pickup: 'Test Location',
-  destination: 'Test Destination',
+  pickupLocation: 'Test Location',
+  dropLocation: 'Test Destination',
   startDate: new Date(),
   endDate: new Date(Date.now() + 86400000), // 1 day later
   vehicleType: 'sedan',
@@ -76,12 +76,13 @@ const defaultTestBooking: TestBooking = {
  */
 export async function testUserAPI(testData: Partial<TestUser> = {}): Promise<any> {
   const userData = { ...defaultTestUser, ...testData };
-  
   try {
-    const user = await User.create({
+    const passwordHash = await bcrypt.hash(userData.password, 10);
+    const user = new User({
       ...userData,
-      passwordHash: await bcrypt.hash(userData.password, 10)
+      passwordHash
     });
+    await user.save();
     console.log('✅ User created:', user.email);
     return user;
   } catch (error) {
@@ -95,9 +96,9 @@ export async function testUserAPI(testData: Partial<TestUser> = {}): Promise<any
  */
 export async function testVehicleAPI(testData: Partial<TestVehicle> = {}): Promise<any> {
   const vehicleData = { ...defaultTestVehicle, ...testData };
-  
   try {
-    const vehicle = await Vehicle.create(vehicleData);
+    const vehicle = new Vehicle(vehicleData);
+    await vehicle.save();
     console.log('✅ Vehicle created:', vehicle.make, vehicle.model);
     return vehicle;
   } catch (error) {
@@ -113,13 +114,20 @@ export async function testBookingAPI(testData: Partial<TestBooking> = {}): Promi
   const bookingData = { ...defaultTestBooking, ...testData };
   
   try {
-    const booking = await createBooking(bookingData);
-    console.log('✅ Booking created:', booking);
-    
+    const booking = await createBooking({
+      pickupLocation: bookingData.pickupLocation,
+      dropLocation: bookingData.dropLocation,
+      pickupDate: bookingData.startDate.toISOString(),
+      returnDate: bookingData.endDate.toISOString(),
+      vehicleType: bookingData.vehicleType,
+      fare: bookingData.fare,
+      customerId: bookingData.customerId,
+      status: bookingData.status
+    });
+    console.log('✅ Booking created:', booking.id);
     if (!booking.id) {
       throw new Error('Booking ID was not generated');
     }
-    
     return booking;
   } catch (error) {
     console.error('❌ Booking creation failed:', error instanceof Error ? error.message : error);
@@ -140,11 +148,11 @@ export async function testFullAPIFlow(): Promise<void> {
     const user = await testUserAPI();
 
     // Create test vehicle
-    const vehicle = await testVehicleAPI();
+    await testVehicleAPI();
 
     // Create test booking
     const booking = await testBookingAPI({
-      customerId: user._id
+      customerId: user._id.toString()
     });
 
     // Verify booking with populated data
@@ -152,9 +160,13 @@ export async function testFullAPIFlow(): Promise<void> {
       .populate('user', '-passwordHash')
       .populate('vehicle');
 
+    if (!verifiedBooking) {
+      throw new Error('Booking not found in database');
+    }
+
     console.log('✅ Full API flow verified:', {
-      user: verifiedBooking.user.email,
-      vehicle: verifiedBooking.vehicle.make,
+      user: verifiedBooking.user,
+      vehicle: verifiedBooking.vehicle,
       total: verifiedBooking.totalAmount
     });
 

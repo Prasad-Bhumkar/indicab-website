@@ -1,9 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Heart, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 
 import { Button } from '@/components/ui';
 

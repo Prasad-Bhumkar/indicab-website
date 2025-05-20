@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 type AuthContextType = {
     user: {
@@ -27,10 +27,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
     useEffect(() => {
         if (status === 'authenticated' && session?.user) {
             setUser({
-                id: session.user.id,
-                name: session.user.name || undefined,
-                email: session.user.email || undefined,
-                image: session.user.image || undefined
+                id: session.user.id ?? '',
+                name: session.user.name ?? '',
+                email: session.user.email ?? '',
+                image: session.user.image ?? ''
             })
         } else {
             setUser(null)

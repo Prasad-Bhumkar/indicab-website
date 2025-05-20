@@ -1,0 +1,11 @@
+{
+  "id": 11,
+  "created_at": "2025-05-19T18:00:02.000Z",
+  "updated_at": "2025-05-19T18:00:02.000Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [10],
+  "tags": ["frontend", "admin", "dashboard", "feature"],
+  "title": "Admin Analytics Dashboard",
+  "description": "Build analytics views for bookings, revenue, and user activity. Integrate with existing admin routes."
+} 

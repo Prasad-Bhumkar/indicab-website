@@ -1,0 +1,15 @@
+{
+  "id": 55,
+  "created_at": "2025-05-19T18:38:29.677Z",
+  "updated_at": "2025-05-19T18:38:29.792Z",
+  "status": "in-progress",
+  "priority": "medium",
+  "dependencies": [],
+  "tags": [
+    "frontend",
+    "ui",
+    "admin"
+  ],
+  "title": "Admin Dashboard UI",
+  "description": "Design and implement the UI components for the admin dashboard."
+}

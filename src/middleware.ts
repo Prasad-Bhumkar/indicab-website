@@ -1,8 +1,7 @@
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 // Rate limiting configuration
@@ -106,7 +105,8 @@ export async function middleware(request: NextRequest) {
 
     // Rate limiting (only if configured)
     if (ratelimit) {
-      const ip = request.ip ?? '127.0.0.1';
+      // Extract IP from headers or fallback
+      const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || '127.0.0.1';
       const { success, limit, reset, remaining } = await ratelimit.limit(ip);
 
       if (!success) {

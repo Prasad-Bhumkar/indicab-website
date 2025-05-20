@@ -1,20 +1,15 @@
-import type React from 'react';
 
 import type { RenderOptions } from '@testing-library/react';
 import { render } from '@testing-library/react';
 
-
-import { _TestProviders } from '../setup';
+import type { BookingState } from '@/context/BookingContext';
 
 // Custom render function that includes providers
 const customRender = (
   ui: React.ReactElement,
   options?: Omit<RenderOptions, 'wrapper'>
 ) => {
-  return render(ui, {
-    wrapper: _TestProviders,
-    ...options,
-  });
+  return render(ui, options);
 };
 
 // Mock data generators
@@ -24,13 +19,21 @@ const mockUser = {
   id: '123',
 };
 
-const mockBooking = {
+const mockBooking: BookingState = {
   id: 'booking-123',
-  from: 'Delhi',
-  to: 'Agra',
-  date: new Date().toISOString(),
+  pickupLocation: 'Delhi',
+  dropLocation: 'Agra',
+  pickupDate: new Date().toISOString(),
+  returnDate: new Date(Date.now() + 86400000).toISOString(),
+  vehicleType: 'Sedan',
+  passengers: 2,
+  contactName: 'Test User',
+  contactEmail: 'test@example.com',
+  contactPhone: '9876543210',
+  specialRequests: '',
+  totalAmount: 1000,
+  fare: 0,
   status: 'confirmed',
-  userId: '123',
 };
 
 // Mock API responses
@@ -41,4 +44,5 @@ const mockApiResponses = {
 
 // Export everything
 export * from '@testing-library/react';
-export { mockApiResponses, mockBooking, mockUser, customRender as render };
+export { customRender, mockApiResponses, mockBooking, mockUser };
+

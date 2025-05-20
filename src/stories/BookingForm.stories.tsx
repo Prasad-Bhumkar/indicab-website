@@ -1,15 +1,16 @@
 import React from "react";
-import { StoryFn, Meta } from '@storybook/react';
-import BookingForm from '../components/BookingForm';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { BookingContext } from '../context/BookingContext';
-import { AuthContext } from '../context/AuthContext';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { vi } from 'vitest';
-import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
+import type { Meta, StoryFn } from '@storybook/react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { vi } from 'vitest';
+import * as z from 'zod';
+
+import BookingForm from '../components/BookingForm';
+import { AuthContext } from '../context/AuthContext';
+import { BookingContext } from '../context/BookingContext';
+
 
 // Load Stripe using loadStripe utility
 const _stripePromise = loadStripe('your-publishable-key-here'); // Replace with your actual Stripe publishable key
@@ -47,7 +48,7 @@ const _bookingSchema = z.object({
     vehicleType: z.string().min(1, 'Vehicle type is required')
 });
 
-type BookingFormData = z.infer<typeof _bookingSchema>;
+type _BookingFormData = z.infer<typeof _bookingSchema>;
 
 // Mock context providers wrapper
 const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }): JSX.Element => {
@@ -63,10 +64,17 @@ const ContextWrapper: React.FC<{ children: React.ReactNode }> = ({ children }): 
         dropLocation: 'Pune',
         pickupDate: new Date(),
         dropDate: new Date(new Date().setDate(new Date().getDate() + 3)),
+        returnDate: new Date(new Date().setDate(new Date().getDate() + 3)),
         vehicleType: 'Sedan',
         fare: 1000,
         customerId: '123',
-        status: 'pending'
+        status: 'pending',
+        contactName: 'Test User',
+        contactEmail: 'test@example.com',
+        contactPhone: '9876543210',
+        passengers: 2,
+        specialRequests: '',
+        totalAmount: 1000
     };
 
     return (

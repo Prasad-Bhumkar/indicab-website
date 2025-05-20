@@ -1,11 +1,16 @@
 import React from "react";
+
 import type { Meta, StoryObj } from '@storybook/react';
-import { BookingProvider } from '../context/BookingContext';
-import { AuthProvider } from '../context/AuthContext';
-import BookingForm from './BookingForm';
-import { NextRouterMockProvider } from '../tests/NextRouterMockProvider';
-import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+import { AuthProvider } from '../context/AuthContext';
+import { BookingProvider } from '../context/BookingContext';
+import { NextRouterMockProvider } from '../tests/NextRouterMockProvider';
+
+import BookingForm from './BookingForm';
+
+
 
 const _stripePromise = loadStripe('pk_test_12345'); // Replace with your test/public key
 

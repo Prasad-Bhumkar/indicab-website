@@ -6,8 +6,8 @@ import { BadgeCheck, Briefcase, Building2, CalendarClock, CheckCircle, CreditCar
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Card } from '@/components/ui';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { initSectionTransitions } from '@/lib/animations';
 
 

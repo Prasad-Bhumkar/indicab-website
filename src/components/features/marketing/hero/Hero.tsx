@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CarTaxiFront, Clock, RotateCw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui';
 import { Button } from '@/components/ui/button';
 
 

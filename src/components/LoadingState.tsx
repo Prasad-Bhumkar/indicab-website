@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { cn } from '@/utils/cn';
+import { cn } from '@/utils/utils';
 
-interface LoadingStateProps {
+export interface LoadingStateProps {
   isLoading: boolean;
   text?: string;
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'primary' | 'secondary';
+  children?: React.ReactNode;
   className?: string;
 }
 
@@ -15,7 +16,8 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   text = 'Loading...',
   size = 'md',
   variant = 'default',
-  className
+  className,
+  children
 }) => {
   if (!isLoading) return null;
 
@@ -32,7 +34,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   };
 
   return (
-    <div className={cn('flex items-center space-x-2', className)}>
+    <div className={cn('flex items-center space-x-2', className)} role="status" aria-live="polite">
       <div
         className={cn(
           'animate-spin rounded-full border-2 border-current border-t-transparent',
@@ -46,10 +48,15 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
 };
 
 // Loading overlay component
-interface LoadingOverlayProps extends Omit<LoadingStateProps, 'className'> {
+export interface LoadingOverlayProps {
+  isLoading: boolean;
+  text?: string;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'primary' | 'secondary';
   overlayClassName?: string;
   contentClassName?: string;
   blur?: boolean;
+  children?: React.ReactNode;
 }
 
 export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
@@ -78,10 +85,12 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
         <div className={cn('flex flex-col items-center space-y-2', contentClassName)}>
           <LoadingState
             isLoading={true}
-            text={text}
-            size={size}
+            text={text ?? ''}
+            size={size ?? 'md'}
             variant={variant}
-          />
+          >
+            {children}
+          </LoadingState>
         </div>
       </div>
     </div>
@@ -127,10 +136,12 @@ export const LoadingButton: React.FC<LoadingButtonProps> = ({
       {isLoading ? (
         <LoadingState
           isLoading={true}
-          text={text}
+          text={text ?? ''}
           size={size}
           variant={variant === 'primary' ? 'primary' : 'default'}
-        />
+        >
+          {children}
+        </LoadingState>
       ) : (
         children
       )}

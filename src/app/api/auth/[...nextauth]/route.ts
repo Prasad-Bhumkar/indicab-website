@@ -1,3 +1,4 @@
+import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -10,16 +11,13 @@ declare module "next-auth" {
             name?: string | null;
             email?: string | null;
             image?: string | null;
+            role?: string;
         };
     }
 }
 
-export const {
-    handlers: { GET, POST },
-    auth,
-    signIn,
-    signOut
-} = NextAuth({
+// Export auth options for reuse in other parts of the application
+export const authOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -48,4 +46,11 @@ export const {
         signIn: '/auth/signin'
     },
     debug: process.env.NODE_ENV === 'development'
-});
+};
+
+export const {
+    handlers: { GET, POST },
+    auth,
+    signIn,
+    signOut
+} = NextAuth(authOptions);

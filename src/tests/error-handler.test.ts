@@ -1,5 +1,6 @@
 import { vi } from 'vitest';
-import { ErrorHandler, AppError, ValidationError, ErrorSeverity, ErrorType } from '../src/lib/errors/errorHandler';
+
+import { AppError, ErrorHandler, ErrorSeverity, ErrorType, ValidationError } from '../src/lib/errors/errorHandler';
 
 // Mock Sentry
 const _mockSentry = {

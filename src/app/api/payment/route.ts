@@ -8,6 +8,29 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
     apiVersion: '2023-10-16'
 });
 
+/**
+ * @openapi
+ * /api/payment:
+ *   post:
+ *     summary: Process payment for a booking
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PaymentRequest'
+ *     responses:
+ *       200:
+ *         description: Payment processed
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Booking not found
+ *       409:
+ *         description: Payment conflict
+ *       500:
+ *         description: Internal server error
+ */
 export async function POST(request: Request) {
     try {
         const { bookingId, paymentMethodId } = await request.json();

@@ -8,20 +8,20 @@ export type GenericFunction = (...args: unknown[]) => unknown;
 export type GenericObject = Record<string, unknown>;
 
 // Type for API responses
-export type ApiResponse<T> = {
+export interface ApiResponse<T> {
     data: T;
     status: number;
     message?: string;
     error?: string;
-};
+}
 
 // Type for API error
-export type ApiError = {
+export interface ApiError {
     status: number;
     message: string;
     code?: string;
     details?: Record<string, unknown>;
-};
+}
 
 // Type for component event handlers
 export type EventHandler<E = Event> = (event: E) => void;

@@ -1,6 +1,5 @@
-import React from 'react';
-import { Shield, Clock, ThumbsUp, MapPin, Award, Users, Car, Target, Eye } from 'lucide-react'; // Importing icons
-import { Card } from '@/components/ui/card'; // Updated import statement to use named import
+import { Card } from '@/components/ui';
+import { Award, Car, Clock, Eye, MapPin, Shield, Target, ThumbsUp, Users } from 'lucide-react'; // Importing icons
 
 // Team member data
 

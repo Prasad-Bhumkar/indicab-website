@@ -2,8 +2,9 @@ import React from "react";
 
 "use client";
 
-import { useTheme } from "../../context/ThemeContext";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+
+import { useTheme } from "../../context/ThemeContext";
 
 export function ThemeToggle(): JSX.Element {
     const { theme, toggleTheme } = useTheme();

@@ -1,9 +1,12 @@
 'use client';
 
-import PackageCard from './PackageCard';
-import { Calendar, MapPin, CheckCircle } from 'lucide-react';
-import Image from 'next/image';
 import { useState } from 'react';
+
+import { Calendar, CheckCircle } from 'lucide-react';
+import Image from 'next/image';
+
+import PackageCard from './PackageCard';
+
 
 interface TourPackage {
     id: string;

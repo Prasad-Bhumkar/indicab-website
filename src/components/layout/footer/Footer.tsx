@@ -1,8 +1,9 @@
 "use client";
 
 import React from 'react';
-import Link from 'next/link';
+
 import { Phone, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 const _popularCities = [
     { name: 'Delhi', href: '/?city=delhi', prefetch: true },

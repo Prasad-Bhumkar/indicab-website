@@ -1,6 +1,6 @@
-import { expect, test, describe } from 'bun:test';
 import fs from 'fs';
 import path from 'path';
+import { describe, expect } from 'vitest';
 
 describe('About Page', () => {
     test('about page component exists', () => {

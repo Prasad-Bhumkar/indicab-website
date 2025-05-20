@@ -2,18 +2,19 @@ import ErrorBoundary from '@/components/common/ErrorBoundary';
 
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { ThemedErrorBoundary } from './ErrorBoundary';
 
 // Mock the clipboard API
 const mockClipboard = {
-    writeText: jest.fn().mockImplementation(() => Promise.resolve()),
+    writeText: vi.fn().mockImplementation(() => Promise.resolve()),
 };
 Object.assign(navigator, {
     clipboard: mockClipboard,
 });
 
-describe('ErrorBoundary', (): JSX.Element => {
+describe('ErrorBoundary', () => {
     const ErrorComponent = (): JSX.Element => {
         throw new Error('Test error');
         return <div>Should not render</div>;
@@ -22,18 +23,18 @@ describe('ErrorBoundary', (): JSX.Element => {
     const GoodComponent = () => <div>Working component</div>;
 
     beforeAll(() => {
-        jest.spyOn(console, 'error').mockImplementation(() => { });
+        vi.spyOn(console, 'error').mockImplementation(() => { });
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     afterAll(() => {
-        jest.restoreAllMocks();
+        vi.restoreAllMocks();
     });
 
-    it('catches errors and displays fallback UI', (): JSX.Element => {
+    it('catches errors and displays fallback UI', () => {
         render(
             <ErrorBoundary>
                 <ErrorComponent />
@@ -45,7 +46,7 @@ describe('ErrorBoundary', (): JSX.Element => {
         expect(screen.getByText('Try Again')).toBeInTheDocument();
     });
 
-    it('renders children when no error occurs', (): JSX.Element => {
+    it('renders children when no error occurs', () => {
         render(
             <ErrorBoundary>
                 <GoodComponent />
@@ -55,7 +56,7 @@ describe('ErrorBoundary', (): JSX.Element => {
         expect(screen.getByText('Working component')).toBeInTheDocument();
     });
 
-    it('works with themed version', (): JSX.Element => {
+    it('works with themed version', () => {
         render(
             <ThemedErrorBoundary>
                 <ErrorComponent />
@@ -65,7 +66,7 @@ describe('ErrorBoundary', (): JSX.Element => {
         expect(screen.getByText('Something went wrong')).toBeInTheDocument();
     });
 
-    it('copies error details to clipboard', async (): JSX.Element => {
+    it('copies error details to clipboard', async () => {
         render(
             <ErrorBoundary>
                 <ErrorComponent />
@@ -76,7 +77,7 @@ describe('ErrorBoundary', (): JSX.Element => {
         expect(navigator.clipboard.writeText).toHaveBeenCalled();
     });
 
-    it('handles clipboard errors gracefully', async (): JSX.Element => {
+    it('handles clipboard errors gracefully', async () => {
         mockClipboard.writeText.mockRejectedValueOnce(new Error('Clipboard error'));
 
         render(
@@ -89,7 +90,7 @@ describe('ErrorBoundary', (): JSX.Element => {
         expect(navigator.clipboard.writeText).toHaveBeenCalled();
     });
 
-    it('displays error details when expanded', (): JSX.Element => {
+    it('displays error details when expanded', () => {
         render(
             <ErrorBoundary>
                 <ErrorComponent />
@@ -100,7 +101,7 @@ describe('ErrorBoundary', (): JSX.Element => {
         expect(screen.getByText('Test error')).toBeInTheDocument();
     });
 
-    it('matches snapshot when error occurs', (): JSX.Element => {
+    it('matches snapshot when error occurs', () => {
         const { asFragment } = render(
             <ErrorBoundary>
                 <ErrorComponent />
@@ -109,7 +110,7 @@ describe('ErrorBoundary', (): JSX.Element => {
         expect(asFragment()).toMatchSnapshot();
     });
 
-    it('resets when Try Again is clicked', (): JSX.Element => {
+    it('resets when Try Again is clicked', () => {
         const { rerender } = render(
             <ErrorBoundary>
                 <ErrorComponent />

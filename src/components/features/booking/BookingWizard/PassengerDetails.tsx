@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { BookingFormData } from './';
+
 import { User, Mail, Phone, Users, MessageSquare } from 'lucide-react';
+
+import type { BookingFormData } from ".";
 
 interface PassengerDetailsProps {
     formData: BookingFormData;

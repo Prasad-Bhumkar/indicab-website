@@ -1,0 +1,11 @@
+{
+  "id": 61,
+  "created_at": "2025-05-20T10:00:00.000Z",
+  "updated_at": "2025-05-20T10:00:00.000Z",
+  "status": "in-progress",
+  "priority": "critical",
+  "dependencies": [],
+  "tags": ["planning", "management", "organization"],
+  "title": "Project Completion Plan",
+  "description": "Create and maintain a comprehensive plan for completing all remaining IndiCab website features, with clear prioritization and dependencies."
+} 

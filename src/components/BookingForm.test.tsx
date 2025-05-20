@@ -1,10 +1,15 @@
 import React from "react";
+
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
-import BookingForm from './BookingForm';
-import { BookingContext, BookingState } from '../context/BookingContext';
+
 import { AuthContext } from '../context/AuthContext';
+import type { BookingState } from '../context/BookingContext';
+import { BookingContext } from '../context/BookingContext';
+
+import BookingForm from './BookingForm';
+
 
 // Mock useRouter from 'next/navigation'
 vi.mock('next/navigation', () => ({
@@ -60,7 +65,7 @@ const AllProviders: React.FC<{ children: React.ReactNode }> = ({ children }): JS
     </AuthContext.Provider>
 );
 
-describe('BookingForm Component', (): JSX.Element => {
+describe('BookingForm Component', () => {
     const validFormData = {
         pickupLocation: 'Mumbai',
         dropLocation: 'Pune',
@@ -74,7 +79,7 @@ describe('BookingForm Component', (): JSX.Element => {
         mockCreateBooking.mockResolvedValue({ id: '123', fare: 1000 });
     });
 
-    test('renders form with required fields', (): JSX.Element => {
+    test('renders form with required fields', () => {
         render(<BookingForm />, { wrapper: AllProviders });
 
         expect(screen.getByLabelText(/pickup location/i)).toBeInTheDocument();
@@ -84,14 +89,14 @@ describe('BookingForm Component', (): JSX.Element => {
         expect(screen.getByLabelText(/vehicle type/i)).toBeInTheDocument();
     });
 
-    test('contains submit button', (): JSX.Element => {
+    test('contains submit button', () => {
         render(<BookingForm />, { wrapper: AllProviders });
         const submitButton = screen.getByRole('button', { name: /continue to payment/i });
         expect(submitButton).toBeInTheDocument();
         expect(submitButton).not.toBeDisabled();
     });
 
-    test('shows validation errors on empty submit', async (): JSX.Element => {
+    test('shows validation errors on empty submit', async () => {
         render(<BookingForm />, { wrapper: AllProviders });
         const submitButton = screen.getByRole('button', { name: /continue to payment/i });
         fireEvent.click(submitButton);
@@ -104,7 +109,7 @@ describe('BookingForm Component', (): JSX.Element => {
         });
     });
 
-    test('validates return date is after pickup date', async (): JSX.Element => {
+    test('validates return date is after pickup date', async () => {
         render(<BookingForm />, { wrapper: AllProviders });
 
         // Fill in pickup date after return date
@@ -117,7 +122,7 @@ describe('BookingForm Component', (): JSX.Element => {
         });
     });
 
-    test('submits form with valid data', async (): JSX.Element => {
+    test('submits form with valid data', async () => {
         render(<BookingForm />, { wrapper: AllProviders });
 
         // Fill in all form fields
@@ -134,7 +139,7 @@ describe('BookingForm Component', (): JSX.Element => {
         });
     });
 
-    test('handles API errors gracefully', async (): JSX.Element => {
+    test('handles API errors gracefully', async () => {
         mockCreateBooking.mockRejectedValueOnce(new Error('Network error'));
         render(<BookingForm />, { wrapper: AllProviders });
 
@@ -152,7 +157,7 @@ describe('BookingForm Component', (): JSX.Element => {
         });
     });
 
-    test('disables form submission while submitting', async (): JSX.Element => {
+    test('disables form submission while submitting', async () => {
         mockCreateBooking.mockImplementationOnce(() => new Promise(_resolve => setTimeout(_resolve, 100)));
         render(<BookingForm />, { wrapper: AllProviders });
 
@@ -175,7 +180,7 @@ describe('BookingForm Component', (): JSX.Element => {
         });
     });
 
-    test('clears form after successful submission', async (): JSX.Element => {
+    test('clears form after successful submission', async () => {
         render(<BookingForm />, { wrapper: AllProviders });
 
         // Fill in all form fields
@@ -196,7 +201,7 @@ describe('BookingForm Component', (): JSX.Element => {
         });
     });
 
-    test('shows success message after booking creation', async (): JSX.Element => {
+    test('shows success message after booking creation', async () => {
         render(<BookingForm />, { wrapper: AllProviders });
 
         // Fill in all form fields
@@ -214,7 +219,7 @@ describe('BookingForm Component', (): JSX.Element => {
         });
     });
 
-    test('matches snapshot', (): JSX.Element => {
+    test('matches snapshot', () => {
         const { container } = render(<BookingForm />, { wrapper: AllProviders });
         expect(container).toMatchSnapshot();
     });

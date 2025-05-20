@@ -1,15 +1,16 @@
 import type { ReactElement } from 'react';
 
 import { render } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { expect } from 'vitest';
+import { axe, toHaveNoViolations } from 'vitest-axe';
 
 // Extend expect with axe matchers
 expect.extend(toHaveNoViolations);
 
 // Accessibility testing utilities
-export const testA11y = async (ui: ReactElement) => {
+export const testA11y = async (ui: ReactElement): Promise<void> => {
   const { container } = render(ui);
-  const results = await axe(container);
+  const results: AxeResults = await axe(container);
   expect(results).toHaveNoViolations();
 };
 
@@ -124,4 +125,6 @@ export const testComponentA11y = async (
   const element = container.firstElementChild as HTMLElement;
   testSuite(element);
   await testA11y(ui);
-}; 
+};
+
+export { axe };

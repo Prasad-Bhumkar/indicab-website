@@ -1,7 +1,8 @@
-import React from "react";
+
 import type { Meta, StoryObj } from '@storybook/react';
 import { useForm } from 'react-hook-form';
-import VehicleTypeSelector from './VehicleTypeSelector';
+
+import { VehicleTypeSelector } from './VehicleTypeSelector';
 
 const _meta: Meta<typeof VehicleTypeSelector> = {
     title: 'Components/VehicleTypeSelector',

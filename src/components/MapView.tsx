@@ -1,21 +1,12 @@
 'use client';
 
-import { Route } from '@/types/routes';
-import L, { LatLngTuple } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { useMemo } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import type { Route } from '@/types/routes';
+import type { LatLngTuple } from 'leaflet';
+import { useEffect, useMemo, useState } from 'react';
 
-// Fix for default marker icons in Leaflet with Next.js
-const icon = L.icon({
-  iconUrl: '/images/marker-icon.png',
-  iconRetinaUrl: '/images/marker-icon-2x.png',
-  shadowUrl: '/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
+import 'leaflet/dist/leaflet.css';
+
+// Import types for client-side components
 
 interface MapViewProps {
   routes: Route[];
@@ -23,14 +14,62 @@ interface MapViewProps {
 }
 
 export default function MapView({ routes, onRouteSelect }: MapViewProps) {
+  // State to track if component is mounted on client
+  const [isMounted, setIsMounted] = useState(false);
+  const [MapComponents, setMapComponents] = useState<any>(null);
+
+  // Only load Leaflet on client-side
+  useEffect(() => {
+    // Set mount state
+    setIsMounted(true);
+
+    // Dynamically import Leaflet components
+    const loadLeafletComponents = async () => {
+      const L = (await import('leaflet')).default;
+      const { MapContainer, Marker, Popup, TileLayer } = await import('react-leaflet');
+
+      // Fix for default marker icons in Leaflet with Next.js
+      const icon = L.icon({
+        iconUrl: '/images/marker-icon.png',
+        iconRetinaUrl: '/images/marker-icon-2x.png',
+        shadowUrl: '/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      });
+
+      setMapComponents({
+        L,
+        MapContainer,
+        Marker,
+        Popup,
+        TileLayer,
+        icon
+      });
+    };
+
+    loadLeafletComponents().catch(console.error);
+  }, []);
+
   // Calculate map bounds based on route coordinates
   const bounds = useMemo(() => {
+    if (!MapComponents || !isMounted) return null;
+    
     const coordinates: LatLngTuple[] = routes.flatMap(route => [
       [route.coordinates.from.lat, route.coordinates.from.lng],
       [route.coordinates.to.lat, route.coordinates.to.lng]
     ]);
-    return L.latLngBounds(coordinates);
-  }, [routes]);
+    
+    return MapComponents.L.latLngBounds(coordinates);
+  }, [routes, MapComponents, isMounted]);
+
+  // Don't render map until client-side and components are loaded
+  if (!isMounted || !MapComponents || !bounds) {
+    return <div className="h-full w-full bg-gray-100 flex items-center justify-center">Loading map...</div>;
+  }
+
+  const { MapContainer, TileLayer, Marker, Popup } = MapComponents;
 
   return (
     <MapContainer
@@ -46,7 +85,7 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
         <div key={route.id}>
           <Marker
             position={[route.coordinates.from.lat, route.coordinates.from.lng] as LatLngTuple}
-            icon={icon}
+            icon={MapComponents.icon}
           >
             <Popup>
               <div className="text-sm">
@@ -63,7 +102,7 @@ export default function MapView({ routes, onRouteSelect }: MapViewProps) {
           </Marker>
           <Marker
             position={[route.coordinates.to.lat, route.coordinates.to.lng] as LatLngTuple}
-            icon={icon}
+            icon={MapComponents.icon}
           >
             <Popup>
               <div className="text-sm">

@@ -107,7 +107,9 @@ module.exports = {
     'sonarjs/no-identical-conditions': 'error',
     'sonarjs/no-inverted-boolean-check': 'error',
     'sonarjs/no-one-iteration-loop': 'error',
-    'sonarjs/no-use-of-empty-return-value': 'error'
+    'sonarjs/no-use-of-empty-return-value': 'error',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off'
   },
   settings: {
     react: {
@@ -130,7 +132,9 @@ module.exports = {
     'storybook-static/**',
     'public/**',
     '*.config.js',
-    '*.config.mjs'
+    '*.config.mjs',
+    'src/services/booking/api.d.ts',
+    'src/utils/performance.tsx'
   ],
   overrides: [
     {

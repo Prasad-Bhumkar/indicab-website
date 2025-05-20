@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 import _Footer from '@/components/layout/footer/Footer';
 import Header from '@/components/layout/header/Header';
-import { Card } from '@/components/ui/Card';
+import { Card } from '@/components/ui';
 import { Button } from '@/components/ui/button';
 
 

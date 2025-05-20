@@ -22,12 +22,12 @@ export class SimpleErrorBoundary extends Component<Props, State> {
 		return { hasError: true };
 	}
 
-	componentDidCatch(error: Error) {
+	override componentDidCatch(error: Error) {
 		console.error("Error caught by boundary:", error);
 		// Will be replaced with Sentry once module resolution is fixed
 	}
 
-	render() {
+	override render() {
 		if (this.state.hasError) {
 			return <ErrorFallback />;
 		}

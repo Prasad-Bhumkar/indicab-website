@@ -1,8 +1,9 @@
 "use client";
 
-import { Suspense, ReactNode, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
-type SuspenseBoundaryProps = {
+interface SuspenseBoundaryProps {
     /** The component to render inside the suspense boundary */
     children: ReactNode;
     /** Component to show while loading, defaults to standard skeleton */
@@ -11,7 +12,7 @@ type SuspenseBoundaryProps = {
     className?: string;
     /** Whether to add a delay before showing the fallback to avoid flickering for fast loads */
     delayMs?: number;
-};
+}
 
 /**
  * A reusable Suspense boundary component that provides a skeleton fallback.
@@ -88,9 +89,9 @@ function DelayedFallback({
 function DefaultFallback(): JSX.Element {
     return (
         <div className="animate-pulse flex flex-col space-y-4">
-            <div className="h-4 bg-gray-200 rounded-md w-3/4"></div>
-            <div className="h-4 bg-gray-200 rounded-md"></div>
-            <div className="h-4 bg-gray-200 rounded-md w-5/6"></div>
+            <div className="h-4 bg-gray-200 rounded-md w-3/4" />
+            <div className="h-4 bg-gray-200 rounded-md" />
+            <div className="h-4 bg-gray-200 rounded-md w-5/6" />
         </div>
     );
 }

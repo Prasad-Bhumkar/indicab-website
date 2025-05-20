@@ -1,10 +1,10 @@
 "use client";
-import { useContext, useEffect, useState, useCallback, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Sentry from "@sentry/nextjs";
-import { useRouter } from "next/navigation";
 import { useTranslation } from 'next-i18next';
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-hot-toast';
 import * as z from "zod";
@@ -18,9 +18,9 @@ import { calculateFare } from "../lib/pricing";
 import { createBooking } from "../services/booking/api";
 
 import _BookingProgress from "./BookingProgress";
-import DateRangePicker from "./DateRangePicker";
+import { DateRangePicker } from "./DateRangePicker";
 import PaymentStep from "./PaymentStep";
-import VehicleTypeSelector from "./VehicleTypeSelector";
+import { VehicleTypeSelector } from "./VehicleTypeSelector";
 import LocationSearch from "./booking/LocationSearch";
 
 // Enhanced validation schema
@@ -49,6 +49,31 @@ export default function BookingForm(): JSX.Element {
 	const [error, setError] = useState<string>("");
 	const { t } = useTranslation();
 
+	// Add default vehicle types
+	const vehicleTypes = useMemo(() => [
+		{
+			id: 'sedan',
+			name: 'Sedan',
+			description: 'Comfortable sedan for city and highway travel',
+			price: 2000,
+			image: '/images/vehicles/sedan.png',
+		},
+		{
+			id: 'suv',
+			name: 'SUV',
+			description: 'Spacious SUV for family and group trips',
+			price: 3000,
+			image: '/images/vehicles/suv.png',
+		},
+		{
+			id: 'hatchback',
+			name: 'Hatchback',
+			description: 'Economical hatchback for short trips',
+			price: 1500,
+			image: '/images/vehicles/hatchback.png',
+		},
+	], []);
+
 	// Memoized error handler
 	const handleError = useCallback((error: unknown) => {
 		console.error("BookingForm error:", error);
@@ -70,7 +95,21 @@ export default function BookingForm(): JSX.Element {
 		vehicleType: "",
 	}), []);
 
-	// Load saved form data
+	// Move useForm above useEffect
+	const {
+		register,
+		handleSubmit,
+		control,
+		watch,
+		formState: { errors, isSubmitting },
+		setValue,
+		trigger,
+	} = useForm<BookingFormData>({
+		resolver: zodResolver(bookingSchema),
+		defaultValues,
+		mode: "onChange",
+	});
+
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			try {
@@ -89,20 +128,6 @@ export default function BookingForm(): JSX.Element {
 			}
 		}
 	}, [setValue, handleError]);
-
-	const {
-		register,
-		handleSubmit,
-		control,
-		watch,
-		formState: { errors, isSubmitting },
-		setValue,
-		trigger,
-	} = useForm<BookingFormData>({
-		resolver: zodResolver(bookingSchema),
-		defaultValues,
-		mode: "onChange",
-	});
 
 	// Memoized form data persistence
 	const persistFormData = useCallback((data: Partial<BookingFormData>) => {
@@ -237,9 +262,10 @@ export default function BookingForm(): JSX.Element {
 				name="vehicleType"
 				error={errors.vehicleType}
 				disabled={loading}
+				vehicleTypes={vehicleTypes}
 			/>
 		</div>
-	), [control, errors, loading, t]);
+	), [control, errors, loading, t, vehicleTypes]);
 
 	return (
 		<ErrorBoundary

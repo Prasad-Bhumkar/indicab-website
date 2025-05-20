@@ -1,0 +1,11 @@
+{
+  "id": 13,
+  "created_at": "2025-05-19T18:00:04.000Z",
+  "updated_at": "2025-05-19T18:00:04.000Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [5],
+  "tags": ["e2e", "testing", "driver", "assignment"],
+  "title": "E2E Tests for Driver Assignment",
+  "description": "Write Playwright tests for the driver assignment workflow."
+} 

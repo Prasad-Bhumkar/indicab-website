@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+
 import { ArrowLeft, Calendar, Eye } from 'lucide-react';
-import { BlogPost as BlogPostType, RelatedPost } from '../types/blog';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import type { BlogPost as BlogPostType, RelatedPost } from '../types/blog';
 
 interface BlogPostProps {
     post: BlogPostType;

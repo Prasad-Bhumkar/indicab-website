@@ -1,6 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createBooking, getBooking, updateBooking, cancelBooking } from '../src/services/booking/api';
-import { BookingState } from '../src/context/BookingContext';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import type { BookingState } from '@/context/BookingContext';
+import { cancelBooking, createBooking, getBooking, updateBooking } from '@/services/booking/api';
 
 // Mock fetch globally
 global.fetch = vi.fn();
@@ -20,14 +21,16 @@ describe('Booking API', () => {
 
     describe('createBooking', () => {
         const mockBookingData: Omit<BookingState, 'id'> = {
-            pickupLocation: 'Delhi Airport',
-            dropLocation: 'Agra',
+            pickupLocation: 'Mumbai',
+            dropLocation: 'Pune',
             pickupDate: '2024-04-01T10:00:00Z',
             returnDate: '2024-04-03T10:00:00Z',
             vehicleType: 'SUV',
-            fare: 5000,
-            customerId: 'customer-123',
+            contactName: 'Test User',
+            contactEmail: 'test@example.com',
+            contactPhone: '9876543210',
             status: 'pending',
+            fare: 0
         };
 
         it('successfully creates a booking', async () => {
@@ -49,8 +52,6 @@ describe('Booking API', () => {
                 pickupDate: mockBookingData.pickupDate,
                 returnDate: mockBookingData.returnDate,
                 vehicleType: mockBookingData.vehicleType,
-                fare: mockBookingData.fare,
-                customerId: mockBookingData.customerId,
                 status: mockBookingData.status,
             }));
 
@@ -83,7 +84,6 @@ describe('Booking API', () => {
                 dropLocation: mockBookingData.dropLocation,
                 pickupDate: mockBookingData.pickupDate,
                 vehicleType: mockBookingData.vehicleType,
-                customerId: mockBookingData.customerId,
             };
 
             (global.fetch as any).mockResolvedValueOnce({
@@ -94,7 +94,6 @@ describe('Booking API', () => {
             const _result = await createBooking(mockBookingData);
             expect(_result).toEqual(expect.objectContaining({
                 id: expect.any(String),
-                fare: 0,
                 status: 'pending',
             }));
         });

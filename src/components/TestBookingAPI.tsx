@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+
 import { createBooking } from '../services/booking/api'
 
 export default function TestBookingAPI(): JSX.Element {

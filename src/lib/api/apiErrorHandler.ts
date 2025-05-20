@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ErrorHandler, AppError, ValidationError, ErrorType, ErrorContext } from '../errors/errorHandler';
 import { ZodError } from 'zod';
+import { ErrorContext, ErrorHandler, ValidationError } from '../errors/errorHandler';
 
 /**
  * Wraps an API route handler with standardized error handling

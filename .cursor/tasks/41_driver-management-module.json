@@ -1,0 +1,17 @@
+{
+  "id": 41,
+  "created_at": "2025-05-19T18:30:53.150Z",
+  "updated_at": "2025-05-19T18:30:53.239Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [
+    39
+  ],
+  "tags": [
+    "drivers",
+    "management",
+    "backend"
+  ],
+  "title": "Driver Management Module",
+  "description": "Implement the driver management module including assignment and tracking features."
+}

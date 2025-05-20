@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Phone, MessageCircle, HelpCircle, X, ChevronUp } from 'lucide-react';
+
 import { motion, AnimatePresence } from 'framer-motion';
+import { Phone, MessageCircle, HelpCircle, X, ChevronUp } from 'lucide-react';
 
 const _FloatingActionButton = (): JSX.Element => {
     const [isOpen, setIsOpen] = useState(false);

@@ -1,10 +1,10 @@
-// Custom matchers for bun:test
-import type { CustomMatcher } from 'expect';
+// Custom matchers for Vitest/Jest
+import type { MatcherFunction } from 'expect';
 
 // Custom matcher to check if a DOM element has an IndiCab-specific class
-export const toHaveIndicabStyle: CustomMatcher = function(received, className) {
-    const element = received;
-    const pass = element && element.includes(`class="${className}"`) || element.includes(`className="${className}"`);
+export const toHaveIndicabStyle: MatcherFunction<[string]> = function(received, className) {
+    const element = typeof received === 'string' ? received : '';
+    const pass = element && (element.includes(`class="${className}"`) || element.includes(`className="${className}"`));
 
     if (pass) {
         return {
@@ -20,7 +20,7 @@ export const toHaveIndicabStyle: CustomMatcher = function(received, className) {
 };
 
 // Custom matcher to verify route format (from-to format)
-export const toBeValidRouteFormat: CustomMatcher = function(received) {
+export const toBeValidRouteFormat: MatcherFunction<[]> = function(received) {
     const route = received;
     const _routeRegex = /^[A-Za-z\s]+ to [A-Za-z\s]+$/; // "City1 to City2" format
     const pass = typeof route === 'string' && _routeRegex.test(route);
@@ -39,7 +39,7 @@ export const toBeValidRouteFormat: CustomMatcher = function(received) {
 };
 
 // Custom matcher to check if a price string is in IndiCab format (₹X,XXX)
-export const toBeValidFareFormat: CustomMatcher = function(received) {
+export const toBeValidFareFormat: MatcherFunction<[]> = function(received) {
     const price = received;
     const _priceRegex = /^₹\d{1,3}(,\d{3})*(\.\d{2})?$/; // ₹X,XXX or ₹X,XXX.XX format
     const pass = typeof price === 'string' && _priceRegex.test(price);
@@ -58,8 +58,8 @@ export const toBeValidFareFormat: CustomMatcher = function(received) {
 };
 
 // Custom matcher to check if a component has the necessary accessibility attributes
-export const toHaveA11yAttributes: CustomMatcher = function(received, requiredAttributes) {
-    const element = received;
+export const toHaveA11yAttributes: MatcherFunction<[string[]]> = function(received, requiredAttributes) {
+    const element = typeof received === 'string' ? received : '';
     const attributes = requiredAttributes as string[];
 
     // Check if all required attributes are present in the element
@@ -82,15 +82,15 @@ export const toHaveA11yAttributes: CustomMatcher = function(received, requiredAt
     }
 };
 
-// Register custom matchers
-export const registerCustomMatchers = () => {
+// Register all custom matchers for Vitest/Jest
+export function registerCustomMatchers() {
     expect.extend({
         toHaveIndicabStyle,
         toBeValidRouteFormat,
         toBeValidFareFormat,
         toHaveA11yAttributes,
     });
-};
+}
 
 // Extend TypeScript declarations
 declare global {
@@ -100,6 +100,16 @@ declare global {
             toBeValidRouteFormat(): R;
             toBeValidFareFormat(): R;
             toHaveA11yAttributes(requiredAttributes: string[]): R;
+        }
+    }
+    // For Vitest
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace Vi {
+        interface Assertion {
+            toHaveIndicabStyle(className: string): void;
+            toBeValidRouteFormat(): void;
+            toBeValidFareFormat(): void;
+            toHaveA11yAttributes(requiredAttributes: string[]): void;
         }
     }
 }

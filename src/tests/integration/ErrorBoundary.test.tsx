@@ -1,22 +1,23 @@
 import * as Sentry from '@sentry/nextjs';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 
-import { ErrorBoundary } from '@/components/common/ErrorBoundary';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 import { performanceMonitor } from '@/utils/performance';
 
 // Mock Sentry
-jest.mock('@sentry/nextjs', () => ({
-  captureException: jest.fn(),
-  showReportDialog: jest.fn(),
-  withScope: jest.fn((callback) => callback({ setExtras: jest.fn() }))
+vi.mock('@sentry/nextjs', () => ({
+  captureException: vi.fn(),
+  showReportDialog: vi.fn(),
+  withScope: vi.fn((callback) => callback({ setExtras: vi.fn() }))
 }));
 
 // Mock performance API
 const mockPerformance = {
-  mark: jest.fn(),
-  measure: jest.fn(),
-  clearMarks: jest.fn(),
-  clearMeasures: jest.fn()
+  mark: vi.fn(),
+  measure: vi.fn(),
+  clearMarks: vi.fn(),
+  clearMeasures: vi.fn()
 };
 global.performance = mockPerformance as any;
 
@@ -27,7 +28,7 @@ const ThrowError = ({ message = 'Test error' }: { message?: string }) => {
 
 describe('ErrorBoundary Integration', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     performanceMonitor.clearMetrics();
   });
 
@@ -43,7 +44,7 @@ describe('ErrorBoundary Integration', () => {
   });
 
   it('handles retry functionality', async () => {
-    const onRetry = jest.fn();
+    const onRetry = vi.fn();
     const { rerender } = render(
       <ErrorBoundary>
         <ThrowError />
@@ -146,7 +147,7 @@ describe('ErrorBoundary Integration', () => {
   });
 
   it('handles error reporting with custom handler', () => {
-    const onError = jest.fn();
+    const onError = vi.fn();
     render(
       <ErrorBoundary onError={onError}>
         <ThrowError />

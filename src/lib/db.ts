@@ -1,6 +1,6 @@
 import mongoose, { type ConnectOptions, Schema, model, models } from "mongoose";
 
-import { _logger } from './logger';
+import { logger } from './logger';
 
 /**
  * Interface for cached MongoDB connection
@@ -12,15 +12,18 @@ interface CachedConnection {
 }
 
 declare global {
-	// Using let instead of var for better scoping
-	let indicabMongooseCache: CachedConnection;
+	// Use var for Node.js globalThis
+	var indicabMongooseCache: CachedConnection;
 }
 
-const MONGODB_URI = process.env.MONGODB_URI as string;
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI && process.env.SKIP_DB_CONNECTION !== 'true') {
+	throw new Error('MONGODB_URI environment variable is not defined');
+}
 
 if (!MONGODB_URI) {
 	const error = new Error("MONGODB_URI environment variable is not defined");
-	_logger.error(error.message);
+	logger.error(error.message);
 	throw error;
 }
 
@@ -28,13 +31,12 @@ if (!MONGODB_URI.startsWith("mongodb")) {
 	const error = new Error(
 		"Invalid MONGODB_URI format - must start with mongodb:// or mongodb+srv://",
 	);
-	_logger.error(error.message);
 	logger.error(error.message);
 	throw error;
 }
 
-if (!global.indicabMongooseCache) {
-	global.indicabMongooseCache = {
+if (!globalThis.indicabMongooseCache) {
+	globalThis.indicabMongooseCache = {
 		conn: null,
 		promise: null,
 		lastConnected: null,
@@ -47,8 +49,14 @@ if (!global.indicabMongooseCache) {
  * @returns {Promise<typeof mongoose>} Mongoose connection
  */
 export async function connectDB(): Promise<typeof mongoose> {
-	if (global.indicabMongooseCache.conn) {
-		const conn = global.indicabMongooseCache.conn;
+	// Skip DB connection if flag is set (for tests)
+	if (process.env.SKIP_DB_CONNECTION === 'true') {
+		logger.info('Skipping MongoDB connection due to SKIP_DB_CONNECTION flag');
+		return mongoose;
+	}
+
+	if (globalThis.indicabMongooseCache.conn) {
+		const conn = globalThis.indicabMongooseCache.conn;
 		if (!conn) {
 			const error = new Error("MongoDB connection not established");
 			logger.error(error.message);
@@ -64,11 +72,11 @@ export async function connectDB(): Promise<typeof mongoose> {
 			return conn;
 		} catch (error) {
 			logger.warn("MongoDB connection stale, reconnecting...", { error });
-			global.indicabMongooseCache.conn = null;
+			globalThis.indicabMongooseCache.conn = null;
 		}
 	}
 
-	if (!global.indicabMongooseCache.promise) {
+	if (!globalThis.indicabMongooseCache.promise) {
 		const _opts: ConnectOptions = {
 			bufferCommands: false,
 			serverSelectionTimeoutMS: 5000,
@@ -77,30 +85,57 @@ export async function connectDB(): Promise<typeof mongoose> {
 		};
 
 		logger.info("Establishing new MongoDB connection...");
-		global.indicabMongooseCache.promise = mongoose
-			.connect(MONGODB_URI, _opts)
+		globalThis.indicabMongooseCache.promise = mongoose
+			.connect(MONGODB_URI!, _opts)
 			.then((conn) => {
 				logger.info("MongoDB connected successfully");
-				global.indicabMongooseCache.lastConnected = new Date();
+				globalThis.indicabMongooseCache.lastConnected = new Date();
 				return conn;
 			});
 	}
 
 	try {
-		global.indicabMongooseCache.conn =
-			await global.indicabMongooseCache.promise;
+		globalThis.indicabMongooseCache.conn =
+			await globalThis.indicabMongooseCache.promise;
 		logger.debug("Using existing MongoDB connection");
 	} catch (error) {
 		logger.error("MongoDB connection failed:", { error });
-		global.indicabMongooseCache.promise = null;
+		globalThis.indicabMongooseCache.promise = null;
 		throw new Error(
 			`MongoDB connection failed: ${error instanceof Error ? error.message : String(error)}`,
 		);
 	}
 
-	const conn = global.indicabMongooseCache.conn;
+	const conn = globalThis.indicabMongooseCache.conn;
 	if (!conn) throw new Error("MongoDB connection not established");
 	return conn;
+}
+
+export async function disconnectDB(): Promise<void> {
+	// Skip if not connected or if SKIP_DB_CONNECTION flag is set
+	if (!globalThis.indicabMongooseCache.conn || process.env.SKIP_DB_CONNECTION === 'true') {
+		return;
+	}
+
+	try {
+		await globalThis.indicabMongooseCache.conn.disconnect();
+		globalThis.indicabMongooseCache.conn = null;
+		logger.info('Disconnected from MongoDB');
+	} catch (error) {
+		logger.error('Error disconnecting from MongoDB:', { error });
+		throw new Error('Failed to disconnect from database');
+	}
+}
+
+// Initialize connection (only in non-test environments and if not skipped)
+if (process.env.NODE_ENV !== 'test' && process.env.SKIP_DB_CONNECTION !== 'true') {
+	try {
+		connectDB().catch(err => {
+			logger.error('Initial database connection failed:', { error: err });
+		});
+	} catch (err) {
+		logger.error('Failed to initialize database connection', { error: err });
+	}
 }
 
 export { Schema, model, models, mongoose };

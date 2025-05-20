@@ -17,6 +17,37 @@ vi.mock('next/navigation', () => ({
     })
 }));
 
+// Add i18n mock
+vi.mock('next-i18next', () => ({
+  useTranslation: () => ({ t: (key: string) => key, i18n: { language: 'en' } })
+}));
+
+// Mock LocationSearch to a simple input for testing (both possible import paths)
+vi.mock('../booking/LocationSearch', () => ({
+  __esModule: true,
+  default: (props: any) => (
+    <input
+      aria-label={props.label}
+      value={props.value || ''}
+      onChange={e => props.onChange ? props.onChange(e.target.value) : undefined}
+      placeholder={props.placeholder}
+      disabled={props.disabled}
+    />
+  )
+}));
+vi.mock('@/components/booking/LocationSearch', () => ({
+  __esModule: true,
+  default: (props: any) => (
+    <input
+      aria-label={props.label}
+      value={props.value || ''}
+      onChange={e => props.onChange ? props.onChange(e.target.value) : undefined}
+      placeholder={props.placeholder}
+      disabled={props.disabled}
+    />
+  )
+}));
+
 describe('BookingForm', () => {
     const mockDispatch = vi.fn();
     const mockUser = {

@@ -1,6 +1,7 @@
 'use client'
-import { useReportWebVitals } from 'next/web-vitals'
 import * as Sentry from '@sentry/nextjs'
+import { useReportWebVitals } from 'next/web-vitals'
+
 import { _logger } from '@/lib/logger'
 
 export function WebVitalsTracker() {

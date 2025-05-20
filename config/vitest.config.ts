@@ -25,5 +25,12 @@ export default defineConfig({
     alias: {
       '@': '/src'
     }
-  }
+  },
+  define: {
+    'process.env': {
+      MONGODB_URI: 'mongodb://localhost:27017/test',
+      NODE_ENV: 'test',
+      SKIP_DB_CONNECTION: 'true',
+    },
+  },
 }); 

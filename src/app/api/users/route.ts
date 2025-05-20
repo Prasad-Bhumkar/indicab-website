@@ -1,6 +1,35 @@
+import { NextResponse } from 'next/server';
 import { connectDB } from '../../../lib/db';
 import User from '../../../models/User';
-import { NextResponse } from 'next/server';
+
+/**
+ * @openapi
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     responses:
+ *       200:
+ *         description: List of users
+ *       500:
+ *         description: Internal server error
+ *   post:
+ *     summary: Create a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/UserRequest'
+ *     responses:
+ *       201:
+ *         description: User created
+ *       400:
+ *         description: Bad request
+ *       409:
+ *         description: Duplicate email
+ *       500:
+ *         description: Internal server error
+ */
 
 export async function GET() {
     try {

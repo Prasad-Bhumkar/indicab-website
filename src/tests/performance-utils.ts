@@ -14,7 +14,7 @@ export const measurePerformance = async <T>(
 
   for (let i = 0; i < iterations; i++) {
     const start = performance.now();
-    const result = await fn();
+    const _result = await fn();
     const end = performance.now();
     times.push(end - start);
   }

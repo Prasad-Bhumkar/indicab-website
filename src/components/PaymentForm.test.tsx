@@ -1,6 +1,7 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
+
 import { PaymentForm } from './PaymentForm';
 
 // Mock Stripe
@@ -16,7 +17,7 @@ vi.mock('@stripe/stripe-js', () => ({
     }),
 }));
 
-describe('PaymentForm', (): JSX.Element => {
+describe('PaymentForm', () => {
     const mockProps = {
         amount: 1000,
         bookingId: 'test-booking-123',
@@ -28,13 +29,13 @@ describe('PaymentForm', (): JSX.Element => {
         vi.clearAllMocks();
     });
 
-    it('renders payment form with correct amount', (): JSX.Element => {
+    it('renders payment form with correct amount', () => {
         render(<PaymentForm {...mockProps} />);
         expect(screen.getByText(/₹1,000/)).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /pay/i })).toBeInTheDocument();
     });
 
-    it('displays loading state while processing payment', async (): JSX.Element => {
+    it('displays loading state while processing payment', async () => {
         render(<PaymentForm {...mockProps} />);
         const payButton = screen.getByRole('button', { name: /pay/i });
 
@@ -44,7 +45,7 @@ describe('PaymentForm', (): JSX.Element => {
         expect(payButton).toBeDisabled();
     });
 
-    it('handles successful payment', async (): JSX.Element => {
+    it('handles successful payment', async () => {
         const mockCreatePaymentIntent = vi.fn().mockResolvedValue({
             clientSecret: 'test_secret',
         });
@@ -66,7 +67,7 @@ describe('PaymentForm', (): JSX.Element => {
         });
     });
 
-    it('handles payment error', async (): JSX.Element => {
+    it('handles payment error', async () => {
         global.fetch = vi.fn().mockImplementation(() =>
             Promise.resolve({
                 ok: false,
@@ -84,7 +85,7 @@ describe('PaymentForm', (): JSX.Element => {
         });
     });
 
-    it('validates required fields', (): JSX.Element => {
+    it('validates required fields', () => {
         render(<PaymentForm {...mockProps} amount={0} bookingId="" />);
         const payButton = screen.getByRole('button', { name: /pay/i });
 
@@ -94,7 +95,7 @@ describe('PaymentForm', (): JSX.Element => {
         expect(screen.getByText(/booking id required/i)).toBeInTheDocument();
     });
 
-    it('cleans up Stripe elements on unmount', (): JSX.Element => {
+    it('cleans up Stripe elements on unmount', () => {
         const { unmount } = render(<PaymentForm {...mockProps} />);
         const mockStripeElement = {
             unmount: vi.fn(),

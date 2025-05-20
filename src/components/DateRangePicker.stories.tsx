@@ -1,7 +1,11 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-import DateRangePicker, { DateRangePickerProps } from './DateRangePicker';
+
+import type { Meta, StoryFn } from '@storybook/react';
 import { useForm } from 'react-hook-form';
+
+import type { DateRangePickerProps } from './DateRangePicker';
+import DateRangePicker from './DateRangePicker';
+
 
 export default {
     title: 'Components/DateRangePicker',

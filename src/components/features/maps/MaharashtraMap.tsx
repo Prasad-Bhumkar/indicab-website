@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import { Card } from '../ui/card';
+import { useEffect, useRef, useState } from 'react';
+
+import { MapPin } from 'lucide-react';
 import Image from 'next/image';
-import { MapPin, Info } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import { Card } from '@/components/ui';
 
 interface Destination {
     id: string;
@@ -92,7 +94,7 @@ export function MaharashtraMap(): JSX.Element {
 
     // Return early if we're server-side rendering
     if (!isClient) {
-        return <div className="h-[500px] bg-gray-100 rounded-lg animate-pulse"></div>;
+        return <div className="h-[500px] bg-gray-100 rounded-lg animate-pulse" />;
     }
 
     return (

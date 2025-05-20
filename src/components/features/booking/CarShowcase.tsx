@@ -15,7 +15,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 
-import { Card } from "../../ui/Card";
+import { Card } from '@/components/ui';
 
 interface CarType {
     id: string;

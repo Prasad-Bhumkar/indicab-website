@@ -1,0 +1,16 @@
+{
+  "id": 22,
+  "created_at": "2025-05-19T18:10:22.000Z",
+  "updated_at": "2025-05-19T18:30:00.000Z",
+  "status": "completed",
+  "priority": "medium",
+  "dependencies": [],
+  "tags": [
+    "documentation",
+    "improvement"
+  ],
+  "title": "Documentation Improvements",
+  "description": "Improve and update project documentation, including README, API docs, and architecture diagrams.",
+  "archived_at": "2025-05-19T18:38:20.247Z",
+  "archived": true
+}

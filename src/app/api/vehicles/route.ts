@@ -1,6 +1,35 @@
+import { NextResponse } from 'next/server';
 import { connectDB } from '../../../lib/db';
 import Vehicle from '../../../models/Vehicle';
-import { NextResponse } from 'next/server';
+
+/**
+ * @openapi
+ * /api/vehicles:
+ *   get:
+ *     summary: Get all vehicles
+ *     responses:
+ *       200:
+ *         description: List of vehicles
+ *       500:
+ *         description: Internal server error
+ *   post:
+ *     summary: Create a new vehicle
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/VehicleRequest'
+ *     responses:
+ *       201:
+ *         description: Vehicle created
+ *       400:
+ *         description: Bad request
+ *       409:
+ *         description: Duplicate vehicle
+ *       500:
+ *         description: Internal server error
+ */
 
 export async function GET() {
     try {

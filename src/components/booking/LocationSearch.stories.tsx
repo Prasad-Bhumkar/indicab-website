@@ -1,6 +1,9 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-import LocationSearch, { LocationSearchProps } from './LocationSearch';
+
+import type { Meta, StoryFn } from '@storybook/react';
+
+import type { LocationSearchProps } from './LocationSearch';
+import LocationSearch from './LocationSearch';
 
 const _mockControl = {
     _formValues: {},

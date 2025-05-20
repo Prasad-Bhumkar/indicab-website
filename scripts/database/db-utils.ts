@@ -1,5 +1,5 @@
-import { connectDB } from '../../src/lib/db';
 import dotenv from 'dotenv';
+import { connectDB } from '../../src/lib/db';
 
 dotenv.config();
 
@@ -8,13 +8,14 @@ dotenv.config();
  */
 
 export interface ConnectionOptions {
-  uri?: string;
-  retryAttempts?: number;
-  timeoutMs?: number;
+  uri: string;
+  retryAttempts: number;
+  timeoutMs: number;
 }
 
 export const defaultOptions: ConnectionOptions = {
-  uri: process.env.MONGODB_URI,
+
+  uri: process.env.MONGODB_URI || '',
   retryAttempts: 3,
   timeoutMs: 5000,
 };
@@ -22,7 +23,7 @@ export const defaultOptions: ConnectionOptions = {
 /**
  * Tests the database connection
  */
-export async function testConnection(options: ConnectionOptions = defaultOptions): Promise<void> {
+export async function testConnection(_options: ConnectionOptions = defaultOptions): Promise<void> {
   try {
     console.log('Attempting to connect to database...');
     await connectDB();

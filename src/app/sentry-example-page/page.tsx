@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import * as Sentry from '@sentry/nextjs';
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SentryExamplePage() {
     const [error, setError] = useState<string | null>(null);

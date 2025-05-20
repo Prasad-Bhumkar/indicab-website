@@ -1,0 +1,11 @@
+{
+  "id": 15,
+  "created_at": "2025-05-19T18:00:06.000Z",
+  "updated_at": "2025-05-19T18:00:06.000Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [],
+  "tags": ["accessibility", "a11y", "tech-debt"],
+  "title": "Accessibility Audit",
+  "description": "Use Lighthouse and manual testing to fix accessibility issues."
+} 

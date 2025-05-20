@@ -1,0 +1,160 @@
+/**
+ * Task Creation Rule
+ * Defines the structure and validation for creating new tasks
+ */
+
+// Task structure definition
+const taskSchema = {
+  properties: {
+    id: {
+      type: "number",
+      description: "Unique identifier for the task (auto-incrementing)",
+      required: true
+    },
+    title: {
+      type: "string",
+      description: "Title of the task",
+      required: true,
+      minLength: 3,
+      maxLength: 100
+    },
+    description: {
+      type: "string",
+      description: "Detailed description of the task",
+      required: true,
+      minLength: 10
+    },
+    status: {
+      type: "string",
+      description: "Current status of the task",
+      enum: ["pending", "in-progress", "completed", "blocked"],
+      default: "pending"
+    },
+    priority: {
+      type: "string",
+      description: "Priority level of the task",
+      enum: ["low", "medium", "high", "critical"],
+      default: "medium"
+    },
+    assignee: {
+      type: "string",
+      description: "Person assigned to the task",
+      required: false
+    },
+    created_at: {
+      type: "string",
+      description: "Date and time when the task was created",
+      format: "date-time"
+    },
+    updated_at: {
+      type: "string",
+      description: "Date and time when the task was last updated",
+      format: "date-time"
+    },
+    dependencies: {
+      type: "array",
+      description: "IDs of tasks that this task depends on",
+      items: {
+        type: "number"
+      },
+      default: []
+    },
+    estimated_hours: {
+      type: "number",
+      description: "Estimated hours to complete the task",
+      minimum: 0,
+      required: false
+    },
+    tags: {
+      type: "array",
+      description: "Tags associated with the task",
+      items: {
+        type: "string"
+      },
+      default: []
+    }
+  }
+};
+
+// Function to generate a new task ID
+function generateTaskId() {
+  // Read existing tasks to find the highest ID
+  const fs = require('fs');
+  const path = require('path');
+  const tasksDir = path.resolve(__dirname, '../tasks');
+  
+  let maxId = 0;
+  
+  try {
+    const files = fs.readdirSync(tasksDir);
+    files.forEach(file => {
+      if (file.endsWith('.json')) {
+        try {
+          const taskContent = fs.readFileSync(path.join(tasksDir, file), 'utf8');
+          const task = JSON.parse(taskContent);
+          if (task.id && task.id > maxId) {
+            maxId = task.id;
+          }
+        } catch (err) {
+          console.error(`Error reading task file ${file}:`, err);
+        }
+      }
+    });
+  } catch (err) {
+    console.error('Error reading tasks directory:', err);
+  }
+  
+  return maxId + 1;
+}
+
+// Function to create a new task
+function createTask(taskData) {
+  const fs = require('fs');
+  const path = require('path');
+  
+  // Fill in default values and validate
+  const newTask = {
+    id: generateTaskId(),
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    status: "pending",
+    priority: "medium",
+    dependencies: [],
+    tags: [],
+    ...taskData
+  };
+  
+  // Basic validation
+  if (!newTask.title || newTask.title.length < 3) {
+    throw new Error('Task title is required and must be at least 3 characters long');
+  }
+  
+  if (!newTask.description || newTask.description.length < 10) {
+    throw new Error('Task description is required and must be at least 10 characters long');
+  }
+  
+  // Save the task
+  const taskFilePath = path.resolve(__dirname, `../tasks/${newTask.id}_${slugify(newTask.title)}.json`);
+  fs.writeFileSync(taskFilePath, JSON.stringify(newTask, null, 2), 'utf8');
+  
+  console.log(`Task #${newTask.id} created successfully`);
+  return newTask;
+}
+
+// Helper function to convert a string to a slug
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+
+module.exports = {
+  taskSchema,
+  createTask,
+  generateTaskId
+}; 

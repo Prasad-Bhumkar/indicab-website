@@ -1,4 +1,4 @@
-import { VehicleType, BookingRequest } from './types';
+import { BookingRequest, VehicleType } from './types';
 
 export const API_BASE_URL = '/api';
 
@@ -28,3 +28,6 @@ export const submitBooking = async (_booking: BookingRequest): Promise<{ success
         throw error;
     }
 };
+
+export { createBooking, deleteBooking, getBooking, updateBooking } from '@/services/booking/api';
+

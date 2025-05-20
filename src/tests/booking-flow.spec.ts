@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Booking Flow', () => {
     test('complete booking process from homepage', async ({ page }) => {

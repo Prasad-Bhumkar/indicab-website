@@ -1,0 +1,17 @@
+{
+  "id": 20,
+  "created_at": "2025-05-19T18:10:20.000Z",
+  "updated_at": "2025-05-19T18:30:00.000Z",
+  "status": "completed",
+  "priority": "high",
+  "dependencies": [],
+  "tags": [
+    "admin",
+    "integration",
+    "task-system"
+  ],
+  "title": "Integrate Task System with Admin Dashboard",
+  "description": "Integrate the automated task management system into the admin dashboard for project management and visibility.",
+  "archived_at": "2025-05-19T18:38:20.244Z",
+  "archived": true
+}

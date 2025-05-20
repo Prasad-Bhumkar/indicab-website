@@ -121,7 +121,7 @@ export const trackUserAction = async (
         await storeEventInDB({
             category: 'User',
             action,
-            properties
+            properties: properties as Record<string, unknown>
         });
     } catch (error) {
         console.error('Failed to track user action:', error);
@@ -279,7 +279,7 @@ export const identifyUser = async (
             category: 'User',
             action: 'Identified',
             userId,
-            properties: traits
+            properties: traits as Record<string, unknown>
         });
     } catch (error) {
         console.error('Failed to identify user:', error);

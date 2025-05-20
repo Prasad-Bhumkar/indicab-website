@@ -2,6 +2,7 @@
 'use client'
 
 import { Component } from 'react'
+
 import { useRouter } from 'next/navigation'
 
 interface ErrorBoundaryProps {

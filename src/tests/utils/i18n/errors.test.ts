@@ -1,8 +1,9 @@
-import type { ErrorCode} from '@/utils/i18n/errors';
+import type { ErrorCode } from '@/utils/i18n/errors';
 import { formatErrorDetails, getErrorMessage, getLocalizedError } from '@/utils/i18n/errors';
+import { vi } from 'vitest';
 
 // Mock next-i18next
-jest.mock('next-i18next', () => ({
+vi.mock('next-i18next', () => ({
   i18n: {
     language: 'en'
   }

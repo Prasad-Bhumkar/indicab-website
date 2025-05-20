@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { BookingFormData } from './';
+
 import { Car } from 'lucide-react';
+
+import type { BookingFormData } from ".";
 
 // Placeholder vehicle data
 const vehicles = [

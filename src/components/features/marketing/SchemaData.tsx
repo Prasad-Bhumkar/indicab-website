@@ -65,9 +65,9 @@ export type SchemaDataType =
     | { type: 'breadcrumb'; data: Array<{ name: string, url: string }> }
     | { type: 'custom'; data: Record<string, unknown> };
 
-type SchemaDataProps = {
+interface SchemaDataProps {
     schema: SchemaDataType | SchemaDataType[];
-};
+}
 
 export default function SchemaData({ schema }: SchemaDataProps): JSX.Element {
     const [mounted, setMounted] = useState(false);

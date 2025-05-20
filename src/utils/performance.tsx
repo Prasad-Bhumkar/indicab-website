@@ -1,3 +1,5 @@
+import * as React from "react";
+
 // Performance metrics tracking
 export const trackPerformanceMetrics = () => {
     if (typeof window !== 'undefined') {

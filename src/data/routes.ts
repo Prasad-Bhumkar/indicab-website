@@ -126,12 +126,16 @@ export const routes: Route[] = [
         reviews: [
             {
                 id: 1,
+                userId: 1001,
+                userName: 'John Doe',
+                userAvatar: '/images/avatars/user-1.jpg',
                 rating: 4.5,
                 comment: 'Great service and comfortable ride!',
-                userName: 'John Doe',
                 date: '2024-02-15'
             }
         ],
+        fromCoordinates: [19.0760, 72.8777],
+        toCoordinates: [18.5204, 73.8567],
         coordinates: {
             from: { lat: 19.0760, lng: 72.8777 },
             to: { lat: 18.5204, lng: 73.8567 }
@@ -152,12 +156,16 @@ export const routes: Route[] = [
         reviews: [
             {
                 id: 2,
+                userId: 1002,
+                userName: 'Jane Smith',
+                userAvatar: '/images/avatars/user-2.jpg',
                 rating: 5,
                 comment: 'Excellent service and punctual!',
-                userName: 'Jane Smith',
                 date: '2024-02-14'
             }
         ],
+        fromCoordinates: [28.7041, 77.1025],
+        toCoordinates: [27.1767, 78.0081],
         coordinates: {
             from: { lat: 28.7041, lng: 77.1025 },
             to: { lat: 27.1767, lng: 78.0081 }
@@ -174,15 +182,20 @@ export const routes: Route[] = [
         image: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=1000',
         popular: false,
         vehicleTypes: ['Sedan', 'SUV'],
-        amenities: ['AC', 'WiFi', 'Refreshments'],
+        amenities: ['AC', 'WiFi', 'Water'],
         reviews: [
             {
+                id: 3,
+                userId: 1003,
                 userName: 'Deepa R.',
+                userAvatar: '/images/avatars/user-3.jpg',
                 rating: 4,
                 comment: 'Nice journey with good road conditions.',
                 date: '2024-02-08'
             }
         ],
+        fromCoordinates: [12.9716, 77.5946],
+        toCoordinates: [12.2958, 76.6394],
         coordinates: {
             from: { lat: 12.9716, lng: 77.5946 },
             to: { lat: 12.2958, lng: 76.6394 }
@@ -369,6 +382,4 @@ export const routes: Route[] = [
         }
     }
 ];
-
-export type { Route };
 

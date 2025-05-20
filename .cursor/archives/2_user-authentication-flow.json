@@ -1,0 +1,19 @@
+{
+  "id": 2,
+  "created_at": "2025-05-19T17:45:08.095Z",
+  "updated_at": "2025-05-19T17:45:08.124Z",
+  "status": "completed",
+  "priority": "high",
+  "dependencies": [
+    1
+  ],
+  "tags": [
+    "auth",
+    "security",
+    "frontend"
+  ],
+  "title": "User Authentication Flow",
+  "description": "Create the authentication flow including login, registration, and password reset functionality.",
+  "archived_at": "2025-05-19T17:45:08.130Z",
+  "archived": true
+}

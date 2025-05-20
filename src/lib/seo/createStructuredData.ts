@@ -18,39 +18,51 @@
  * @returns {Object} JSON-LD structured data
  * @throws {Error} If required fields are missing
  */
-export function createOrganizationData(options: {
-    url?: string;
-    logo?: string;
-    socialProfiles?: string[];
-    phone?: string;
-} = {}) {
-    const { url = 'https://indicab.example.com', logo = 'https://indicab.example.com/indicab-logo.svg', socialProfiles = [], phone = '+91-9876543210' } = options;
-
-    if (!url || !logo) {
-        throw new Error('Organization URL and logo are required');
+export function createOrganizationData(options: OrganizationStructuredDataOptions): OrganizationStructuredData {
+  const { 
+    name = 'IndiCab', 
+    url = 'https://indicab.example.com', 
+    logo = 'https://indicab.example.com/indicab-logo.svg',
+    sameAs = [
+      'https://www.facebook.com/indicab',
+      'https://www.instagram.com/indicab',
+      'https://twitter.com/indicab'
+    ],
+    contactPoint = {
+      telephone: '+91-9876543210',
+      contactType: 'customer service',
+      availableLanguage: ['English', 'Hindi']
     }
+  } = options;
 
-    if (!phone) {
-        throw new Error('Contact phone number is required');
+  // Validate required fields
+  if (!url) {
+    throw new Error('Organization URL is required');
+  }
+  if (!logo) {
+    throw new Error('Organization logo is required');
+  }
+  if (!contactPoint.telephone) {
+    throw new Error('Contact phone number is required');
+  }
+  
+  // Ensure availableLanguage is always a defined array
+  const availableLanguage = contactPoint.availableLanguage || ['English'];
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: name || 'IndiCab', // Ensure name is always a string
+    url: url, // Already validated above
+    logo: logo, // Already validated above
+    sameAs,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: contactPoint.telephone,
+      contactType: contactPoint.contactType || 'customer service',
+      availableLanguage
     }
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        name: 'IndiCab',
-        url: 'https://indicab.example.com', // Replace with your actual domain
-        logo: 'https://indicab.example.com/indicab-logo.svg', // Replace with your actual logo URL
-        sameAs: [
-            'https://www.facebook.com/indicab',
-            'https://www.instagram.com/indicab',
-            'https://twitter.com/indicab'
-        ],
-        contactPoint: {
-            '@type': 'ContactPoint',
-            telephone: '+91-9876543210',
-            contactType: 'customer service',
-            availableLanguage: ['English', 'Hindi']
-        }
-    };
+  };
 }
 
 /**
@@ -65,66 +77,94 @@ export function createOrganizationData(options: {
  * @returns {Object} JSON-LD structured data
  * @throws {Error} If required fields are missing
  */
-export function createLocalBusinessData(options: {
-    name: string;
-    image: string;
-    url: string;
-    phone: string;
+export interface LocalBusinessAddress {
+  streetAddress: string;
+  addressLocality: string;
+  postalCode: string;
+  addressCountry: string;
+}
+export interface LocalBusinessGeo {
+  latitude: number;
+  longitude: number;
+}
+export interface LocalBusinessDataInput {
+  name: string;
+  image: string;
+  url: string;
+  phone: string;
+  address: LocalBusinessAddress;
+  geo: LocalBusinessGeo;
+}
+export interface LocalBusinessStructuredData {
+  '@context': 'https://schema.org';
+  '@type': 'TaxiService';
+  name: string;
+  image: string;
+  '@id': string;
+  url: string;
+  telephone: string;
+  address: {
+    '@type': 'PostalAddress';
+    streetAddress: string;
+    addressLocality: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  geo: {
+    '@type': 'GeoCoordinates';
+    latitude: number;
+    longitude: number;
+  };
+  priceRange: string;
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification';
+    dayOfWeek: string[];
+    opens: string;
+    closes: string;
+  };
+}
+export function createLocalBusinessData(options: LocalBusinessDataInput): LocalBusinessStructuredData {
+  const { name, image, url, phone, address, geo } = options;
+  if (!name || !image || !url || !phone) {
+    throw new Error('Name, image, URL and phone are required');
+  }
+  if (!address || !address.streetAddress || !address.addressLocality || !address.postalCode || !address.addressCountry) {
+    throw new Error('Complete address information is required');
+  }
+  if (!geo || !geo.latitude || !geo.longitude) {
+    throw new Error('Geo coordinates are required');
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TaxiService',
+    name,
+    image,
+    '@id': url,
+    url,
+    telephone: phone,
     address: {
-        streetAddress: string;
-        addressLocality: string;
-        postalCode: string;
-        addressCountry: string;
-    };
+      '@type': 'PostalAddress',
+      streetAddress: address.streetAddress,
+      addressLocality: address.addressLocality,
+      postalCode: address.postalCode,
+      addressCountry: address.addressCountry
+    },
     geo: {
-        latitude: number;
-        longitude: number;
-    };
-}) {
-    const { name, image, url, phone, address, geo } = options;
-
-    if (!name || !image || !url || !phone) {
-        throw new Error('Name, image, URL and phone are required');
+      '@type': 'GeoCoordinates',
+      latitude: geo.latitude,
+      longitude: geo.longitude
+    },
+    priceRange: '₹₹',
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday', 'Tuesday', 'Wednesday',
+        'Thursday', 'Friday', 'Saturday', 'Sunday'
+      ],
+      opens: '00:00',
+      closes: '23:59'
     }
-
-    if (!address || !address.streetAddress || !address.addressLocality || !address.postalCode || !address.addressCountry) {
-        throw new Error('Complete address information is required');
-    }
-
-    if (!geo || !geo.latitude || !geo.longitude) {
-        throw new Error('Geo coordinates are required');
-    }
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'TaxiService',
-        name: 'IndiCab',
-        image: 'https://indicab.example.com/indicab-logo.svg',
-        '@id': 'https://indicab.example.com',
-        url: 'https://indicab.example.com',
-        telephone: '+91-9876543210',
-        address: {
-            '@type': 'PostalAddress',
-            streetAddress: '123 Cab Street',
-            addressLocality: 'New Delhi',
-            postalCode: '110001',
-            addressCountry: 'IN'
-        },
-        geo: {
-            '@type': 'GeoCoordinates',
-            latitude: 28.6139,
-            longitude: 77.2090
-        },
-        priceRange: '₹₹',
-        openingHoursSpecification: {
-            '@type': 'OpeningHoursSpecification',
-            dayOfWeek: [
-                'Monday', 'Tuesday', 'Wednesday',
-                'Thursday', 'Friday', 'Saturday', 'Sunday'
-            ],
-            opens: '00:00',
-            closes: '23:59'
-        }
-    };
+  };
 }
 
 /**
@@ -133,28 +173,45 @@ export function createLocalBusinessData(options: {
  * @returns {Object} JSON-LD structured data
  * @throws {Error} If FAQ array is empty or items are invalid
  */
-export function createFaqData(faqs: Array<{ question: string, answer: string }>) {
-    if (!faqs || !faqs.length) {
-        throw new Error('At least one FAQ item is required');
-    }
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
 
-    for (const faq of faqs) {
-        if (!faq.question || !faq.answer) {
-            throw new Error('Each FAQ item must have both question and answer');
-        }
-    }
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqs.map(faq => ({
-            '@type': 'Question',
-            name: faq.question,
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer
-            }
-        }))
+export interface FaqStructuredData {
+  '@context': 'https://schema.org';
+  '@type': 'FAQPage';
+  mainEntity: Array<{
+    '@type': 'Question';
+    name: string;
+    acceptedAnswer: {
+      '@type': 'Answer';
+      text: string;
     };
+  }>;
+}
+
+export function createFaqData(faqs: FaqItem[]): FaqStructuredData {
+  if (!faqs || !faqs.length) {
+    throw new Error('At least one FAQ item is required');
+  }
+  for (const faq of faqs) {
+    if (!faq.question || !faq.answer) {
+      throw new Error('Each FAQ item must have both question and answer');
+    }
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  };
 }
 
 /**
@@ -169,38 +226,60 @@ export function createFaqData(faqs: Array<{ question: string, answer: string }>)
  * @returns {Object} JSON-LD structured data
  * @throws {Error} If required fields are missing
  */
-export function createServiceData(service: {
+export interface ServiceDataInput {
+  name: string;
+  description: string;
+  provider?: string;
+  areaServed?: string[];
+  price?: string;
+  image?: string;
+}
+export interface ServiceStructuredData {
+  '@context': 'https://schema.org';
+  '@type': 'Service';
+  serviceType: string;
+  name: string;
+  description: string;
+  provider: {
+    '@type': 'Organization';
     name: string;
-    description: string;
-    provider?: string;
-    areaServed?: string[];
-    price?: string;
-    image?: string;
-}) {
-    if (!service.name || !service.description) {
-        throw new Error('Service name and description are required');
-    }
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'Service',
-        serviceType: 'TaxiService',
-        name: service.name,
-        description: service.description,
-        provider: {
-            '@type': 'Organization',
-            name: service.provider || 'IndiCab'
-        },
-        areaServed: service.areaServed?.map(_area => ({
-            '@type': 'City',
-            name: _area
-        })) || [],
-        offers: {
-            '@type': 'Offer',
-            price: service.price || '',
-            priceCurrency: 'INR'
-        },
-        image: service.image || 'https://indicab.example.com/indicab-logo.svg'
-    };
+  };
+  areaServed: Array<{
+    '@type': 'City';
+    name: string;
+  }>;
+  offers: {
+    '@type': 'Offer';
+    price: string;
+    priceCurrency: string;
+  };
+  image: string;
+}
+export function createServiceData(service: ServiceDataInput): ServiceStructuredData {
+  if (!service.name || !service.description) {
+    throw new Error('Service name and description are required');
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'TaxiService',
+    name: service.name,
+    description: service.description,
+    provider: {
+      '@type': 'Organization',
+      name: service.provider || 'IndiCab'
+    },
+    areaServed: service.areaServed?.map(_area => ({
+      '@type': 'City',
+      name: _area
+    })) || [],
+    offers: {
+      '@type': 'Offer',
+      price: service.price || '',
+      priceCurrency: 'INR'
+    },
+    image: service.image || 'https://indicab.example.com/indicab-logo.svg'
+  };
 }
 
 /**
@@ -215,44 +294,66 @@ export function createServiceData(service: {
  * @returns {Object} JSON-LD structured data
  * @throws {Error} If required fields are missing or invalid
  */
-export function createArticleData(article: {
-    headline: string;
-    description: string;
-    image: string;
-    datePublished: string;
-    dateModified?: string;
-    author: string;
-}) {
-    if (!article.headline || !article.description || !article.image) {
-        throw new Error('Article headline, description and image are required');
-    }
-    if (!article.datePublished || isNaN(Date.parse(article.datePublished))) {
-        throw new Error('Valid publication date is required');
-    }
-    if (!article.author) {
-        throw new Error('Author name is required');
-    }
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'Article',
-        headline: article.headline,
-        description: article.description,
-        image: article.image,
-        datePublished: article.datePublished,
-        dateModified: article.dateModified || article.datePublished,
-        author: {
-            '@type': 'Person',
-            name: article.author
-        },
-        publisher: {
-            '@type': 'Organization',
-            name: 'IndiCab',
-            logo: {
-                '@type': 'ImageObject',
-                url: 'https://indicab.example.com/indicab-logo.svg'
-            }
-        }
+export interface ArticleDataInput {
+  headline: string;
+  description: string;
+  image: string;
+  datePublished: string;
+  dateModified?: string;
+  author: string;
+}
+export interface ArticleStructuredData {
+  '@context': 'https://schema.org';
+  '@type': 'Article';
+  headline: string;
+  description: string;
+  image: string;
+  datePublished: string;
+  dateModified: string;
+  author: {
+    '@type': 'Person';
+    name: string;
+  };
+  publisher: {
+    '@type': 'Organization';
+    name: string;
+    logo: {
+      '@type': 'ImageObject';
+      url: string;
     };
+  };
+}
+export function createArticleData(article: ArticleDataInput): ArticleStructuredData {
+  if (!article.headline || !article.description || !article.image) {
+    throw new Error('Article headline, description and image are required');
+  }
+  if (!article.datePublished || isNaN(Date.parse(article.datePublished))) {
+    throw new Error('Valid publication date is required');
+  }
+  if (!article.author) {
+    throw new Error('Author name is required');
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.headline,
+    description: article.description,
+    image: article.image,
+    datePublished: article.datePublished,
+    dateModified: article.dateModified || article.datePublished,
+    author: {
+      '@type': 'Person',
+      name: article.author
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'IndiCab',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://indicab.example.com/indicab-logo.svg'
+      }
+    }
+  };
 }
 
 /**
@@ -261,31 +362,97 @@ export function createArticleData(article: {
  * @returns {Object} JSON-LD structured data
  * @throws {Error} If breadcrumbs array is empty or items are invalid
  */
-export function createBreadcrumbData(breadcrumbs: Array<{ name: string, url: string }>) {
-    if (!breadcrumbs || !breadcrumbs.length) {
-        throw new Error('At least one breadcrumb item is required');
-    }
-    for (const crumb of breadcrumbs) {
-        if (!crumb.name || !crumb.url) {
-            throw new Error('Each breadcrumb must have both name and URL');
-        }
-    }
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: breadcrumbs.map((breadcrumb, _index) => ({
-            '@type': 'ListItem',
-            position: _index + 1,
-            name: breadcrumb.name,
-            item: breadcrumb.url
-        }))
-    };
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
 }
 
-export function createOrganizationStructuredData(data: any): any {
-    throw new Error('Function not implemented.');
+export interface BreadcrumbStructuredData {
+  '@context': 'https://schema.org';
+  '@type': 'BreadcrumbList';
+  itemListElement: Array<{
+    '@type': 'ListItem';
+    position: number;
+    name: string;
+    item: string;
+  }>;
 }
 
-export function createOrganizationStructuredData(data: any): any {
-    throw new Error('Function not implemented.');
+export function createBreadcrumbData(breadcrumbs: BreadcrumbItem[]): BreadcrumbStructuredData {
+  if (!breadcrumbs || !breadcrumbs.length) {
+    throw new Error('At least one breadcrumb item is required');
+  }
+  for (const crumb of breadcrumbs) {
+    if (!crumb.name || !crumb.url) {
+      throw new Error('Each breadcrumb must have both name and URL');
+    }
+  }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((breadcrumb, _index) => ({
+      '@type': 'ListItem',
+      position: _index + 1,
+      name: breadcrumb.name,
+      item: breadcrumb.url
+    }))
+  };
+}
+
+export interface OrganizationStructuredDataOptions {
+  name?: string;
+  url?: string;
+  logo?: string;
+  sameAs?: string[];
+  contactPoint?: {
+    telephone: string;
+    contactType: string;
+    availableLanguage: string[];
+  };
+}
+
+export interface OrganizationStructuredData {
+  '@context': 'https://schema.org';
+  '@type': 'Organization';
+  name: string;
+  url: string;
+  logo: string;
+  sameAs?: string[];
+  contactPoint: {
+    '@type': 'ContactPoint';
+    telephone: string;
+    contactType: string;
+    availableLanguage: string[];
+  };
+}
+
+export function createOrganizationStructuredData(
+  options: OrganizationStructuredDataOptions
+): OrganizationStructuredData {
+  const { 
+    name = 'IndiCab', 
+    url = 'https://indicab.example.com', 
+    logo = 'https://indicab.example.com/indicab-logo.svg', 
+    sameAs, 
+    contactPoint = {
+      telephone: '+91-9876543210',
+      contactType: 'customer service',
+      availableLanguage: ['English', 'Hindi']
+    } 
+  } = options;
+  
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name,
+    url,
+    logo,
+    ...(sameAs ? { sameAs } : {}),
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: contactPoint.telephone,
+      contactType: contactPoint.contactType || 'customer service',
+      availableLanguage: contactPoint.availableLanguage || ['English']
+    }
+  };
 }

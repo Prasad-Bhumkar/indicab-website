@@ -1,0 +1,164 @@
+/**
+ * Task Archiving Rule
+ * Defines the rules for archiving completed tasks
+ */
+
+const fs = require('fs');
+const path = require('path');
+const { getTaskById, listTasks } = require('./task_management.rule');
+
+// Function to archive a completed task
+function archiveTask(taskId) {
+  const taskInfo = getTaskById(taskId);
+  
+  if (!taskInfo) {
+    throw new Error(`Task with ID ${taskId} not found`);
+  }
+  
+  const { task, filePath } = taskInfo;
+  
+  // Check if the task is completed
+  if (task.status !== 'completed') {
+    throw new Error(`Task #${taskId} is not completed and cannot be archived`);
+  }
+  
+  // Add archiving metadata
+  const archivedTask = {
+    ...task,
+    archived_at: new Date().toISOString(),
+    archived: true
+  };
+  
+  // Save to archives directory
+  const archivesDir = path.resolve(__dirname, '../archives');
+  const archiveFilePath = path.join(archivesDir, path.basename(filePath));
+  
+  fs.writeFileSync(archiveFilePath, JSON.stringify(archivedTask, null, 2), 'utf8');
+  
+  // Remove from active tasks
+  fs.unlinkSync(filePath);
+  
+  console.log(`Task #${taskId} archived successfully`);
+  return archivedTask;
+}
+
+// Function to bulk archive all completed tasks
+function archiveCompletedTasks() {
+  const completedTasks = listTasks({ status: 'completed' });
+  const archivedTasks = [];
+  
+  for (const task of completedTasks) {
+    try {
+      const archivedTask = archiveTask(task.id);
+      archivedTasks.push(archivedTask);
+    } catch (err) {
+      console.error(`Error archiving task #${task.id}:`, err.message);
+    }
+  }
+  
+  console.log(`Archived ${archivedTasks.length} completed tasks`);
+  return archivedTasks;
+}
+
+// Function to restore an archived task
+function restoreTask(taskId) {
+  const archivesDir = path.resolve(__dirname, '../archives');
+  const tasksDir = path.resolve(__dirname, '../tasks');
+  
+  // Find the archived task
+  let archivedTaskPath = null;
+  let archivedTask = null;
+  
+  try {
+    const files = fs.readdirSync(archivesDir);
+    for (const file of files) {
+      if (file.endsWith('.json')) {
+        try {
+          const taskContent = fs.readFileSync(path.join(archivesDir, file), 'utf8');
+          const task = JSON.parse(taskContent);
+          if (task.id === taskId) {
+            archivedTaskPath = path.join(archivesDir, file);
+            archivedTask = task;
+            break;
+          }
+        } catch (err) {
+          console.error(`Error reading archive file ${file}:`, err);
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Error reading archives directory:', err);
+  }
+  
+  if (!archivedTaskPath || !archivedTask) {
+    throw new Error(`Archived task with ID ${taskId} not found`);
+  }
+  
+  // Remove the archiving metadata
+  const { archived, archived_at, ...restoredTask } = archivedTask;
+  
+  // Update the restored task
+  const updatedTask = {
+    ...restoredTask,
+    status: 'pending', // Reset to pending
+    updated_at: new Date().toISOString()
+  };
+  
+  // Save to tasks directory
+  const targetFilePath = path.join(tasksDir, path.basename(archivedTaskPath));
+  fs.writeFileSync(targetFilePath, JSON.stringify(updatedTask, null, 2), 'utf8');
+  
+  // Remove from archives
+  fs.unlinkSync(archivedTaskPath);
+  
+  console.log(`Task #${taskId} restored from archives successfully`);
+  return updatedTask;
+}
+
+// Function to list all archived tasks
+function listArchivedTasks() {
+  const archivesDir = path.resolve(__dirname, '../archives');
+  const archivedTasks = [];
+  
+  try {
+    const files = fs.readdirSync(archivesDir);
+    files.forEach(file => {
+      if (file.endsWith('.json')) {
+        try {
+          const taskContent = fs.readFileSync(path.join(archivesDir, file), 'utf8');
+          const task = JSON.parse(taskContent);
+          archivedTasks.push(task);
+        } catch (err) {
+          console.error(`Error reading archive file ${file}:`, err);
+        }
+      }
+    });
+  } catch (err) {
+    console.error('Error reading archives directory:', err);
+  }
+  
+  return archivedTasks;
+}
+
+// Set up automatic archiving checks
+function setupAutomaticArchiving(intervalHours = 24) {
+  console.log(`Setting up automatic archiving to run every ${intervalHours} hours`);
+  
+  const intervalMs = intervalHours * 60 * 60 * 1000;
+  
+  // Run immediately and then on interval
+  archiveCompletedTasks();
+  
+  setInterval(() => {
+    console.log('Running scheduled archiving of completed tasks');
+    archiveCompletedTasks();
+  }, intervalMs);
+}
+
+module.exports = {
+  archiveTask,
+  archiveCompletedTasks,
+  restoreTask,
+  listArchivedTasks,
+  setupAutomaticArchiving
+}; 

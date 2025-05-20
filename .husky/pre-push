@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running comprehensive checks before push..."
+
+# Run more thorough tests
+echo "🧪 Running all tests..."
+npm run test:all || { echo "❌ All tests failed"; exit 1; }
+
+# Run build to verify
+echo "🏗️ Verifying build..."
+npm run build || { echo "❌ Build failed"; exit 1; }
+
+# Run security checks
+echo "🔒 Running security checks..."
+npm audit --audit-level=high || echo "⚠️ Security vulnerabilities found - review required"
+
+echo "✅ Comprehensive checks passed!"

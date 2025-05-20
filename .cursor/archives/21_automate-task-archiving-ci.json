@@ -1,0 +1,17 @@
+{
+  "id": 21,
+  "created_at": "2025-05-19T18:10:21.000Z",
+  "updated_at": "2025-05-19T18:30:00.000Z",
+  "status": "completed",
+  "priority": "medium",
+  "dependencies": [],
+  "tags": [
+    "ci",
+    "automation",
+    "archiving"
+  ],
+  "title": "Automate Task Archiving in CI",
+  "description": "Automate the archiving of completed tasks as part of the CI/CD pipeline.",
+  "archived_at": "2025-05-19T18:38:20.246Z",
+  "archived": true
+}

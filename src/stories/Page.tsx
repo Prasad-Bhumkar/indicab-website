@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 import { Header } from './Header';
 import './page.css';
 
-type User = {
+interface User {
     name: string;
-};
+}
 
 export const Page: React.FC = (): JSX.Element => {
     const [user, setUser] = React.useState<User>();

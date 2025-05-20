@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import * as Sentry from '@sentry/nextjs'
 import { Elements } from '@stripe/react-stripe-js'
-import type { Stripe } from '@stripe/stripe-js';
+import type { Stripe } from '@stripe/stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { useTranslation } from 'next-i18next'
 import { toast } from 'react-hot-toast'
@@ -32,7 +32,7 @@ interface PaymentStepProps {
     onBack: () => void
 }
 
-export default function PaymentStep({ onBack }: PaymentStepProps): JSX.Element {
+export default function PaymentStep({ onBack }: PaymentStepProps): JSX.Element | null {
     const { t } = useTranslation()
     const { state } = useBookingContext()
     const [clientSecret, setClientSecret] = useState<string>('')
@@ -125,6 +125,10 @@ export default function PaymentStep({ onBack }: PaymentStepProps): JSX.Element {
         return null
     }
 
+    if (!state.pickupDate || !state.returnDate) {
+        return null;
+    }
+
     return (
         <div className="space-y-6">
             <div className="bg-gray-50 p-4 rounded-md">
@@ -138,7 +142,7 @@ export default function PaymentStep({ onBack }: PaymentStepProps): JSX.Element {
                     <div>{state.dropLocation}</div>
                     <div className="text-gray-500">{t('Dates')}:</div>
                     <div>
-                        {new Date(state.pickupDate).toLocaleDateString()} - {new Date(state.returnDate).toLocaleDateString()}
+                        {new Date(state.pickupDate).toLocaleDateString()} - {state.returnDate ? new Date(state.returnDate).toLocaleDateString() : ''}
                     </div>
                     <div className="text-gray-500">{t('Total')}:</div>
                     <div className="font-medium">{formatCurrency(state.fare)}</div>

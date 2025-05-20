@@ -21,6 +21,7 @@ IndiCab is a comprehensive cab booking platform that enables users to book inter
 - [Authors](#-authors)
 - [Acknowledgments](#-acknowledgments)
 - [Support](#-support)
+- [Automated Task Management System](#-automated-task-management-system)
 
 ## ⚡ Quick Start
 
@@ -263,3 +264,81 @@ For support, please:
 ---
 
 Made with ❤️ by the IndiCab Team
+
+---
+
+# Automated Task Management System
+
+The project now includes a fully automated, file-based task management system located in the `.cursor` directory. This system is designed to operate independently and integrates seamlessly with the existing Indicab Website features.
+
+## Features
+- **Automated task creation, management, and archiving**
+- **Task dependencies and status management**
+- **Archiving and restoration of completed tasks**
+- **Workflow diagrams and documentation**
+- **Command-line interface (CLI) for easy interaction**
+- **Integration with user authentication and admin dashboard**
+
+## Folder Structure
+```
+.cursor/
+  rules/         # Task management rules (creation, management, archiving)
+  tasks/         # Active task files (JSON)
+  archives/      # Archived/completed tasks
+  workflow_diagram.md  # Visual workflow documentation
+  index.js       # Main entry point for the task system
+  cli.js         # Command-line interface for task management
+  sample-tasks.js# Automated test and sample data generator
+```
+
+## Usage
+
+### 1. Run the CLI
+You can interact with the task management system using the CLI:
+
+```sh
+node .cursor/cli.js
+```
+
+This will present a menu to create, update, archive, restore, and list tasks, as well as manage dependencies and run automated tests.
+
+### 2. Run Automated Tests
+To generate and test sample tasks automatically:
+
+```sh
+node .cursor/sample-tasks.js
+```
+
+This will create sample tasks, set up dependencies, update statuses, and test archiving.
+
+### 3. Programmatic API
+You can use the task management system programmatically in Node.js:
+
+```js
+const TaskManager = require('./.cursor/index');
+TaskManager.createTask({ title: 'My Task', description: 'Details...' });
+```
+
+## Workflow Diagram
+See `.cursor/workflow_diagram.md` for a visual overview of the task lifecycle and state transitions.
+
+## Integration
+- **User Authentication**: Tasks can be assigned to users from the main system.
+- **Admin Dashboard**: Task management features can be surfaced in the admin dashboard.
+- **Booking/Driver Management**: Tasks can be linked to bookings or drivers for tracking.
+
+## Dependencies
+- Node.js (v16+ recommended)
+- No external packages required (uses built-in Node.js modules)
+
+## Extending the System
+- Add new rules in `.cursor/rules/` for custom workflows.
+- Integrate with your Next.js API routes or admin UI as needed.
+
+## Security & Performance
+- All file operations are local and atomic.
+- Task dependencies and status transitions are validated automatically.
+
+---
+
+For more details, see the code and comments in `.cursor/` and the workflow diagram.

@@ -1,0 +1,11 @@
+{
+  "id": 27,
+  "created_at": "2025-05-19T18:10:04.000Z",
+  "updated_at": "2025-05-19T18:10:04.000Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [7],
+  "tags": ["testing", "performance", "automation"],
+  "title": "Performance Testing",
+  "description": "Add and automate performance tests for critical user flows (booking, payment, dashboard)."
+} 

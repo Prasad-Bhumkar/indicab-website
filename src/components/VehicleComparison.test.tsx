@@ -1,23 +1,10 @@
-import React from "react";
 import { render, screen } from '@testing-library/react';
-import _VehicleComparison from './VehicleComparison';
 import { describe, expect, test, vitest } from 'vitest';
 
-describe('VehicleComparison Component', (): JSX.Element => {
-    const mockVehicles = [
-        {
-            id: '1',
-            name: 'Toyota Camry',
-            price: 50
-        },
-        {
-            id: '2',
-            name: 'Honda Accord',
-            price: 55
-        }
-    ];
+import _VehicleComparison from './VehicleComparison';
 
-    test('renders comparison with correct vehicle details', (): JSX.Element => {
+describe('VehicleComparison Component', () => {
+    test('renders comparison with correct vehicle details', () => {
         render(<_VehicleComparison vehicles={[
             {
                 id: '1',
@@ -44,14 +31,14 @@ describe('VehicleComparison Component', (): JSX.Element => {
         expect(screen.getByText('$55/day')).toBeDefined();
     });
 
-    test('renders empty state when no vehicles provided', (): JSX.Element => {
+    test('renders empty state when no vehicles provided', () => {
         render(<_VehicleComparison vehicles={[]} />);
 
         expect(screen.getByText('Compare Vehicles')).toBeDefined();
         expect(screen.queryByText('Toyota Camry')).toBeNull();
     });
 
-    test('logs initial distance when provided', (): JSX.Element => {
+    test('logs initial distance when provided', () => {
         const consoleSpy = vitest.spyOn(console, 'log');
         render(<_VehicleComparison vehicles={[
             {
@@ -76,7 +63,7 @@ describe('VehicleComparison Component', (): JSX.Element => {
         consoleSpy.mockRestore();
     });
 
-    test('matches snapshot', (): JSX.Element => {
+    test('matches snapshot', () => {
         const { container } = render(<_VehicleComparison vehicles={[
             {
                 id: '1',

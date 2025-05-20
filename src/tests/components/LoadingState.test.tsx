@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { LoadingButton, LoadingOverlay, LoadingState } from '@/components/LoadingState';
 
@@ -9,7 +10,7 @@ describe('LoadingState', () => {
   });
 
   it('renders loading spinner with default text', () => {
-    render(<LoadingState isLoading={true} />);
+    render(<LoadingState isLoading={true} text="Loading..." />);
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
@@ -19,32 +20,34 @@ describe('LoadingState', () => {
   });
 
   it('applies different sizes', () => {
-    const { rerender } = render(<LoadingState isLoading={true} size="sm" />);
-    expect(screen.getByRole('status')).toHaveClass('w-4 h-4');
+    const { rerender } = render(<LoadingState isLoading={true} size="sm" text="Loading..." />);
+    const spinner = screen.getByRole('status').querySelector('div');
+    expect(spinner).toHaveClass('w-4 h-4');
 
-    rerender(<LoadingState isLoading={true} size="md" />);
-    expect(screen.getByRole('status')).toHaveClass('w-6 h-6');
+    rerender(<LoadingState isLoading={true} size="md" text="Loading..." />);
+    expect(screen.getByRole('status').querySelector('div')).toHaveClass('w-6 h-6');
 
-    rerender(<LoadingState isLoading={true} size="lg" />);
-    expect(screen.getByRole('status')).toHaveClass('w-8 h-8');
+    rerender(<LoadingState isLoading={true} size="lg" text="Loading..." />);
+    expect(screen.getByRole('status').querySelector('div')).toHaveClass('w-8 h-8');
   });
 
   it('applies different variants', () => {
-    const { rerender } = render(<LoadingState isLoading={true} variant="default" />);
-    expect(screen.getByRole('status')).toHaveClass('text-gray-600');
+    const { rerender } = render(<LoadingState isLoading={true} variant="default" text="Loading..." />);
+    const spinner = screen.getByRole('status').querySelector('div');
+    expect(spinner).toHaveClass('text-gray-600');
 
-    rerender(<LoadingState isLoading={true} variant="primary" />);
-    expect(screen.getByRole('status')).toHaveClass('text-blue-600');
+    rerender(<LoadingState isLoading={true} variant="primary" text="Loading..." />);
+    expect(screen.getByRole('status').querySelector('div')).toHaveClass('text-blue-600');
 
-    rerender(<LoadingState isLoading={true} variant="secondary" />);
-    expect(screen.getByRole('status')).toHaveClass('text-gray-400');
+    rerender(<LoadingState isLoading={true} variant="secondary" text="Loading..." />);
+    expect(screen.getByRole('status').querySelector('div')).toHaveClass('text-gray-400');
   });
 });
 
 describe('LoadingOverlay', () => {
   it('renders children when not loading', () => {
     render(
-      <LoadingOverlay isLoading={false}>
+      <LoadingOverlay isLoading={false} text="Loading...">
         <div>Content</div>
       </LoadingOverlay>
     );
@@ -54,7 +57,7 @@ describe('LoadingOverlay', () => {
 
   it('renders overlay with loading state', () => {
     render(
-      <LoadingOverlay isLoading={true}>
+      <LoadingOverlay isLoading={true} text="Loading...">
         <div>Content</div>
       </LoadingOverlay>
     );
@@ -64,20 +67,24 @@ describe('LoadingOverlay', () => {
 
   it('applies blur effect by default', () => {
     render(
-      <LoadingOverlay isLoading={true}>
+      <LoadingOverlay isLoading={true} text="Loading...">
         <div>Content</div>
       </LoadingOverlay>
     );
-    expect(screen.getByRole('status').parentElement).toHaveClass('backdrop-blur-sm');
+    const status = screen.getByRole('status');
+    const overlay = status.closest('.absolute');
+    expect(overlay).toHaveClass('backdrop-blur-sm');
   });
 
   it('disables blur effect when specified', () => {
     render(
-      <LoadingOverlay isLoading={true} blur={false}>
+      <LoadingOverlay isLoading={true} blur={false} text="Loading...">
         <div>Content</div>
       </LoadingOverlay>
     );
-    expect(screen.getByRole('status').parentElement).not.toHaveClass('backdrop-blur-sm');
+    const status = screen.getByRole('status');
+    const overlay = status.closest('.absolute');
+    expect(overlay).not.toHaveClass('backdrop-blur-sm');
   });
 });
 
@@ -94,7 +101,7 @@ describe('LoadingButton', () => {
 
   it('renders loading state when loading', () => {
     render(
-      <LoadingButton isLoading={true}>
+      <LoadingButton isLoading={true} text="Loading...">
         Click me
       </LoadingButton>
     );
@@ -104,7 +111,7 @@ describe('LoadingButton', () => {
 
   it('disables button when loading', () => {
     render(
-      <LoadingButton isLoading={true}>
+      <LoadingButton isLoading={true} text="Loading...">
         Click me
       </LoadingButton>
     );
@@ -135,7 +142,7 @@ describe('LoadingButton', () => {
   });
 
   it('handles click events when not loading', () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     render(
       <LoadingButton isLoading={false} onClick={handleClick}>
         Click me
@@ -146,7 +153,7 @@ describe('LoadingButton', () => {
   });
 
   it('does not handle click events when loading', () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     render(
       <LoadingButton isLoading={true} onClick={handleClick}>
         Click me

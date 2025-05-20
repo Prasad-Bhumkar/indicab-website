@@ -1,0 +1,11 @@
+{
+  "id": 10,
+  "created_at": "2025-05-19T18:00:01.000Z",
+  "updated_at": "2025-05-20T10:15:00.000Z",
+  "status": "in-progress",
+  "priority": "high",
+  "dependencies": [],
+  "tags": ["backend", "api", "refactor", "tech-debt"],
+  "title": "Booking API Refactor",
+  "description": "Optimize booking creation and retrieval for performance and reliability. Add error handling and input validation."
+} 

@@ -42,8 +42,8 @@ export function PaymentForm({ amount, bookingId, onSuccess, onError }: PaymentFo
       <CheckoutForm 
         amount={amount} 
         bookingId={bookingId} 
-        onSuccess={onSuccess}
-        onError={onError}
+        onSuccess={onSuccess || (() => {})}
+        onError={onError || (() => {})}
       />
     </Elements>
   )

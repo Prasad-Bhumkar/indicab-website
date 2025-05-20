@@ -2,16 +2,14 @@ import type { ReactElement } from 'react';
 
 import type { RenderOptions } from '@testing-library/react';
 import { render } from '@testing-library/react';
-
-
-import { TestProviders } from './setup';
+import { vi } from 'vitest';
 
 // Custom render function that includes providers
 export function renderWithProviders(
   ui: ReactElement,
   options?: Omit<RenderOptions, 'wrapper'>
 ) {
-  return render(ui, { wrapper: TestProviders, ...options });
+  return render(ui, options);
 }
 
 // Mock data generators
@@ -95,17 +93,17 @@ export const customMatchers = {
 
 // Mock router
 export const mockRouter = {
-  push: jest.fn(),
-  replace: jest.fn(),
-  prefetch: jest.fn(),
-  back: jest.fn(),
+  push: vi.fn(),
+  replace: vi.fn(),
+  prefetch: vi.fn(),
+  back: vi.fn(),
   pathname: '/',
   query: {},
   asPath: '/',
   events: {
-    on: jest.fn(),
-    off: jest.fn(),
-    emit: jest.fn(),
+    on: vi.fn(),
+    off: vi.fn(),
+    emit: vi.fn(),
   },
 };
 
@@ -128,14 +126,14 @@ export const mockSession = {
 
 // Mock Stripe
 export const mockStripe = {
-  elements: jest.fn(),
-  createPaymentMethod: jest.fn(),
-  confirmCardPayment: jest.fn(),
-  confirmCardSetup: jest.fn(),
-  createToken: jest.fn(),
-  createSource: jest.fn(),
-  retrieveSource: jest.fn(),
-  retrievePaymentIntent: jest.fn(),
+  elements: vi.fn(),
+  createPaymentMethod: vi.fn(),
+  confirmCardPayment: vi.fn(),
+  confirmCardSetup: vi.fn(),
+  createToken: vi.fn(),
+  createSource: vi.fn(),
+  retrieveSource: vi.fn(),
+  retrievePaymentIntent: vi.fn(),
 };
 
 // Helper to wait for async operations
@@ -143,31 +141,31 @@ export const waitForAsync = (ms = 0) => new Promise(resolve => setTimeout(resolv
 
 // Helper to mock IntersectionObserver
 export const mockIntersectionObserver = {
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
 };
 
 // Helper to mock ResizeObserver
 export const mockResizeObserver = {
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
 };
 
 // Helper to mock window.matchMedia
 export const mockMatchMedia = (matches = true) => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: jest.fn().mockImplementation(query => ({
+    value: vi.fn().mockImplementation(query => ({
       matches,
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
     })),
   });
 }; 

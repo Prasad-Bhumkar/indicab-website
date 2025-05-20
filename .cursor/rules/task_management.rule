@@ -1,0 +1,249 @@
+/**
+ * Task Management Rule
+ * Defines the rules for updating and managing tasks, including dependency management
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Status transitions map - defines allowed next statuses
+const allowedStatusTransitions = {
+  'pending': ['in-progress', 'blocked', 'completed'],
+  'in-progress': ['blocked', 'completed'],
+  'blocked': ['pending', 'in-progress'],
+  'completed': ['pending'] // Allow reopening if needed
+};
+
+// Function to get a task by ID
+function getTaskById(taskId) {
+  const tasksDir = path.resolve(__dirname, '../tasks');
+  
+  try {
+    const files = fs.readdirSync(tasksDir);
+    for (const file of files) {
+      if (file.endsWith('.json')) {
+        try {
+          const taskContent = fs.readFileSync(path.join(tasksDir, file), 'utf8');
+          const task = JSON.parse(taskContent);
+          if (task.id === taskId) {
+            return { task, filePath: path.join(tasksDir, file) };
+          }
+        } catch (err) {
+          console.error(`Error reading task file ${file}:`, err);
+        }
+      }
+    }
+  } catch (err) {
+    console.error('Error reading tasks directory:', err);
+  }
+  
+  return null;
+}
+
+// Function to check if all dependencies are met
+function areDependenciesMet(taskId) {
+  const { task } = getTaskById(taskId) || {};
+  
+  if (!task) {
+    throw new Error(`Task with ID ${taskId} not found`);
+  }
+  
+  // If no dependencies, they are met by default
+  if (!task.dependencies || task.dependencies.length === 0) {
+    return true;
+  }
+  
+  // Check each dependency
+  for (const dependencyId of task.dependencies) {
+    const { task: dependencyTask } = getTaskById(dependencyId) || {};
+    
+    if (!dependencyTask) {
+      console.error(`Dependency task #${dependencyId} not found`);
+      return false;
+    }
+    
+    if (dependencyTask.status !== 'completed') {
+      console.error(`Dependency task #${dependencyId} is not completed`);
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+// Function to update a task
+function updateTask(taskId, updateData) {
+  const taskInfo = getTaskById(taskId);
+  
+  if (!taskInfo) {
+    throw new Error(`Task with ID ${taskId} not found`);
+  }
+  
+  const { task, filePath } = taskInfo;
+  
+  // Status change validation
+  if (updateData.status && updateData.status !== task.status) {
+    
+    // Check if the status transition is allowed
+    if (!allowedStatusTransitions[task.status].includes(updateData.status)) {
+      throw new Error(`Cannot transition from '${task.status}' to '${updateData.status}'`);
+    }
+    
+    // For transitioning to 'in-progress' or 'completed', check dependencies
+    if (['in-progress', 'completed'].includes(updateData.status)) {
+      if (!areDependenciesMet(taskId)) {
+        throw new Error(`Task #${taskId} has unmet dependencies and cannot be moved to '${updateData.status}'`);
+      }
+    }
+  }
+  
+  // Update the task
+  const updatedTask = {
+    ...task,
+    ...updateData,
+    updated_at: new Date().toISOString()
+  };
+  
+  // Save the updated task
+  fs.writeFileSync(filePath, JSON.stringify(updatedTask, null, 2), 'utf8');
+  
+  console.log(`Task #${taskId} updated successfully`);
+  return updatedTask;
+}
+
+// Function to list all tasks
+function listTasks(filters = {}) {
+  const tasksDir = path.resolve(__dirname, '../tasks');
+  const tasks = [];
+  
+  try {
+    const files = fs.readdirSync(tasksDir);
+    files.forEach(file => {
+      if (file.endsWith('.json')) {
+        try {
+          const taskContent = fs.readFileSync(path.join(tasksDir, file), 'utf8');
+          const task = JSON.parse(taskContent);
+          
+          // Apply filters if provided
+          let include = true;
+          for (const [key, value] of Object.entries(filters)) {
+            if (task[key] !== value) {
+              include = false;
+              break;
+            }
+          }
+          
+          if (include) {
+            tasks.push(task);
+          }
+        } catch (err) {
+          console.error(`Error reading task file ${file}:`, err);
+        }
+      }
+    });
+  } catch (err) {
+    console.error('Error reading tasks directory:', err);
+  }
+  
+  return tasks;
+}
+
+// Function to add a dependency to a task
+function addDependency(taskId, dependencyId) {
+  const taskInfo = getTaskById(taskId);
+  
+  if (!taskInfo) {
+    throw new Error(`Task with ID ${taskId} not found`);
+  }
+  
+  const dependencyInfo = getTaskById(dependencyId);
+  
+  if (!dependencyInfo) {
+    throw new Error(`Dependency task with ID ${dependencyId} not found`);
+  }
+  
+  const { task, filePath } = taskInfo;
+  
+  // Prevent circular dependencies
+  if (hasDependencyChain(dependencyId, taskId)) {
+    throw new Error(`Adding this dependency would create a circular dependency chain`);
+  }
+  
+  // Add the dependency if it doesn't already exist
+  if (!task.dependencies.includes(dependencyId)) {
+    task.dependencies.push(dependencyId);
+    task.updated_at = new Date().toISOString();
+    
+    // If task is already in-progress or completed but dependency isn't completed,
+    // revert status to pending
+    if (['in-progress', 'completed'].includes(task.status)) {
+      if (!areDependenciesMet(taskId)) {
+        task.status = 'pending';
+        console.log(`Task #${taskId} status reverted to 'pending' due to new dependency`);
+      }
+    }
+    
+    fs.writeFileSync(filePath, JSON.stringify(task, null, 2), 'utf8');
+    console.log(`Dependency #${dependencyId} added to task #${taskId}`);
+  } else {
+    console.log(`Dependency #${dependencyId} already exists for task #${taskId}`);
+  }
+  
+  return task;
+}
+
+// Function to check if there's a dependency chain between tasks
+function hasDependencyChain(startTaskId, targetTaskId, visited = new Set()) {
+  if (startTaskId === targetTaskId) return true;
+  if (visited.has(startTaskId)) return false;
+  
+  visited.add(startTaskId);
+  
+  const { task } = getTaskById(startTaskId) || {};
+  
+  if (!task || !task.dependencies || task.dependencies.length === 0) {
+    return false;
+  }
+  
+  for (const depId of task.dependencies) {
+    if (hasDependencyChain(depId, targetTaskId, visited)) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+// Function to remove a dependency from a task
+function removeDependency(taskId, dependencyId) {
+  const taskInfo = getTaskById(taskId);
+  
+  if (!taskInfo) {
+    throw new Error(`Task with ID ${taskId} not found`);
+  }
+  
+  const { task, filePath } = taskInfo;
+  
+  // Remove the dependency if it exists
+  const dependencyIndex = task.dependencies.indexOf(dependencyId);
+  if (dependencyIndex !== -1) {
+    task.dependencies.splice(dependencyIndex, 1);
+    task.updated_at = new Date().toISOString();
+    
+    fs.writeFileSync(filePath, JSON.stringify(task, null, 2), 'utf8');
+    console.log(`Dependency #${dependencyId} removed from task #${taskId}`);
+  } else {
+    console.log(`Dependency #${dependencyId} does not exist for task #${taskId}`);
+  }
+  
+  return task;
+}
+
+module.exports = {
+  getTaskById,
+  updateTask,
+  listTasks,
+  addDependency,
+  removeDependency,
+  areDependenciesMet
+}; 

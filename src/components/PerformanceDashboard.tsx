@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/ui';
 import { performanceMonitor } from '@/utils/performance';
 
 interface MetricData {

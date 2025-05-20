@@ -1,5 +1,6 @@
 import React from 'react';
-import { VehicleType } from '../types/vehicle';
+
+import type { VehicleType } from '../types/vehicle';
 
 interface VehicleComparisonProps {
     vehicles?: VehicleType[];

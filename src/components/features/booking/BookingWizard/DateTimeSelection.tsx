@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useEffect } from 'react';
-import { BookingFormData } from './';
+
 import { Calendar, Clock } from 'lucide-react';
+
+import type { BookingFormData } from ".";
 
 interface DateTimeSelectionProps {
     formData: BookingFormData;

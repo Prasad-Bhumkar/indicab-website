@@ -5,7 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 interface AnalyticsEvent {
     category: string;
     action: string;
-    label?: string;
+    label: string | undefined;
     value?: number;
     nonInteraction?: boolean;
     transport?: 'beacon' | 'xhr' | 'image';
@@ -110,11 +110,14 @@ class Analytics {
     }
 
     public trackUserAction(action: string, label?: string) {
-        this.trackEvent({
+        // Ensure we always provide a valid event with label that might be undefined
+        const event: AnalyticsEvent = {
             category: 'User',
             action,
             label
-        });
+        };
+        
+        this.trackEvent(event);
     }
 
     public trackError(error: Error, context?: string) {

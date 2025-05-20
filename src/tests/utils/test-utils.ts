@@ -5,8 +5,6 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 
-import { TestProviders } from '../setup';
-
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -52,7 +50,7 @@ export function renderWithUserEvent(
   options?: Omit<RenderOptions, 'wrapper'>
 ) {
   const user = userEvent.setup();
-  const utils = render(ui, { wrapper: TestProviders, ...options });
+  const utils = render(ui, options);
   return {
     user,
     ...utils,
@@ -60,7 +58,7 @@ export function renderWithUserEvent(
 }
 
 // Mock fetch
-export const mockFetch = (response: any) => {
+export const mockFetch = (response: unknown) => {
   global.fetch = vi.fn().mockImplementation(() =>
     Promise.resolve({
       ok: true,
@@ -87,7 +85,7 @@ export const mockLocalStorage = () => {
 };
 
 // Mock session
-export const mockSession = (session: any = null) => {
+export const mockSession = (session: Record<string, unknown> | null = null) => {
   vi.mock('next-auth/react', () => ({
     useSession: () => ({
       data: session,
@@ -116,4 +114,4 @@ export const mockRouter = () => {
 export const cleanupMocks = () => {
   vi.clearAllMocks();
   vi.resetAllMocks();
-}; 
+};

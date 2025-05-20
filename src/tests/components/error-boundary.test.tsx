@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/nextjs';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { ErrorBoundary, useErrorBoundary, withErrorBoundary } from '@/components/common/ErrorBoundary';
+import ErrorBoundary, { useErrorBoundary, withErrorBoundary } from '@/components/common/ErrorBoundary';
 
 // Mock Sentry
 vi.mock('@sentry/nextjs', () => ({
@@ -125,7 +125,7 @@ describe('useErrorBoundary hook', () => {
     
     // Simulate error
     const error = new Error('Hook test error');
-    const errorInfo = { componentStack: 'Test stack' };
+    const _errorInfo = { componentStack: 'Test stack' };
     
     // Force error state
     rerender(

@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+
 import { registerCustomMatchers } from './helpers/custom-matchers';
 
 // Register custom matchers before tests

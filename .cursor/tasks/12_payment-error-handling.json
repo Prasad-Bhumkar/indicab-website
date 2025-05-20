@@ -1,0 +1,11 @@
+{
+  "id": 12,
+  "created_at": "2025-05-19T18:00:03.000Z",
+  "updated_at": "2025-05-19T18:00:03.000Z",
+  "status": "pending",
+  "priority": "high",
+  "dependencies": [4],
+  "tags": ["payment", "bug", "error-handling"],
+  "title": "Payment Gateway Error Handling",
+  "description": "Improve error feedback for failed payments. Add logging and user notifications."
+} 

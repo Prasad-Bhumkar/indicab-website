@@ -8,10 +8,10 @@ import { logger } from '../logger';
 
 // Fallback logger if the import fails
 const fallbackLogger = {
-  error: (data: any) => console.error('[ERROR]', data),
-  warn: (data: any) => console.warn('[WARN]', data),
-  info: (data: any) => console.info('[INFO]', data),
-  debug: (data: any) => console.debug('[DEBUG]', data),
+  error: (data: unknown) => console.error('[ERROR]', data),
+  warn: (data: unknown) => console.warn('[WARN]', data),
+  info: (data: unknown) => console.info('[INFO]', data),
+  debug: (data: unknown) => console.debug('[DEBUG]', data),
 };
 
 // Use the imported logger or fallback
@@ -47,10 +47,12 @@ export enum ErrorType {
  * Error metadata interface
  */
 export interface ErrorMetadata {
-    code: string;
-    type: ErrorType;
-    severity: ErrorSeverity;
+    type?: ErrorType;
+    code?: string;
     details?: Record<string, unknown>;
+    context?: ErrorContext;
+    source?: string;
+    severity?: ErrorSeverity;
 }
 
 /**
@@ -73,29 +75,40 @@ export class AppError extends Error {
     public readonly code: string;
     public readonly type: ErrorType;
     public readonly severity: ErrorSeverity;
-    public readonly context: ErrorContext;
-    public readonly details?: Record<string, unknown>;
+    public readonly context: ErrorContext | undefined;
+    public readonly details: Record<string, unknown> | undefined;
+    public readonly source: string;
+    public readonly timestamp: string;
 
     constructor(
         message: string,
-        metadata: Partial<ErrorMetadata> = {},
+        metadata: ErrorMetadata = {},
         context: ErrorContext = {},
         statusCode = 500
     ) {
         super(message);
         this.name = 'AppError';
         this.statusCode = statusCode;
-        this.code = metadata.code || 'UNKNOWN_ERROR';
+        this.code = metadata.code || `ERR_${metadata.type || ErrorType.UNKNOWN}`.toUpperCase();
         this.type = metadata.type || ErrorType.UNKNOWN;
         this.severity = metadata.severity || ErrorSeverity.MEDIUM;
         this.details = metadata.details;
+        this.source = metadata.source || 'application';
+        this.timestamp = new Date().toISOString();
+        
+        // Ensure context is fully populated
         this.context = {
             ...context,
             timestamp: context.timestamp || new Date()
         };
-
+        
+        // Needed for extending Error in TypeScript
+        Object.setPrototypeOf(this, AppError.prototype);
+        
         // Ensures proper stack trace in Node.js
-        Error.captureStackTrace(this, this.constructor);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, this.constructor);
+        }
     }
 
     /**
@@ -113,6 +126,12 @@ export class AppError extends Error {
             context: this.context,
             stack: this.stack
         };
+    }
+
+    setStack(error: Error | undefined): void {
+        if (error && error.stack) {
+            this.stack = error.stack;
+        }
     }
 }
 
@@ -192,7 +211,7 @@ export class ErrorHandler {
             );
 
             // Preserve the original stack trace
-            appError.stack = error.stack;
+            appError.setStack(error);
 
             await this.logError(appError);
             return appError;

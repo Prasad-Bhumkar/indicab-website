@@ -1,0 +1,18 @@
+{
+  "id": 7,
+  "created_at": "2025-05-19T17:45:08.104Z",
+  "updated_at": "2025-05-19T17:45:08.121Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [
+    1,
+    2,
+    4
+  ],
+  "tags": [
+    "optimization",
+    "performance"
+  ],
+  "title": "Performance Optimization",
+  "description": "Review and optimize the application for better performance, focusing on load times and API response times."
+}

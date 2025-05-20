@@ -1,0 +1,11 @@
+{
+  "id": 14,
+  "created_at": "2025-05-19T18:00:05.000Z",
+  "updated_at": "2025-05-19T18:00:05.000Z",
+  "status": "pending",
+  "priority": "medium",
+  "dependencies": [],
+  "tags": ["localization", "i18n", "feature"],
+  "title": "Localization Improvements",
+  "description": "Ensure all user-facing text is translatable. Add missing translations for en-IN and other locales."
+} 

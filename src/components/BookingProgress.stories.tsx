@@ -1,7 +1,10 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-import _BookingProgress from './BookingProgress';
+
+import type { Meta, StoryFn } from '@storybook/react';
+
 import { BookingProvider } from '../context/BookingContext';
+
+import _BookingProgress from './BookingProgress';
 
 export default {
     title: 'Components/BookingProgress',

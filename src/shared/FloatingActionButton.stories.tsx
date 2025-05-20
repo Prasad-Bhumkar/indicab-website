@@ -1,5 +1,7 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+
+import type { Meta, StoryFn } from '@storybook/react';
+
 import _FloatingActionButton from './FloatingActionButton';
 import type { FloatingActionButtonProps } from './FloatingActionButton';
 

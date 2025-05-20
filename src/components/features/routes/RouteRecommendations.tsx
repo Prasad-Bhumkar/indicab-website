@@ -1,12 +1,15 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useFavorites } from '../../context/FavoritesContext';
-import { routes, Route } from '../../data/routes';
-import { Card } from '../../ui/card';
-import { MapPin, Heart, ArrowRight, Car } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+import { ArrowRight, Car, Heart, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { Card } from '@/components/ui';
+import { useFavorites } from '../../context/FavoritesContext';
+import type { Route } from '../../data/routes';
+import { routes } from '../../data/routes';
 
 // Number of recommended routes to show
 const RECOMMENDED_COUNT = 3;
@@ -103,13 +106,13 @@ export default function RouteRecommendations(): JSX.Element {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[...Array(RECOMMENDED_COUNT)].map((_, _i): JSX.Element => (
             <Card key={_i} className="overflow-hidden">
-              <div className="h-36 bg-gray-200 animate-pulse"></div>
+              <div className="h-36 bg-gray-200 animate-pulse" />
               <div className="p-3">
-                <div className="h-4 bg-gray-200 w-3/4 mb-2 animate-pulse"></div>
-                <div className="h-5 bg-gray-200 w-1/2 mb-2 animate-pulse"></div>
+                <div className="h-4 bg-gray-200 w-3/4 mb-2 animate-pulse" />
+                <div className="h-5 bg-gray-200 w-1/2 mb-2 animate-pulse" />
                 <div className="flex justify-between items-center">
-                  <div className="h-3 bg-gray-200 w-1/3 animate-pulse"></div>
-                  <div className="h-4 bg-gray-200 w-1/4 animate-pulse"></div>
+                  <div className="h-3 bg-gray-200 w-1/3 animate-pulse" />
+                  <div className="h-4 bg-gray-200 w-1/4 animate-pulse" />
                 </div>
               </div>
             </Card>

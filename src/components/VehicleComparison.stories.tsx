@@ -1,7 +1,10 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+
+import type { Meta, StoryFn } from '@storybook/react';
+
+import type { VehicleType } from '../types/vehicle';
+
 import _VehicleComparison from './VehicleComparison';
-import { VehicleType } from '../types/vehicle';
 
 export default {
     title: 'Components/VehicleComparison',

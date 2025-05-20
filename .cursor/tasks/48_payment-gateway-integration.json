@@ -1,0 +1,17 @@
+{
+  "id": 48,
+  "created_at": "2025-05-19T18:38:20.121Z",
+  "updated_at": "2025-05-19T18:38:20.163Z",
+  "status": "pending",
+  "priority": "high",
+  "dependencies": [
+    46
+  ],
+  "tags": [
+    "payment",
+    "integration",
+    "api"
+  ],
+  "title": "Payment Gateway Integration",
+  "description": "Integrate Stripe payment gateway for processing booking payments."
+}

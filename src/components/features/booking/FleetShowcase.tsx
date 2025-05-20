@@ -3,8 +3,8 @@ import React from "react";
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Users, Check, Star, ShieldCheck, Fuel, Menu } from "lucide-react";
+import Image from "next/image";
 
 interface Vehicle {
     id: string;

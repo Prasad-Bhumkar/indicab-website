@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
+
+import Image from 'next/image';
 
 const _Logo = (): JSX.Element => {
     const [mounted, setMounted] = useState(false);
@@ -20,7 +21,7 @@ const _Logo = (): JSX.Element => {
                     priority
                 />
             ) : (
-                <div className="h-6 w-6 bg-white/20 rounded-sm animate-pulse"></div>
+                <div className="h-6 w-6 bg-white/20 rounded-sm animate-pulse" />
             )}
             <div className="text-lg font-bold text-white">IndiCab</div>
         </div>

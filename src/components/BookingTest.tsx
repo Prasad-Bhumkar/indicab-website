@@ -1,5 +1,7 @@
 import React from "react";
+
 import { useBookingContext } from '../context/BookingContext'
+
 import BookingForm from './BookingForm'
 
 export default function BookingTest(): JSX.Element {

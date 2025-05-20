@@ -1,0 +1,15 @@
+{
+  "id": 60,
+  "created_at": "2025-05-19T18:38:29.696Z",
+  "updated_at": "2025-05-19T18:38:29.798Z",
+  "status": "in-progress",
+  "priority": "medium",
+  "dependencies": [],
+  "tags": [
+    "frontend",
+    "responsive",
+    "ui"
+  ],
+  "title": "Mobile Responsiveness",
+  "description": "Ensure all components and pages are fully responsive on mobile devices."
+}
